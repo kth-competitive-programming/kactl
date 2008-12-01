@@ -1,18 +1,50 @@
 % This is the main LaTeX document for KACTL (KTH ACM Contest Template Library)
 % Written by Håkan Terelius, 2008-11-24
 
-\documentclass[]{article}
-\usepackage{kactlpkg}
-\usepackage[utf8]{inputenc}
-\title{KACTL}
-\author{}
-\date{\today}
+\documentclass[10pt, a4paper, notitlepage]{report}
+\usepackage{kactlpkg}		% Includes KACTL style and commands
+\date{2008-12-01}			% Version date
+\edition{Home sweet home}	% Edition name
+
+% TODO
+% Python script
+% Move multicols
 
 \begin{document}
-\maketitle
-
-\section{Introduction}
-
-\kactlimport{template.cpp}
-
+	\maketitle
+	\begin{multicols*}{3}
+	\tableofcontents
+	\thispagestyle{fancy}
+	\chapter{Contest}
+	\kactlimport{template.cpp}
+						
+	\section{Contest2}
+	adsf sdf asdf asdf 
+	\kactlimport{template.cpp}
+	
+	\section{contest3}
+	\kactlrawimport{template.cpp}	
+	
+	\chapter{Many}
+	
+	\section{sec1}
+	\kactlimport{template.cpp}
+	\section{sec2}
+	\subsection{sec21}
+	\kactlimport{template.cpp}
+	\subsection{sec22}
+	\kactlimport{template.cpp}
+	\subsection{sec23}
+	\kactlimport{template.cpp}
+	\subsubsection{sssec21}
+	\kactlimport{template.cpp}
+	\kactlimport{template.cpp}
+	\kactlimport{template.cpp}
+	\kactlimport{template.cpp}
+	\kactlimport{template.cpp}
+	\kactlimport{template.cpp}
+	\kactlimport{template.cpp}
+	\kactlimport{template.cpp}
+	\kactlimport{template.cpp}
+	\end{multicols*}
 \end{document}

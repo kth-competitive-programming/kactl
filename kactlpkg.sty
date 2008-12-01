@@ -3,14 +3,146 @@
 \ProvidesPackage{kactlpkg}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
+\usepackage[a4paper,landscape,hmargin={0.5cm,0.5cm},vmargin={1.5cm,0cm}]{geometry}
+\usepackage{multicol, fancyhdr}
+\usepackage{amsbsy, amssymb, amsmath}
+\usepackage{tocloft}
+\usepackage{titletoc}
+
+% How to produce errors in LaTeX:
+% \PackageError{kactlpkg}{This is my error}{0}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0 pt}
+\chead{\thepage}\rhead{}\lhead{}
+\cfoot{}\rfoot{}\lfoot{}
+\fancyheadoffset{0pt}
+\fancyfootoffset{0pt}
+\setlength\headsep{10pt}
+
+\renewcommand\chapter{
+	\ifnum \c@chapter > 0
+		\clearpage
+	\else
+		\vspace{10pt}
+	\fi
+	\global\@topnum\z@
+	\secdef
+	\@chapter
+	\@schapter
+}
+
+\def\@makechapterhead#1{
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        {\Huge\bfseries \@chapapp\space \thechapter:{}}
+    \fi
+    \interlinepenalty\@M
+    {\Huge \bfseries #1 \par\nobreak}
+	\vspace{15pt}
+	\startcontents[chapters]
+	\printcontents[chapters]{l}{1}{\setcounter{tocdepth}{2}}
+	\vspace{10pt}
+  }}
+
+\renewcommand\section{\@startsection {section}{1}{\z@}
+	{2ex \@plus -1ex \@minus -.2ex}
+	{1ex \@plus.2ex}
+	{\normalfont\Large\bfseries}}
+
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}
+	{1ex\@plus -1ex \@minus -.2ex}
+	{0.5ex \@plus .2ex}
+	{\normalfont\large\bfseries}}
+
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}
+	{1ex\@plus -1ex \@minus -.2ex}
+	{1ex \@plus .2ex}
+	{\normalfont\normalsize\bfseries}}
+
+\titlecontents{lsection}[1.5em]{}{}
+	{\hspace*{-2.3em}}{\titlerule*[0.8em]{.}\contentspage}
+\titlecontents{lsubsection}[3.8em]{}{}
+	{\hspace*{0em}}{\titlerule*[0.8em]{.}\contentspage}
+
+\renewcommand{\chaptermark}[1]{\markboth{\emph{ #1}}{}}
+\renewcommand{\cftbeforetoctitleskip}{-50pt}
+\renewcommand{\cftaftertoctitleskip}{10pt}
+\renewcommand{\cftbeforechapskip}{10pt}
+\renewcommand{\cftdotsep}{4.5}
 
 \lstset{language=C++}
 \lstset{frame=t}
-\lstset{tabsize=4}
+\lstset{tabsize=2}
 \lstset{showstringspaces=false}
 \lstset{breaklines=true}
+\lstset{basicstyle=\scriptsize}
+\lstset{emptylines=*1}
+\lstset{inputencoding=utf8}
+\lstset{aboveskip=3pt}
+\lstset{belowskip=0pt}
+
+\setlength{\columnseprule}{0.5pt} % Multicol separation line with
+\setlength{\columnsep}{10pt} % Multicol separation margin
+\setcounter{tocdepth}{1} % Table of contents depth
+
+\newcommand{\edition}[1]{
+	\def\@edition{#1}
+}
+\edition{}
+\newcommand{\subtitle}[1]{
+	\def\@subtitle{#1}
+}
+\subtitle{{\tiny new}KACTL}
+\title{KTH ACM Contest Template Library}
+
+\newcommand{\kactlref}[1]{
+	\addcontentsline{ptc}{subsection}{\texttt{#1}\hspace{0.2em}}
+}
 
 \newcommand{\kactlimport}[1]{
 	\immediate\write18{python kactlprocessor.py -i #1 -o kactl.tmp}
 	\immediate\input{kactl.tmp}
+}
+
+\newcommand{\kactlrawimport}[1]{
+	\lstinputlisting[caption=#1]{#1}
+}
+
+\renewcommand{\maketitle}{
+	\begin{center}
+		{\LARGE \@title}\\
+		{\Large \@subtitle{} version \@date}\\[0.1cm]
+		{\LARGE \textsc{\@edition}}
+	\end{center}
+}
+
+%\AtBeginDocument{}
+%\AtEndDocument{}
+
+\newcommand{\leftcaption}[1]{
+	\def\@leftcaption{#1}
+}
+\leftcaption{left}
+\newcommand{\echoleft}[0]{
+	\@leftcaption
+}
+
+\newcommand{\rightcaption}[1]{
+	\def\@rightcaption{#1}
+}
+\rightcaption{right}
+
+\long\def\@makecaption#1#2{
+   \sbox\@tempboxa{\textbf{#1: #2}}
+	\ifdim \wd\@tempboxa >\hsize
+     #1: #2\par
+   \else
+     \global \@minipagefalse
+     \hb@xt@\hsize{\box\@tempboxa\hfil}
+   \fi
+	\vspace{2pt}
+	\scriptsize
+	\@leftcaption \hfill \@rightcaption
+	\vspace{1pt}
 }

@@ -7,9 +7,13 @@
 import sys
 import getopt
 
+language = None
+caption = None
+
 def processcpp():
-	print "processcpp()"
-	print "\\begin{lstlisting}"
+	global caption
+	print "\\kactlref{"+caption+"}"
+	print "\\begin{lstlisting}[caption={"+caption+"}]"
 	try:
 		while True:
 			line = raw_input()
@@ -27,11 +31,11 @@ def getlang(input):
 	return input.rsplit('.',1)[1]
 
 def main(argv=None):
+	global language, caption
 	if argv is None:
 		argv = sys.argv
 	try:
-		opts, args = getopt.getopt(argv[1:], "ho:i:l:", ["help", "output=", "input=", "language="])	
-		language = None
+		opts, args = getopt.getopt(argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption="])	
 		for option, value in opts:
 			if option in ("-h", "--help"):
 				print "This is the help section for this program"
@@ -48,8 +52,12 @@ def main(argv=None):
 				sys.stdin = open(value)
 				if language == None:
 					language = getlang(value)
+				if caption == None:
+					caption = value
 			if option in ("-l", "--language"):
 				language = value
+			if option in ("-c", "--caption"):
+				caption = value
 				
 		if language == "cpp" or language == "cc" or language == "c":
 			processcpp()

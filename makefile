@@ -20,7 +20,9 @@ kactl:
 
 .PHONY: clean
 clean: 
-	rm -f kactl.aux kactl.log kactl.tmp
+	rm -f kactl.aux kactl.log kactl.tmp kactl.toc kactl.maf kactl.ptc
+	rm -f kactlpkg.log
+	rm -f *.mtc*
 
 .PHONY: veryclean
 veryclean: clean
