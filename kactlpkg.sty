@@ -12,6 +12,9 @@
 % How to produce errors in LaTeX:
 % \PackageError{kactlpkg}{This is my error}{0}
 
+\AtBeginDocument{}
+\AtEndDocument{}
+
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0 pt}
 \chead{\thepage}\rhead{}\lhead{}
@@ -116,9 +119,6 @@
 		{\LARGE \textsc{\@edition}}
 	\end{center}
 }
-
-%\AtBeginDocument{}
-%\AtEndDocument{}
 
 \newcommand{\leftcaption}[1]{
 	\def\@leftcaption{#1}
