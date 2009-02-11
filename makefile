@@ -15,14 +15,16 @@ help:
 
 .PHONY: kactl
 kactl:
-	$(LATEXCMD) kactl.tex $(LATEXFLAGS)
+	cd build && $(LATEXCMD) kactl.tex $(LATEXFLAGS)
+	cp build/kactl.pdf kactl.pdf
 
 
 .PHONY: clean
 clean: 
-	rm -f kactl.aux kactl.log kactl.tmp kactl.toc kactl.maf kactl.ptc
-	rm -f kactlpkg.log
-	rm -f *.mtc*
+	cd build && rm -f kactl.aux kactl.log kactl.tmp kactl.toc kactl.maf kactl.ptc
+	cd build && rm -f kactlpkg.log
+	cd build && rm -f *.mtc*
+	cd build && rm -f kactl.pdf
 
 .PHONY: veryclean
 veryclean: clean
