@@ -15,7 +15,7 @@ help:
 
 .PHONY: kactl
 kactl:
-	cd build && $(LATEXCMD) kactl.tex $(LATEXFLAGS)
+	cd build && $(LATEXCMD) kactl.tex $(LATEXFLAGS) && $(LATEXCMD) kactl.tex $(LATEXFLAGS)
 	cp build/kactl.pdf kactl.pdf
 
 

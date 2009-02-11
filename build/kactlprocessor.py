@@ -10,10 +10,15 @@ import getopt
 language = None
 caption = None
 
+def escape(input):
+	input = input.replace('\\','\\\\')
+	input = input.replace('_','\_')
+	return input
+
 def processcpp():
 	global caption
-	print "\\kactlref{"+caption+"}"
-	print "\\begin{lstlisting}[caption={"+caption+"}]"
+	print "\\kactlref{"+escape(caption)+"}"
+	print "\\begin{lstlisting}[caption={"+escape(caption)+"}]"
 	try:
 		while True:
 			line = raw_input()
@@ -25,10 +30,25 @@ def processcpp():
 def processjava():
 	print "processjava()"
 	return
+	
+def processps():
+	global caption
+	print "\\kactlref{"+escape(caption)+"}"
+	print "\\begin{lstlisting}[language=TeX,caption={"+escape(caption)+"}]"
+	try:
+		while True:
+			line = raw_input()
+			print line
+	except:
+		pass
+	print "\\end{lstlisting}"
 
 def getlang(input):
 	print "getlang("+ input +") = " + input.rsplit('.',1)[1]
-	return input.rsplit('.',1)[1]
+	return input.rsplit('.',1)[-1]
+
+def getfilename(input):
+	return input.rsplit('/',1)[-1]
 
 def main(argv=None):
 	global language, caption
@@ -53,7 +73,7 @@ def main(argv=None):
 				if language == None:
 					language = getlang(value)
 				if caption == None:
-					caption = value
+					caption = getfilename(value)
 			if option in ("-l", "--language"):
 				language = value
 			if option in ("-c", "--caption"):
@@ -63,6 +83,8 @@ def main(argv=None):
 			processcpp()
 		elif language == "java":
 			processjava()
+		elif language == "ps":
+			processps()
 		else:
 			raise ValueError("Unkown language: " + str(language))
 	except (ValueError, getopt.GetoptError, IOError), err:
