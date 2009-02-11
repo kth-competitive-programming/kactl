@@ -10,7 +10,8 @@
 \usepackage{amsbsy, amssymb, amsmath}	% Enable math symbols
 \usepackage{tocloft}					% Custom Table of Contents
 \usepackage{titletoc}					% Design control over Table of Contents					
-\usepackage{ifthen}
+\usepackage{ifthen}						% To enable some conditional programming in LaTeX
+\usepackage{courier}					% To get bold typewriter typeface
 
 \AtBeginDocument{}
 \AtEndDocument{}
@@ -60,10 +61,10 @@
 \def\@makechapterhead#1{
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
-        {\Huge\bfseries \@chapapp\space \thechapter:{}}
+        {\huge\bfseries \@chapapp\space \thechapter:{}}
     \fi
     \interlinepenalty\@M
-    {\Huge \bfseries #1 \par\nobreak}
+    {\huge \bfseries #1 \par\nobreak}
 	\vspace{15pt}
 	\startcontents[chapters]
 	\printcontents[chapters]{l}{1}{\setcounter{tocdepth}{2}}
@@ -102,7 +103,7 @@
 \lstset{tabsize=2}
 \lstset{showstringspaces=false}
 \lstset{breaklines=true}
-\lstset{basicstyle=\scriptsize}
+\lstset{basicstyle=\scriptsize\ttfamily}
 \lstset{emptylines=*1}
 \lstset{inputencoding=utf8}
 \lstset{aboveskip=3pt}
@@ -127,18 +128,25 @@
 }
 
 \newcommand{\kactlimport}[1]{
-	\immediate\write18{python kactlprocessor.py -i \@kactlcontentdir/#1 -o kactl.tmp}
+	\immediate\write18{python kactlprocessor.py -i "\@kactldir/#1" -o kactl.tmp}
 	\immediate\input{kactl.tmp}
 }
 
 \newcommand{\kactlrawimport}[1]{
-	\lstinputlisting[caption=#1]{\@kactlcontentdir/#1}
+	\lstinputlisting[caption=#1]{"\@kactldir/#1"}
 }
 
 \newcommand{\kactlcontentdir}[1]{
-	\def\@kactlcontentdir{#1}
+	\def\@kactlbasedir{#1}
+	\def\@kactldir{#1}
 }
 \kactlcontentdir{.}
+
+\newcommand{\kactlchapter}[1]{
+	\def\@kactldir{\@kactlbasedir/#1}
+	\input{"\@kactldir/chapter.tex"}
+	\def\@kactldir{\@kactlbasedir}
+}
 
 \newcommand{\kactlerror}[1]{
 	\PackageError{kactlpkg}{#1}{0}
