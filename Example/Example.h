@@ -1,4 +1,4 @@
-/*
+/**
 Provides: ExampleStructure1, ExampleStructure2, exampleFunction1,
 	exampleFunction2, exampleFunction3
 Author: Chen Xing
