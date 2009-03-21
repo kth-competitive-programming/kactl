@@ -10,11 +10,12 @@ Time: O(M * N^4) where M = cats, N = mice
 Memory: O(2^N) where N = cats
 Status: Unknown
 Changes:
-	2009-03-20 - Minor modifications by Ulf.
+	2009-03-21 - Minor modifications by Ulf.
 */
 #pragma once
 
-#include <iostream> /// Header name will be removed from final list.
+#include <iostream> /// Header name will be removed from final list...
+#include "Global.h" /// ...since it exists in Global.h
 #include "Example.h" /// Header name will be kept in final list.
 
 class ExampleStructure1
@@ -40,10 +41,12 @@ int exampleFunction1(vi mice, int* cats, int catsCount) {
 		trav(it, mice) {
 			/// This will be removed.
 			// And this kept.
-			sum = cats[i] * (*it);
+			sum += cats[i] * (*it);
 		}
 	}
-
+	//Use tab indent and keep the lines shorter than 64 characters
+	//where tabs are 2 characters wide.
+	//<----------------------Maximum width----------------------->
 	return sum;
 }
 
