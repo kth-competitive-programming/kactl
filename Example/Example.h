@@ -1,17 +1,17 @@
-/*
-Provides: ExampleStructure1, ExampleStructure2, exampleFunction1,
-	exampleFunction2, exampleFunction3
-Author: Chen Xing
-Date: 2009-03-13
-Source: Conversation with Håkan and Ulf.
-Description: Example structures and functions that doesn't really do
-	anything. Latex commands are supported here, though! Like this: $2^2=3$
-Time: O(M * N^4) where M = cats, N = mice
-Memory: O(2^N) where N = cats
-Status: Unknown
-Changes:
-	2009-03-20 - Minor modifications by Ulf.
-*/
+/**
+ * Provides: ExampleStructure1, ExampleStructure2, exampleFunction1,
+ *	exampleFunction2, exampleFunction3
+ * Author: Chen Xing
+ * Date: 2009-03-13
+ * Source: Conversation with Håkan and Ulf.
+ * Description: Example structures and functions that doesn't really do
+ * 	anything. Latex commands are supported here, though! Like this: $2^2=3$
+ * Time: O(M * N^4) where M = cats, N = mice
+ * Memory: O(2^N) where N = cats
+ * Status: Unknown
+ * Changes:
+ * 	2009-03-20 - Minor modifications by Ulf.
+ */
 #pragma once
 
 #include <iostream> /// Header name will be removed from final list.
