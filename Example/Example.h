@@ -1,6 +1,4 @@
 /**
-Provides: ExampleStructure1, ExampleStructure2, exampleFunction1,
-	exampleFunction2, exampleFunction3
 Author: Chen Xing
 Date: 2009-03-13
 Source: Conversation with Håkan and Ulf.
@@ -9,6 +7,9 @@ Description: Example structures and functions that doesn't really do
 Time: O(M * N^4) where M = cats, N = mice
 Memory: O(2^N) where N = cats
 Status: Unknown
+Usage:
+int res = exampleFunction1(mice, cats, catsCount);
+int random = exampleFunction2();
 Changes:
 	2009-03-21 - Minor modifications by Ulf.
 */
@@ -18,18 +19,11 @@ Changes:
 #include "Global.h" /// ...since it exists in Global.h
 #include "Example.h" /// Header name will be kept in final list.
 
-class ExampleStructure1
+struct ExampleStructure
 {
 	ll alpha;
 	pii nodes;
 	vi edges;
-};
-
-class ExampleStructure2
-{
-	int a;
-	int b;
-	int c;
 };
 
 int exampleFunction1(vi mice, int* cats, int catsCount) {
