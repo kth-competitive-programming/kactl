@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Global.h"
+#include "../global.h"
 #include "UnitTestManager.h"
 
 #define KACTL_AUTOREGISTER_TEST(x) x* g__KACTL__temp__##x = new x()
