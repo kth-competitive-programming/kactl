@@ -9,7 +9,7 @@ Status: Should work fine
 */
 #pragma once
 #include "Global.h"
-#include "Point.cpp"
+#include "Point.h"
 
 template <class T, class It>
 T polygonArea2(It begin, It end) {
