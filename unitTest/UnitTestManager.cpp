@@ -1,4 +1,4 @@
-#include "../Global.h"
+#include "../global.h"
 #include "UnitTestManager.h"
 #include "UnitTest.h"
 

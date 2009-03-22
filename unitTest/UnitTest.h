@@ -69,6 +69,6 @@ protected:
 	string m_name;
 };
 
-#ifdef KACTL_UNIT_TEST_STANDALONE
+#ifndef KACTL_UNITTEST_BATCH
 #	include "UnitTestManager.cpp"
 #endif

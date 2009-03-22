@@ -9,7 +9,6 @@ Time: O(n)
 Status: Should work fine
 */
 #pragma once
-#include "Global.h"
 #include "Point.h"
 
 template <class T, class It>

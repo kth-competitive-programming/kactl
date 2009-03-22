@@ -15,8 +15,7 @@ Changes:
 */
 #pragma once
 
-#include <iostream> /// Header name will be removed from final list...
-#include "Global.h" /// ...since it exists in Global.h
+#include <iostream>
 #include "Example.h" /// Header name will be kept in final list.
 
 struct ExampleStructure
