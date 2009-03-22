@@ -11,12 +11,12 @@ Usage: bool left = sideOf(p1,p2,q)==1;
 template <class P>
 int sideOf(const P& s, const P& e, const P& p) {
 	typename P::coordType a = (e-s).cross(p-s);
-	return (d > 0) - (d < 0);
+	return (a > 0) - (a < 0);
 }
 
 template <class P>
 int sideOf(const P& s, const P& e, const P& p, double epsilon) {
 	typename P::coordType a = (e-s).cross(p-s);
 	double l = (e-s).dist()*epsilon;
-	return (d > l) - (d < -l);
+	return (a > l) - (a < -l);
 }
