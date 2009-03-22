@@ -5,10 +5,10 @@ Description: Returns true if p lies within the polygon described by the points b
 Time: O(n)
 Status: not tested, but might work
 Usage:
-typedef Point<int> pi;
-vector<pi> v; v.push_back(pi(4,4));
-v.push_back(pi(1,2)); v.push_back(pi(2,1));
-bool in = insidePolygon(v.begin(),v.end(), pi(3,4), false);
+	typedef Point<int> pi;
+	vector<pi> v; v.push_back(pi(4,4));
+	v.push_back(pi(1,2)); v.push_back(pi(2,1));
+	bool in = insidePolygon(v.begin(),v.end(), pi(3,4), false);
 */
 #pragma once
 #include "Point.h"

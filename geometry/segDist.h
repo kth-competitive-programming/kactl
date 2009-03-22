@@ -4,8 +4,8 @@ Date: 2009-03-21
 Description: Returns the shortest distance between point p and the line segment from point s to e. P is supposed to be Point<T> where T is e.g. double or long long. It uses products in intermediate steps so watch out for overflow if using int or long long.
 Status: Should work fine
 Usage: 
-point<double> a, b(2,2), p(1,1);
-bool onSegment = segDist(a,b,p) < 1e-10;
+	point<double> a, b(2,2), p(1,1);
+	bool onSegment = segDist(a,b,p) < 1e-10;
 */
 #pragma once
 #include "Point.h"

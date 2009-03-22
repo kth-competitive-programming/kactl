@@ -8,8 +8,8 @@ Time: O(M * N^4) where M = cats, N = mice
 Memory: O(2^N) where N = cats
 Status: Unknown
 Usage:
-int res = exampleFunction1(mice, cats, catsCount);
-int random = exampleFunction2();
+	int res = exampleFunction1(mice, cats, catsCount);
+	int random = exampleFunction2();
 Changes:
 	2009-03-21 - Minor modifications by Ulf.
 */
