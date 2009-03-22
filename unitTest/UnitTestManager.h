@@ -17,8 +17,8 @@ public:
 protected:
 	// Reports a "check" failure.
 	void reportCheckFailure(const string& have,
-							const string& want,
-							const string& message = "");
+	                        const string& want,
+	                        const string& message = "");
 
 	// Reports a failure.
 	void reportFailure(const string& message = "");

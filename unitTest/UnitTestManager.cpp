@@ -75,14 +75,14 @@ void UnitTestManager::runTest(UnitTest* unitTest)
 
 	rep(i, 0, count)
 	{
-		fprintf(stderr, "Running test \"%s\" [%d/%d]... ",
+		fprintf(stderr, "Running test \"%s\" <%d, %d>... ",
 			name.c_str(), i, unitTest->getCount());
 		
 		try
 		{
 			unitTest->run(i);
 
-			fprintf(stderr, "OK\n!");
+			fprintf(stderr, "OK\n");
 		}
 		catch(const UnitTestFailed&)
 		{

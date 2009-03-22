@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{EAF909A5-FA59-4C3D-9431-0FCC20D5BCF9}") = "KACTL", "KACTL.icproj", "{C21F81DE-B436-44F4-930C-A5CF863D7D76}"
+EndProject
+Global
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C21F81DE-B436-44F4-930C-A5CF863D7D76}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C21F81DE-B436-44F4-930C-A5CF863D7D76}.Debug|Win32.Build.0 = Debug|Win32
+		{C21F81DE-B436-44F4-930C-A5CF863D7D76}.Release|Win32.ActiveCfg = Release|Win32
+		{C21F81DE-B436-44F4-930C-A5CF863D7D76}.Release|Win32.Build.0 = Release|Win32
+		{A37868E3-5874-4FFE-AC70-9E2DB889BD2D}.Release|Win32.Build.0 = Release|Win32
+		{A37868E3-5874-4FFE-AC70-9E2DB889BD2D}.Release|Win32.ActiveCfg = Release|Win32
+		{A37868E3-5874-4FFE-AC70-9E2DB889BD2D}.Debug|Win32.Build.0 = Debug|Win32
+		{A37868E3-5874-4FFE-AC70-9E2DB889BD2D}.Debug|Win32.ActiveCfg = Debug|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

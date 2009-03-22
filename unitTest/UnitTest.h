@@ -3,6 +3,8 @@
 #include "../Global.h"
 #include "UnitTestManager.h"
 
+#define KACTL_AUTOREGISTER_TEST(x) x* g__KACTL__temp__##x = new x()
+
 class UnitTestFailed
 {
 };
@@ -11,19 +13,20 @@ class UnitTest
 {
 public:
 	UnitTest(const string& testName):
-	  m_name(testName)
+		m_name(testName)
 	{
 		UnitTestManager::getInstance()->registerTest(this);
 	}
 
 	virtual ~UnitTest()
 	{
+
 	}
 
 public:
-	virtual bool run(int subcase) = 0;
+	virtual void run(int subcase) = 0;
 
-	virtual bool getCount() const
+	virtual int getCount() const
 	{
 		return 1;
 	}
@@ -42,7 +45,7 @@ protected:
 		haveStream << have;
 		wantStream << want;
 
-		unitTestManager->reportCheckFailure(have, want, message);
+		unitTestManager->reportCheckFailure(haveStream.str(), wantStream.str(), message);
 
 		throw UnitTestFailed();
 	}
@@ -50,7 +53,7 @@ protected:
 	void fail(const string& message)
 	{
 		UnitTestManager* unitTestManager = UnitTestManager::getInstance();
-		
+
 		unitTestManager->reportFailure(message);
 
 		throw UnitTestFailed();
