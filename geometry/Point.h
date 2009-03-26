@@ -29,7 +29,7 @@ struct Point {
 	P operator/(T d) const { return P(x/d, y/d); }
 	T dot(R p) const { return x*p.x + y*p.y; }
 	T cross(R p) const { return x*p.y - y*p.x; }
-	T dist2() const { return dot(*this); } //distance^2
+	T dist2() const { return x*x + y*y; } //distance^2
 	double dist() const { return sqrt(dist2()); }
 	//angle to x-axis in interval [-pi, pi]
 	double angle() const { return atan2(y, x); } 
@@ -42,7 +42,12 @@ struct Point {
 	}
 };
 template <class T>
-ostream & operator<<(ostream & os, Point<T> p) {
+ostream & operator<<(ostream & os, const Point<T> & p) {
 	os << "(" << p.x << "," << p.y << ")";
 	return os;
+}
+template <class T>
+istream & operator>>(istream & is, Point<T> & p) {
+	is >> p.x >> p.y;
+	return is;
 }
