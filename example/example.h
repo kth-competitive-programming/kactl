@@ -1,25 +1,25 @@
 /**
-Author: Chen Xing
-Date: 2009-03-13
-Source: Conversation with Håkan and Ulf.
-Description: Example structures and functions that doesn't really do
-	anything. Latex commands are supported here, though! Like this: $2^2=3$
-Time: O(M * N^4) where M = cats, N = mice
-Memory: O(2^N) where N = cats
-Status: Unknown
-Usage:
-	int res = exampleFunction1(mice, cats, catsCount);
-	int random = exampleFunction2();
-Changes:
-	2009-03-21 - Minor modifications by Ulf.
-*/
+ * Author: Chen Xing
+ * Date: 2009-03-13
+ * Source: Conversation with Håkan and Ulf.
+ * Description: Example structures and functions that doesn't really do
+ *  anything. Latex commands are supported here, though! Like this: $2^2=3$
+ * Time: O(M * N^4) where M = cats, N = mice
+ * Memory: O(2^N) where N = cats
+ * Status: Unknown
+ * Usage:
+ *  int res = exampleFunction1(mice, cats, catsCount);
+ *  int random = exampleFunction2();
+ * Changes:
+ *  2009-03-21 - Minor modifications by Ulf.
+ *  2009-03-28 - 63 characters, by Håkan
+ */
 #pragma once
 
 #include <iostream>
 #include "Example.h" /// Header name will be kept in final list.
 
-struct ExampleStructure
-{
+struct ExampleStructure {
 	ll alpha;
 	pii nodes;
 	vi edges;
@@ -37,9 +37,9 @@ int exampleFunction1(vi mice, int* cats, int catsCount) {
 			sum += cats[i] * (*it);
 		}
 	}
-	//Use tab indent and keep the lines shorter than 64 characters
+	//Use tab indent and keep the lines shorter than 63 characters
 	//where tabs are 2 characters wide.
-	//<----------------------Maximum width----------------------->
+	//<---------------------Maximum width----------------------->
 	return sum;
 }
 
