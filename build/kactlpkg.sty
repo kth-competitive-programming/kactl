@@ -9,11 +9,11 @@
 \usepackage{fancyhdr}					% Fancy headers
 \usepackage{amsbsy, amssymb, amsmath}	% Enable math symbols
 \usepackage{tocloft}					% Custom Table of Contents
-\usepackage{titletoc}					% Design control over Table of Contents					
+\usepackage{titletoc}					% Design control over Table of Contents
 \usepackage{ifthen}						% To enable some conditional programming in LaTeX
 \usepackage{courier}					% To get bold typewriter typeface
 
-\AtBeginDocument{}
+\AtBeginDocument{\maketitle}
 \AtEndDocument{}
 
 \pagestyle{fancy}
@@ -59,17 +59,17 @@
 }
 
 \def\@makechapterhead#1{
-  {\parindent \z@ \raggedright \normalfont
-    \ifnum \c@secnumdepth >\m@ne
-        {\huge\bfseries \@chapapp\space \thechapter:{}}
-    \fi
-    \interlinepenalty\@M
-    {\huge \bfseries #1 \par\nobreak}
-	\vspace{15pt}
+	\parindent \z@ \raggedright \normalfont
+	\ifnum \c@secnumdepth >\m@ne
+		{\huge\bfseries \@chapapp\space \thechapter:{}}
+	\fi
+	\interlinepenalty\@M
+	{\huge \bfseries #1 \par\nobreak}
+	\vspace{10pt} % Space between chapter name and local toc
 	\startcontents[chapters]
-	\printcontents[chapters]{l}{1}{\setcounter{tocdepth}{2}}
-	\vspace{10pt}
-  }}
+	\printcontents[chapters]{local}{1}{\setcounter{tocdepth}{2}}
+	\vspace{5pt} % Space between local toc and chapter content
+}
 
 \renewcommand\section{\@startsection {section}{1}{\z@}
 	{2ex \@plus -1ex \@minus -.2ex}
@@ -86,11 +86,13 @@
 	{1ex \@plus .2ex}
 	{\normalfont\normalsize\bfseries}}
 
-\titlecontents{lsection}[1.5em]{}{}
-	{\hspace*{-2.3em}}{\titlerule*[0.8em]{.}\contentspage}
-\titlecontents{lsubsection}[3.8em]{}{}
-	{\hspace*{0em}}{\titlerule*[0.8em]{.}\contentspage}
+% Styles for local toc
+\titlecontents{localsection}[1.5em]{}{}
+	{}{\titlerule*[0.8em]{.}\contentspage}
+\titlecontents{localsubsection}[3.8em]{}{}
+	{}{\titlerule*[0.8em]{.}\contentspage}
 
+% Styles for main toc
 \renewcommand{\chaptermark}[1]{\markboth{\emph{ #1}}{}}
 \renewcommand{\cftbeforetoctitleskip}{-50pt}
 \renewcommand{\cftaftertoctitleskip}{10pt}
@@ -107,7 +109,7 @@
 \lstset{emptylines=*1}
 \lstset{inputencoding=utf8}
 \lstset{aboveskip=3pt}
-\lstset{belowskip=0pt}
+\lstset{belowskip=2pt}
 
 \setlength{\columnseprule}{0.5pt} % Multicol separation line with
 \setlength{\columnsep}{10pt} % Multicol separation margin
@@ -124,16 +126,33 @@
 \title{KTH ACM Contest Template Library}
 
 \newcommand{\kactlref}[1]{
-	\addcontentsline{ptc}{subsection}{\texttt{#1}\hspace{0.2em}}
+	\ifthenelse{\boolean{appendixmode}}{}{
+		\ifnum \value{section} > 0
+			\addcontentsline{ptc}{subsection}{\texttt{#1}\hspace{0.2em}}
+		\else
+			\addcontentsline{ptc}{section}{\texttt{#1}\hspace{0.2em}}
+		\fi
+	}
 }
 
 \newcommand{\kactlimport}[1]{
+	\leftcaption{}\rightcaption{}
+	\setboolean{hasdescription}{false}
+	\setboolean{hasusage}{false}
+	\setboolean{hastime}{false}
+	\setboolean{hasmemory}{false}
 	\immediate\write18{python kactlprocessor.py -i "\@kactldir/#1" -o kactl.tmp}
 	\immediate\input{kactl.tmp}
 }
 
 \newcommand{\kactlrawimport}[1]{
-	\lstinputlisting[caption=#1]{"\@kactldir/#1"}
+	\leftcaption{}\rightcaption{}
+	\setboolean{hasdescription}{false}
+	\setboolean{hasusage}{false}
+	\setboolean{hastime}{false}
+	\setboolean{hasmemory}{false}
+	\immediate\write18{python kactlprocessor.py -i "\@kactldir/#1" -o kactl.tmp --language=raw}
+	\immediate\input{kactl.tmp}
 }
 
 \newcommand{\kactlcontentdir}[1]{
@@ -152,6 +171,10 @@
 	\PackageError{kactlpkg}{#1}{0}
 }
 
+\newcommand{\kactlwarning}[1]{
+	\PackageWarning{kactlpkg}{#1}{0}
+}
+
 \renewcommand{\maketitle}{
 	\begin{center}
 		{\LARGE \@title}\\
@@ -163,15 +186,49 @@
 \newcommand{\leftcaption}[1]{
 	\def\@leftcaption{#1}
 }
-\leftcaption{left}
-\newcommand{\echoleft}[0]{
-	\@leftcaption
-}
+\leftcaption{}
 
 \newcommand{\rightcaption}[1]{
 	\def\@rightcaption{#1}
 }
-\rightcaption{right}
+\rightcaption{}
+
+\newboolean{hasdescription}
+\newcommand{\defdescription}[1]{
+	\def\@defdescription{#1}
+	\setboolean{hasdescription}{true}
+}
+\defdescription{}
+\setboolean{hasdescription}{false}
+
+\newboolean{hasusage}
+\newcommand{\defusage}[1]{
+	\def\@defusage{\texttt{#1}}
+	\setboolean{hasusage}{true}
+}
+\defusage{}
+\setboolean{hasusage}{false}
+
+\newboolean{hastime}
+\newcommand{\deftime}[1]{
+	\def\@deftime{#1}
+	\setboolean{hastime}{true}
+}
+\deftime{}
+\setboolean{hastime}{false}
+
+\newboolean{hasmemory}
+\newcommand{\defmemory}[1]{
+	\def\@defmemory{#1}
+	\setboolean{hasmemory}{true}
+}
+\defmemory{}
+\setboolean{hasmemory}{false}
+
+
+\newcommand{\codeheader}[2]{
+	{\par\noindent\scriptsize{\textbf{#1:} #2\par}}
+}
 
 \long\def\@makecaption#1#2{
    \sbox\@tempboxa{\textbf{#1: #2}}
@@ -181,9 +238,13 @@
      \global \@minipagefalse
      \hb@xt@\hsize{\box\@tempboxa\hfil}
    \fi
+	\ifthenelse{\boolean{hasdescription}}{\codeheader{Description}{\@defdescription}}{}
+	\ifthenelse{\boolean{hasusage}}{\codeheader{Usage}{\@defusage}}{}
+	\ifthenelse{\boolean{hastime}}{\codeheader{Time}{\@deftime}}{}
+	\ifthenelse{\boolean{hasmemory}}{\codeheader{Memory}{\@defmemory}}{}
 	\vspace{2pt}
-	\scriptsize
-	\@leftcaption \hfill \@rightcaption
+	\tiny
+	\texttt{\@leftcaption} \hfill \@rightcaption
 	\vspace{1pt}
 }
 
