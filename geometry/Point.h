@@ -9,10 +9,12 @@ Usage:
 	double distance = (p1*2-p2.rotate(M_PI/2)).dist();
 	double area = p1.cross(p2)/2;
 	cout << "p1=" << p1;
-Status: Should work fine
+Status: Works fine
 */
 #pragma once
 #include <cmath>
+#include <iostream>
+using namespace std;
 
 template <class T>
 struct Point {

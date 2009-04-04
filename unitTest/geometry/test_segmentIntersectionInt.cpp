@@ -5,24 +5,24 @@
 #include <fstream>
 #include <sstream>
 
-class test_segmentIntersectionDouble :
+class test_segmentIntersectionInt :
 	public UnitTest
 {
 public:
 	ifstream in,out;
 	int cases;
-	test_segmentIntersectionDouble() : UnitTest("test_segmentIntersectionDouble") {
-		ifstream file("segmentIntersectionDouble.in");
+	test_segmentIntersectionInt() : UnitTest("test_segmentIntersectionInt") {
+		ifstream file("segmentIntersectionInt.in");
 		int n = 0; double d;
 		while (file >> d) ++n;
 		file.close();
 		cases = n/8;
 
-		in.open("segmentIntersectionDouble.in");
-		out.open("segmentIntersectionDouble.out");
+		in.open("segmentIntersectionInt.in");
+		out.open("segmentIntersectionInt.out");
 	}
 
-	virtual ~test_segmentIntersectionDouble() { }
+	virtual ~test_segmentIntersectionInt() { }
 
 	template <class T>
 	void oldTest(T s1, T e1, T s2, T e2, vector<T> res) {
@@ -91,11 +91,11 @@ public:
 
 	virtual void run(int subcase)
 	{
-		Point<double> p1,p2,p3,p4;
+		Point<int> p1,p2,p3,p4;
 		in >> p1 >> p2 >> p3 >> p4;
 		int n;
 		out >> n;
-		vector<Point<double> > v(2);
+		vector<Point<int> > v(2);
 		rep(i,0,n) out >> v[i];
 
 		test1(p1,p2,p3,p4,n,v[0],v[1]);
@@ -107,4 +107,4 @@ public:
 	}
 };
 
-KACTL_AUTOREGISTER_TEST(test_segmentIntersectionDouble);
+KACTL_AUTOREGISTER_TEST(test_segmentIntersectionInt);

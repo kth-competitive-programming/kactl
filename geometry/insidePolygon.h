@@ -1,9 +1,9 @@
 /**
 Author: Ulf Lundstrom
 Date: 2009-03-22
-Description: Returns true if p lies within the polygon described by the points between iterators begin and end. If strict false is returned when p is on the edge of the polygon. If epsilon is provided p is considered beeing on the edge when it is within a distance epsilon from it. Answere is calculated by counting the number of intersections between the polygon and a line going from p to infinity in the positive x-direction. The algorithm uses products in intermediate steps so watch out for overflow.
+Description: Returns true if p lies within the polygon described by the points between iterators begin and end. If strict false is returned when p is on the edge of the polygon. If epsilon is provided p is considered beeing on the edge when it is within a distance epsilon from it. Answer is calculated by counting the number of intersections between the polygon and a line going from p to infinity in the positive x-direction. The algorithm uses products in intermediate steps so watch out for overflow.
 Time: O(n)
-Status: not tested, but might work
+Status: tested
 Usage:
 	typedef Point<int> pi;
 	vector<pi> v; v.push_back(pi(4,4));
