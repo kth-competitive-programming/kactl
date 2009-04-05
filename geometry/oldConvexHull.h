@@ -37,14 +37,10 @@ It convexHull(It begin, It end) {
 	//place hull points first by doing a Graham scan
 	It r = begin + 1;
 	for (It i = begin+2; i != end; ++i) {
-		//change < 0 to <= 0 if colinear points are not desired
 		while (r > begin && (*r - *(r-1)).cross(*i-*(r-1)) < 0)
 			--r;
 		swap(*++r, *i);
 	}
-	//removing colinear points at the end of the hull
-	while (r-1 > begin && (*begin-*(r-1)).cross(*r-*(r-1)) == 0)
-		--r;
 	//return the iterator past the last hull point
 	return ++r;
 }

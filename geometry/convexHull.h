@@ -1,50 +1,39 @@
 /**
-Author: tinyKACTL, modified by Ulf Lundstrom
+Author: Ulf Lundstrom
 Date: 2009-04-04
-Description: 
+Description: Rearanges the points between begin and end so that the points of the hull are in counterclockwise order between begin and the returned iterator. Points on the edge of the hull between two other points are not considered part of the hull.
 Status: not tested
 Usage:
+vector<Point<double> > p;
+vector<Point<double> > hull(p.begin(),convexHull(p.begin(),p.end()));
+p.resize(convexHull(p.begin(),p.end())-p.begin());
 */
 #pragma once
 #include <algorithm>
 #include "Point.h"
 
 template <class P>
-struct comparator {
-	P r; comparator(P ref) : r(ref) {}
-	bool operator()(const P &p, const P &q) const {
-		typename P::coordType c = (p-r).cross(q-r);
-		return c>0 || c==0 && (p-r).dist2() > (q-r).dist2();
-	}
-};
+bool comp(const P &p, const P &q) {
+	return p.cross(q)>0 || p.cross(q)==0 && p.dist2()<q.dist2();
+}
 
 template <class It>
 It convexHull(It begin, It end) {
-	typedef typename iterator_traits<It>::value_type P;
+	typedef typename iterator_traits<It>::value_type T;
 	//zero, one or two points always form a hull
 	if (end-begin < 3) return end;
-	//find a guaranteed hull point and sort in scan order around it
-	swap(*begin, *min_element(begin,end));
-	comparator<P> comp(*begin);
-	sort(begin+1, end, comp);
-	//colinear points on first line of the hull must be reversed
-	It i = begin+1;
-	for (It j = i++; i != end; j = i++) {
-		if ((*i-*begin).cross(*j-*begin) != 0)
-			break;
-	}
-	reverse(begin+1, i);
+	//find a guaranteed hull point to use as origo
+	T ref = *min_element(begin,end);
+	for (It i = begin; i != end; ++i) *i = *i-ref;
+	sort(begin, end, comp<T>); //sort in scan order
 	//place hull points first by doing a Graham scan
 	It r = begin + 1;
 	for (It i = begin+2; i != end; ++i) {
-		//change < 0 to <= 0 if colinear points are not desired
-		while (r > begin && (*r-*(r-1)).cross(*i-*(r-1)) < 0)
+		while (r > begin && (*r-*(r-1)).cross(*i-*(r-1)) <= 0)
 			--r;
 		swap(*++r, *i);
 	}
-	//removing colinear points at the end of the hull
-	while (r-1 > begin && (*begin-*(r-1)).cross(*r-*(r-1)) == 0)
-		--r;
+	for (It i = begin; i != end; ++i) *i = *i+ref;
 	//return the iterator past the last hull point
 	return ++r;
 }
