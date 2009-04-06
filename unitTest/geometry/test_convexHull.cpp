@@ -3,16 +3,61 @@
 #include "../../geometry/convexHull.h"
 #include <fstream>
 #include <sstream>
+typedef Point<double> P;
 
-class test_convexHull :
-	public UnitTest
-{
+template <class T>
+ostream & operator<<(ostream & os, const vector<T> p) {
+	os << "[ ";
+	trav(it,p) os << *it << " ";
+	os << "]";
+	return os;
+}
+
+class test_convexHull : public UnitTest {
 public:
-	test_convexHull() : UnitTest("test_convexHull") { }
+	ifstream in;
+	int cases;
+	test_convexHull() : UnitTest("test_convexHull") {
+		ifstream file("convexHull.data");
+		int N = 0, n;
+		while (file >> n) {
+			double d;
+			rep(i,0,n) file >> d >> d;
+			++N;
+		}
+		cases = N/2;
+		file.close();
 
-	virtual ~test_convexHull() { }
+		in.open("convexHull.data");
+	}
+
+	virtual ~test_convexHull() {
+		in.close();
+	}
+
+	vector<P> readPolygon() {
+		int n;
+		in >> n;
+		vector<P> p(n);
+		rep(i,0,n) in >> p[i];
+		return p;
+	}
+
 
 	virtual void run(int subcase) {
+		vector<P> p = readPolygon(), wanted = readPolygon();
+		vector<P> res(p.begin(),convexHull(p.begin(),p.end()));
+
+		stringstream ss;
+		ss << p << endl << " -> " << res << endl << "!=" << wanted << endl;
+		string s = ss.str();
+		check(res.size(),wanted.size(),s);
+		rep(i,0,res.size())
+			if (!(res[i] == wanted[i]))
+				fail(s);
+	}
+
+	void test(int subcase) {
 		typedef Point<double> P;
 		P p1[3] = {P(1,1),P(3,2),P(1,5)};
 		check(convexHull(p1,p1+3),p1+3);
@@ -31,7 +76,7 @@ public:
 	}
 
 	virtual int getCount() const {
-		return 1;
+		return cases;
 	}
 };
 
