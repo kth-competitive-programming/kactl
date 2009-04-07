@@ -177,6 +177,14 @@
 			Name="geometry"
 			>
 			<File
+				RelativePath=".\geometry\circleTangents.h"
+				>
+			</File>
+			<File
+				RelativePath=".\geometry\convexHull.h"
+				>
+			</File>
+			<File
 				RelativePath=".\geometry\insidePolygon.h"
 				>
 			</File>
@@ -186,6 +194,10 @@
 			</File>
 			<File
 				RelativePath=".\geometry\lineIntersection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\geometry\oldConvexHull.h"
 				>
 			</File>
 			<File
@@ -213,7 +225,11 @@
 			Name="string"
 			>
 			<File
-				RelativePath=".\string\knuthMorrisPratt.h"
+				RelativePath=".\string\KMP.h"
+				>
+			</File>
+			<File
+				RelativePath=".\string\KMP_findAll.h"
 				>
 			</File>
 		</Filter>
@@ -232,11 +248,63 @@
 				RelativePath=".\unitTest\UnitTestManager.h"
 				>
 			</File>
+			<File
+				RelativePath=".\unitTest\UnitTestWrapper.h"
+				>
+			</File>
 			<Filter
 				Name="string"
 				>
 				<File
-					RelativePath=".\unitTest\string\test_knuthMorrisPratt.cpp"
+					RelativePath=".\unitTest\string\test_KMP.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="geometry"
+				>
+				<File
+					RelativePath=".\unitTest\geometry\test_circleTangents.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_convexHull.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_insidePolygon.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_lineDistDouble.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_lineIntersection.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_polygonArea.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_segDistDouble.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_segDistInt.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_segmentIntersectionDouble.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_segmentIntersectionInt.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\unitTest\geometry\test_sideOf.cpp"
 					>
 				</File>
 			</Filter>
