@@ -1,3 +1,6 @@
+// This file should be included in all test files
+// as it contains the same inclusions and definitions
+// as the contest template file.
 #pragma once
 
 #ifdef __INTEL_COMPILER
@@ -14,7 +17,6 @@
 #include <string>
 using namespace std;
 
-#define beaver (;;)
 #define rep(i, a, b) for(int i = (a); i < (b); ++i)
 #define trav(it, v) for(typeof((v).begin()) it = (v).begin(); \
                         it != (v).end(); ++it)

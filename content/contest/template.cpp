@@ -1,3 +1,10 @@
+// Contest, Location, Date
+//
+// Team name
+// Team member 1, Team member 2, Team member 3
+//
+// Problem:
+
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
@@ -7,7 +14,6 @@
 #include <string>
 using namespace std;
 
-#define beaver (;;)
 #define rep(i, a, b) for(int i = (a); i < (b); ++i)
 #define trav(it, v) for(typeof((v).begin()) it = (v).begin(); \
                         it != (v).end(); ++it)
