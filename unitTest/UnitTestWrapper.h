@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../global.h"
+#include "global.h"
 #include "UnitTest.h"
 #include "UnitTestManager.h"
 

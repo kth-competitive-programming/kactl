@@ -1,9 +1,9 @@
-#include "../global.h"
+#include "global.h"
 #include "UnitTestManager.h"
 #include "UnitTest.h"
 #include "UnitTestWrapper.h"
 
-#include <direct.h>
+//#include <direct.h>
 
 UnitTestManager::UnitTestManager():
 	m_successCount(0),
