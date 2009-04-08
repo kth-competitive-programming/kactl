@@ -1,0 +1,7 @@
+%!
+/size 15 def /r 90 def 1.0 %LINEWIDTH
+size dup dup scale div setlinewidth 0
+3 %1=TRIGRID, 3=HEXGRID
+r {dup 1 and 3 mul sqrt neg moveto r {
+    1 3 2 0 -2 0 -1 3 4 {sqrt rlineto} repeat
+} repeat} for stroke showpage

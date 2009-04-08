@@ -1,0 +1,7 @@
+%!
+/size 30 def /r 90 def 0 1 r
+1 size dup dup scale div setlinewidth {
+    dup 0 exch moveto
+    2 mod 2 r mul sub neg 0 rlineto
+    r {-2 -1 0 1 rlineto rmoveto} repeat
+} for stroke showpage
