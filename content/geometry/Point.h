@@ -1,5 +1,4 @@
 /**
-Provides: Point
 Author: Ulf Lundstrom with inspiration from tinyKACTL
 Date: 2009-02-26
 Description: Class to handle points in the plane.
