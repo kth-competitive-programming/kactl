@@ -1,6 +1,5 @@
 #include "../UnitTest.h"
-#include "../../geometry/Point.h"
-#include "../../geometry/insidePolygon.h"
+#include "../../content/geometry/insidePolygon.h"
 #include <fstream>
 #include <sstream>
 

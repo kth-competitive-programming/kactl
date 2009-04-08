@@ -1,7 +1,5 @@
-#include "../../global.h"
 #include "../UnitTest.h"
-#include "../../geometry/Point.h"
-#include "../../geometry/segmentIntersection.h"
+#include "../../content/geometry/segmentIntersection.h"
 #include <fstream>
 #include <sstream>
 

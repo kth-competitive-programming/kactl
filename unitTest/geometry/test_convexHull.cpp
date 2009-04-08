@@ -1,6 +1,5 @@
 #include "../UnitTest.h"
-#include "../../geometry/Point.h"
-#include "../../geometry/convexHull.h"
+#include "../../content/geometry/convexHull.h"
 #include <fstream>
 #include <sstream>
 typedef Point<double> P;

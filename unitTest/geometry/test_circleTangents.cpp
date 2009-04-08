@@ -1,6 +1,5 @@
 #include "../UnitTest.h"
-#include "../../geometry/Point.h"
-#include "../../geometry/circleTangents.h"
+#include "../../content/geometry/circleTangents.h"
 #include <fstream>
 #include <sstream>
 

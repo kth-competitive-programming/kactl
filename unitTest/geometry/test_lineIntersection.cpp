@@ -1,6 +1,5 @@
 #include "../UnitTest.h"
-#include "../../geometry/Point.h"
-#include "../../geometry/lineIntersection.h"
+#include "../../content/geometry/lineIntersection.h"
 #include <fstream>
 #include <sstream>
 

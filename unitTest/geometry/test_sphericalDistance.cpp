@@ -1,6 +1,5 @@
 #include "../UnitTest.h"
-#include "../../geometry/Point.h"
-#include "../../geometry/sphericalDistance.h"
+#include "../../content/geometry/sphericalDistance.h"
 #include <fstream>
 #include <sstream>
 
