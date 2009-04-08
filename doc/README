@@ -1,0 +1,14 @@
+This file should contain a general introduction to modifying the KACTL:
+
+The general file structure, where to find/place code, tests and documentation.
+
+How to build the KACTL, including prerequisites.
+
+How to modify the .tex files to add new chapters, new files, change title etc.
+
+How the code annotation works.
+
+How the test framework works.
+
+And probably a lot more.
+Unfortunately it doesn't contain that much at the moment, but good luck anyway :-)

@@ -32,7 +32,7 @@ struct Point {
 	T dot(R p) const { return x*p.x + y*p.y; }
 	T cross(R p) const { return x*p.y - y*p.x; }
 	T dist2() const { return x*x + y*y; } //distance^2
-	double dist() const { return sqrt(dist2()); }
+	double dist() const { return sqrt((double)dist2()); }
 	//angle to x-axis in interval [-pi, pi]
 	double angle() const { return atan2(y, x); } 
 	P unit() const { return *this/(T)dist(); }

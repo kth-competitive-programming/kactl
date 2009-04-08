@@ -3,8 +3,6 @@
 #include "../global.h"
 #include "UnitTestManager.h"
 
-#define KACTL_AUTOREGISTER_TEST(x) x* g__KACTL__temp__##x = new x()
-
 class UnitTestFailed
 {
 };
@@ -15,7 +13,6 @@ public:
 	UnitTest(const string& testName):
 		m_name(testName)
 	{
-		UnitTestManager::getInstance()->registerTest(this);
 	}
 
 	virtual ~UnitTest()
@@ -39,13 +36,8 @@ protected:
 			return;
 
 		UnitTestManager* unitTestManager = UnitTestManager::getInstance();
-		ostringstream haveStream;
-		ostringstream wantStream;
 
-		haveStream << have;
-		wantStream << want;
-
-		unitTestManager->reportCheckFailure(haveStream.str(), wantStream.str(), message);
+		unitTestManager->reportCheckFailure(convertToString(have), convertToString(want), message);
 
 		throw UnitTestFailed();
 	}
@@ -59,6 +51,31 @@ protected:
 		throw UnitTestFailed();
 	}
 
+private:
+	template<class T>
+	string convertToString(const T& data)
+	{
+		ostringstream oss;
+
+		oss.precision(20);
+		oss << data;
+
+		return oss.str();
+	}
+
+	template<class T>
+	string convertToString(const vector<T>& data)
+	{
+		ostringstream oss;
+
+		oss << "{ ";
+		trav(it, data)
+			oss << convertToString(*it) << " ";
+		oss << "}";
+
+		return oss.str();
+	}
+
 public:
 	string getName()
 	{
@@ -68,6 +85,9 @@ public:
 protected:
 	string m_name;
 };
+
+#define KACTL_AUTOREGISTER_TEST(x) UnitTestWrapper* g__KACTL__temp__##x = new UnitTestWrapper(new x())
+#include "UnitTestWrapper.h"
 
 #ifndef KACTL_UNITTEST_BATCH
 #	include "UnitTestManager.cpp"

@@ -1,10 +1,12 @@
 #pragma once
 
 class UnitTest;
+class UnitTestWrapper;
 
 class UnitTestManager
 {
 	friend class UnitTest;
+	friend class UnitTestWrapper;
 
 private:
 	UnitTestManager();
@@ -24,8 +26,8 @@ protected:
 	void reportFailure(const string& message = "");
 
 protected:
-	// Registers a test.
-	void registerTest(UnitTest* unitTest);
+	// Registers a test wrapper.
+	void registerWrapper(UnitTestWrapper* unitTestWrapper);
 
 public:
 	// Runs all tests.
@@ -34,11 +36,18 @@ public:
 	// Runs a specific test.
 	void runTest(const string& name);
 
-private:
-	// Runs a specific test.
-	void runTest(UnitTest* unitTest);
+	// Print statistics.
+	void printStatistics() const;
 
 private:
-	// Maps test names to test objects.
-	map<string, UnitTest*> m_unitTests;
+	// Runs a specific test.
+	void runTest(UnitTestWrapper* unitTestWrapper);
+
+private:
+	// Maps test names to test wrapper objects.
+	map<string, UnitTestWrapper*> m_unitTestWrappers;
+
+	// Statistics.
+	int m_successCount;
+	int m_failureCount;
 };
