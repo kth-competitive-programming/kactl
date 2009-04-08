@@ -2,7 +2,7 @@
 Author: Ulf Lundstrom
 Date: 2009-04-04
 Description: Rearanges the points between begin and end so that the points of the hull are in counterclockwise order between begin and the returned iterator. Points on the edge of the hull between two other points are not considered part of the hull.
-Status: tested
+Status: tested (with unitTest and Kattis convexhull)
 Usage:
 vector<Point<double> > p;
 vector<Point<double> > hull(p.begin(),convexHull(p.begin(),p.end()));
@@ -20,8 +20,8 @@ bool comp(const P &p, const P &q) {
 template <class It>
 It convexHull(It begin, It end) {
 	typedef typename iterator_traits<It>::value_type T;
-	//zero, one or two points always form a hull
-	if (end-begin < 3) return end;
+	//zero or one point always form a hull
+	if (end-begin < 2) return end;
 	//find a guaranteed hull point to use as origo
 	T ref = *min_element(begin,end);
 	for (It i = begin; i != end; ++i) *i = *i-ref;
@@ -34,6 +34,7 @@ It convexHull(It begin, It end) {
 		swap(*++r, *i);
 	}
 	for (It i = begin; i != end; ++i) *i = *i+ref;
+	if (r-begin == 1 && *begin == *r) r--;
 	//return the iterator past the last hull point
 	return ++r;
 }

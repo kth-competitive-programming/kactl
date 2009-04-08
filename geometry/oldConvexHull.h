@@ -22,7 +22,7 @@ template <class It>
 It convexHull(It begin, It end) {
 	typedef typename iterator_traits<It>::value_type P;
 	//zero, one or two points always form a hull
-	if (end-begin < 3) return end;
+	if (end-begin < 2) return end;
 	//find a guaranteed hull point and sort in scan order around it
 	swap(*begin, *min_element(begin,end));
 	comparator<P> comp(*begin);
@@ -31,7 +31,7 @@ It convexHull(It begin, It end) {
 	It i = begin+1;
 	for (It j = i++; i != end; j = i++) {
 		if ((*i-*begin).cross(*j-*begin) != 0)
-			break
+			break;
 	}
 	reverse(begin+1, i);
 	//place hull points first by doing a Graham scan
@@ -41,6 +41,7 @@ It convexHull(It begin, It end) {
 			--r;
 		swap(*++r, *i);
 	}
+	if (r == begin+1 && *r == *begin) --r;
 	//return the iterator past the last hull point
 	return ++r;
 }
