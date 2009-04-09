@@ -9,16 +9,16 @@ class test_insidePolygon :
 	public UnitTest
 {
 public:
-	vector<vector<Point<double> > > polys;
+	vector<vector<Point<int> > > polys;
 	vector<string> strings;
-	vector<Point<double> > points;
+	vector<Point<int> > points;
 	vector<int> answers;
 
 	test_insidePolygon() : UnitTest("test_insidePolygon") {
 		ifstream in("insidePolygon.in");
 		int n;
 		while (in >> n) {
-			vector<Point<double> > poly(n);
+			vector<Point<int> > poly(n);
 			stringstream ss;
 			rep(i,0,n) {
 				in >> poly[i];
@@ -26,7 +26,7 @@ public:
 			}
 			int q;
 			in >> q;
-			Point<double> p;
+			Point<int> p;
 			rep(i,0,q) {
 				in >> p;
 				polys.push_back(poly);
@@ -51,19 +51,21 @@ public:
 	{
 		if (c < points.size()) {
 			bool a = insidePolygon(polys[c].begin(),
-					polys[c].end(),points[c],false,1e-10);
-			check(a, (bool)answers[c], strings[c]);
+					polys[c].end(),points[c],false);
+			stringstream ss;
+			ss << strings[c] << " : " << points[c];
+			check(a, (bool)answers[c], ss.str());
 		} else { 
 			vector<Point<double> > poly(2+rand()%20);
-			trav(i,poly) *i = Point<double>(rand()%10,rand()%10);
-			Point<double> p(rand()%10,rand()%10);
-			bool a = insidePolygon(poly.begin(),poly.end(),p,true,1e-10);
+			trav(i,poly) *i = Point<double>(rand()%100000,rand()%100000);
+			Point<double> p(rand()%100000,rand()%100000);
+			bool a = insidePolygon(poly.begin(),poly.end(),p,true);
 			for (int i = 0; i < 10; ++i) {
 				double alpha = rand()%1000/1000.0;
-				Point<double> D(rand()%10,rand()%10);
+				Point<double> D(rand()%1000,rand()%1000);
 				trav(i,poly) *i = i->rotate(alpha)+D;
 				p = p.rotate(alpha)+D;
-				check(insidePolygon(poly.begin(),poly.end(),p,true,1e-10),a);
+				check(insidePolygon(poly.begin(),poly.end(),p,true),a);
 			}
 		}
 	}
