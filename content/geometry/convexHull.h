@@ -7,6 +7,7 @@ Usage:
 vector<Point<double> > p;
 vector<Point<double> > hull(p.begin(),convexHull(p.begin(),p.end()));
 p.resize(convexHull(p.begin(),p.end())-p.begin());
+Time: O(n)
 */
 #pragma once
 #include <algorithm>
