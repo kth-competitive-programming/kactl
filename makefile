@@ -7,11 +7,14 @@ LATEXFLAGS = -shell-escape
 .PHONY: help
 help:
 	@echo "This makefile builds KACTL (KTH ACM Contest Template Library)"
-	@echo "Type"
-	@echo "	$ make kactl"
-	@echo "to build the KACTL or"
-	@echo "	$ make clean"
-	@echo "to clean up the build process."
+	@echo ""
+	@echo "Available commands are:"
+	@echo "	make kactl	- to build the KACTL"
+	@echo "	make clean	- to clean up the build process"
+	@echo "	make veryclean	- to clean up and remove kactl.pdf"
+	@echo "	make help	- to show this information"
+	@echo ""
+	@echo "For more information see the file 'doc/README'"
 
 .PHONY: kactl
 kactl:
@@ -21,10 +24,7 @@ kactl:
 
 .PHONY: clean
 clean: 
-	cd build && rm -f kactl.aux kactl.log kactl.tmp kactl.toc kactl.maf kactl.ptc
-	cd build && rm -f kactlpkg.log
-	cd build && rm -f *.mtc*
-	cd build && rm -f kactl.pdf
+	cd build && rm -f kactl.aux kactl.log kactl.tmp kactl.toc kactl.pdf kactl.ptc
 
 .PHONY: veryclean
 veryclean: clean

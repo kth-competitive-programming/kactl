@@ -71,10 +71,10 @@
 	\vspace{5pt} % Space between local toc and chapter content
 }
 
-\renewcommand\section{\@startsection {section}{1}{\z@}
-	{2ex \@plus -1ex \@minus -.2ex}
-	{1ex \@plus.2ex}
-	{\normalfont\Large\bfseries}}
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-0.5ex \@plus -1ex \@minus -.2ex}%
+                                   {1ex \@plus.2ex}%
+                                   {\normalfont\Large\bfseries}}
 
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}
 	{1ex\@plus -1ex \@minus -.2ex}
@@ -168,11 +168,11 @@
 }
 
 \newcommand{\kactlerror}[1]{
-	\PackageError{kactlpkg}{#1}{0}
+	\PackageError{kactlpkg}{#1}
 }
 
 \newcommand{\kactlwarning}[1]{
-	\PackageWarning{kactlpkg}{#1}{0}
+	\PackageWarning{kactlpkg}{#1}
 }
 
 \renewcommand{\maketitle}{

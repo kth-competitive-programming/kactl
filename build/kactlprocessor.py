@@ -85,7 +85,7 @@ def processcpp(caption, instream, outstream):
 			commands[command]=value.lstrip()
 	for rcommand in requiredcommands:
 		if not rcommand in commands:
-			error = error + "Missing command: " + rcommand + ". "
+			warning = warning + "Missing command: " + rcommand + ". "
 	if end>=0:
 		nsource = nsource.rstrip() + source[end:]
 	nsource = nsource.strip()
@@ -97,9 +97,9 @@ def processcpp(caption, instream, outstream):
 	else:
 		print >> outstream, "\\kactlref{",escape(caption),"}"
 		if "Description" in commands and len(commands["Description"])>0:
-			print >> outstream, "\\defdescription{",commands["Description"],"}"
+			print >> outstream, "\\defdescription{",escape(commands["Description"]),"}"
 		if "Usage" in commands and len(commands["Usage"])>0:
-			print >> outstream, "\\defusage{",commands["Usage"],"}"
+			print >> outstream, "\\defusage{",escape(commands["Usage"]).replace('\n','\\\\\n'),"}"
 		if "Time" in commands and len(commands["Time"])>0:
 			print >> outstream, "\\deftime{",ordoescape(commands["Time"]),"}"
 		if "Memory" in commands and len(commands["Memory"])>0:
@@ -188,7 +188,7 @@ def main(argv=None):
 				language = value
 			if option in ("-c", "--caption"):
 				caption = value
-				
+		print "Processing", caption	
 		if language == "cpp" or language == "cc" or language == "c" or language == "h" or language == "hpp":
 			processcpp(caption, instream, outstream)
 		elif language == "java":
