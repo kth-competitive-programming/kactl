@@ -110,13 +110,12 @@ def processcpp(caption, instream, outstream):
 		print >> outstream, nsource
 		print >> outstream, "\\end{lstlisting}"
 
-def processraw(caption, instream, outstream):
+def processraw(caption, instream, outstream, listingslang = 'C++'):
 	try:
-		lines = instream.readlines()
-		source = ''.join(lines)
+		source = instream.read().strip()
 		print >> outstream, "\\kactlref{",escape(caption),"}"
 		print >> outstream, "\\rightcaption{",str(linecount(source))," lines}"
-		print >> outstream, "\\begin{lstlisting}[caption={",escape(caption),"}]"
+		print >> outstream, "\\begin{lstlisting}[language="+listingslang+",caption={",escape(caption),"}]"
 		print >> outstream, source
 		print >> outstream, "\\end{lstlisting}"
 	except:
@@ -135,21 +134,6 @@ def isdefaultinclude(line):
 		else:
 			return line
 	return None
-	
-def processjava(caption, instream, outstream):
-	print >> outstream, "\kactlerror{Java processor not implemented.}"
-
-def processps(caption, instream, outstream):
-	print >> outstream, "\\kactlref{"+escape(caption)+"}"
-	print >> outstream, "\\begin{lstlisting}[language=TeX,caption={"+escape(caption)+"}]"
-	try:
-		line = " "
-		while line:
-			line = instream.readline()
-			print >> outstream, line.rstrip()
-	except:
-		pass
-	print >> outstream, "\\end{lstlisting}"
 	
 def getlang(input):
 	return input.rsplit('.',1)[-1]
@@ -192,11 +176,13 @@ def main(argv=None):
 		if language == "cpp" or language == "cc" or language == "c" or language == "h" or language == "hpp":
 			processcpp(caption, instream, outstream)
 		elif language == "java":
-			processjava(caption, instream, outstream)
+			processraw(caption, instream, outstream, 'Java')
 		elif language == "ps":
-			processps(caption, instream, outstream)
+			processraw(caption, instream, outstream, 'tex') # listings doesn't have ps as language
 		elif language == "raw":
 			processraw(caption, instream, outstream)
+		elif language == "sh":
+			processraw(caption, instream, outstream, 'bash')
 		else:
 			raise ValueError("Unkown language: " + str(language))
 	except (ValueError, getopt.GetoptError, IOError), err:

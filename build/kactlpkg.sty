@@ -135,23 +135,13 @@
 	}
 }
 
-\newcommand{\kactlimport}[1]{
+\newcommand{\kactlimport}[2][]{ % Using empty default parameter
 	\leftcaption{}\rightcaption{}
 	\setboolean{hasdescription}{false}
 	\setboolean{hasusage}{false}
 	\setboolean{hastime}{false}
 	\setboolean{hasmemory}{false}
-	\immediate\write18{python kactlprocessor.py -i "\@kactldir/#1" -o kactl.tmp}
-	\immediate\input{kactl.tmp}
-}
-
-\newcommand{\kactlrawimport}[1]{
-	\leftcaption{}\rightcaption{}
-	\setboolean{hasdescription}{false}
-	\setboolean{hasusage}{false}
-	\setboolean{hastime}{false}
-	\setboolean{hasmemory}{false}
-	\immediate\write18{python kactlprocessor.py -i "\@kactldir/#1" -o kactl.tmp --language=raw}
+	\immediate\write18{python kactlprocessor.py -i "\@kactldir/#2" -o kactl.tmp #1}
 	\immediate\input{kactl.tmp}
 }
 
