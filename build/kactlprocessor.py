@@ -9,11 +9,13 @@ import getopt
 
 
 def escape(input):
-	input = input.replace('\\','\\\\')
 	input = input.replace('_','\_')
 	input = input.replace('<','$<$')
 	input = input.replace('>','$>$')
 	return input
+	
+def pathescape(input):
+	return escape(input.replace('\\','\\\\'))
 
 def ordoescape(input):
 	start = input.find("O(")
@@ -95,7 +97,7 @@ def processcpp(caption, instream, outstream):
 	if error:
 		print >> outstream, "\kactlerror{ In file ", caption, ":",error,"}"
 	else:
-		print >> outstream, "\\kactlref{",escape(caption),"}"
+		print >> outstream, "\\kactlref{",pathescape(caption),"}"
 		if "Description" in commands and len(commands["Description"])>0:
 			print >> outstream, "\\defdescription{",escape(commands["Description"]),"}"
 		if "Usage" in commands and len(commands["Usage"])>0:
@@ -104,18 +106,19 @@ def processcpp(caption, instream, outstream):
 			print >> outstream, "\\deftime{",ordoescape(commands["Time"]),"}"
 		if "Memory" in commands and len(commands["Memory"])>0:
 			print >> outstream, "\\defmemory{",ordoescape(commands["Memory"]),"}"
-		print >> outstream, "\\leftcaption{",escape(includelist),"}"
+		if len(includelist)>0:
+			print >> outstream, "\\leftcaption{",pathescape(includelist),"}"
 		print >> outstream, "\\rightcaption{",str(linecount(nsource))," lines}"
-		print >> outstream, "\\begin{lstlisting}[caption={",escape(caption),"}]"
+		print >> outstream, "\\begin{lstlisting}[caption={",pathescape(caption),"}]"
 		print >> outstream, nsource
 		print >> outstream, "\\end{lstlisting}"
 
 def processraw(caption, instream, outstream, listingslang = 'C++'):
 	try:
 		source = instream.read().strip()
-		print >> outstream, "\\kactlref{",escape(caption),"}"
+		print >> outstream, "\\kactlref{",pathescape(caption),"}"
 		print >> outstream, "\\rightcaption{",str(linecount(source))," lines}"
-		print >> outstream, "\\begin{lstlisting}[language="+listingslang+",caption={",escape(caption),"}]"
+		print >> outstream, "\\begin{lstlisting}[language="+listingslang+",caption={",pathescape(caption),"}]"
 		print >> outstream, source
 		print >> outstream, "\\end{lstlisting}"
 	except:

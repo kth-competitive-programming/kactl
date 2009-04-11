@@ -141,6 +141,8 @@
 	\setboolean{hasusage}{false}
 	\setboolean{hastime}{false}
 	\setboolean{hasmemory}{false}
+	\setboolean{hasleftcaption}{false}
+	\immediate\write18{rm -f kactl.tmp} % Don't include old kactl.tmp on failure.
 	\immediate\write18{python kactlprocessor.py -i "\@kactldir/#2" -o kactl.tmp #1}
 	\immediate\input{kactl.tmp}
 }
@@ -173,10 +175,13 @@
 	\end{center}
 }
 
+\newboolean{hasleftcaption}
 \newcommand{\leftcaption}[1]{
 	\def\@leftcaption{#1}
+	\setboolean{hasleftcaption}{true}
 }
 \leftcaption{}
+\setboolean{hasleftcaption}{false}
 
 \newcommand{\rightcaption}[1]{
 	\def\@rightcaption{#1}
@@ -228,11 +233,12 @@
      \global \@minipagefalse
      \hb@xt@\hsize{\box\@tempboxa\hfil}
    \fi
+	\vspace{2pt}
 	\ifthenelse{\boolean{hasdescription}}{\codeheader{Description}{\@defdescription}}{}
 	\ifthenelse{\boolean{hasusage}}{\codeheader{Usage}{\@defusage}}{}
 	\ifthenelse{\boolean{hastime}}{\codeheader{Time}{\@deftime}}{}
 	\ifthenelse{\boolean{hasmemory}}{\codeheader{Memory}{\@defmemory}}{}
-	\vspace{2pt}
+	\ifthenelse{\boolean{hasleftcaption}}{\vspace{0pt}}{\vspace{-5pt}}
 	\tiny
 	\texttt{\@leftcaption} \hfill \@rightcaption
 	\vspace{1pt}
