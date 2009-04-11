@@ -1,9 +1,10 @@
 /**
- * Author:
+ * Author: Marcus?
  * Date:
  * Source:
  * Description:
  */
+#pragma once
 #include <cmath>
 
 template<unsigned int N>

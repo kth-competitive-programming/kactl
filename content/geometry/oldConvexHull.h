@@ -1,10 +1,9 @@
 /**
-Author: tinyKACTL, modified by Ulf Lundstrom
-Date: 2009-04-04
-Description: 
-Status: 
-Usage:
-*/
+ * Author: tinyKACTL, modified by Ulf Lundstrom
+ * Date: 2009-04-04
+ * Source:
+ * Description: 
+ */
 #pragma once
 #include <algorithm>
 #include "Point.h"

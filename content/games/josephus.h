@@ -9,6 +9,7 @@
  * 
  *  josephus2 solves this problem when k=2
  */
+#pragma once
 
 int josephus(int n, int k) {
   int d=1;

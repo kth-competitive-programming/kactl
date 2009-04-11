@@ -87,15 +87,15 @@ def processcpp(caption, instream, outstream):
 			commands[command]=value.lstrip()
 	for rcommand in requiredcommands:
 		if not rcommand in commands:
-			warning = warning + "Missing command: " + rcommand + ". "
+			error = error + "Missing command: " + rcommand + ". "
 	if end>=0:
 		nsource = nsource.rstrip() + source[end:]
 	nsource = nsource.strip()
 
 	if warning:
-		print >> outstream, "\kactlwarning{",warning,"}"
+		print >> outstream, "\kactlwarning{",caption,":",warning,"}"
 	if error:
-		print >> outstream, "\kactlerror{ In file ", caption, ":",error,"}"
+		print >> outstream, "\kactlerror{",caption,":",error,"}"
 	else:
 		print >> outstream, "\\kactlref{",pathescape(caption),"}"
 		if "Description" in commands and len(commands["Description"])>0:

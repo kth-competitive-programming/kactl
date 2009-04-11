@@ -1,16 +1,16 @@
 /**
-Author: Chen Xing
-Date: 2009-03-13
-Source: http://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
-Description: KMP data structure holding search "word" W and partial match table T.
-Time: O(m) where m = length(W)
-Memory: O(m) where m = length(W)
-Status: Unknown
-Usage:
-	vector<int> word;
-	KMP<int> wordKMP(word.begin(), word.end());
-Changes:
-*/
+ * Author: Chen Xing
+ * Date: 2009-03-13
+ * Source: http://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+ * Description: KMP data structure holding search "word" W and partial match table T.
+ * Time: O(m) where m = length(W)
+ * Memory: O(m) where m = length(W)
+ * Status: Unknown
+ * Usage:
+ * 	vector<int> word;
+ * 	KMP<int> wordKMP(word.begin(), word.end());
+ * Changes:
+ */
 #pragma once
 
 template<class Ty>

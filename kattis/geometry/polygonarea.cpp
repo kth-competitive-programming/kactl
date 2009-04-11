@@ -7,7 +7,6 @@
 #include <string>
 using namespace std;
 
-#define beaver (;;)
 #define rep(i, a, b) for(int i = (a); i < (b); ++i)
 #define trav(it, v) for(typeof((v).begin()) it = (v).begin(); \
                         it != (v).end(); ++it)
@@ -17,17 +16,17 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 /**
-Author: Ulf Lundstrom with inspiration from tinyKACTL
-Date: 2009-02-26
-Description: Class to handle points in the plane.
-	T can be e.g. double or long long.
-Usage:
-	Point<doubel> p1(5.1, -3.9), p2(1, 0);
-	double distance = (p1*2-p2.rotate(M_PI/2)).dist();
-	double area = p1.cross(p2)/2;
-	cout << "p1=" << p1;
-Status: Works fine
-*/
+ * Author: Ulf Lundstrom with inspiration from tinyKACTL
+ * Date: 2009-02-26
+ * Description: Class to handle points in the plane.
+ * 	T can be e.g. double or long long.
+ * Usage:
+ * 	Point<doubel> p1(5.1, -3.9), p2(1, 0);
+ * 	double distance = (p1*2-p2.rotate(M_PI/2)).dist();
+ * 	double area = p1.cross(p2)/2;
+ * 	cout << "p1=" << p1;
+ * Status: Works fine
+ */
 #include <cmath>
 #include <iostream>
 using namespace std;
@@ -72,15 +71,15 @@ istream & operator>>(istream & is, Point<T> & p) {
 
 
 /**
-Author: Ulf Lundstrom
-Date: 2009-03-21
-Source: tinyKACTL
-Description: Returns twice the signed area of the polygon made up from the points between iterators begin and end. Clockwise enumeration gives negative area. Watch out for overflow if using int as T!
-Usage:
-	double A = polygonArea2<double>(v.begin(),v.end())/2;
-Time: O(n)
-Status: Should work fine
-*/
+ * Author: Ulf Lundstrom
+ * Date: 2009-03-21
+ * Source: tinyKACTL
+ * Description: Returns twice the signed area of the polygon made up from the points between iterators begin and end. Clockwise enumeration gives negative area. Watch out for overflow if using int as T!
+ * Usage:
+ * 	double A = polygonArea2<double>(v.begin(),v.end())/2;
+ * Time: O(n)
+ * Status: Should work fine
+ */
 
 template <class T, class It>
 T polygonArea2(It begin, It end) {

@@ -1,10 +1,10 @@
 /**
-Author: tinykactl, modified by Ulf Lundstrom
-Date: 2009-04-09
-Description: Apply the linear transformation (translation, rotation and scaling) which takes line p0-p1 to line q0-q1 to point r. P is intended to be Point<double>.
-Status: not tested
-Usage:
-*/
+ * Author: tinykactl, modified by Ulf Lundstrom
+ * Date: 2009-04-09
+ * Source:
+ * Description: Apply the linear transformation (translation, rotation and scaling) which takes line p0-p1 to line q0-q1 to point r. P is intended to be Point<double>.
+ * Status: not tested
+ */
 #pragma once
 #include "Point.h"
 

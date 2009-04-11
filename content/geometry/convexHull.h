@@ -1,13 +1,14 @@
 /**
-Author: Ulf Lundstrom
-Date: 2009-04-04
-Description: Rearanges the points between begin and end so that the points of the hull are in counterclockwise order between begin and the returned iterator. Points on the edge of the hull between two other points are not considered part of the hull.
-Status: tested (with unitTest and Kattis convexhull)
-Usage:
-vector<Point<double> > p;
-vector<Point<double> > hull(p.begin(),convexHull(p.begin(),p.end()));
-p.resize(convexHull(p.begin(),p.end())-p.begin());
-*/
+ * Author: Ulf Lundstrom
+ * Date: 2009-04-04
+ * Source:
+ * Description: Rearanges the points between begin and end so that the points of the hull are in counterclockwise order between begin and the returned iterator. Points on the edge of the hull between two other points are not considered part of the hull.
+ * Status: tested (with unitTest and Kattis convexhull)
+ * Usage:
+ * 	vector<Point<double> > p;
+ * 	vector<Point<double> > hull(p.begin(),convexHull(p.begin(),p.end()));
+ * 	p.resize(convexHull(p.begin(),p.end())-p.begin());
+ */
 #pragma once
 #include <algorithm>
 #include "Point.h"

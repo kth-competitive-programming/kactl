@@ -1,15 +1,16 @@
 /**
-Author: Ulf Lundstrom with inspiration from tinyKACTL
-Date: 2009-02-26
-Description: Class to handle points in the plane.
-	T can be e.g. double or long long.
-Usage:
-	Point<doubel> p1(5.1, -3.9), p2(1, 0);
-	double distance = (p1*2-p2.rotate(M_PI/2)).dist();
-	double area = p1.cross(p2)/2;
-	cout << "p1=" << p1;
-Status: Works fine
-*/
+ * Author: Ulf Lundstrom with inspiration from tinyKACTL
+ * Date: 2009-02-26
+ * Source:
+ * Description: Class to handle points in the plane.
+ * 	T can be e.g. double or long long.
+ * Usage:
+ * 	Point<doubel> p1(5.1, -3.9), p2(1, 0);
+ * 	double distance = (p1*2-p2.rotate(M_PI/2)).dist();
+ * 	double area = p1.cross(p2)/2;
+ * 	cout << "p1=" << p1;
+ * Status: Works fine
+ */
 #pragma once
 #include <cmath>
 #include <iostream>

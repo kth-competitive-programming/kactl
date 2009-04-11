@@ -1,9 +1,10 @@
 /**
  * Author:
  * Date:
- * Source:
+ * Source: tinyKACTL
  * Description:
  */
+#pragma once
 
 template<class T>
 T choose(int n, int k) {

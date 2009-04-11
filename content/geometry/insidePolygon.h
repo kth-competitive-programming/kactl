@@ -1,15 +1,16 @@
 /**
-Author: Ulf Lundstrom
-Date: 2009-03-22
-Description: Returns true if p lies within the polygon described by the points between iterators begin and end. If strict false is returned when p is on the edge of the polygon. Answer is calculated by counting the number of intersections between the polygon and a line going from p to infinity in the positive x-direction. The algorithm uses products in intermediate steps so watch out for overflow. If points within epsilon from an edge should be considered as on the edge replace the line "if (onSegment..." with the comment bellow it (this will cause overflow for int and long long).
-Time: O(n)
-Status: tested
-Usage:
-	typedef Point<int> pi;
-	vector<pi> v; v.push_back(pi(4,4));
-	v.push_back(pi(1,2)); v.push_back(pi(2,1));
-	bool in = insidePolygon(v.begin(),v.end(), pi(3,4), false);
-*/
+ * Author: Ulf Lundstrom
+ * Date: 2009-03-22
+ * Source:
+ * Description: Returns true if p lies within the polygon described by the points between iterators begin and end. If strict false is returned when p is on the edge of the polygon. Answer is calculated by counting the number of intersections between the polygon and a line going from p to infinity in the positive x-direction. The algorithm uses products in intermediate steps so watch out for overflow. If points within epsilon from an edge should be considered as on the edge replace the line "if (onSegment..." with the comment bellow it (this will cause overflow for int and long long).
+ * Time: O(n)
+ * Status: tested
+ * Usage:
+ * 	typedef Point<int> pi;
+ * 	vector<pi> v; v.push_back(pi(4,4));
+ * 	v.push_back(pi(1,2)); v.push_back(pi(2,1));
+ * 	bool in = insidePolygon(v.begin(),v.end(), pi(3,4), false);
+ */
 #pragma once
 #include "Point.h"
 #include "onSegment.h"

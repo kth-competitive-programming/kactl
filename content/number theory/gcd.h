@@ -1,9 +1,10 @@
 /**
  * Author:
  * Date:
- * Source:
+ * Source: tinyKACTL
  * Description:
  */
+#pragma once
 
 int gcd(int a, int b) {
   return b==0?a:gcd(b, a%b);

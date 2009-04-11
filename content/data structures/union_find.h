@@ -4,6 +4,7 @@
  * Source: tinyKACTL, Introduction to Algorithms
  * Description:
  */
+#pragma once
 #include <vector>
 
 struct union_find {

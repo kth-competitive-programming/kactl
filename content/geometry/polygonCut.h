@@ -1,13 +1,14 @@
 /**
-Author: Ulf Lundstrom
-Date: 2009-03-21
-Description: Returns a vector with the vertices of the polygon created from the points between begin and end with everything to the left of the line going from s to e cut away. P can be e.g. Point<double> or Point<int> and It should be an iterator const_iterator with value type P. Products are used in intermediate steps so watch out for overflow.
-Status: tested but not extensivly
-Usage:
-typedef Point<double> P;
-vector<P> p = ...;
-p = polygonCut(p.begin(),p.end(),P(0,0),P(1,0));
-*/
+ * Author: Ulf Lundstrom
+ * Date: 2009-03-21
+ * Source:
+ * Description: Returns a vector with the vertices of the polygon created from the points between begin and end with everything to the left of the line going from s to e cut away. P can be e.g. Point<double> or Point<int> and It should be an iterator const_iterator with value type P. Products are used in intermediate steps so watch out for overflow.
+ * Status: tested but not extensivly
+ * Usage:
+ * 	typedef Point<double> P;
+ * 	vector<P> p = ...;
+ * 	p = polygonCut(p.begin(),p.end(),P(0,0),P(1,0));
+ */
 #pragma once
 #include "Point.h"
 #include "lineIntersection.h"
