@@ -1,9 +1,11 @@
-// Contest, Location, Date
-//
-// Team name
-// Team member 1, Team member 2, Team member 3
-//
-// Problem:
+// This file should be included in all test files
+// as it contains the same inclusions and definitions
+// as the contest template file.
+#pragma once
+
+#ifdef __INTEL_COMPILER
+#	define typeof(x) auto
+#endif
 
 #include <cmath>
 #include <cstdlib>
@@ -11,6 +13,7 @@
 #include <map>
 #include <queue>
 #include <set>
+#include <sstream>
 #include <string>
 using namespace std;
 
@@ -21,14 +24,3 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
-
-bool solve(int tc) {
-	return true;
-}
-
-int main() {
-	int n = 1 << 30;
-	if(!n) cin >> n;
-	for(int i = 0; i < n && solve(i); ++i);
-	return 0;
-}

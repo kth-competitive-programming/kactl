@@ -1,9 +1,4 @@
-// Contest, Location, Date
-//
-// Team name
-// Team member 1, Team member 2, Team member 3
-//
-// Problem:
+// Problem: airlinehub (Kattis)
 
 #include <cmath>
 #include <cstdlib>
@@ -21,8 +16,28 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
+typedef vector<double> vd;
+
+//#include "../../content/geometry/sphericalDistance.h"
+#include "sphericalDistance.h"
 
 bool solve(int tc) {
+	int n;
+	if (!(cin >> n) || !n) return false;
+	vd lon(n), lat(n);
+	rep(i,0,n) cin >> lat[i] >> lon[i];
+	int bi = 0;
+	double bd = 1e100;
+	rep(i,0,n) {
+		double d = 0;
+		rep(j,0,n)
+			d = max(d,sphericalDistance(lon[i],lat[i],lon[j],lat[j],1));
+		if (d < bd) {
+			bd = d;
+			bi = i;
+		}
+	}
+	printf("%.2lf %.2lf\n",lat[bi],lon[bi]);
 	return true;
 }
 

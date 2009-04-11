@@ -1,10 +1,3 @@
-// Contest, Location, Date
-//
-// Team name
-// Team member 1, Team member 2, Team member 3
-//
-// Problem:
-
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
@@ -14,6 +7,7 @@
 #include <string>
 using namespace std;
 
+#define beaver (;;)
 #define rep(i, a, b) for(int i = (a); i < (b); ++i)
 #define trav(it, v) for(typeof((v).begin()) it = (v).begin(); \
                         it != (v).end(); ++it)
@@ -23,11 +17,14 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 bool solve(int tc) {
+	int n = rand()%100+3;
+	cout << n << endl;
+	rep(i,0,n) cout << rand()%20000-10000 << " " << rand()%20000-10000 << endl;
 	return true;
 }
 
 int main() {
-	int n = 1 << 30;
+	int n = 0;
 	if(!n) cin >> n;
 	for(int i = 0; i < n && solve(i); ++i);
 	return 0;
