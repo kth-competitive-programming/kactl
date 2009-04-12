@@ -6,12 +6,12 @@
  * Status: not tested
  * Usage:
  vector<pair<int,int> > v;
- v = intervalUnion(v.begin(), v.end());
+ v = intervalUnion<int>(v.begin(), v.end());
  * Time: O(n\log n)
  */
 #pragma once
 
-template <class It, class T>
+template <class T, class It>
 vector<pair<T,T> > intervalUnion(It begin, It end) {
 	sort(begin, end);
 	vector<pair<T,T> > res(1, *begin);
