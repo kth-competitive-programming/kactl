@@ -5,8 +5,9 @@
  * Description: Class to handle points in the plane.
  * 	T can be e.g. double or long long.
  * Usage:
- * 	Point<doubel> p1(5.1, -3.9), p2(1, 0);
- * 	double distance = (p1*2-p2.rotate(M_PI/2)).dist();
+ * 	Point<doubel> p1(5.1, -3.9), p2;
+ * 	cin >> p2;
+ * 	double distance = (p1*2-p2.rotate(M_PI/3)).dist();
  * 	double area = p1.cross(p2)/2;
  * 	cout << "p1=" << p1;
  * Status: Works fine
@@ -32,13 +33,13 @@ struct Point {
 	T dot(R p) const { return x*p.x + y*p.y; }
 	T cross(R p) const { return x*p.y - y*p.x; }
 	T dist2() const { return x*x + y*y; } //distance^2
-	double dist() const { return sqrt((double)dist2()); }
+	double dist() const { return sqrt((double)dist2()); } //length
 	//angle to x-axis in interval [-pi, pi]
 	double angle() const { return atan2(y, x); } 
-	P unit() const { return *this/(T)dist(); }
+	P unit() const { return *this/(T)dist(); } //makes dist()=1
 	P perp() const { return P(-y, x); } //rotates +pi/2 radians
 	P normal() const { return perp().unit(); }
-	//returns point rotated a radians counter clock wise around origo
+	//returns point rotated a radians counterclockwise around origo
 	P rotate(double a) const {
 		return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a));
 	}

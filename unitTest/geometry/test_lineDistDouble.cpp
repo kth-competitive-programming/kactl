@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/geometry/lineDist.h"
+#include "../../content/geometry/lineDistance.h"
 #include <fstream>
 #include <sstream>
 
