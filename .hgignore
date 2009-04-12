@@ -9,4 +9,10 @@ syntax: glob
 
 # switch to regexp syntax.
 syntax: regexp
-#^\.pc/
+^build/kactl.aux
+^build/kactl.log
+^build/kactl.pdf
+^build/kactl.ptc
+^build/kactl.tmp
+^build/kactl.toc
+^kactl.pdf
