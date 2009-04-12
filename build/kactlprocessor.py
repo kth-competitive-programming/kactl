@@ -9,15 +9,25 @@ import getopt
 
 
 def escape(input):
-	input = input.replace('_','\_')
-	input = input.replace('<','$<$')
-	input = input.replace('>','$>$')
+	input = input.replace('<','\ensuremath{<}')
+	input = input.replace('>','\ensuremath{>}')
 	return input
-	
+
 def pathescape(input):
-	return escape(input.replace('\\','\\\\'))
+	input = input.replace('\\','\\\\')
+	input = input.replace('_','\_')
+	input = escape(input)
+	return input
+
+def codeescape(input):
+	input = escape(input)
+	input = input.replace('_','\_')
+	input = input.replace('\n','\\\\\n')
+	return input
 
 def ordoescape(input):
+	# TODO obviously buggy
+	input = escape(input)
 	start = input.find("O(")
 	end = input.find(")",start)
 	if start>=0 and end >=0:
@@ -101,7 +111,7 @@ def processcpp(caption, instream, outstream):
 		if "Description" in commands and len(commands["Description"])>0:
 			print >> outstream, "\\defdescription{",escape(commands["Description"]),"}"
 		if "Usage" in commands and len(commands["Usage"])>0:
-			print >> outstream, "\\defusage{",escape(commands["Usage"]).replace('\n','\\\\\n'),"}"
+			print >> outstream, "\\defusage{",codeescape(commands["Usage"]),"}"
 		if "Time" in commands and len(commands["Time"])>0:
 			print >> outstream, "\\deftime{",ordoescape(commands["Time"]),"}"
 		if "Memory" in commands and len(commands["Memory"])>0:
