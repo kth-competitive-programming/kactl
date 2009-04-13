@@ -8,6 +8,7 @@
  vector<pair<int,int> > v;
  v = intervalUnion<int>(v.begin(), v.end());
  * Time: O(n\log n)
+ * Problems: UVa 11355 - Cool Points
  */
 #pragma once
 
