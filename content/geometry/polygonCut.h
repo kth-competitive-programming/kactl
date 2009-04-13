@@ -2,7 +2,7 @@
  * Author: Ulf Lundstrom
  * Date: 2009-03-21
  * Source:
- * Description: Returns a vector with the vertices of the polygon created from the points between begin and end with everything to the left of the line going from s to e cut away. P can be e.g. Point<double> or Point<int> and It should be an iterator const_iterator with value type P. Products are used in intermediate steps so watch out for overflow.
+ * Description: Returns a vector with the vertices of the polygon created from the points between begin and end with everything to the left of the line going from s to e cut away. P can be e.g. Point<double> or Point<int> and It should be an iterator const\_iterator with value type P. Products are used in intermediate steps so watch out for overflow.
  * Status: tested but not extensivly
  * Usage:
  * 	typedef Point<double> P;
