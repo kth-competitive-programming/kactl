@@ -2,12 +2,67 @@
 % Written by Håkan Terelius, 2009-02-10
 
 \chapter{Useful mathematical identities}
+%\section{Equations}
+%\section{Trigonometry}
+%\section{Geometry}
+%\section{Derivatives/Integrals}
 
 \section{Equations}
-
+$$\begin{aligned}ax+by=c\\cx+dy=f\end{aligned}
+\Rightarrow
+\begin{aligned}x=\dfrac{ed-bf}{ad-bc}\\y=\dfrac{af-ec}{ad-bc}\end{aligned}$$
 \section{Trigonometry}
-
+\begin{align*}
+\sin(v+w)&{}=\sin v\cos w+\cos v\sin w\\
+cos(v+w)&{}=\cos v\cos w-\sin v\sin w\\
+\tan(v+w)&{}=\dfrac{\tan v+\tan w}{1-\tan v\tan w}\\
+\sin v+\sin w&{}=2\sin\dfrac{v+w}{2}\cos{v-w}{2}\\
+\cos v+\cos w&{}=2\cos\dfrac{v+w}{2}\cos{v-w}{2}\\
+(V+W)\tan(v-w)/2&{}=(V-W)\tan(v+w)/2
+\end{align*}
+where $V$ is the length of the side opposite the angle $v$, and
+similar for $W$.
+\begin{align*}
+\begin{cases}
+a\cos x+b\sin x=r\cos(x-\phi)\\
+a\sin x+b\cos x=r\sin(x+\phi)
+\end{cases}
+\end{align*}
+where $r=\sqrt{a^2+b^2}, \phi=\operatorname{atan2}(b,a)$.
+\section{Spherical trigonometry}
+$a,b,c=\text{sides}$, $\alpha,\beta,\gamma=\text{angles}$, all
+six\ldots \emph{NOT DONE YET}
+\begin{align*}
+\cos a&{}=\cos b \cos c + \sin b \sin c \cos \alpha\\
+\cos \alpha&{}=-\cos\beta \cos\gamma + \sin\beta\sin\gamma\cos a\\
+\sin \alpha/\sin a&{}=\sin\beta\sin b=\sin\gamma/\sin c
+\end{align*}
 \section{Geometry}
-
+\subsection{Triangles}
+Side lengths $a,b,c$.\\
+Semiperimeter $p=\dfrac{a+b+c}{2}$.\\
+Area $A=\sqrt{p(p-a)(p-b)(p-c)}$.\\
+Circumradius $R=\dfrac{abc}{4A}$.\\
+Inradius $r=\dfrac{A}{p}$.\\
+Median (divides triangle into two equal-sized triangles)
+$m_a=\tfrac{1}{2}\sqrt{2b^2+2c^2-a^2}$.\\
+Bisector (divides angles in two)
+$s_a=\sqrt{bc\left[1-\left(\dfrac{a}{b+c}\right)^2\right]}$.
+$$\frac{\sin\alpha}{a}=\frac{\sin\beta}{b}=\frac{\sin\gamma}{c}=\frac{1}{2R}$$
+$$a^2=b^2+c^2-2bc\cos\alpha$$
+$$\frac{a+b}{a-b}=\frac{\tan\dfrac{\alpha+\beta}{2}}{\tan\dfrac{\alpha-\beta}{2}}$$
+\subsection{Quadrilaterals}
+Side lengths $a,b,c,d$.\\
+Diagonals $e(ad\leftrightarrow bc), f(ab\leftrightarrow cd)$.\\
+Diagonals angle $\theta$.\\
+Magic flux $F=b^2+d^2-a^2-c^2$.\\
+Area $4A=2ef\sin\theta=F\tan\theta=\sqrt{4e^2f^2-F^2}$.
 \section{Derivatives/Integrals}
-
+\begin{align*}
+\dfrac{d}{dx}\arcsin x&{}=\dfrac{1}{\sqrt{1-x^2}} &
+\dfrac{d}{dx}\arccos x&{}=-\dfrac{1}{\sqrt{1-x^2}}\\
+\dfrac{d}{dx}\tan x&{}=1+\tan^2 x &
+\dfrac{d}{dx}\arctan x&{}=\dfrac{1}{1+x^2}\\
+\int\tan ax&{}=-\dfrac{\ln|\cos ax|}{a} &
+\int x\sin ax&{}=\dfrac{\sin ax-ax \cos ax}{a^2}
+\end{align*}
