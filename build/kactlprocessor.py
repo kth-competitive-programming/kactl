@@ -23,6 +23,8 @@ def codeescape(input):
 	input = escape(input)
 	input = input.replace('_','\_')
 	input = input.replace('\n','\\\\\n')
+	input = input.replace('{','\\{')
+	input = input.replace('}','\\}')
 	return input
 
 def ordoescape(input):
