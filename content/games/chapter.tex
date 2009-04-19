@@ -17,3 +17,24 @@
 
 \section{Strings}
 	\kactlimport{KMP.h}
+
+\section{Burrow-Wheeler transform}
+
+\begin{verbatim}
+function BWT (string s)
+   create a table, rows are all possible
+	-> rotations of s
+   sort rows alphabetically
+   return (last column of the table)
+ 
+function inverseBWT (string s)
+  create empty table 
+       
+  repeat length(s) times
+    insert s as a column of table before first
+      -> column of the table // first insert
+		-> // creates first column
+   sort rows of the table alphabetically
+   return (row that ends with the 'EOF' char)
+\end{verbatim}
+
