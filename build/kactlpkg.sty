@@ -4,7 +4,7 @@
 
 \usepackage[utf8]{inputenc}				% Encoding UTF-8
 \usepackage{listings}					% Source code listings
-\usepackage[a4paper,landscape,hmargin={0.5cm,0.5cm},vmargin={1.5cm,0cm}]{geometry}
+\usepackage[a4paper,landscape,hmargin={0.5cm,0.5cm},vmargin={1.5cm,1cm}]{geometry}
 \usepackage{multicol}					% Split page in multiple columns
 \usepackage{fancyhdr}					% Fancy headers
 \usepackage{amsbsy, amssymb, amsmath}	% Enable math symbols
@@ -12,14 +12,15 @@
 \usepackage{titletoc}					% Design control over Table of Contents
 \usepackage{ifthen}						% To enable some conditional programming in LaTeX
 \usepackage{courier}					% To get bold typewriter typeface
+\usepackage{graphicx}         % To rotate page numbers
 
 \AtBeginDocument{\maketitle}
 \AtEndDocument{}
 
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0 pt}
-\chead{}\rhead{\thepage}\lhead{}
-\cfoot{}\rfoot{}\lfoot{}
+\chead{\thepage}\rhead{}\lhead{}
+\cfoot{}\rfoot{\rotatebox{-90}{\thepage}}\lfoot{}
 \fancyheadoffset{0pt}
 \fancyfootoffset{0pt}
 \setlength\headsep{10pt}
