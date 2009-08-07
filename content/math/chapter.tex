@@ -1,16 +1,13 @@
 % This is the LaTeX file for the chapter "Useful mathematical identities" in KACTL (KTH ACM Contest Template Library)
-% Written by Håkan Terelius, 2009-02-10
+% Written by Anders Sjoqvist and Ulf Lundstrom, 2009
 
 \chapter{Useful mathematical identities}
-%\section{Equations}
-%\section{Trigonometry}
-%\section{Geometry}
-%\section{Derivatives/Integrals}
 
 \section{Equations}
 $$\begin{aligned}ax+by=c\\cx+dy=f\end{aligned}
 \Rightarrow
 \begin{aligned}x=\dfrac{ed-bf}{ad-bc}\\y=\dfrac{af-ec}{ad-bc}\end{aligned}$$
+
 \section{Trigonometry}
 \begin{align*}
 \sin(v+w)&{}=\sin v\cos w+\cos v\sin w\\
@@ -22,6 +19,7 @@ cos(v+w)&{}=\cos v\cos w-\sin v\sin w\\
 \end{align*}
 where $V$ is the length of the side opposite the angle $v$, and
 similar for $W$.
+
 \begin{align*}
 \begin{cases}
 a\cos x+b\sin x=r\cos(x-\phi)\\
@@ -29,6 +27,25 @@ a\sin x+b\cos x=r\sin(x+\phi)
 \end{cases}
 \end{align*}
 where $r=\sqrt{a^2+b^2}, \phi=\operatorname{atan2}(b,a)$.
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+$\phi$ & $\sin\phi$ & $\cos\phi$ & $\tan\phi$ \\
+\hline
+$0 = 0^\circ$ & $0$ & $1$ & $0$\\
+\hline
+$\pi/6 = 30^\circ$ & $1/2$ & $\sqrt3/2$ & $1/sqrt3$\\
+\hline
+$\pi/4 = 45^\circ$ & $1/\sqrt2$ & $1/\sqrt2$ & $1$\\
+\hline
+$\pi/3 = 60^\circ$ & $\sqrt3/2$ & $1/2$ & $\sqrt3$\\
+\hline
+$\pi/2 = 90^\circ$ & $1$ & $0$ & --\\
+\hline
+\end{tabular}
+\end{center}
+
 \section{Spherical trigonometry}
 $a,b,c=\text{sides}$, $\alpha,\beta,\gamma=\text{angles}$, all
 six\ldots \emph{NOT DONE YET}
@@ -37,32 +54,59 @@ six\ldots \emph{NOT DONE YET}
 \cos \alpha&{}=-\cos\beta \cos\gamma + \sin\beta\sin\gamma\cos a\\
 \sin \alpha/\sin a&{}=\sin\beta\sin b=\sin\gamma/\sin c
 \end{align*}
+
 \section{Geometry}
+
 \subsection{Triangles}
-Side lengths $a,b,c$.\\
-Semiperimeter $p=\dfrac{a+b+c}{2}$.\\
-Area $A=\sqrt{p(p-a)(p-b)(p-c)}$.\\
-Circumradius $R=\dfrac{abc}{4A}$.\\
-Inradius $r=\dfrac{A}{p}$.\\
-Median (divides triangle into two equal-sized triangles)
-$m_a=\tfrac{1}{2}\sqrt{2b^2+2c^2-a^2}$.\\
-Bisector (divides angles in two)
-$s_a=\sqrt{bc\left[1-\left(\dfrac{a}{b+c}\right)^2\right]}$.
-$$\frac{\sin\alpha}{a}=\frac{\sin\beta}{b}=\frac{\sin\gamma}{c}=\frac{1}{2R}$$
-$$a^2=b^2+c^2-2bc\cos\alpha$$
-$$\frac{a+b}{a-b}=\frac{\tan\dfrac{\alpha+\beta}{2}}{\tan\dfrac{\alpha-\beta}{2}}$$
+Side lengths: $a,b,c$\\
+Semiperimeter: $p=\dfrac{a+b+c}{2}$\\
+Area: $A=\sqrt{p(p-a)(p-b)(p-c)}$\\
+Circumradius: $R=\dfrac{abc}{4A}$\\
+Inradius: $r=\dfrac{A}{p}$\\
+Median (divides triangle into two equal-sized triangles): $m_a=\tfrac{1}{2}\sqrt{2b^2+2c^2-a^2}$\\
+Bisector (divides angles in two): $s_a=\sqrt{bc\left[1-\left(\dfrac{a}{b+c}\right)^2\right]}$\\
+law of sines: $\dfrac{\sin\alpha}{a}=\dfrac{\sin\beta}{b}=\dfrac{\sin\gamma}{c}=\dfrac{1}{2R}$\\
+Law of cosines: $a^2=b^2+c^2-2bc\cos\alpha$\\
+Law of tangents: $\dfrac{a+b}{a-b}=\dfrac{\tan\dfrac{\alpha+\beta}{2}}{\tan\dfrac{\alpha-\beta}{2}}$\\
+
 \subsection{Quadrilaterals}
 Side lengths $a,b,c,d$.\\
 Diagonals $e(ad\leftrightarrow bc), f(ab\leftrightarrow cd)$.\\
 Diagonals angle $\theta$.\\
 Magic flux $F=b^2+d^2-a^2-c^2$.\\
 Area $4A=2ef\sin\theta=F\tan\theta=\sqrt{4e^2f^2-F^2}$.
+
 \section{Derivatives/Integrals}
 \begin{align*}
-\dfrac{d}{dx}\arcsin x&{}=\dfrac{1}{\sqrt{1-x^2}} &
-\dfrac{d}{dx}\arccos x&{}=-\dfrac{1}{\sqrt{1-x^2}}\\
-\dfrac{d}{dx}\tan x&{}=1+\tan^2 x &
-\dfrac{d}{dx}\arctan x&{}=\dfrac{1}{1+x^2}\\
-\int\tan ax&{}=-\dfrac{\ln|\cos ax|}{a} &
-\int x\sin ax&{}=\dfrac{\sin ax-ax \cos ax}{a^2}
+\dfrac{d}{dx}\arcsin x = \dfrac{1}{\sqrt{1-x^2}} & \quad
+\dfrac{d}{dx}\arccos x = -\dfrac{1}{\sqrt{1-x^2}}\\
+\dfrac{d}{dx}\tan x = 1+\tan^2 x & \quad
+\dfrac{d}{dx}\arctan x = \dfrac{1}{1+x^2}\\
+\int\tan ax = -\dfrac{\ln|\cos ax|}{a} & \quad
+\int x\sin ax = \dfrac{\sin ax-ax \cos ax}{a^2}\\
+\int \frac{dx}{x} = \ln|x| & \quad
+\int xe^{ax}dx = \frac{e^{ax}}{a^2}(ax-1)\\
 \end{align*}
+
+Integration by parts:
+$$\int_a^bf(x)g(x)dx = [F(x)g(x)]_a^b-\int_a^bF(x)g'(x)dx$$
+
+\section{Series} 
+Geometric series:
+\begin{align*}
+\sum_{k=0}^{n-1}x^k &= \frac{x^n-1}{x-1} = \frac{1-x^n}{1-x},\,(x\neq0)\\
+\sum_{k=0}^{\infty}x^k &= \frac{1}{1-x},\,(-1<x<1)\\
+\end{align*}
+
+Sums of powers:
+\begin{align*}
+\sum_{k=1}^n k &= \frac{n(n+1)}{2}\\
+\sum_{k=1}^n k^2 &= \frac{n(n+1)(2n+1)}{6}\\
+\sum_{k=1}^n k^3 &= \frac{n^2(n+1)^2}{4}\\
+\end{align*}
+
+Taylor series:
+
+\section{Ceil and floor relations}
+
+
