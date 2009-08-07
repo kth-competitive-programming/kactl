@@ -5,10 +5,7 @@
  * Description: Finds the argument minimizing the function $f$ in the interval $[a,b]$ assuming $f$ is unimodal on the interval, i.e. has only one local minima. The maximum error in the result is $e$. Works equaly well for maximization with a small change in the code.
  * Status: tested
  * Usage:
-double func(double x) {
-	return 4+x+.3*x*x;
-}
-...
+	double func(double x) { return 4+x+.3*x*x; }
 	double xmin = gss(-1000,1000,func);
 	double pi = gss(0,6,cos);
  * Time: $O\left(\log\left(\frac{b-a}{e}\right)\right)$
