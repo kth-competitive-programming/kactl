@@ -2,7 +2,7 @@
  * Author: Ulf Lundstrom
  * Date: 2009-04-07
  * Source:
- * Description: returns the shortest distance on the sphere with radius radius between the points with azimuthal angles (longitude) f1 ($\phi_1$) and f2 ($\phi_2$) and zenith angles (latitude) t1 ($\theta_1$) and t2 ($\theta_2$). All angles measured in radians.
+ * Description: returns the shortest distance on the sphere with radius radius between the points with azimuthal angles (longitude) f1 ($\phi_1$) and f2 ($\phi_2$) from x axis and zenith angles (latitude) t1 ($\theta_1$) and t2 ($\theta_2$) from z axis. All angles measured in radians.
  * Status: somewhat tested, to be tested with UVa 535
  */
 #pragma once
