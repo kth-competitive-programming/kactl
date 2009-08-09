@@ -5,11 +5,12 @@
  * Description: This is a list of what should be added and changed in the kactl.
  * Time: Uncomputable
  * Status: Hopeless
- * Usage: Choose a random line in the file. Do what it says or implement the algorithm stated. Test what you have written and include it in the kactl. Remove the line and repeat until this file is empty.
+ * Usage: Choose a random line in the file. Do what it says or implement the algorithm indicated. Test what you have written and include it in the kactl. Remove the line and repeat until this file is empty.
  */
 
 General:
 New edition name
+Test everything that is not tested
 
 Latex bugs:
 {} around < in usage

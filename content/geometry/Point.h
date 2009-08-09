@@ -1,7 +1,7 @@
 /**
- * Author: Ulf Lundstrom with inspiration from tinyKACTL
+ * Author: Ulf Lundstrom
  * Date: 2009-02-26
- * Source:
+ * Source: My head with inspiration from tinyKACTL
  * Description: Class to handle points in the plane.
  * 	T can be e.g. double or long long.
  * Usage:
@@ -10,7 +10,7 @@
  * 	double distance = (p1*2-p2.rotate(M_PI/3)).dist();
  * 	double area = p1.cross(p2)/2;
  * 	cout << "p1=" << p1;
- * Status: Works fine
+ * Status: Works fine, used a lot
  */
 #pragma once
 #include <cmath>

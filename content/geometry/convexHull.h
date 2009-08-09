@@ -1,7 +1,7 @@
 /**
  * Author: Ulf Lundstrom
  * Date: 2009-04-04
- * Source:
+ * Source: Basic algorithm knowledge
  * Description: Rearanges the points between begin and end so that the points of the hull are in counterclockwise order between begin and the returned iterator. Points on the edge of the hull between two other points are not considered part of the hull.
  * Status: tested (with unitTest and Kattis convexhull)
  * Usage:

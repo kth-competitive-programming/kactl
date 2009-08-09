@@ -4,9 +4,11 @@
  * Source: tinyKACTL
  * Description: Returns twice the signed area of the polygon made up from the points between iterators begin and end. Clockwise enumeration gives negative area. Watch out for overflow if using int as T!
  * Usage:
+ *  vector<Point<double> > v;
  * 	double A = polygonArea2<double>(v.begin(),v.end())/2;
  * Time: O(n)
- * Status: Should work fine
+ * Status: Tested with UVa Online Judge Problem: 109 - SCUD Busters
+
  */
 #pragma once
 #include "Point.h"
