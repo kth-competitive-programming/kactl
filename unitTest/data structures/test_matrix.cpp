@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/numerical/matrix.h"
+#include "../../content/data structures/matrix.h"
 #include <fstream>
 #include <sstream>
 

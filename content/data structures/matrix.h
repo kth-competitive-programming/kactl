@@ -2,18 +2,20 @@
  * Author: Ulf Lundstrom
  * Date: 2009-08-03
  * Source: My head
- * Description: Class for handling matrices with the +*-/^ operators and functions for accessing individual elements and reading and writing a matrix to a stream. Most of the functions are not always neccescary so not all of them need to be implemented.
+ * Description: Class for handling matrices with the +, *, -, / and $\hat{ }$ operators and functions for accessing individual elements and reading and writing a matrix to a stream. Most of the functions are not always neccescary so not all of them need to be implemented.
  * Usage:
- Matrix<int> A(3,3,2), b(3,1,3);
- A(1,2) = 5;
- b(2,0) = 0;
- cout << b/2 + A*A*b*3 + (A^3)*b - A->*A*b + 5;
  * Status: tested
  */
 #pragma once
 #include <cmath>
 #include <iostream>
-using namespace std;
+
+ /*Usage:
+ Matrix<int> A(3,3,2), b(3,1,3);
+ A(1,2) = 5;
+ b(2,0) = 0;
+ cout << b/2 + A*A*b*3 + (A^3)*b - A->*A*b + 5;
+ */
 
 template <class T>
 struct Matrix {

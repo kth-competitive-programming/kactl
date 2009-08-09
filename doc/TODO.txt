@@ -1,31 +1,43 @@
-This is a list of what should be added and changed in the kactl.
+/**
+ * Author: Ulf Lundstrom
+ * Date: 2009-08-09
+ * Source: Thinking and conversation with Hakan.
+ * Description: This is a list of what should be added and changed in the kactl.
+ * Time: Uncomputable
+ * Status: Hopeless
+ * Usage: Choose a random line in the file. Do what it says or implement the algorithm stated. Test what you have written and include it in the kactl. Remove the line and repeat until this file is empty.
+ */
 
 General:
 New edition name
+
+Latex bugs:
 {} around < in usage
 bigO-bug
+why c++ typesetting to non-c++ files
+handling of initial comment in non-c++ files
+^ in usage doesn't seem to work/Ulf
+indentation in usage
 
 Chapter 1: Contest
 The new scripts with backup
-List of common reasons for WA and RTE
 
 Chapter 2: Useful mathematical identities
 figures for the geometry
-finish sphereical trigonometry
+finish spherical trigonometry
 
 Chapter 3: Data structures
 Description for union_find.h (unionFind.h) (Marcus?)
 indexMapper
 rational
-matrix
 polynomial
 suffix tree/array
 trie
 bigInt
+make matrix better
 
 Chapter 4: Numerical
 Newton-Raphson (Ulf)
-sqrt (Ulf)
 Simplex (Hakan)
 description for matrix inverse and solve linear or new code
 matrix determinant

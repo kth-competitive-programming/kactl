@@ -1,7 +1,7 @@
 /**
  * Author: Ulf Lundstrom
  * Date: 2005-12-04
- * Source:
+ * Source: My solved problems
  * Description: Example of java code using a Scanner for input and BigInteger for calculations. The code prints the number of ways to build binary trees with n nodes for each input value n.
  * Status: tested
  */
