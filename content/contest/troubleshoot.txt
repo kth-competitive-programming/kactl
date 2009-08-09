@@ -25,9 +25,9 @@ Read the full problem statement again.
 Create some testcase to run your algorithm on.
 Go through this list again.
 Go through the algorithm for a simple case.
-Explain your algorithm for a team mate.
+Explain your algorithm to a team mate.
 Ask the team mate to look at your code.
-Rewrite your solution from the start or let your team mate do it.
+Rewrite your solution from the start or let a team mate do it.
 
 Runtime error:
 Have you tested all corner cases localy?
