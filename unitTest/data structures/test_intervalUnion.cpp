@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/games/intervalUnion.h"
+#include "../../content/data structures/intervalUnion.h"
 #include <fstream>
 #include <sstream>
 

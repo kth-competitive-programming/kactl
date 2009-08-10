@@ -55,7 +55,7 @@ six\ldots \emph{NOT DONE YET}
 \begin{align*}
 \cos a&{}=\cos b \cos c + \sin b \sin c \cos \alpha\\
 \cos \alpha&{}=-\cos\beta \cos\gamma + \sin\beta\sin\gamma\cos a\\
-\sin \alpha/\sin a&{}=\sin\beta\sin b=\sin\gamma/\sin c
+\sin \alpha/\sin a&{}=\sin\beta/\sin b=\sin\gamma/\sin c
 \end{align*}
 
 \section{Geometry}
@@ -82,7 +82,7 @@ Area $4A=2ef\sin\theta=F\tan\theta=\sqrt{4e^2f^2-F^2}$.
 \subsection{Spherical coordinates}
 $$\begin{array}{cc}
 x = r\sin\theta\cos\phi & r = \sqrt{x^2+y^2+z^2}\\
-y = r\sin\theta\sin\phi & \theta = \textrm{acos}(z/sqrt{x^2+y^2+z^2})\\
+y = r\sin\theta\sin\phi & \theta = \textrm{acos}(z/\sqrt{x^2+y^2+z^2})\\
 z = r\cos\theta & \phi = \textrm{atan2}(y,x)
 \end{array}$$
 
@@ -158,7 +158,7 @@ $$\mu = \frac1p,\,\sigma^2=\frac{1-p}{p^2}$$
 
 \subsubsection{Poisson distribution}
 The number of events occuring in a fixed period of time $t$ if these events occur with a known average rate $\kappa$ and independently of the time since the last event is $\textrm{Po}(\lambda),\,\lambda=t\kappa$.
-$$p(k)=e^{-\lambda}\frac{\lambda^k}{k!}$$
+$$p(k)=e^{-\lambda}\frac{\lambda^k}{k!},',k=0,1,2,\dots$$
 $$\mu=\lambda,\,\sigma^2=\lambda$$
 
 \subsection{Continuous distributions}

@@ -22,7 +22,7 @@ Are you sure your algorithm works?
 What special cases have you not thought of?
 Are you sure the stl functions you use work as you think?
 Read the full problem statement again.
-Create some testcase to run your algorithm on.
+Create some testcases to run your algorithm on.
 Go through this list again.
 Go through the algorithm for a simple case.
 Explain your algorithm to a team mate.
@@ -30,7 +30,7 @@ Ask the team mate to look at your code.
 Rewrite your solution from the start or let a team mate do it.
 
 Runtime error:
-Have you tested all corner cases localy?
+Have you tested all corner cases locally?
 Are you reading or writing outside the range of any vector?
 Any possible division by 0?
 Any possible infinite recursion?

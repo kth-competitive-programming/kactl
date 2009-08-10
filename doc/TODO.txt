@@ -16,12 +16,11 @@ Latex bugs:
 {} around < in usage
 bigO-bug
 why c++ typesetting to non-c++ files
-handling of initial comment in non-c++ files
 ^ in usage doesn't seem to work/Ulf
 indentation in usage
 
 Chapter 1: Contest
-The new scripts with backup
+The new scripts with backup (Chen)
 
 Chapter 2: Useful mathematical identities
 figures for the geometry
@@ -32,8 +31,6 @@ Description for union_find.h (unionFind.h) (Marcus?)
 indexMapper
 rational
 polynomial
-suffix tree/array
-trie
 bigInt
 make matrix better
 
@@ -56,6 +53,7 @@ compare prime sieves
 pollards rho algorithm
 primality test
 list of primes
+Euler \phi function
 
 Chapter 6: Combinatorial
 12-fold way with table and list with explanations and examples
@@ -75,12 +73,19 @@ general matching
 Chapter 8: Geometry
 Figures to most of the algorithms
 Voronoi diagrams (Hakan)
-triangle are from side lengths or vertex coordinates
+triangle area from side lengths or vertex coordinates
 circle inscribed in triangle
+minimum enclosing circle
 
-Chapter 9: Games and Puzzles
+Chapter 9: Strings
+suffix tree/array
+trie
+Recursive descent parser
+
+Chapter 10: Games and Puzzles
 longest increasing subsequence
 complexity of josephus.h
+stl tricks, e.g. hash_map, complex numbers, __builtin_popcount, mm
 
 Chapter A: Test session
 code for most of the things to test including all judge answers
