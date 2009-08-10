@@ -3,7 +3,7 @@
  * Date: 2009-04-08
  * Source:
  * Description: Returns the center of mass for the polygon specified by the points between iterators begin and end. It should be an iterator or const\_iterator with value type Point<double>.
- * Status: Tested
+ * Status: Tested with unitTest and Kattis problem centerofmass
  * Usage:
  * 	typedef Point<double> P;
  * 	vector<P> p = ...;

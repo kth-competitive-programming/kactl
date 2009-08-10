@@ -3,7 +3,7 @@
  * Date: 2009-04-04
  * Source: Basic algorithm knowledge
  * Description: Rearanges the points between begin and end so that the points of the hull are in counterclockwise order between begin and the returned iterator. Points on the edge of the hull between two other points are not considered part of the hull.
- * Status: tested (with unitTest and Kattis convexhull)
+ * Status: tested with unitTest and Kattis problems convexhull, copsrobbers and centerofmass
  * Usage:
  * 	vector<Point<double> > p;
  * 	vector<Point<double> >

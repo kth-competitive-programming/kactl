@@ -7,7 +7,7 @@
  *  vector<Point<double> > v;
  * 	double A = polygonArea2<double>(v.begin(),v.end())/2;
  * Time: O(n)
- * Status: Tested with UVa Online Judge Problem: 109 - SCUD Busters
+ * Status: Tested with unitTest, Kattis problems polygonarea and wrapping and UVa Online Judge Problem: 109 - SCUD Busters
 
  */
 #pragma once
