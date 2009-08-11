@@ -76,6 +76,9 @@ Voronoi diagrams (Hakan)
 triangle area from side lengths or vertex coordinates
 circle inscribed in triangle
 minimum enclosing circle
+test point3D
+closes pair (line sweep)
+fix oldConvexHull
 
 Chapter 9: Strings
 suffix tree/array
