@@ -2,7 +2,13 @@
  * Author: Ulf Lundstrom
  * Date: 2009-04-11
  * Source:
- * Description: The circumcirle of a triangle is the circle intersecting all three vertices. ccRadius returns the radius of the circle going through points A, B and C and ccCenter returns the center of the same circle. P is intended to be Point<double>.
+ * Description:\\
+\begin{minipage}{75mm}
+The circumcirle of a triangle is the circle intersecting all three vertices. ccRadius returns the radius of the circle going through points A, B and C and ccCenter returns the center of the same circle. P is intended to be Point<double>.
+\end{minipage}
+\begin{minipage}{15mm}
+\includegraphics[width=\textwidth]{../content/geometry/circumcircle}
+\end{minipage}
  * Status: tested
  * Usage:
  * 	Point<double> p1,p2,p3;

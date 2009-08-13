@@ -2,7 +2,13 @@
  * Author: Ulf Lundstrom
  * Date: 2009-04-04
  * Source: Basic algorithm knowledge
- * Description: Rearanges the points between begin and end so that the points of the hull are in counterclockwise order between begin and the returned iterator. Points on the edge of the hull between two other points are not considered part of the hull.
+ * Description:
+\\\begin{minipage}{75mm}
+Rearanges the points between begin and end so that the points of the hull are in counterclockwise order between begin and the returned iterator. Points on the edge of the hull between two other points are not considered part of the hull.
+\end{minipage}
+\begin{minipage}{15mm}
+\includegraphics[width=\textwidth]{../content/geometry/convexHull}
+\end{minipage}
  * Status: tested with unitTest and Kattis problems convexhull, copsrobbers and centerofmass
  * Usage:
  * 	vector<Point<double> > p;
