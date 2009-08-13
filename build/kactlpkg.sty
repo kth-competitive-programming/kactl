@@ -12,7 +12,9 @@
 \usepackage{titletoc}					% Design control over Table of Contents
 \usepackage{ifthen}						% To enable some conditional programming in LaTeX
 \usepackage{courier}					% To get bold typewriter typeface
-\usepackage{graphicx}         % To rotate page numbers
+\usepackage{graphicx}					% To rotate page numbers
+
+\def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
 \AtBeginDocument{\maketitle}
 \AtEndDocument{}
