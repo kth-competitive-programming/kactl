@@ -2,7 +2,13 @@
  * Author: Ulf Lundstrom
  * Date: 2009-03-21
  * Source:
- * Description: If a unique intersetion point of the lines going through s1,e1 and s2,e2 exists r is set to this point and 1 is returned. If no intersection point exists 0 is returned and if infinitely many exists -1 is returned. If s1==e1 or s2==e2 -1 is returned. The wrong position will be returned if P is Point<int> and the intersection point does not have integer coordinates. Products of three coordinates are used in intermediate steps so watch out for overflow if using int or long long.
+ * Description:\\
+\begin{minipage}{75mm}
+If a unique intersetion point of the lines going through s1,e1 and s2,e2 exists r is set to this point and 1 is returned. If no intersection point exists 0 is returned and if infinitely many exists -1 is returned. If s1==e1 or s2==e2 -1 is returned. The wrong position will be returned if P is Point<int> and the intersection point does not have integer coordinates. Products of three coordinates are used in intermediate steps so watch out for overflow if using int or long long.
+\end{minipage}
+\begin{minipage}{15mm}
+\includegraphics[width=\textwidth]{../content/geometry/lineIntersection}
+\end{minipage}
  * Status: tested
  * Usage: 
  * 	point<double> intersection;
