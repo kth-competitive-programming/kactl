@@ -12,12 +12,13 @@ General:
 New edition name
 Test everything that is not tested
 
-Latex bugs:
+Latex:
 {} around < in usage
 bigO-bug
 why c++ typesetting to non-c++ files
 ^ in usage doesn't seem to work/Ulf
 indentation in usage
+enlarge bottom margin without removing page numbering
 
 Chapter 1: Contest
 The new scripts with backup (Chen)

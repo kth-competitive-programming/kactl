@@ -1,21 +1,21 @@
 #include "../UnitTest.h"
-#include "../../content/data structures/matrix.h"
+#include "../../content/data structures/Matrix.h"
 #include <fstream>
 #include <sstream>
 
-class test_matrix :
+class test_Matrix :
 	public UnitTest
 {
 public:
 	ifstream in;
 	int cases;
 
-	test_matrix() : UnitTest("test_matrix") {
-		in.open("matrix.in");
+	test_Matrix() : UnitTest("test_Matrix") {
+		in.open("Matrix.in");
 		in >> cases;
 	}
 
-	virtual ~test_matrix() {
+	virtual ~test_Matrix() {
 		in.close();
 	}
 
@@ -55,4 +55,4 @@ public:
 	}
 };
 
-KACTL_AUTOREGISTER_TEST(test_matrix);
+KACTL_AUTOREGISTER_TEST(test_Matrix);

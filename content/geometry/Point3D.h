@@ -45,7 +45,7 @@ struct Point3D {
 		double s = sin(angle), c = cos(angle);
 		P u = axis.unit();
 		return P((u.x*u.x+(1-u.x*u.x)*c)*x
-				+ (u.x*u.y*(1-c)-y.z*s)*y + (y.x*y.z(1-c)+u.y*s)*z,
+				+ (u.y*u.x*(1-c)-u.z*s)*y + (y.x*y.z(1-c)+u.y*s)*z,
 				(u.x*u.y*(1-c)+u.z*s)*x + (u.y*u.y+(1-u.y*u.y))*y
 				+ (u.y*u.z*(1-c)-u.x*s)*z,
 				(u.x*u.z*(1-c)-u.y*s)*x + (u.y*u.z*(1-c)+u.x*s)*y
