@@ -58,7 +58,6 @@ list of the first numbers of each kind
 // implementations with BigInteger in Java
 
 Chapter 7: Graph
-Floyd-Warshall
 description, complexity, usage for all algorithms
 implementation of minimum vertex cover
 general matching
