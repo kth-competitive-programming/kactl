@@ -59,8 +59,8 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 	for line in lines:
 		# Remove /// comments
 		line = line.split("///")[0].rstrip()
-		# Remove '#pragma once' lines
-		if line == "#pragma once":
+		# Remove '#pragma once' and 'using namespace std;' lines
+		if line == "#pragma once" or line == "using namespace std;":
 			continue
 		# Check includes
 		include = isdefaultinclude(line)
