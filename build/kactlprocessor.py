@@ -9,8 +9,8 @@ import getopt
 
 
 def escape(input):
-	input = input.replace('<','\ensuremath{<}')
-	input = input.replace('>','\ensuremath{>}')
+	input = input.replace('<','\\ensuremath{<}')
+	input = input.replace('>','\\ensuremath{>}')
 	return input
 
 def pathescape(input):
@@ -20,24 +20,31 @@ def pathescape(input):
 	return input
 
 def codeescape(input):
-	input = escape(input)
-	input = input.replace('_','\_')
+	input = input.replace('_','\\_')
 	input = input.replace('\n','\\\\\n')
 	input = input.replace('{','\\{')
 	input = input.replace('}','\\}')
+	input = input.replace('^','\\ensuremath{\\hat{\\;}}')
+	input = escape(input)
 	return input
 
 def ordoescape(input):
-	# TODO obviously buggy
 	input = escape(input)
 	start = input.find("O(")
-	end = input.find(")",start)
-	if start>=0 and end >=0:
-		return input[:start] + "\\bigo{" + input[start+2:end] + "}" + input[end+1:]
-	else:
-		return input
+	if start >= 0:
+		bracketcount = 1
+		end = start+1
+		while end+1<len(input) and bracketcount>0:
+			end = end + 1
+			if input[end] is '(':
+				bracketcount = bracketcount + 1
+			elif input[end] is ')':
+				bracketcount = bracketcount - 1
+		if bracketcount == 0:
+			return input[:start] + "\\bigo{" + input[start+2:end] + "}" + ordoescape(input[end+1:])
+	return input
 
-def processcpp(caption, instream, outstream):
+def processwithcomments(caption, instream, outstream, listingslang = None):
 	knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'Status', 'Usage', 'Changes']
 	requiredcommands = ['Author', 'Date', 'Source', 'Description']
 	includelist = ""
@@ -50,9 +57,12 @@ def processcpp(caption, instream, outstream):
 		error = "Could not read source."
 	nlines = list()
 	for line in lines:
+		# Remove /// comments
 		line = line.split("///")[0].rstrip()
+		# Remove '#pragma once' lines
 		if line == "#pragma once":
 			continue
+		# Check includes
 		include = isdefaultinclude(line)
 		if include is None:
 			nlines.append(line)
@@ -61,6 +71,7 @@ def processcpp(caption, instream, outstream):
 				includelist = includelist + ", " + include
 			else:
 				includelist = include
+	# Remove and process /** */ comments
 	source = '\n'.join(nlines)
 	nsource = ''
 	start = source.find("/**")
@@ -104,6 +115,7 @@ def processcpp(caption, instream, outstream):
 		nsource = nsource.rstrip() + source[end:]
 	nsource = nsource.strip()
 
+	# Produce output
 	if warning:
 		print >> outstream, "\kactlwarning{",caption,":",warning,"}"
 	if error:
@@ -121,11 +133,14 @@ def processcpp(caption, instream, outstream):
 		if len(includelist)>0:
 			print >> outstream, "\\leftcaption{",pathescape(includelist),"}"
 		print >> outstream, "\\rightcaption{",str(linecount(nsource))," lines}"
-		print >> outstream, "\\begin{lstlisting}[caption={",pathescape(caption),"}]"
+		print >> outstream, "\\begin{lstlisting}[caption={",pathescape(caption),"}",
+		if listingslang is not None:
+			print >> outstream, ", language="+listingslang,
+		print >> outstream, "]"
 		print >> outstream, nsource
 		print >> outstream, "\\end{lstlisting}"
 
-def processraw(caption, instream, outstream, listingslang = 'C++'):
+def processraw(caption, instream, outstream, listingslang = 'raw'):
 	try:
 		source = instream.read().strip()
 		print >> outstream, "\\kactlref{",pathescape(caption),"}"
@@ -189,11 +204,11 @@ def main(argv=None):
 				caption = value
 		print "Processing", caption	
 		if language == "cpp" or language == "cc" or language == "c" or language == "h" or language == "hpp":
-			processcpp(caption, instream, outstream)
+			processwithcomments(caption, instream, outstream)
 		elif language == "java":
-			processraw(caption, instream, outstream, 'Java')
+			processwithcomments(caption, instream, outstream, 'Java')
 		elif language == "ps":
-			processraw(caption, instream, outstream, 'tex') # listings doesn't have ps as language
+			processraw(caption, instream, outstream) # PostScript was added in listings v1.4
 		elif language == "raw":
 			processraw(caption, instream, outstream)
 		elif language == "sh":

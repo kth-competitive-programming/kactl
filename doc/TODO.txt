@@ -13,12 +13,8 @@ New edition name
 Test everything that is not tested
 
 Latex:
-{} around < in usage
-bigO-bug
-why c++ typesetting to non-c++ files
-^ in usage doesn't seem to work/Ulf
 indentation in usage
-enlarge bottom margin without removing page numbering
+floating figures and \image command
 
 Chapter 1: Contest
 The new scripts with backup (Chen)
