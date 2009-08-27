@@ -13,12 +13,8 @@ New edition name
 Test everything that is not tested
 
 Latex:
-{} around < in usage
-bigO-bug
-why c++ typesetting to non-c++ files
-^ in usage doesn't seem to work/Ulf
-indentation in usage
-enlarge bottom margin without removing page numbering
+// indentation in usage
+floating figures and \image command
 
 Chapter 1: Contest
 The new scripts with backup (Chen)
@@ -44,17 +40,13 @@ fourier transform
 ceil and floor of n/m
 
 Chapter 5: Number theory
-merge the two euclid's algorithm
 description for gcd and euclid
 extensive explanation of the chinese reminder theorem including how to get all solutions
 chinese reminder theorem for more than two equations
-shorter prime sieve
-sieve of Atkin
-compare prime sieves
 pollards rho algorithm
 primality test
-list of primes
-Euler \phi function
+List of primes
+Euler's phi function
 
 Chapter 6: Combinatorial
 12-fold way with table and list with explanations and examples
@@ -63,10 +55,9 @@ multinomial
 stirling numbers of both kinds
 catalan numbers
 list of the first numbers of each kind
-implementations with BigInteger in Java
+// implementations with BigInteger in Java
 
 Chapter 7: Graph
-Floyd-Warshall
 description, complexity, usage for all algorithms
 implementation of minimum vertex cover
 general matching
@@ -88,7 +79,6 @@ Recursive descent parser
 
 Chapter 10: Games and Puzzles
 longest increasing subsequence
-complexity of josephus.h
 stl tricks, e.g. hash_map, complex numbers, __builtin_popcount, mm
 
 Chapter A: Test session

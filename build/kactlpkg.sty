@@ -4,7 +4,7 @@
 
 \usepackage[utf8]{inputenc}				% Encoding UTF-8
 \usepackage{listings}					% Source code listings
-\usepackage[a4paper,landscape,hmargin={0.5cm,0.5cm},vmargin={1.5cm,1cm}]{geometry}
+\usepackage[a4paper,landscape,hmargin={0.5cm,0.5cm},vmargin={1.5cm,0cm}]{geometry}
 \usepackage{multicol}					% Split page in multiple columns
 \usepackage{fancyhdr}					% Fancy headers
 \usepackage{amsbsy, amssymb, amsmath}	% Enable math symbols
@@ -13,6 +13,7 @@
 \usepackage{ifthen}						% To enable some conditional programming in LaTeX
 \usepackage{courier}					% To get bold typewriter typeface
 \usepackage{graphicx}					% To rotate page numbers
+%\usepackage[rflt]{floatflt}				% Text around floating figures.
 
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
@@ -22,7 +23,7 @@
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0 pt}
 \chead{\thepage}\rhead{}\lhead{}
-\cfoot{}\rfoot{\rotatebox{-90}{\thepage}}\lfoot{}
+\cfoot{}\rfoot{\raisebox{1cm}{\rotatebox{-90}{\thepage}}}\lfoot{}
 \fancyheadoffset{0pt}
 \fancyfootoffset{0pt}
 \setlength\headsep{10pt}
@@ -113,6 +114,8 @@
 \lstset{inputencoding=utf8}
 \lstset{aboveskip=3pt}
 \lstset{belowskip=2pt}
+
+\lstdefinelanguage{raw}{} % Raw language, no keywords.
 
 \setlength{\columnseprule}{0.5pt} % Multicol separation line with
 \setlength{\columnsep}{10pt} % Multicol separation margin

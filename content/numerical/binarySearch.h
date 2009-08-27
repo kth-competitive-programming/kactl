@@ -8,7 +8,7 @@
 	double func(double x) { return .23*x-sin(x); }
 	double x0 = bs(0,4,func);
 	double pi = bs(4,9,sin)/2;
- * Time: $O\left(\log\left(\frac{b-a}{e}\right)\right)$
+ * Time: O(\log\left(\frac{b-a}{e}\right))
  */
 #pragma once
 

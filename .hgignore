@@ -16,3 +16,4 @@ syntax: regexp
 ^build/kactl.tmp
 ^build/kactl.toc
 ^kactl.pdf
+^temp/
