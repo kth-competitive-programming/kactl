@@ -9,19 +9,24 @@
  * Usage:
  */
 #pragma once
+#include "Point.h"
 #include "lineIntersection.h"
 #include "circumcircle.h"
 
-template <class It>
+template <class T, class It>//T=iterator_traits<It>::value_type>
 pair<T,double> mec(It begin, It end) {
-	typedef typename iterator_traits<It>::value_type T;
+	//typedef typename iterator_traits<It>::value_type T;
 	double eps = 1e-10;
-	//TODO:1 or 2 points
+	if (end-begin == 1) return make_pair(*begin,0);//one point
+	//if (end-begin == 2) //two points
+	//	return make_pair((*begin+*(begin+1))/2,
+	//			(*begin-*(begin+1)).dist()/2);
 	vector<T> L; //the points limiting the current circle
 	L.push_back(*min_element(begin,end));//point on convex hull
-	L.push_back(*begin+(L[0]==*begin));//next on convex hull
+	L.push_back(*(begin+(L[0]==*begin)));//next on convex hull
 	for (It i = begin; i != end; ++i) {
-		T p = (*i-L[0]).cross(L[1]-L[0]);
+		//T::coordType p = (*i-L[0]).cross(L[1]-L[0]);
+		double p = (*i-L[0]).cross(L[1]-L[0]);
 		if ((*i == L[0]) && (p>0 || p==0 &&
 				(*i-L[0]).dist2()>(L[1]-L[0]).dist2()))
 			L[1] = *i;
@@ -35,11 +40,11 @@ pair<T,double> mec(It begin, It end) {
 			T s1 = (*it-L[0])/2, e1 = s1+(*it-L[0]).perp(), x;
 			lineIntersection(s1,e1,s,e,x); //x = intersection point
 			double a2 = (*it-x).dist2(); //new radius^2
-			if (a2 > d2+eps)
+			if (a2 > r2+eps)
 				L.resize(2);
-			if (a2 >= d2-eps)
-				L.push_back(it);
-			d2 = max(d2,a2);
+			if (a2 >= r2-eps)
+				L.push_back(*it);
+			r2 = max(r2,a2);
 		}
 		if (L.size() == 2) {
 			return make_pair((L[0]+L[1])/2,(L[0]-L[1]).dist());
