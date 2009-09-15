@@ -13,11 +13,12 @@
 \usepackage{ifthen}						% To enable some conditional programming in LaTeX
 \usepackage{courier}					% To get bold typewriter typeface
 \usepackage{graphicx}					% To rotate page numbers
+\usepackage{fix-cm}						% Large font sizes
 %\usepackage[rflt]{floatflt}				% Text around floating figures.
 
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
-\AtBeginDocument{\maketitle}
+\AtBeginDocument{}
 \AtEndDocument{}
 
 \pagestyle{fancy}
@@ -130,6 +131,27 @@
 }
 \subtitle{{\tiny new}KACTL}
 \title{KTH ACM Contest Template Library}
+
+\newcommand{\maketeampage}[3]{
+	\pagestyle{empty}
+	\begin{center}
+		\strut % Magic
+		\vspace{3cm}\\
+		\includegraphics[width=3cm]{kth}\\
+		\vspace{0.5cm}
+		{\Huge KTH - Royal Institute of Technology}\\
+		\vspace{0.5cm}
+		{\fontsize{60}{60}\selectfont #1}\\
+		\vfill
+		{\huge #2}\\
+		\vspace{0.5cm}
+		{\Large #3}\\
+		\vspace{1cm}
+	\end{center}
+	\clearpage
+	\pagestyle{fancy}
+	\setcounter{page}{1}
+}
 
 \newcommand{\kactlref}[1]{
 	\ifthenelse{\boolean{appendixmode}}{}{
