@@ -211,6 +211,8 @@ def main(argv=None):
 			processraw(caption, instream, outstream) # PostScript was added in listings v1.4
 		elif language == "raw":
 			processraw(caption, instream, outstream)
+		elif language == "rawcpp":
+			processraw(caption, instream, outstream, 'C++')
 		elif language == "sh":
 			processraw(caption, instream, outstream, 'bash')
 		else:

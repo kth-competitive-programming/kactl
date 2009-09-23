@@ -16,10 +16,11 @@ int prime[LIMIT/* /log(LIMIT) */], primes=0;
 void eratosthenes_sieve() {
 	memset(isprime, 1, sizeof(isprime));
 	isprime[0]=isprime[1]=false;
-	for(int i=2;i<LIMIT;++i)
-		if(isprime[i]) {
-			prime[primes++]=i;
-			for(int j=2*i;j<LIMIT;j+=i)
+	for(int i=2;i<sqrt(LIMIT);++i)
+		if(isprime[i])
+			for(int j=i*i;j<LIMIT;j+=i)
 				isprime[j]=false;
-		}
+	for(int i=2;i<LIMIT;++i)
+		if(isprime[i])
+			prime[primes++]=i;
 }
