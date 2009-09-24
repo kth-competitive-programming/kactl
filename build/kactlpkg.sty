@@ -14,7 +14,6 @@
 \usepackage{courier}					% To get bold typewriter typeface
 \usepackage{graphicx}					% To rotate page numbers
 \usepackage{fix-cm}						% Large font sizes
-%\usepackage[rflt]{floatflt}				% Text around floating figures.
 
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
@@ -132,20 +131,20 @@
 \subtitle{{\tiny new}KACTL}
 \title{KTH ACM Contest Template Library}
 
-\newcommand{\maketeampage}[3]{
+\newcommand{\maketeampage}[4]{
 	\pagestyle{empty}
 	\begin{center}
 		\strut % Magic
 		\vspace{3cm}\\
 		\includegraphics[width=3cm]{kth}\\
+		{\Huge KTH - Royal Institute of Technology\\}
+		{\fontsize{60}{60}\selectfont #1\\}
 		\vspace{0.5cm}
-		{\Huge KTH - Royal Institute of Technology}\\
-		\vspace{0.5cm}
-		{\fontsize{60}{60}\selectfont #1}\\
+		{\Large #2\\}
 		\vfill
-		{\huge #2}\\
+		{\huge #3}\\
 		\vspace{0.5cm}
-		{\Large #3}\\
+		{\Large #4}\\
 		\vspace{1cm}
 	\end{center}
 	\clearpage
