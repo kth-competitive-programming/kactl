@@ -52,8 +52,6 @@ Carmichael numbers
 
 Chapter 6: Combinatorial
 12-fold way with table and list with explanations and examples
-binomial mod prime
-multinomial
 stirling numbers of both kinds
 catalan numbers
 list of the first numbers of each kind
