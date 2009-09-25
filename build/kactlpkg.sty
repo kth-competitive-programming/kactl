@@ -14,6 +14,7 @@
 \usepackage{courier}					% To get bold typewriter typeface
 \usepackage{graphicx}					% To rotate page numbers
 \usepackage{fix-cm}						% Large font sizes
+\usepackage{paralist}					% For compact enumerations
 
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
@@ -172,6 +173,10 @@
 	\immediate\write18{rm -f kactl.tmp} % Don't include old kactl.tmp on failure.
 	\immediate\write18{python kactlprocessor.py -i "\@kactldir/#2" -o kactl.tmp #1}
 	\immediate\input{kactl.tmp}
+}
+
+\newcommand{\import}[1]{
+	\input{"\@kactldir/#1"}
 }
 
 \newcommand{\kactlcontentdir}[1]{
