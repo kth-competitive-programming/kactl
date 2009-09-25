@@ -17,11 +17,11 @@ Latex:
 floating figures and \image command
 
 Chapter 1: Contest
-The new scripts with backup (Chen)
 
 Chapter 2: Useful mathematical identities
 figures for the geometry
 finish spherical trigonometry
+area, volume etc of hyperspheres 
 
 Chapter 3: Data structures
 Description for union_find.h (unionFind.h) (Marcus?)
@@ -47,6 +47,11 @@ pollards rho algorithm
 primality test
 List of primes
 Euler's phi function
+Diophantine equations (especially linear, Bezout's identity)
+Pythagorean triples
+Carmichael numbers
+Division rules
+
 
 Chapter 6: Combinatorial
 12-fold way with table and list with explanations and examples
@@ -59,8 +64,11 @@ list of the first numbers of each kind
 
 Chapter 7: Graph
 description, complexity, usage for all algorithms
-implementation of minimum vertex cover
+implementation of minimum vertex cover in bipartite graph
 general matching
+Topological sorting
+"Gopher strategy"
+Planarity testing
 
 Chapter 8: Geometry
 Figures to most of the algorithms
@@ -68,9 +76,12 @@ Voronoi diagrams (Hakan)
 triangle area from side lengths or vertex coordinates
 circle inscribed in triangle
 minimum enclosing circle
+circumscribed circle (not same as minimum enclosing circle!)
+maximum inscribed circle
 test point3D
 closes pair (line sweep)
 fix oldConvexHull
+polygonCenter when points are collinear?
 
 Chapter 9: Strings
 suffix tree/array
@@ -79,6 +90,11 @@ Recursive descent parser
 
 Chapter 10: Games and Puzzles
 longest increasing subsequence
+Queens, Kings, Knights, Bishops, Rooks problem, etc.
+Tower of Hanoi
+Monkey and Coconut Problem
+Crossing the desert problem (Jeep problem, Exploration problem)
+Magic squares
 stl tricks, e.g. hash_map, complex numbers, __builtin_popcount, mm
 
 Chapter A: Test session
