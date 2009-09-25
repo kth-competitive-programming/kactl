@@ -6,7 +6,8 @@
  */
 #pragma once
 
-int gcd(int a, int b) {
+template <class Z>
+Z gcd(Z a, Z b) {
   return b==0?a:gcd(b, a%b);
 }
 
