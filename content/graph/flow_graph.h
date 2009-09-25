@@ -5,6 +5,10 @@
  * Description: N/A
  * Status: Unknown
  */
+#pragma once
+#include <vector>
+using namespace std;
+
 typedef int Flow;
 
 struct flow_edge {
