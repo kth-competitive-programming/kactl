@@ -15,12 +15,13 @@
 #include <algorithm>
 using namespace std;
 
-template<class Z>
-bool floydWarshall(Z path, int N) {
+template<class Z, class I>
+bool floydWarshall(Z path, int N, I inf) {
 	for(int k=0;k<N;++k)
 		for(int i=0;i<N;++i)
 			for(int j=0;j<N;++j)
-				path[i][j]=min(path[i][j], path[i][k]+path[k][j]);
+				if(path[i][k]<inf && path[k][j]<inf)
+					path[i][j]=min(path[i][j], path[i][k]+path[k][j]);
 	for(int i=0;i<N;++i)
 		if(path[i][i]<0) return true;
 	return false;
