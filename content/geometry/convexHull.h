@@ -23,7 +23,7 @@ Rearanges the points between begin and end so that the points of the hull are in
 
 template <class P>
 bool comp(const P &p, const P &q) {
-	return p.cross(q)>0 || p.cross(q)==0 && p.dist2()<q.dist2();
+	return p.cross(q-p)>0 || p.cross(q-p)==0 && p.dist2()<q.dist2();
 }
 
 template <class It>
@@ -38,7 +38,7 @@ It convexHull(It begin, It end) {
 	//place hull points first by doing a Graham scan
 	It r = begin + 1;
 	for (It i = begin+2; i != end; ++i) {
-		while (r > begin && (*r-*(r-1)).cross(*i-*(r-1)) <= 0)
+		while (r > begin && (*r-*(r-1)).cross(*i-*r) <= 0)
 			--r;
 		swap(*++r, *i);
 	}
