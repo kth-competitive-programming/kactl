@@ -6,33 +6,17 @@
 	\section{Games}
 		\kactlimport{josephus.h}
 		\kactlimport{domino.h}
+		\kactlimport{knapsack_indices_single_dp_integer_weight.h}
 	
 	\section{Puzzles}
 
 	\section{Intervals}
 		\kactlimport{intervalUnion.h}
+		\kactlimport{lis.h}
+		\kactlimport{longestIncreasingSubsequence.h}
+		\kactlimport{intervalCover.h}
 
 	\section{Hex and tri grids}
 		\kactlimport{bricks.ps}
 		\kactlimport{grids.ps}
-
-	\section{Burrow-Wheeler transform}
-
-\begin{verbatim}
-function BWT (string s)
-   create a table, rows are all possible
-	-> rotations of s
-   sort rows alphabetically
-   return (last column of the table)
- 
-function inverseBWT (string s)
-  create empty table 
-       
-  repeat length(s) times
-    insert s as a column of table before first
-      -> column of the table // first insert
-		-> // creates first column
-   sort rows of the table alphabetically
-   return (row that ends with the 'EOF' char)
-\end{verbatim}
 

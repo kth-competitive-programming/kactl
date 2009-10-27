@@ -74,6 +74,8 @@ struct Dijkstra {
 struct Prim {
 	template<class G, class D>
 	static D calc(G& g, int cur, int next, int dest, int edge) {
+		if(g.nodes[next].srcPrev != -1)
+			return g.nodes[next].srcDist;
 		return g.edges[edge].dist;
 	}
 };
