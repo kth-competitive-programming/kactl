@@ -12,6 +12,8 @@
 #include <queue>
 #include <set>
 #include <string>
+#include <bitset>
+#include <algorithm>
 using namespace std;
 
 #define rep(i, a, b) for(int i = (a); i < (b); ++i)
@@ -30,5 +32,4 @@ int main() {
 	int n = 1 << 30;
 	if(!n) cin >> n;
 	for(int i = 0; i < n && solve(i); ++i);
-	return 0;
 }
