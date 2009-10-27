@@ -47,6 +47,8 @@ public:
 		vector<P> p = readPolygon(), wanted = readPolygon();
 		vector<P> res(p.begin(),convexHull(p.begin(),p.end()));
 
+		sort(res.begin(),res.end());
+		sort(wanted.begin(),wanted.end());
 		stringstream ss;
 		ss << p << endl << " -> " << res << endl << "!=" << wanted << endl;
 		string s = ss.str();
@@ -57,6 +59,7 @@ public:
 	}
 
 	void test(int subcase) {
+	    run(subcase);
 		typedef Point<double> P;
 		P p1[3] = {P(1,1),P(3,2),P(1,5)};
 		check(convexHull(p1,p1+3),p1+3);

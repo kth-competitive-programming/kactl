@@ -21,28 +21,28 @@ Rearanges the points between begin and end so that the points of the hull are in
 #include <algorithm>
 #include "Point.h"
 
-template <class P>
-bool comp(const P &p, const P &q) {
-	return p.cross(q)>0 || p.cross(q)==0 && p.dist2()<q.dist2();
+//change to use other types of points
+typedef Point<double> ptype;
+ptype ref;
+bool comp(const ptype &p, const ptype &q) {
+	return (p-ref).cross(q-p)>0 ||
+			(p-ref).cross(q-p)==0 && (p-ref).dist2()<(q-ref).dist2();
 }
 
 template <class It>
 It convexHull(It begin, It end) {
-	typedef typename iterator_traits<It>::value_type T;
 	//zero or one point always form a hull
 	if (end-begin < 2) return end;
 	//find a guaranteed hull point to use as origo
-	T ref = *min_element(begin,end);
-	for (It i = begin; i != end; ++i) *i = *i-ref;
-	sort(begin, end, comp<T>); //sort in scan order
+	ref = *min_element(begin,end);
+	sort(begin, end, comp); //sort in scan order
 	//place hull points first by doing a Graham scan
 	It r = begin + 1;
 	for (It i = begin+2; i != end; ++i) {
-		while (r > begin && (*r-*(r-1)).cross(*i-*(r-1)) <= 0)
+		while (r > begin && (*r-*(r-1)).cross(*i-*r) <= 0)
 			--r;
 		swap(*++r, *i);
 	}
-	for (It i = begin; i != end; ++i) *i = *i+ref;
 	if (r-begin == 1 && *begin == *r) r--;
 	//return the iterator past the last hull point
 	return ++r;
