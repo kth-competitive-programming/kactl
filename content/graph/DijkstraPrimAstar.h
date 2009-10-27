@@ -42,10 +42,7 @@ struct DijkstraPrimAstar {
 			int cur = (pqit = pq.begin())->second;
 			tot += pqit->second;
 			pq.erase(pqit);
-
-			if(cur == dest)
-				break;
-
+			if(cur == dest) break;
 			trav(out, g.nodes[cur].outs) {
 				int next = out->first;
 				D nextDistNew = A::calc<G, D>(g, cur, next, dest, out->second);

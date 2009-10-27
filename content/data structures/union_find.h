@@ -7,6 +7,7 @@
  */
 #pragma once
 #include <vector>
+using namespace std;
 
 struct union_find {
 	vector<int> e;
@@ -24,7 +25,7 @@ struct union_find {
 
 	void join(int a, int b) { // union sets
 		a = find(a); b = find(b);
-		if (x == y) return;
+		if (a == b) return;
 		if (e[a] > e[b]) swap(a, b);
 		e[a] += e[b]; e[b] = a;
 	}

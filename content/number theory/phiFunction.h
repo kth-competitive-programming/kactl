@@ -14,9 +14,8 @@
  * \emph{Fermat's little thm}: $p$ prime $\Rightarrow a^{p-1} \equiv 1 \pmod{p}$ $\forall a$.
  * Status: Untested
  */
-#pragma once
-
 #include "eratosthenes.h"
+#pragma once
 
 ll phi[LIMIT];
 

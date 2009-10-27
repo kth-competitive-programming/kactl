@@ -20,8 +20,7 @@ public class JavaExample {
 					divide(BigInteger.valueOf(i+2));
 			while (true) {
 				int n = sc.nextInt();
-				if (n == 0)
-					return;
+				if (n == 0) return;
 				System.out.println(t[n]);
 			}
 		}

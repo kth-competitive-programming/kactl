@@ -12,10 +12,7 @@
 template<class D>
 struct NodeDPAB : Node {
 	typedef D DistanceT;
-
-	//! Calculated distance from source node.
-	D srcDist;
-
+	D srcDist; //! Calculated distance from source node.
 	//! Calculated previous node when walking from source node.
 	int srcPrev;
 };
@@ -23,7 +20,5 @@ struct NodeDPAB : Node {
 template<class D>
 struct EdgeDPAB : Edge {
 	typedef D DistanceT;
-
-	//! Distance from source to destination.
-	D dist;
+	D dist; //! Distance from source to destination.
 };

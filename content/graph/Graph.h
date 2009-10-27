@@ -1,6 +1,6 @@
 /**
  * Author: Chen Xing
- * Date: .2009-04-09
+ * Date: 2009-04-09
  * Source:
  * Description: Basic node/edge/graph structures.
  * Status: Tested
@@ -11,27 +11,19 @@ struct Node {
 	// <destination node, edge number>
 	// Might be exchanged with vector<pair> or map instead.
 	typedef multimap<int, int> OutsT;
-
-	// Outgoing edges.
-	OutsT outs;
+	OutsT outs; // Outgoing edges.
 };
 
 struct Edge {
-	// Source node.
-	int a;
-
-	// Destination node.
-	int b;
-
-	// Flag set for bidirectional edges.
-	bool bidir;
+	int a; // Source node.
+	int b; // Destination node.
+	bool bidir; // Flag set for bidirectional edges.
 };
 
 template<class N, class E>
 struct Graph {
 	typedef N NodeT;
 	typedef E EdgeT;
-
 	vector<N> nodes;
 	vector<E> edges;
 };

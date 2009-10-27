@@ -17,11 +17,10 @@
 using namespace std;
 
 typedef pair<int, int> pii;
-void count_sort(vector<pii> &b, int bits)
-{//this is just 3 times faster than stl sort for N=10^6
+void count_sort(vector<pii> &b, int bits) {
+	//this is just 3 times faster than stl sort for N=10^6
 	int mask = (1 << bits) - 1;
-	for (int it = 0; it < 2; it++)
-	{
+	for (int it = 0; it < 2; it++) {
 		int move = it * bits;
 		vector<int> q(1 << bits, 0), w(q.size() + 1, 0);
 		for (unsigned i = 0; i < b.size(); i++)
@@ -33,25 +32,21 @@ void count_sort(vector<pii> &b, int bits)
 		b = res;
 	}
 }
-struct SuffixArray
-{
+struct SuffixArray {
 	vector<int> a;
 	string s;
-	SuffixArray(string _s)
-	{
+	SuffixArray(string _s) {
 		s = _s + '\0';
 		vector<pii> b(s.size());
 		a.resize(s.size());
-		for (unsigned i = 0; i < s.size(); i++)
-		{
+		for (unsigned i = 0; i < s.size(); i++) {
 			b[i].first = s[i];
 			b[i].second = i;
 		}
 
 		unsigned q = 8;
 		while ((1 << q) < s.size()) q++;
-		for (int moc = 0;; moc++)
-		{
+		for (int moc = 0;; moc++) {
 			count_sort(b, q);
 			a[b[0].second] = 0;
 			for (unsigned i = 1; i < s.size(); i++)
@@ -59,8 +54,7 @@ struct SuffixArray
 					(b[i - 1].first != b[i].first);
 
 			if ((1 << moc) >= s.size()) break;
-			for (unsigned i = 0; i < s.size(); i++)
-			{
+			for (unsigned i = 0; i < s.size(); i++) {
 				b[i].first = a[i] << q;
 				if (i + (1 << moc) < s.size())
 					b[i].first += a[i + (1 << moc)];
@@ -70,13 +64,12 @@ struct SuffixArray
 		for (size_t i = 0; i < a.size(); i++)
 			a[i] = b[i].second;
 	}
-	vector<int> lcp()
-	{//longest common prefix of two neighbouring strings in SA
+	vector<int> lcp() {
+		//longest common prefix of two neighbouring strings in SA
 		int n = a.size();
 		vector<int> inv(n), res(n);
 		for (int i = 0; i < n; i++) inv[a[i]] = i;
-		for (int i = 0, h = 0; i < n; i++) if (inv[i] > 0)
-		{
+		for (int i = 0, h = 0; i < n; i++) if (inv[i] > 0) {
 			int p0 = a[inv[i] - 1];
 			while (s[i + h] == s[p0 + h]) h++;
 			res[inv[i]] = h;

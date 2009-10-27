@@ -10,8 +10,8 @@
  */
 #pragma once
 #include <vector>
-
 using namespace std;
+
 struct Node {
 	int pr, key;
 	Node* s[2];//sons
@@ -26,8 +26,7 @@ struct Node {
 	}
 };
 Node* root;
-void rotate(Node *son)
-{
+void rotate(Node *son) {
 	Node *father = son->fat;
 	bool type = (father->s[0] == son);
 	father->set(!type, son->s[type]);
@@ -55,21 +54,18 @@ void insert(int a, int p) {
 		}
 		else x = x->s[ok];
 	}
-
 	while (x->fat != NULL) {
 		if (x->pr <= x->fat->pr) break;
 		rotate(x);
 	}
 }
-void erase(int a)
-{
+void erase(int a) {
 	Node* x = root;
 	while (x != NULL) {
 		if (x->key == a) break;
 		x = x->s[x->key < a];
 	}
 	if (x == NULL) return;
-
 	while (x->s[0] != NULL || x->s[1] != NULL) {
 		if (x->s[0] == NULL) rotate(x->s[1]);
 		else if (x->s[1] == NULL) rotate(x->s[0]);

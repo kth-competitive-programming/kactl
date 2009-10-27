@@ -14,15 +14,15 @@
 #pragma once
 
 int josephus(int n, int k) {
-  int d=1;
-  while(d<=(k-1)*n) d=(k*d+k-2)/(k-1);
-  return k*n+1-d;
+	int d=1;
+	while(d<=(k-1)*n) d=(k*d+k-2)/(k-1);
+	return k*n+1-d;
 }
 
 int josephus2(int n) {
-  int d=1;
-  while(d<<1<=n) d<<=1;
-  return 2*(n&~d)+1;
+	int d=1;
+	while(d<<1<=n) d<<=1;
+	return 2*(n&~d)+1;
 }
 
 int josephus_simulation(int n, int k) {

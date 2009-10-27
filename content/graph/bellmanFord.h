@@ -24,9 +24,7 @@ bool bellmanFord(G& g, int src) {
 		node->srcDist = 0;
 		node->srcPrev = -1;
 	}
-
 	g.nodes[src].srcPrev = src;
-
 	rep(i, 0, g.nodes.size()) {
 		trav(e, g.edges) {
 			int a = e->a, b = e->b;
@@ -47,6 +45,5 @@ bool bellmanFord(G& g, int src) {
 			}
 		}
 	}
-
 	return false;
 }

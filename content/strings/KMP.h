@@ -8,34 +8,31 @@
  * Status: Unknown
  * Usage:
  *  string word, input;
- *  KMP kmp(word.begin(), word.end());
+ *  KMP<char> kmp(word.begin(), word.end());
  *  vector<int> occ = kmp.findAll(input.begin(), input.end());
  */
 #pragma once
+#include <vector>
+using namespace std;
 
 template<class T>
-struct KMP
-{
+struct KMP {
 	template<class I>
-	KMP(I begin, I end):
-		word(begin, end)
-	{
+	KMP(I begin, I end) : word(begin, end) {
 		table.resize(word.size() + 1, 0);
 		table[0] = -1;
-		for(int i = 2; i <= word.size(); i++) {
-			for(int j = table[i - 1]; j >= 0; j = table[j]) {
+		for(unsigned i = 2; i <= word.size(); i++)
+			for(int j = table[i - 1]; j >= 0; j = table[j])
 				if(word[i - 1] == word[j]) {
 					table[i] = j + 1;
 					break;
 				}
-			}
-		}
 	}
 
 	template<class I>
 	vector<int> findAll(I begin, I end) {
 		vector<int> res;
-		int tp = 0, tl = (end - begin), wp = 0;
+		unsigned tp = 0, tl = (end - begin), wp = 0;
 		while(tp + wp < tl) {
 			if(wp < word.size() && word[wp] == *(begin + tp + wp)) {
 				if(++wp == word.size())
@@ -48,9 +45,6 @@ struct KMP
 		return res;
 	}
 
-	// Search word.
-	vector<T> word;
-
-	// Partial match table.
-	vector<int> table;
+	vector<T> word; // Search word.
+	vector<int> table; // Partial match table.
 };
