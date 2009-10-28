@@ -13,6 +13,7 @@
 
 template <class T, class It>
 vector<pair<T,T> > intervalUnion(It begin, It end) {
+	if (end==begin) return vector<pair<T,T> >();
 	sort(begin, end);
 	vector<pair<T,T> > res(1, *begin);
 	for (It i = ++begin; i != end; ++i) {
