@@ -2,9 +2,12 @@
  * Author: Lukas Polacek
  * Date: 2009-10-27
  * Source: folklore and Linear-time longest-common-prefix
- * computation in suffix arrays and its applications (2001)
- * Description: Builds suffix array for a string
+ * computation in suffix arrays and its applications (2001).
+ * Description: Builds suffix array for a string. lcp function
+ * calculates longest common prefixes for neighbouring strgins
+ * in suffix array.
  * Time: $O(N \log N)$ where $N$ is the length of the string
+ * for creation of the SA. $O(N)$ for longest common prefixes.
  * Memory: $O(N)$
  * Status: tested
  */

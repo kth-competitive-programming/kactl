@@ -38,9 +38,9 @@ void rotate(Node *son) {
 	}
 	son->set(type, father);
 }
-void insert(int a, int p) {
+void insert(int a) {
 	if (root == NULL) {
-		root = new Node(a, p);
+		root = new Node(a, rand());
 		root->fat = NULL;
 		return;
 	}
@@ -48,7 +48,7 @@ void insert(int a, int p) {
 	while (x != NULL) {
 		bool ok = (x->key <= a);
 		if (x -> s[ok] == NULL) {
-			x->set(ok, new Node(a, p));
+			x->set(ok, new Node(a, rand()));
 			x = x->s[ok];
 			break;
 		}
