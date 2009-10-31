@@ -2,7 +2,7 @@
  * Author: Ulf Lundstrom
  * Date: 2009-10-27
  * Source: folklore
- * Description: Calculated determinant using modular
+ * Description: Calculates determinant using modular
  * arithmetics. Can be rewritten to use doubles.
  * Status: tested
  * Time: $O(N^3)$
