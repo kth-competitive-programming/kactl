@@ -9,13 +9,14 @@
 #pragma once
 #include <algorithm>
 #include "binomial.h"
+#include "../number theory/modularArithmetic.h"
 
 template<class T>
-T chooseModP(int m, int n, int p) {
-	T c = 1;
-	while((m||n) && c) {
-		c*=choose<T>(m%p,n%p);
-		c%=p; m/=p; n/=p;
+T chooseModP(T m, T n, int p) {
+	Mod<T> c(1); mod = p;
+	while((m + n) && c.x != 0) {
+		c = c * choose<Mod<T> >(m%p,n%p);
+		m /= p; n /= p;
 	}
-	return c;
+	return c.x;
 }

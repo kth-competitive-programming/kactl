@@ -19,12 +19,12 @@ template<class Z> struct Mod {
 	Mod operator+(Mod b) { return Mod((x + b.x) % mod); }
 	Mod operator-(Mod b) { return Mod((x - b.x + mod) % mod); }
 	Mod operator*(Mod b) { return Mod((x * b.x) % mod); }
-	Mod inver(Z a) {
+	Z inver(Z a) {
 		Z x, y;
-		euclid(a, mod, x, y);
+		euclid(a, Z(mod), x, y);
 		return (mod + x) % mod;
 	}
 	Mod operator/(Mod b) {
-		return Mod((x * inver(b.x, mod)) % mod);
+		return Mod((x * inver(b.x)) % mod);
 	}
 };
