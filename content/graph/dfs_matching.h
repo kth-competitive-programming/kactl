@@ -3,9 +3,9 @@
  * Date: 2009-10-28
  * Source:
  * Description: This is a silly matching algorithm but should
- * be enough in most cases.
+ * be just fine in most cases.
  * Time: O(N^2M)
- * Status: should work
+ * Status: works
  */
 #include <algorithm>
 #include <vector>
