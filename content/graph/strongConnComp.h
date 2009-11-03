@@ -2,7 +2,7 @@
  * Author: Lukas
  * Date: 2009-10-28
  * Source: Czech graph algorithms book, by Demel.
- * Description: Finds strongly connected components in an
+ * Description: Finds strongly connected components in a
  * directed graph.
  * Time: O(N + M)
  * Status: works

@@ -5,6 +5,7 @@
  * Description: N/A
  * Status: Working
  * Usage: vi ba(m, -1); hopcroftKarp2(g, ba);
+ * Complexity: O(\sqrt{N}M)
  */
 
 bool hopcroftKarp_dfs(int a,

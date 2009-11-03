@@ -4,7 +4,7 @@
  * Source:
  * Description: This is a silly matching algorithm but should
  * be just fine in most cases.
- * Time: O(N^2M)
+ * Time: O(NM)
  * Status: works
  */
 #include <algorithm>

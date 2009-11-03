@@ -4,7 +4,8 @@
  * Source: folklore/TopCoder
  * Description: Fenwick tree can be used to retrieve
  * cumulative sum a[1...x] of and array. You can also update
- * the value a[x].
+ * the value a[x] (update function takes the diference between
+ * old and new value).
  * Complexity: Both operations are $O(\log N)$.
  */
 #pragma once
@@ -18,9 +19,9 @@ struct FenwickTree
 	FenwickTree(int _n) : n(_n) {
 		s.assign(n, 0);
 	}
-	void insert(int pos, int val) {
+	void update(int pos, int dif) {
 		while (pos < n) {
-			s[pos] += val;
+			s[pos] += dif;
 			pos |= pos + 1;
 		}
 	}
