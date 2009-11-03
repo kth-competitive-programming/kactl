@@ -15,7 +15,7 @@ template<class T>
 T chooseModP(T m, T n, int p) {
 	Mod<T> c(1); mod = p;
 	while((m + n) && c.x != 0) {
-		c = c * choose<Mod<T> >(m%p,n%p);
+		c = c * choose<Mod<T> >(m % p, n % p);
 		m /= p; n /= p;
 	}
 	return c.x;

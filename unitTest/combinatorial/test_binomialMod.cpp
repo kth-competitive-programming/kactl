@@ -15,6 +15,10 @@ class test_binomialMod :
 			mod.push_back(7);
 			cases.push_back(pii(12, 9));
 			mod.push_back(13);
+			cases.push_back(pii(3127, 652));
+			mod.push_back(10007);
+			cases.push_back(pii(392, 86));
+			mod.push_back(10007);
 		}
 
 		virtual ~test_binomialMod() {
@@ -25,6 +29,8 @@ class test_binomialMod :
 			if (i == 0) check(res, 1, "0");
 			if (i == 1) check(res, 2, "1");
 			if (i == 2) check(res, 12, "2");
+			if (i == 3) check(res, 532, "3");
+			if (i == 4) check(res, 4848, "4");
 		}
 
 		virtual int getCount() const {

@@ -10,7 +10,8 @@ import java.math.BigInteger;
 
 public class JavaExample {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(new BufferedInputStream(System.in));
+		//Scanner sc = new Scanner(System.in); this is slower
 		while(true) {
 			BigInteger t[] = new BigInteger[301];
 			t[1] = t[0] = new BigInteger("1");
