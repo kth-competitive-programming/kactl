@@ -5,11 +5,12 @@
  * Description: Aho-Corasick tree is used for mutiple pattern
  * matching.
  * Usage: Initialize the tree with create(patterns) where no
- * string in patterns is a suffix of another string. find(word)
- * returns, for each position in word, -1 if no pattern ends
+ * string in patterns is a suffix of another string. It can be rewritten to
+ * suffix-friendly version but I never needed this. So be careful when using
+ * this. find(word) returns, for each position in word, -1 if no pattern ends
  * here or i if pattern[i] ends here.
- * Time: $O(N_1+\dots+N_k)$ where $N_i$ is the length of the
- * $i$-th string.
+ * Time: Function create is $O(N_1+\dots+N_k)$ where $N_i$ is the length of the
+ * $i$-th. Function find is $O(M)$ where $M$ is the length of the word.
  * Status: tested
  */
 #include <cstring>

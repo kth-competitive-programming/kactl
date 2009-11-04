@@ -3,7 +3,8 @@
  * Date: 2009-10-26
  * Source: folklore
  * Description: nodes have either information about their
- * parent or they store the size of the set multiplied by one
+ * parent or, in case they are the root of the set, they store
+ * the size of the set multiplied by minus one.
  */
 #pragma once
 #include <vector>
