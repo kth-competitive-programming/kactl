@@ -20,6 +20,7 @@ help:
 kactl:
 	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex && $(LATEXCMD) $(LATEXFLAGS) kactl.tex
 	cp build/kactl.pdf kactl.pdf
+	cd doc; make strategy
 
 
 .PHONY: clean

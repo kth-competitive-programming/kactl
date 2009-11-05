@@ -17,3 +17,6 @@ syntax: regexp
 ^build/kactl.toc
 ^kactl.pdf
 ^temp/
+^doc/strategy.pdf
+^doc/strategy.log
+^doc/strategy.aux
