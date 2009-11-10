@@ -1,10 +1,10 @@
 /**
- * Author: Lukas
+ * Author: Lukas Polacek
  * Date: 2009-10-26
  * Source: folklore
  * Description: Segment tree can be used to retrieve maximum
  * of an interval a[x..y]. The array is zero-indexed. You can also update a value a[x].
- * Complexity: Both operations are $O(\log N)$.
+ * Time: Both operations are O(\log N).
  */
 #pragma once
 #include <vector>

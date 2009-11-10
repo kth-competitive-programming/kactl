@@ -1,5 +1,5 @@
 /**
- * Author: Lukas
+ * Author: Lukas Polacek
  * Date: 2009-10-26
  * Source: folklore
  * Description: nodes have either information about their

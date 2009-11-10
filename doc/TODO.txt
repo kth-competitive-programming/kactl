@@ -11,6 +11,7 @@
 General:
 New edition name
 Test everything that is not tested
+Remove duplicated code
 
 Latex:
 // indentation in usage
@@ -21,7 +22,9 @@ Chapter 1: Contest
 Chapter 2: Useful mathematical identities
 figures for the geometry
 finish spherical trigonometry
-area, volume etc of hyperspheres 
+area, volume etc of hyperspheres
+Circular segments, area, etc.
+Markov chains
 
 Chapter 3: Data structures
 Description for union_find.h (unionFind.h) (Marcus?)
@@ -67,7 +70,7 @@ Planarity testing
 
 Chapter 8: Geometry
 Figures to most of the algorithms
-Voronoi diagrams (Hakan)
+Voronoi diagrams (Elias)
 triangle area from side lengths or vertex coordinates
 circle inscribed in triangle
 minimum enclosing circle

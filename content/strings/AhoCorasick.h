@@ -3,8 +3,7 @@
  * Date: 2009-10-31
  * Source: marian's (TC) code
  * Description: Aho-Corasick tree is used for mutiple pattern
- * matching.
- * Usage: Initialize the tree with create(patterns) where no
+ * matching. Initialize the tree with create(patterns) where no
  * string in patterns is a suffix of another string. It can be rewritten to
  * suffix-friendly version but I never needed this. So be careful when using
  * this. find(word) returns, for each position in word, -1 if no pattern ends

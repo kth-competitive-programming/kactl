@@ -1,11 +1,11 @@
 /**
- * Author: Lukas
+ * Author: Lukas Polacek
  * Date: 2009-10-30
  * Source: folklore/TopCoder
  * Description: Fenwick tree can be used to retrieve sum $a[0]+\dots+a[x]$. You
  * can also update the value a[x] (update function takes the diference between the
  * old and new value).
- * Complexity: Both operations are $O(\log N)$.
+ * Time: Both operations are O(\log N).
  */
 #pragma once
 #include <vector>
