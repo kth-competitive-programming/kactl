@@ -18,6 +18,7 @@ Latex:
 floating figures and \image command
 
 Chapter 1: Contest
+Buffered Java IO
 
 Chapter 2: Useful mathematical identities
 figures for the geometry
