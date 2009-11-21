@@ -21,7 +21,6 @@ kactl:
 	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex && $(LATEXCMD) $(LATEXFLAGS) kactl.tex
 	cp build/kactl.pdf kactl.pdf
 
-
 .PHONY: clean
 clean: 
 	cd build && rm -f kactl.aux kactl.log kactl.tmp kactl.toc kactl.pdf kactl.ptc

@@ -2,14 +2,15 @@
  * Author: Ulf Lundstrom
  * Date: 2009-10-27
  * Source: folklore
- * Description: Calculated determinant using modular
+ * Description: Calculates determinant using modular
  * arithmetics. Can be rewritten to use doubles.
  * Status: tested
  * Time: $O(N^3)$
  */
 #include "../number theory/modularArithmetic.h"
 
-template<class Z> Mod<Z> det(Mod<Z> a[100][100], int n) {
+template<class Z> Mod<Z>
+det(Mod<Z> a[100][100], int n) {
 	Mod<Z> res(1);
 	rep(k,0,n) {
 		if (a[k][k].x == 0) rep(i,k+1,n) if (a[i][k].x != 0) {

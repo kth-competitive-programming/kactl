@@ -1,12 +1,12 @@
 /**
- * Author: Lukas
+ * Author: Lukas Polacek
  * Date: 2009-10-27
  * Source: folklore
  * Description: Treap is a binary search tree where each node
  * stores a secondary key. The tree is a heap according to the
  * secondary key. Secondary keys are random, hence this
- * datastructure is randomized. Expected running time of each
- * operation is $O(\log N)$.
+ * datastructure is randomized.
+ * Time: Expected running time of each operation is O(\log N).
  */
 #pragma once
 #include <vector>
@@ -38,9 +38,9 @@ void rotate(Node *son) {
 	}
 	son->set(type, father);
 }
-void insert(int a, int p) {
+void insert(int a) {
 	if (root == NULL) {
-		root = new Node(a, p);
+		root = new Node(a, rand());
 		root->fat = NULL;
 		return;
 	}
@@ -48,7 +48,7 @@ void insert(int a, int p) {
 	while (x != NULL) {
 		bool ok = (x->key <= a);
 		if (x -> s[ok] == NULL) {
-			x->set(ok, new Node(a, p));
+			x->set(ok, new Node(a, rand()));
 			x = x->s[ok];
 			break;
 		}

@@ -18,7 +18,7 @@
 using namespace std;
 
 #define rep(i, a, b) for(int i = (a); i < (b); ++i)
-#define trav(it, v) for(typeof((v).begin()) it = (v).begin(); \
+#define trav(it, v) for(__typeof((v).begin()) it = (v).begin(); \
                         it != (v).end(); ++it)
 
 typedef long long ll;
