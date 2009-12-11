@@ -1,7 +1,7 @@
 /**
  * Author: Lukas
  * Date: 2009-11-01
- * Source: Czech graph algorithms book, by Demel.
+ * Source: Czech graph algorithms book by Demel.
  * Description: Finds biconnected components in an
  * undirected graph.
  * Time: O(N + M)
@@ -22,9 +22,11 @@ void dfs(int j, int p)
 	num[j] = no_vertices++; v[j] = num[j];
 	z.push(j);
 	trav(it,g[j])
-		if (!seen[*it]) {
+	{
+		int i = *it;
+		if (!seen[i]) {
 			int zz = no_vertices;
-			dfs(*it, j);
+			dfs(i, j);
 			if (v[i] >= num[j]) {
 				vector<int> r;
 				for (; !z.empty() && num[z.top()] >= zz; z.pop())
@@ -35,7 +37,8 @@ void dfs(int j, int p)
 			v[j] = min(v[j], v[i]);
 		}
 		else if (i != p)
-			e[j] = min(v[j], num[*it]);
+			v[j] = min(v[j], num[*it]);
+	}
 }
 template<class G>
 vector<vector<int> > go(G &g) {
