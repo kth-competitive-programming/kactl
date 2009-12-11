@@ -1,5 +1,5 @@
 /**
- * Author: Lukas
+ * Author: Lukas Polacek
  * Date: 2009-11-01
  * Source: Czech graph algorithms book by Demel.
  * Description: Finds biconnected components in an

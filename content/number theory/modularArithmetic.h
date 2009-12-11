@@ -1,13 +1,12 @@
 /**
- * Author: Lukas
+ * Author: Lukas Polacek
  * Date: 2009-09-28
  * Source: folklore
  * Description: operators for modular arithmetic.
  * Status: works
  * Usage: First set mod to some number. Then you can use Mod
  * structure.
- * Complexity: Division is $O(\log mod)$, everything else is
- * $O(1)$.
+ * Time: Division is O(\log mod), everything else is O(1).
  */
 #include <vector>
 #include "euclid.h"

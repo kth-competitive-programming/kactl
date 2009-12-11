@@ -1,5 +1,5 @@
 /**
- * Author: Lukas
+ * Author: Lukas Polacek
  * Date: 2009-10-28
  * Source: Czech graph algorithms book, by Demel.
  * Description: Finds strongly connected components in a

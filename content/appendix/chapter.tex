@@ -7,37 +7,38 @@
 
 \section{Att testa under testsessionen}
 \begin{itemize}
-	\item macron
-	\item backuper
-	\item template
-	\item skriva ut
+	\item Byta tangentbordslayout
+	\item Bash-script
+	\item Backuper
+	\item template.cpp
 	\item Java
-	\item byta tangentbordslayout
-	\item testa whitespace
-	\item Skicka in med assert(true),assert(false), vilka svar får man?
+	\item Skriva ut
+	\item Skicka clarifications
+	\item Documentation
+	\item calc, python, octave
+	\item Submitscript
 	\item Storlek av int, long long, etc.
-	\item clarifications
-	\item skicka in stora filer
-	\item dokumentation
-	\item calc
-	\item alla dommarsvar
-	\begin{itemize}
- 			\item accepted
+	\item Skicka in med assert(true), assert(false)
+	\item Testa whitespace i utdata
+	\item Returvärden från main
+	\item Skriva till stderr
+	\item Källkods-storleks-gräns
+	\item Alla dommarsvar
+		\begin{itemize}
+ 			\item Accepted
  			\item WA
- 			\item runtime error
+			\item Presentation Error, \texttt{diff -aiwB}
+ 			\item Runtime Error, what results in RE?
  			\item TLE
- 			\item memory limit
- 			\item output limit
- 			\item illegal function
- 			\item compilation error
- 			\item compilation time limit exceeded
- 			\item to late
+ 			\item Memory limit, both stack and heap
+ 			\item Output limit
+ 			\item Illegal function
+ 			\item Compilation error
+ 			\item Compilation time limit exceeded
+ 			\item To late
 		\end{itemize}
-	\item vim/gvim
-	\item returvärden från main
-	\item stackminne
-	\item submitscript
-	\item skriva ut allt i pathen
+	\item skriva ut allt i pathen\\
+		\texttt{echo \$PATH | tr ':' ' ' | xargs ls | grep -v / | sort | uniq | tr '\char`\\n' ' ' > path.txt}
 \end{itemize}
 
 \chapter{Emacs cheat sheet}

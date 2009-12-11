@@ -2,8 +2,8 @@
  * Author: Chen Xing
  * Date: 2009-04-09
  * Source: http://en.wikipedia.org/wiki/Dijkstra's_algorithm
- *  http://en.wikipedia.org/wiki/Prim's_algorithm
- *  http://en.wikipedia.org/wiki/A-star_algorithm
+ * - http://en.wikipedia.org/wiki/Prim's_algorithm
+ * - http://en.wikipedia.org/wiki/A-star_algorithm
  * Description: Finds shortest path/minimum spanning tree. Note that none of the shortest path algorithms work with negative edge distances. Consider using bellmanFord or floydWarshall instead. Negative edges are fine for Prim.
  * Time: O((E + V) * \log(V)) where E is the number of edges and V is the number of vertices, when using default heap-like priority queue.
  * Memory: O(V) where V is the number of vertices.
