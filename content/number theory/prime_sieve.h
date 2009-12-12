@@ -25,7 +25,7 @@ struct prime_sieve {
 	}
 
 	prime_sieve(int _n) : n(_n), sqrtn((int)ceil(sqrt(1.0*n))) {
-		int n0 = max(n>>4, (uint)pregen + 1);
+		int n0 = max(n>>4, (uint)pregen) + 1;
 		prime = new int[max(2775, (int)(1.12*n/log(1.0*n)))];
 		prime[0]=2; prime[1]=3; prime[2]=5;
 		prime[3]=7; prime[4]=11; prime[5]=13;
