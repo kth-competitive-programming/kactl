@@ -5,10 +5,10 @@
  * Description: Finds strongly connected components in a
  * directed graph.
  * Time: O(N + M)
- * Status: works
+ * Status: Works
  * Usage: Create a graph, then run go(graph). As a result
- * you get a number for each vertex - number of SC-component
- * that contains this vertex.
+ * you get a number for each vertex - a number of SC-component
+ * containing this vertex.
  */
 #include <stack>
 using namespace std;

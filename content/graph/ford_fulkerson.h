@@ -4,6 +4,7 @@
 * Source: tinyKACTL
 * Description: DFS and BFS Ford Fulkerson implementations. Min-cost-max-flow returnes the minimal cost for the maximal flow.
 * Time: O(E \cdot \# \texttt{ of augumenting paths})
+* Status: DFS is well tested.
 */
 #pragma once
 

@@ -6,7 +6,7 @@
  * stores a secondary key. The tree is a heap according to the
  * secondary key. Secondary keys are random, hence this
  * datastructure is randomized.
- * Time: Expected running time of each operation is O(\log N).
+ * Time: Expected running time of each operation is $O(\log N)$.
  */
 #pragma once
 #include <vector>
