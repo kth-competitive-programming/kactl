@@ -3,7 +3,8 @@
  * Date: 2009-10-26
  * Source: folklore
  * Description: Segment tree can be used to retrieve maximum
- * of an interval a[x..y]. The array is zero-indexed. You can also update a value a[x].
+ * of a sequence $a[x], a[x+1], \dots, a[y]$. The array is zero-indexed. You can also
+ * update value $a[x]$.
  * Time: Both operations are O(\log N).
  */
 #pragma once
@@ -18,12 +19,9 @@ struct Tree {
 		n = 1; while (n < _n) n *= 2;
 		s.assign(2 * n, 0);
 	}
-	void udpate(int pos, int val) {
-		pos += n;
-		while (pos >= 1) {
+	void update(int pos, int val) {
+		for (pos += n; pos >= 1; pos /= 2)
 			s[pos] = max(s[pos], val);
-			pos /= 2;
-		}
 	}
 	int query(int a, int b) { return que(1, a, b, 0, n); }
 	private:
