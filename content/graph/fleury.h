@@ -27,14 +27,14 @@ vector<int> fleury(G& g, int src = 0) {
 	while(!s.empty()) {
 		int x = s.back();
 		OutsItT& it = its[x], end = g.nodes[x].outs.end();
+		while(it != end && eu[it->second])
+			it++;
 		if(it == end) {
 			ret.push_back(x);
 			s.pop_back();
 		} else {
 			s.push_back(it->first);
 			eu[it->second] = true;
-			while(it != end && eu[it->second])
-				it++;
 		}
 	}
 

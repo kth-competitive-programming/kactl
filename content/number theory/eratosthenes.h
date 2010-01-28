@@ -9,18 +9,18 @@
 #pragma once
 #include <cstring>
 
-const int LIMIT = 5000000;
-bool isprime[LIMIT];
-int prime[LIMIT/* /log(LIMIT) */], primes=0;
-
-void eratosthenes_sieve() {
+const int MAX_PR = 5000000;
+bool isprime[MAX_PR];
+vector<int> eratosthenes_sieve(int LIMIT) {
 	memset(isprime, 1, sizeof(isprime));
 	isprime[0]=isprime[1]=false;
 	for(int i=2;i*i<LIMIT;++i)
 		if(isprime[i])
 			for(int j=i*i;j<LIMIT;j+=i)
 				isprime[j]=false;
+	vector<int> pr;
 	for(int i=2;i<LIMIT;++i)
 		if(isprime[i])
-			prime[primes++]=i;
+			pr.push_back(i);
+	return pr;
 }
