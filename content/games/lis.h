@@ -4,6 +4,7 @@
  * Source: N/A
  * Description: N/A
  * Status: Working
+ * Complexity: Time $O(log(N)  N)$ where N is the length of input sequence.
  */
 #pragma once
 
@@ -11,10 +12,8 @@ template<typename IteratorType>
 struct DereferenceLess :
 	binary_function<IteratorType, IteratorType, bool>
 {
-	bool
-	operator()(const IteratorType& first,
-			   const IteratorType& second) const
-	{
+	bool operator()(const IteratorType& first,
+			   const IteratorType& second) const {
 		return (*first) < (*second);
 	}
 };
@@ -23,19 +22,13 @@ template<typename IteratorType>
 struct DereferenceGreater :
 	binary_function<IteratorType, IteratorType, bool>
 {
-	bool
-	operator()(const IteratorType& first,
-			   const IteratorType& second) const
-	{
+	bool operator()(const IteratorType& first,
+			   const IteratorType& second) const {
 		return (*first) > (*second);
 	}
 };
 
 /*! \brief Compute indices for the longest increasing subsequence in specified input sequence.
-	\author Chen Xing (chen@starworm.com)
-	\date 2009-09-24
-	\complexity O(log(N) * N) where N is the length of input sequence.
-	\memory O(N) where N is the length of input sequence.
 	\tparam ElementType Input sequence element type.
 	\tparam IteratorType Input sequence random-access iterator type.
 	\param[in] begin Beginning of input sequence.
