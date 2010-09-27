@@ -11,7 +11,7 @@
  * Time: $O(N \log N)$ where $N$ is the length of the string
  * for creation of the SA. $O(N)$ for longest common prefixes.
  * Memory: $O(N)$
- * Status: Tested on UVa 4513
+ * Status: Tested on UVa Live 4513
  */
 #pragma once
 #include <vector>
@@ -34,7 +34,7 @@ void count_sort(vector<pii> &b, int bits) {
 		vector<pii> res(b.size());
 		for (unsigned i = 0; i < b.size(); i++)
 			res[w[(b[i].first >> move) & mask]++] = b[i];
-		b = res;
+		swap(b, res);
 	}
 }
 struct SuffixArray {

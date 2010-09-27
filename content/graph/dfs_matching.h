@@ -3,8 +3,13 @@
  * Date: 2009-10-28
  * Source:
  * Description: This is a silly matching algorithm but should
- * be just fine in most cases.
- * Time: O(NM)
+ * be just fine in most cases. Graph $g$ should be a list of
+ * neighbours of the left partition. $n$ is the size of the left
+ * partition and $m$ is the size of the right partition.
+ * If you want to get the matched pairs, $match[i]$ contains
+ * match for vertex $i$ on the right side or $-1$ if it's not
+ * matched.
+ * Time: $O(NM)$
  * Status: works
  */
 #include <algorithm>

@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include <cstdlib>
+#include <cstdio>
 #include <iostream>
 #include <map>
 #include <queue>

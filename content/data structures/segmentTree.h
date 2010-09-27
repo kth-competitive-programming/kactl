@@ -20,10 +20,12 @@ struct Tree {
 		s.assign(2 * n, 0);
 	}
 	void update(int pos, int val) {
-		for (pos += n; pos >= 1; pos /= 2)
-			s[pos] = max(s[pos], val);
+		pos += n;
+		s[pos] = val;
+		for (pos /= 2; pos >= 1; pos /= 2)
+			s[pos] = max(s[pos * 2], s[pos * 2 + 1]);
 	}
-	int query(int a, int b) { return que(1, a, b, 0, n); }
+	int query(int a, int b) { return que(1, a, b + 1, 0, n); }
 	private:
 	int que(int pos, int a, int b, int x, int y) {
 		if (a >= b) return LOW;

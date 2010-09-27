@@ -2,6 +2,7 @@
 #include "UnitTestManager.h"
 #include "UnitTest.h"
 #include "UnitTestWrapper.h"
+#include <cstdio>
 
 //#include <direct.h>
 

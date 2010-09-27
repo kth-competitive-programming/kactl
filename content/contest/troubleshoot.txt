@@ -20,7 +20,7 @@ Have you understood the problem correctly?
 Can your algorithm handle the whole range of input?
 Are you sure your algorithm works?
 What special cases have you not thought of?
-Are you sure the stl functions you use work as you think?
+Are you sure the STL functions you use work as you think?
 Read the full problem statement again.
 Create some testcases to run your algorithm on.
 Go through this list again.
@@ -28,6 +28,7 @@ Go through the algorithm for a simple case.
 Explain your algorithm to a team mate.
 Ask the team mate to look at your code.
 Rewrite your solution from the start or let a team mate do it.
+Go for a small walk, e.g. to the toilet.
 
 Runtime error:
 Have you tested all corner cases locally?
@@ -56,7 +57,7 @@ What the %#@$ are you doing?
 I hope you are not trying to read or write to a file or check the time.
 
 Compilation error:
-Compile localy!
+Compile locally!
 Include all files you need explicitly even if they should be included by some other file.
 Send a clarification.
 

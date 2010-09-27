@@ -1,3 +1,4 @@
+mkdir script; cd script
 echo 'g++ -Wall -O -o $1 $1.cpp' > c  # Compiles
 echo './$1 < $1.in' > r               # Runs
 echo 'a2ps --line-numbers=1 $1' > p   # Prints

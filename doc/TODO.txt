@@ -17,9 +17,6 @@ Latex:
 // indentation in usage
 floating figures and \image command
 
-Chapter 1: Contest
-Buffered Java IO
-
 Chapter 2: Useful mathematical identities
 figures for the geometry
 finish spherical trigonometry
@@ -28,7 +25,6 @@ Circular segments, area, etc.
 Markov chains
 
 Chapter 3: Data structures
-Description for union_find.h (unionFind.h) (Marcus?)
 indexMapper
 rational
 polynomial
@@ -39,7 +35,6 @@ Chapter 4: Numerical
 Newton-Raphson (Ulf)
 Simplex (Hakan)
 description for matrix inverse and solve linear or new code
-matrix determinant
 fourier transform
 ceil and floor of n/m
 
@@ -47,8 +42,6 @@ Chapter 5: Number theory
 description for gcd and euclid
 extensive explanation of the chinese reminder theorem including how to get all solutions
 chinese reminder theorem for more than two equations
-pollards rho algorithm
-primality test
 List of primes
 Diophantine equations (especially linear, Bezout's identity)
 Pythagorean triples
@@ -57,7 +50,6 @@ Carmichael numbers
 Chapter 6: Combinatorial
 12-fold way with table and list with explanations and examples
 stirling numbers of both kinds
-catalan numbers
 list of the first numbers of each kind
 // implementations with BigInteger in Java
 
@@ -67,7 +59,7 @@ implementation of minimum vertex cover in bipartite graph
 general matching
 Topological sorting
 "Gopher strategy"
-Planarity testing
+Min-cost max-flow
 
 Chapter 8: Geometry
 Figures to most of the algorithms
@@ -79,16 +71,14 @@ circumscribed circle (not same as minimum enclosing circle!)
 maximum inscribed circle
 test point3D
 closes pair (line sweep)
-fix oldConvexHull
 polygonCenter when points are collinear?
 
 Chapter 9: Strings
-suffix tree/array
+suffix tree
 trie
 Recursive descent parser
 
 Chapter 10: Games and Puzzles
-longest increasing subsequence
 Queens, Kings, Knights, Bishops, Rooks problem, etc.
 Tower of Hanoi
 Monkey and Coconut Problem

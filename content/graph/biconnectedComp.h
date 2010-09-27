@@ -4,8 +4,8 @@
  * Source: Czech graph algorithms book by Demel.
  * Description: Finds biconnected components in an
  * undirected graph.
- * Time: O(N + M)
- * Status: works
+ * Time: $O(N + M)$
+ * Status: Tested on UVa Live 4544
  * Usage: Create a graph, then run go(graph). As a result
  * you get a vector with biconnected components.
  */
@@ -15,18 +15,17 @@ stack<int> z;
 vector<bool> seen;
 vector<int> num, v;
 int no_vertices;
-vector<vector<int> > g, comp;
-void dfs(int j, int p)
-{
+vector<vector<int> > comp;
+template<class G>
+void dfs(int j, int p, G &g) {
 	seen[j] = true;
 	num[j] = no_vertices++; v[j] = num[j];
 	z.push(j);
-	trav(it,g[j])
-	{
+	trav(it,g[j]) {
 		int i = *it;
 		if (!seen[i]) {
 			int zz = no_vertices;
-			dfs(i, j);
+			dfs(i, j, g);
 			if (v[i] >= num[j]) {
 				vector<int> r;
 				for (; !z.empty() && num[z.top()] >= zz; z.pop())
@@ -48,6 +47,6 @@ vector<vector<int> > go(G &g) {
 	no_vertices = 0;
 	comp.clear();
 	for (int i = 0; i < n; i++)
-		if (!seen[i]) dfs(i, -1);
+		if (!seen[i]) dfs(i, -1, g);
 	return comp;
 }

@@ -29,6 +29,7 @@ void dfs(int j, G &g) {
 		}
 		else if (comp[*it] == 0)
 			num[j] = min(num[j], val[*it]);
+
 	if (val[j] == num[j]) {
 		no_components++;
 		while (true) {
