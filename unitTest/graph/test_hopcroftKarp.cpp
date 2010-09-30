@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/graph/hopcroftKarp2.h"
+#include "../../content/graph/hopcroftKarp.h"
 #include <fstream>
 #include <sstream>
 
@@ -29,12 +29,12 @@ class test_HopcorftKarp :
 				g[x].push_back(y);
 			}
 			vi b(m, -1);
-			int res = hopcroftKarp2(g, b);
-			if (subcase == 0) check(res, 2, "Hopcroft-Karp 0");
-			if (subcase == 1) check(res, 43, "Hopcroft-Karp 1");
-			if (subcase == 2) check(res, 40, "Hopcroft-Karp 2");
-			if (subcase == 3) check(res, 40, "Hopcroft-Karp 3");
-			if (subcase == 4) check(res, 47, "Hopcroft-Karp 4");
+			int res = hopcroftKarp(g, b);
+			if (subcase == 0) check(res, 2, "0");
+			if (subcase == 1) check(res, 43, "1");
+			if (subcase == 2) check(res, 40, "2");
+			if (subcase == 3) check(res, 40, "3");
+			if (subcase == 4) check(res, 47, "4");
 		}
 
 		virtual int getCount() const {

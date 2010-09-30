@@ -2,9 +2,9 @@
  * Author: Chen Xing
  * Date: 2009-10-13
  * Source: N/A
- * Description: N/A
+ * Description: Find a maximum matching in a bipartite graph.
  * Status: Working
- * Usage: vi ba(m, -1); hopcroftKarp2(g, ba);
+ * Usage: vi ba(m, -1); hopcroftKarp(g, ba);
  * Time: O(\sqrt{N}M)
  */
 
@@ -37,8 +37,7 @@ bool hopcroftKarp_dfs(int a,
 	return false;
 }
 
-int
-hopcroftKarp2(const vector<vector<int> >& AtoB,
+int hopcroftKarp(const vector<vector<int> >& AtoB,
 			  vector<int>& BtoA)
 {
 	int incrMatching = 0;

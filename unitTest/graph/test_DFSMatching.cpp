@@ -1,6 +1,5 @@
 #include "../UnitTest.h"
 #include "../../content/graph/dfs_matching.h"
-#include "../../content/graph/hopcroft_karp.h"
 #include <fstream>
 #include <sstream>
 
@@ -35,12 +34,6 @@ class test_DFSMatching :
 			if (subcase == 2) check(res, 40, "DFS 2");
 			if (subcase == 3) check(res, 40, "DFS 3");
 			if (subcase == 4) check(res, 47, "DFS 4");
-			//res = hopcroft_karp(g, n, m, vector<int>(m), vector<bool>(n), vector<bool>(m));
-			//if (subcase == 0) check(res, 2, "Hopcroft-Karp 0");
-			//if (subcase == 1) check(res, 43, "Hopcroft-Karp 1");
-			//if (subcase == 2) check(res, 40, "Hopcroft-Karp 2");
-			//if (subcase == 3) check(res, 40, "Hopcroft-Karp 3");
-			//if (subcase == 4) check(res, 47, "Hopcroft-Karp 4");
 		}
 
 		virtual int getCount() const {

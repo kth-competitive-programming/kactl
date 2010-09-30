@@ -9,15 +9,17 @@
 
 #include <cmath>
 #include <cstdlib>
+#include <cstdio>
 #include <iostream>
 #include <map>
 #include <queue>
 #include <set>
-#include <sstream>
 #include <string>
+#include <bitset>
+#include <algorithm>
 using namespace std;
 
-#define rep(i, a, b) for(int i = (a); i < (b); ++i)
+#define rep(i, a, b) for(int i = (a); i < int(b); ++i)
 #define trav(it, v) for(__typeof((v).begin()) it = (v).begin(); \
                         it != (v).end(); ++it)
 
