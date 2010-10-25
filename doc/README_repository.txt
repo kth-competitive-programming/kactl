@@ -36,7 +36,6 @@ hg move            - Moves that file, and signals that the file has moved, so th
 hg revert          - Go back to an earlier version of a file, or an entire changeset.
 hg merge           - If you have made any changes to a file that has also been modified on the central repository.
 
-Consult "hg add --help" for help or read a tutorial
-http://mercurial.selenic.com/wiki/Tutorial
+Consult "hg add --help" for help or read a tutorial here http://mercurial.selenic.com/wiki/Tutorial or here http://hginit.com.
 
 For further information and guidelines about committing content to KACTl, read the file doc/README in the repository.
