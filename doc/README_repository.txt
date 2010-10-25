@@ -2,7 +2,7 @@ KACTL stands for KTH ACM Contest Template Library and it contains a lot of usefu
 
 When you've got Mercurial installed on your computer, you should check that you can access Mercurial on the KTH computers without a login shell. Try running
 $ ssh <nada-username>@my.nada.kth.se hg --version
-If you get back the Mercurial version, then you are all set. However, we had some problems with this because the KTH module system won't load when you ssh without a login shell, so we had to add the following lines to our .bachrc (on nada's system):
+If you get back the Mercurial version, then you are all set. However, we had some problems with this because the KTH module system won't load when you ssh without a login shell, so we had to add the following lines to our .bashrc (on nada's system):
 export PATH=$PATH:/pkg/mercurial/1.4.2/os/bin;
 export PYTHONPATH=$PYTHONPATH:/pkg/mercurial/1.4.2/os/lib/python/;
 
@@ -11,7 +11,7 @@ working space      - The files you have currently visible on your computer.
 local repository   - The entire history of the repository, stored on your computer, in the hidden .hg folder under the project.
 central repository - The entire history of the repository, stored on KTH's network.
 changeset          - A group of file changes in the repository.
-Thus, a common working flow is to first update your working space to the latest version from the central repository (hg pull, hg update). Then edit some files in your working space, you can use any text editor for this. When you are done, check that you haven't changed anything by misstake (hg status, hg diff), and then commit the changes to the local repository (hg commit), this creates a new changeset. If you have added a new file, then you need to run 'hg add' before committing, and if you want to move or remove a file, use 'hg move' and 'hg remove'. Finally, you need to synchronize your changes back to the central repository. Start by checking if someone else has made any changes while you were working (hg incoming, hg pull), in the worst case, you need to merge (hg merge). Then, push your changesets to the central repository (hg outgoing, hg push).
+Thus, a common working flow is to first update your working space to the latest version from the central repository (hg pull, hg update). Then edit some files in your working space, you can use any text editor for this. When you are done, check that you haven't changed anything by mistake (hg status, hg diff), and then commit the changes to the local repository (hg commit), this creates a new changeset. If you have added a new file, then you need to run 'hg add' before committing, and if you want to move or remove a file, use 'hg move' and 'hg remove'. Finally, you need to synchronize your changes back to the central repository. Start by checking if someone else has made any changes while you were working (hg incoming, hg pull), in the worst case, you need to merge (hg merge). Then, push your changesets to the central repository (hg outgoing, hg push).
 
 Now we are ready to start, check out your local copy of the repository by typing:
 $ hg clone ssh://<nada-username>@my.nada.kth.se//misc/projects/contest/newKACTL <local-directory>
