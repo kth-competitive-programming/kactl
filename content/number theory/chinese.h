@@ -7,7 +7,7 @@
  * Usage: chinese(a, m, b, n) returns a number $x$, such that
  * $x\equiv a \pmod m$ and $x\equiv b \pmod n$. For not
  * coprime $n, m$, use chinese_common.
- * Complexity: $log(m + n)$
+ * Time: $\log(m + n)$
  */
 #include "euclid.h"
 

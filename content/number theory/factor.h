@@ -5,7 +5,7 @@
  * Description: Pollard's rho algorithm. It is a probabilistic factorisation
  * algorithm, whose expected time complexity is good. Before you start using it,
  * run {\tt init(bits)}, where bits is the length of the numbers you use.
- * Complexity: Expected running time should be well enough for 50-bit numbers.
+ * Time: Expected running time should be well enough for 50-bit numbers.
  */
 #pragma once
 

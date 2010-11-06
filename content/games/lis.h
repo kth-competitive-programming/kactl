@@ -4,7 +4,7 @@
  * Source: N/A
  * Description: N/A
  * Status: Working
- * Complexity: Time $O(log(N)  N)$ where N is the length of input sequence.
+ * Time: $O(log(N)  N)$ where N is the length of input sequence.
  */
 #pragma once
 
