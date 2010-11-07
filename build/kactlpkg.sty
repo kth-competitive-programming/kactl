@@ -4,7 +4,7 @@
 
 \usepackage[utf8]{inputenc}				% Encoding UTF-8
 \usepackage{listings}					% Source code listings
-\usepackage[a4paper,landscape,hmargin={0.5cm,0.5cm},vmargin={1.5cm,0cm}]{geometry}
+\usepackage[a4paper,landscape,hmargin={0.5cm,0.5cm},vmargin={1.0cm,0cm}]{geometry}
 \usepackage{multicol}					% Split page in multiple columns
 \usepackage{fancyhdr}					% Fancy headers
 \usepackage{amsbsy, amssymb, amsmath}	% Enable math symbols
@@ -23,8 +23,8 @@
 
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0 pt}
-\chead{\thepage}\rhead{}\lhead{}
-\cfoot{}\rfoot{\raisebox{1cm}{\rotatebox{-90}{\thepage}}}\lfoot{}
+\lhead{}\chead{\thepage}\rhead{}
+\lfoot{}\cfoot{}\rfoot{\raisebox{1cm}{\rotatebox{-90}{\thepage}}}
 \fancyheadoffset{0pt}
 \fancyfootoffset{0pt}
 \setlength\headsep{10pt}
