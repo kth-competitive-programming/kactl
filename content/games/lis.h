@@ -1,49 +1,27 @@
 /**
- * Author: Chen Xing
- * Date: 2009-10-13
- * Source: N/A
+ * Author: Håkan Terelius
+ * Date: 2010-11-07
+ * Source: tinyKACTL, newKACTL, Wikipedia
  * Description: Compute indices for the longest increasing subsequence in specified input sequence.
- * Status: Working
- * Time: $O(log(N)  N)$ where N is the length of input sequence.
+ * Time: $O(n\log n)$ where n is the length of input sequence.
  */
 #pragma once
 
-template<typename IteratorType> struct DereferenceLess : binary_function<IteratorType, IteratorType, bool> {
-	bool operator()(const IteratorType& first, const IteratorType& second) const {
-		return (*first) < (*second);
-	}
-};
+template<class It> struct It_Less {
+	bool operator()(It i, It j) const {return *i < *j;} };
 
-template<typename IteratorType> struct DereferenceGreater : binary_function<IteratorType, IteratorType, bool> {
-	bool operator()(const IteratorType& first, const IteratorType& second) const {
-		return (*first) > (*second);
-	}
-};
-
-template<typename ElementType, typename IteratorType> vector<size_t> lis(IteratorType begin, IteratorType end) {
+template<class It> vector<size_t> lis3(It begin, It end) {
 	if(begin == end) return vector<size_t>();
-	vector<IteratorType> lowestWithLength, lisPrevious;
-	lisPrevious.reserve(end - begin);
-	lowestWithLength.push_back(end);
-
-	for(size_t i = 0; begin + i != end; ++i) {
-		IteratorType current = begin + i;
-		typename vector<IteratorType>::iterator it = lower_bound(lowestWithLength.begin() + 1, lowestWithLength.end(), current, DereferenceLess<IteratorType>());
-		lisPrevious.push_back(*(it - 1));
-		if(it == lowestWithLength.end()) lowestWithLength.push_back(current);
-		else if(*(*it) > *current) *it = current;
+	vector<It> idx, back(end-begin);
+	idx.push_back(end);
+	for(It it = begin; it != end; ++it) {
+		// upper_bound if non-decreasing rather than increasing
+		typeof(idx.begin()) b = lower_bound(idx.begin() + 1, idx.end(), it, It_Less<It>());
+		back[it-begin] = *(b-1);
+		if(b == idx.end()) idx.push_back(it); else *b = it;
 	}
-
-	IteratorType lisLast = lowestWithLength.back();
-	size_t lisLength = lowestWithLength.size() - 1;
-	lowestWithLength.clear();
-	vector<size_t> lisIndex;
-	lisIndex.resize(lisLength);
-
-	while(lisLength > 0) {
-		--lisLength;
-		lisIndex[lisLength] = lisLast - begin;
-		lisLast = lisPrevious[lisLast - begin];
-	}
-	return lisIndex;
+	size_t len = idx.size()-1, last = idx.back()-begin;
+	vector<size_t> ind(len);
+	while(len) ind[--len] = last, last = back[last]-begin;
+	return ind;
 }
