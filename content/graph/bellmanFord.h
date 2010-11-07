@@ -13,7 +13,7 @@
  */
 #pragma once
 
-#include "GraphDPAB.hpp"
+#include "GraphDPAB.h"
 
 template<class G>
 bool bellmanFord(G& g, int src) {

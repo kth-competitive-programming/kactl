@@ -8,14 +8,13 @@
  * Time: O((E + V) * \log(V)) where E is the number of edges and V is the number of vertices, when using default heap-like priority queue.
  * Memory: O(V) where V is the number of vertices.
  * Status: Unknown
- * Usage:
- *  typedef Graph<NodeDPAB<double>, EdgeDPAB<double> > G;
+ * Usage: typedef Graph<NodeDPAB<double>, EdgeDPAB<double> > G;
  *  G g;
  *  double x = DijkstraPrimAstar<G, Dijkstra>::exec(g, 10, 20);
  */
 #pragma once
 
-#include "GraphDPAB.hpp"
+#include "GraphDPAB.h"
 
 template<class G, class A, class D = typename G::NodeT::DistanceT, class PQ =
 	set<pair<D, int> > >
