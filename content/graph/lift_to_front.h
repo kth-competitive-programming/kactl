@@ -23,7 +23,7 @@ Flow lift_to_front(adj_list *g, int v, int s, int t) {
 	memset(hgt, 0, sizeof(int)*v);
 	memset(exc, 0, sizeof(Flow)*v);
 	hgt[s] = v - 2;
-	for (adj_iter it = g[s].begin(); it != g[s].end(); it++)
+	trav(it, g[s])
 		add_flow(g, *it, it->c, exc);
 	int p = t; // make l a linked list from p to t (sink)
 	for (int i = 0; i < v; i++) {
@@ -38,7 +38,7 @@ Flow lift_to_front(adj_list *g, int v, int s, int t) {
 		while (exc[u] > 0)  // discharge u
 			if (cur[u] == g[u].end()) {
 				hgt[u] = 2 * v - 1; // lift u, find admissible edge
-				for (adj_iter it = g[u].begin(); it!=g[u].end(); ++it)
+				trav(it, g[u])
 					if (it->c > 0 && hgt[it->dest] + 1 < hgt[u])
 						hgt[u] = hgt[it->dest]+1, cur[u] = it;
 			} else if (cur[u]->c>0 && hgt[u] == hgt[cur[u]->dest]+1)

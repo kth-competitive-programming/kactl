@@ -16,7 +16,7 @@ int mark[MAXNODES];
 Flow inc_flow_dfs(adj_list *g, int s, int t, Flow maxf) {
 	if (s == t) return maxf;
 	Flow inc; mark[s] = 0;
-	for (adj_iter it = g[s].begin(); it != g[s].end(); ++it)
+	trav(it, g[s])
 	if (mark[it->dest] && it->r() &&
 		(inc=inc_flow_dfs(g,it->dest,t,min(maxf, it->r()))))
 		return it->f+=inc, g[it->dest][it->back].f -= inc, inc;
@@ -27,7 +27,7 @@ Flow inc_flow_bfs(adj_list *g, int s, int t, Flow inc) {
 	queue<int> q; q.push(s);
 	while (!q.empty() && mark[t] < 0) {
 		int v = q.front(); q.pop();
-		for (adj_iter it = g[v].begin(); it != g[v].end(); ++it)
+		trav(it, g[v])
 			if (mark[it->dest] < 0 && it->r())
 			mark[it->dest] = it->back, q.push(it->dest);
 	}
@@ -50,7 +50,7 @@ Flow inc_flow_bellman_ford(adj_list *g, int n, int s, int t) {
 	bool changed = true; mindist[s] = 0;
 	for (int i = 1; !(changed = !changed); ++i)
 		for (int v = 0; v < n; ++v)
-			for (adj_iter it = g[v].begin(); it != g[v].end(); ++it){
+			trav(it, g[v]) {
 				Flow dist =mindist[v]+(it->f<0 ? -it->cost : it->cost);
 				if (it->r() > 0 && dist < mindist[it->dest]) {
 					if (i >= n) assert(0);// negative cycle! shouldn't be

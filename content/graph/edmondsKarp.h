@@ -12,8 +12,6 @@ T edmondsKarp(vector<map<int, T> >& graph, int source, int sink)
 	if(source == sink)
 		return numeric_limits<T>::max();
 
-	typedef typename map<int, T>::iterator iterator;
-
 	T flow = 0;
 
 	vector<int> prevNode;
@@ -35,7 +33,7 @@ T edmondsKarp(vector<map<int, T> >& graph, int source, int sink)
 		{
 			int x = bfs[bfsPos];
 
-			for(iterator it = graph[x].begin(); it != graph[x].end(); ++it)
+			trav(it, graph[x])
 			{
 				if(prevNode[it->first] == -1 && it->second > 0)
 				{
