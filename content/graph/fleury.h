@@ -9,7 +9,7 @@
  */
 #pragma once
 
-#include "Graph.hpp"
+#include "Graph.h"
 
 template<class G>
 vector<int> fleury(G& g, int src = 0) {

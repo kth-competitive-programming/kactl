@@ -1,80 +1,27 @@
 /**
- * Author: Chen Xing
- * Date: 2009-10-13
- * Source: N/A
- * Description: N/A
- * Status: Working
- * Complexity: Time $O(log(N)  N)$ where N is the length of input sequence.
+ * Author: Håkan Terelius
+ * Date: 2010-11-07
+ * Source: tinyKACTL, newKACTL, Wikipedia
+ * Description: Compute indices for the longest increasing subsequence in specified input sequence.
+ * Time: $O(n\log n)$ where n is the length of input sequence.
  */
 #pragma once
 
-template<typename IteratorType>
-struct DereferenceLess :
-	binary_function<IteratorType, IteratorType, bool>
-{
-	bool operator()(const IteratorType& first,
-			   const IteratorType& second) const {
-		return (*first) < (*second);
+template<class It> struct It_Less {
+	bool operator()(It i, It j) const {return *i < *j;} };
+
+template<class It> vector<size_t> lis3(It begin, It end) {
+	if(begin == end) return vector<size_t>();
+	vector<It> idx, back(end-begin);
+	idx.push_back(end);
+	for(It it = begin; it != end; ++it) {
+		// upper_bound if non-decreasing rather than increasing
+		typeof(idx.begin()) b = lower_bound(idx.begin() + 1, idx.end(), it, It_Less<It>());
+		back[it-begin] = *(b-1);
+		if(b == idx.end()) idx.push_back(it); else *b = it;
 	}
-};
-
-template<typename IteratorType>
-struct DereferenceGreater :
-	binary_function<IteratorType, IteratorType, bool>
-{
-	bool operator()(const IteratorType& first,
-			   const IteratorType& second) const {
-		return (*first) > (*second);
-	}
-};
-
-/*! \brief Compute indices for the longest increasing subsequence in specified input sequence.
-	\tparam ElementType Input sequence element type.
-	\tparam IteratorType Input sequence random-access iterator type.
-	\param[in] begin Beginning of input sequence.
-	\param[in] end End of input sequence.
-	\return Indices of an earliest longest increasing subsequence.
-*/
-template<typename ElementType,
-		 typename IteratorType>
-vector<size_t> lis(IteratorType begin,
-				   IteratorType end)
-{
-	if(begin == end)
-		return vector<size_t>();
-
-	vector<IteratorType> lowestWithLength;
-	vector<IteratorType> lisPrevious;
-
-	lisPrevious.reserve(end - begin);
-	lowestWithLength.push_back(end);
-
-	for(size_t i = 0; begin + i != end; ++i)
-	{
-		IteratorType current = begin + i;
-
-		typename vector<IteratorType>::iterator it = lower_bound(lowestWithLength.begin() + 1, lowestWithLength.end(), current, DereferenceLess<IteratorType>());
-
-		lisPrevious.push_back(*(it - 1));
-		if(it == lowestWithLength.end())
-			lowestWithLength.push_back(current);
-		else if(*(*it) > *current)
-			*it = current;
-	}
-
-	IteratorType lisLast = lowestWithLength.back();
-	size_t lisLength = lowestWithLength.size() - 1;
-	lowestWithLength.clear();
-
-	vector<size_t> lisIndex;
-	lisIndex.resize(lisLength);
-
-	while(lisLength > 0)
-	{
-		--lisLength;
-		lisIndex[lisLength] = lisLast - begin;
-		lisLast = lisPrevious[lisLast - begin];
-	}
-
-	return lisIndex;
+	size_t len = idx.size()-1, last = idx.back()-begin;
+	vector<size_t> ind(len);
+	while(len) ind[--len] = last, last = back[last]-begin;
+	return ind;
 }
