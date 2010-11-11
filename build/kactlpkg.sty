@@ -23,7 +23,8 @@
 
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0 pt}
-\lhead{}\chead{\thepage}\rhead{}
+\lhead{}\chead{}\rhead{}
+%\lhead{}\chead{\thepage}\rhead{}
 \lfoot{}\cfoot{}\rfoot{\raisebox{1cm}{\rotatebox{-90}{\thepage}}}
 \fancyheadoffset{0pt}
 \fancyfootoffset{0pt}
@@ -92,10 +93,10 @@
 	{\normalfont\normalsize\bfseries}}
 
 % Styles for local toc
-\titlecontents{localsection}[1.5em]{}{}
-	{}{\titlerule*[0.8em]{.}\contentspage}
-\titlecontents{localsubsection}[3.8em]{}{}
-	{}{\titlerule*[0.8em]{.}\contentspage}
+\titlecontents{localsection}[1.5em]{\footnotesize}{}
+	{\footnotesize}{\titlerule*[0.8em]{.}\contentspage}
+\titlecontents{localsubsection}[3.8em]{\footnotesize}{}
+	{\footnotesize}{\titlerule*[0.8em]{.}\contentspage}
 
 % Styles for main toc
 \renewcommand{\chaptermark}[1]{\markboth{\emph{ #1}}{}}
