@@ -2,7 +2,7 @@
  * Author:
  * Date: 2009-08-08
  * Source: tinyKACTL, http://en.wikipedia.org/wiki/Binomial_coefficient
- * Description: $\binom{n}{k}=\frac{n!}{k!(n-k)!}$
+ * Description: The number of $k$-element subsets of an $n$-element set, $\binom{n}{k}=\frac{n!}{k!(n-k)!}$
  * Time: O(\min(k,n-k))
  */
 #pragma once
