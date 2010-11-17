@@ -37,6 +37,11 @@
 			$$E(n,k) = \sum_{j=0}^k(-1)^j\binom{n+1}{j}(k+1-j)^n$$
 	
 	\section{Partitions and subsets}
+		\subsection{Partition function}
+			Partitions of $n$ with exactly $k$ parts, $p(n,k)$, i.e., writing $n$ as a sum of $k$ positive integers, disregarding the order of the summands.
+			$$p(n,k) = p(n-1,k-1)+p(n-k,k)$$
+			$$p(0,0)=p(1,n)=p(n,n)=p(n,n-1)=1$$
+			
 		\subsection{Binomial}
 			\kactlimport{binomial.h}
 			\kactlimport{binomialModPrime.h}
