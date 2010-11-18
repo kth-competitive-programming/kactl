@@ -11,6 +11,10 @@
 			\import{factorial.tex}
 			\kactlimport{intperm.h}
 		
+		\subsection{Cycles}
+			Let the number of $n$-permutations whose cycle lengths all belong to the set $S$ be denoted by $g_S(n)$. Then
+			$$\sum_{n=0} ^\infty g_S(n) \frac{x^n}{n!} = \exp\left(\sum_{n\in S} \frac{x^n} {n} \right)$$
+		
 		\subsection{Derangements}
 			Permutations of a set such that none of the elements appear in their original position.
 			$$D(n) = (n-1)(D(n-1)+D(n-2)) = n D(n-1)+(-1)^n = \left\lfloor\frac{n!}{e}\right\rceil$$
