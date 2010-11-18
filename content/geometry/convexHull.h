@@ -39,11 +39,9 @@ It convexHull(It begin, It end) {
 	//place hull points first by doing a Graham scan
 	It r = begin + 1;
 	for (It i = begin+2; i != end; ++i) {
-		while (r > begin && (*r-*(r-1)).cross(*i-*r) <= 0)
-			--r;
+		while (r > begin && (*r-*(r-1)).cross(*i-*r) <= 0) --r;
 		swap(*++r, *i);
 	}
 	if (r-begin == 1 && *begin == *r) r--;
-	//return the iterator past the last hull point
-	return ++r;
+	return ++r; //return the iterator past the last hull point
 }

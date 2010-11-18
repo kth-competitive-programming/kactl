@@ -41,6 +41,5 @@ It convexHull(It begin, It end) {
 		swap(*++r, *i);
 	}
 	if (r == begin+1 && *r == *begin) --r;
-	//return the iterator past the last hull point
-	return ++r;
+	return ++r; //return the iterator past the last hull point
 }
