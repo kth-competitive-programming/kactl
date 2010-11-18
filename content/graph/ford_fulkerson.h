@@ -68,7 +68,7 @@ Flow inc_flow_bellman_ford(adj_list *g, int n, int s, int t) {
 	while (v != s)
 		e = &g[v][mark[v]], e->f -= inc,
 		v = e->dest, g[v][e->back].f += inc;
-	return inc * mindist[t];
+	return inc * mindist[t]; // Breaks for 0-cost flows!
 }
 
 Flow max_flow(adj_list *graph, int n, int s, int t) {
