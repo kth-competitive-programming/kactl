@@ -16,12 +16,8 @@ using namespace std;
 vector<int> val, num, comp;
 int no_vertices, no_components;
 stack<int> z;
-template<class G>
-void dfs(int j, G &g) {
-	val[j] = no_vertices++;
-	num[j] = val[j];
-	comp[j] = 0;
-	z.push(j);
+template<class G> void dfs(int j, G &g) {
+	num[j] = val[j] = no_vertices++; comp[j] = 0; z.push(j);
 	trav(it,g[j])
 		if (comp[*it] == -1) {
 			dfs(*it, g);
@@ -39,14 +35,12 @@ void dfs(int j, G &g) {
 		}
 	}
 }
-template<class G>
-vector<int> go(G &g) {
+template<class G> vector<int> go(G &g) {
 	int n = g.size();
 	val.assign(n, 0); num = val;
 	no_vertices = no_components = 0;
 	comp.assign(n, -1);
-	for (int i = 0; i < n; i++) if (comp[i] == -1)
-		dfs(i, g);
+	for (int i = 0; i < n; i++) if (comp[i] == -1) dfs(i, g);
 	for (int i = 0; i < n; i++) comp[i]--;
 	return comp;
 }
