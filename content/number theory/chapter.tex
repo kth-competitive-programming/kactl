@@ -14,7 +14,14 @@
 	\section{Divisibility}
 		\kactlimport{euclid.h}
 		\kactlimport{phiFunction.h}
-		%\import{divisibilityRules} Why do we have this?
+		\subsection{Bézout's identity}
+		For $a \neq $, $b \neq 0$, then $d=gcd(a,b)$ is the smallest positive integer for which there are integer solutions to
+		$$ax+by=d$$
+		If $(x,y)$ is one solution, then all solutions are given by
+		$$\left(x+\frac{kb}{\gcd(a,b)}, y-\frac{ka}{\gcd(a,b)}\right), \quad k\in\mathbb{Z}$$
+		
+		\import{divisibilityRules}
+		
 
 	\section{Chinese reminder theorem}
 		\kactlimport{chinese.h}

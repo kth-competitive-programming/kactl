@@ -3,3 +3,5 @@ sy on
 set wim=longest,list mp=~/script/c\ `basename\ %\ .cpp`
 "black background
 "hi Normal guibg=black guifg=white ctermbg=black ctermfg=white
+set tabstop=2
+set autoindent

@@ -11,9 +11,8 @@
 #include "mod_power.h"
 
 bool prime(ull p) {
-	if (p == 1) return false;
-	if (p != 2 && p % 2 == 0) return false;
 	if (p == 2) return true;
+	if (p == 1 || p % 2 == 0) return false;
 	ull s = p - 1;
 	while (s % 2 == 0) s /= 2;
 	rep(i,0,15) {
@@ -23,8 +22,7 @@ bool prime(ull p) {
 			mod = mulmod(mod, mod, p);
 			tmp *= 2;
 		}
-		if (mod != p - 1 && tmp % 2 == 0)
-			return false;
+		if (mod != p - 1 && tmp % 2 == 0) return false;
 	}
 	return true;
 }
