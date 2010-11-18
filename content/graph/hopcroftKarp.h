@@ -20,10 +20,8 @@ bool hopcroftKarp_dfs(int a, int layer, const vector<vector<int> >& AtoB, vector
 		int b = AtoB[a][i];
 		if(layerB[b] != layerNextB) continue;
 		layerB[b] = -1;
-		if(BtoA[b] == -1 || hopcroftKarp_dfs(BtoA[b], layerNextA, AtoB, BtoA, layerA, layerB)) {
-			BtoA[b] = a;
-			return true;
-		}
+		if(BtoA[b] == -1 || hopcroftKarp_dfs(BtoA[b], layerNextA, AtoB, BtoA, layerA, layerB))
+			return BtoA[b] = a, true;
 	}
 	return false;
 }
@@ -31,7 +29,6 @@ bool hopcroftKarp_dfs(int a, int layer, const vector<vector<int> >& AtoB, vector
 int hopcroftKarp(const vector<vector<int> >& AtoB, vector<int>& BtoA) {
 	int incrMatching = 0, bfsAEnd, bfsANextEnd;
 	vector<int> layerA(AtoB.size()), layerB(BtoA.size()), bfsA(AtoB.size()), bfsANext(AtoB.size());
-
 	while(true) {
 		fill(layerA.begin(), layerA.end(), 0);
 		fill(layerB.begin(), layerB.end(), -1);
@@ -59,7 +56,6 @@ int hopcroftKarp(const vector<vector<int> >& AtoB, vector<int>& BtoA) {
 					}
 				}
 			}
-
 			if(layerIsLast) break;
 			if(bfsANextEnd == 0) return incrMatching;
 			++layerNext;
@@ -70,7 +66,6 @@ int hopcroftKarp(const vector<vector<int> >& AtoB, vector<int>& BtoA) {
 			bfsAEnd = bfsANextEnd;
 			bfsA.swap(bfsANext);
 		}
-
 		// Use DFS to scan for augmenting paths.
 		for(int a = 0; a < (int)AtoB.size(); ++a) {
 			if(hopcroftKarp_dfs(a, 0, AtoB, BtoA, layerA, layerB))
