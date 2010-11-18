@@ -9,6 +9,9 @@
  */
 #pragma once
 
+#include <vector>
+using namespace std;
+
 template<typename IteratorType> struct DereferenceLess : binary_function<IteratorType, IteratorType, bool> {
 	bool operator()(const IteratorType& first, const IteratorType& second) const {
 		return (*first) < (*second);

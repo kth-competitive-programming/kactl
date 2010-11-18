@@ -17,9 +17,9 @@ using namespace std;
 
 template<class Z, class I>
 bool floydWarshall(Z path, int N, I inf) {
-	for(int k=0;k<N;++k)
-		for(int i=0;i<N;++i)
-			for(int j=0;j<N;++j)
+	rep(k,0,N)
+		rep(i,0,N)
+			rep(j,0,N)
 				if(path[i][k]<inf && path[k][j]<inf)
 					path[i][j]=min(path[i][j], path[i][k]+path[k][j]);
 	for(int i=0;i<N;++i)

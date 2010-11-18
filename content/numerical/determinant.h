@@ -19,15 +19,12 @@ det(Mod<Z> a[100][100], int n) {
 			break;
 		}
 		if (a[k][k].x == 0) return Mod<Z>(0);
-
 		Mod<Z> v = a[k][k];
 		rep(i,k,n) a[k][i] = a[k][i] / v;
 		res = res * v;
-
 		rep(i,k+1,n) if (a[i][k].x != 0) {
 			v = -a[i][k];
-			rep(j,k,n)
-				a[i][j] = a[i][j] + v * a[k][j];
+			rep(j,k,n) a[i][j] = a[i][j] + v * a[k][j];
 		}
 	}
 	return res;

@@ -2,12 +2,11 @@
  * Author:
  * Date: 2009-04-17
  * Source: tinyKACTL
- * Description: N/A
+ * Description: Invert matrix A. Result is stored in A.
  * Status: Unknown
  */
-/* Invert matrix A.  Result is stored in A. */
-template <int N>
-bool matrix_inverse(double A[N][N], int n) {
+
+template <int N> bool matrix_inverse(double A[N][N], int n) {
 	bool singular = false;
 	int row[N], col[N];
 	double tmp[N][N] ;

@@ -8,6 +8,9 @@
  */
 #pragma once
 
+#include <algorithm>
+using namespace std;
+
 const int MAXLEN = 1000;
 int dp[MAXLEN][MAXLEN];
 

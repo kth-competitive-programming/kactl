@@ -7,6 +7,9 @@
  */
 #pragma once
 
+#include <vector>
+using namespace std;
+
 template<typename ValueType, int MaxCapacity, int MaxObjectCount> class KnapsackIndicesSingleDpIntegerWeight {
 public:
 	vector<size_t> solve(int capacity, const vector<pair<int, ValueType> >& objects) {

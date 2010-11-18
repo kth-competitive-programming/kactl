@@ -7,6 +7,9 @@
  */
 #pragma once
 
+#include <vector>
+using namespace std;
+
 template<typename CharacterType> class SuffixArray {
 private:
 	class PrefixCompare {

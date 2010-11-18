@@ -12,8 +12,9 @@
  */
 #pragma once
 
-double gss(double a, double b, double (*f)(double), 
-		double e = 1e-6) {
+#include <cmath>
+
+double gss(double a, double b, double (*f)(double), double e = 1e-6) {
 	double r = (sqrt(5)-1)/2; //=.618...=golden ratio-1
 	double x1 = b-r*(b-a), x2 = a+r*(b-a);
 	double f1 = f(x1), f2 = f(x2);

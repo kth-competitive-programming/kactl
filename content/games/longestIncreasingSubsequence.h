@@ -9,6 +9,10 @@
  */
 #pragma once
 
+#include <vector>
+#include <algorithm>
+using namespace std;
+
 template <class It> int lisLength(It begin, It end) {
 	typedef typename iterator_traits<It>::value_type T;
 	T inf = *max_element(begin,end)+1; //or 1<<30 or 1.0/0

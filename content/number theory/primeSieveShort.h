@@ -13,6 +13,7 @@ if (isPrime[999997]) cout << primes.back();
 #pragma once
 
 #include <vector>
+using namespace std;
 
 vector<bool> isPrime;
 vector<int> primes;

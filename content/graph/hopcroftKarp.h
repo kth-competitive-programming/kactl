@@ -7,6 +7,10 @@
  * Usage: vi ba(m, -1); hopcroftKarp(g, ba);
  * Time: O(\sqrt{N}M)
  */
+#pragma once
+
+#include <vector>
+using namespace std;
 
 bool hopcroftKarp_dfs(int a, int layer, const vector<vector<int> >& AtoB, vector<int>& BtoA, vector<int>& layerA, vector<int>& layerB) {
 	if(layerA[a] != layer) return false;

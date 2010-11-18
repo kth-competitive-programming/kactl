@@ -9,6 +9,10 @@
  */
 #pragma once
 
+#include <vector>
+#include <algorithm>
+using namespace std;
+
 template <class T> size_t lcsubstring(const T &X, const T &Y) {
 	const int l1 = X.size(), l2 = Y.size();
 	if(!l1 || !l2) return 0;

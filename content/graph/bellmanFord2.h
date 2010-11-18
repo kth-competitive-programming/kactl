@@ -9,6 +9,9 @@
  */
 #pragma once
 
+#include <vector>
+using namespace std;
+
 template <typename T>
 struct Edge {
   int source;

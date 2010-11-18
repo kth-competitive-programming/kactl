@@ -15,6 +15,10 @@
  * Status: tested
  */
 #include <cstring>
+#include <string>
+#include <vector>
+#include <queue>
+using namespace std;
 
 struct Node {
 	int back, next[26], ends;

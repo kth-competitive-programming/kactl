@@ -15,10 +15,11 @@
 #pragma once
 
 #include "GraphDPAB.h"
+#include <set>
+using namespace std;
 
 template<class G, class A, class D = typename G::NodeT::DistanceT, class PQ =
-	set<pair<D, int> > >
-struct DijkstraPrimAstar {
+	set<pair<D, int> > > struct DijkstraPrimAstar {
 	// Priority queue iterator type.
 	typedef PQ::iterator PQIT;
 
@@ -31,9 +32,7 @@ struct DijkstraPrimAstar {
 			node->srcPrev = -1;
 		}
 
-		D tot = 0;
-		PQIT pqit;
-		PQ pq;
+		D tot = 0; PQIT pqit; PQ pq;
 
 		g.nodes[src].srcPrev = src;
 		pq.insert(PQVT(0, src));
@@ -57,8 +56,7 @@ struct DijkstraPrimAstar {
 			}
 		}
 
-		if(dest != -1)
-			return g.nodes[dest].srcDist;
+		if(dest != -1) return g.nodes[dest].srcDist;
 		return tot;
 	}
 };

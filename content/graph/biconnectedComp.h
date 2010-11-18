@@ -10,18 +10,20 @@
  * you get a vector with biconnected components.
  */
 #include <stack>
+#include <vector>
+using namespace std;
 
 stack<int> z;
 vector<bool> seen;
 vector<int> num, v;
 int no_vertices;
 vector<vector<int> > comp;
-template<class G>
-void dfs(int j, int p, G &g) {
+
+template<class G> void dfs(int j, int p, G &g) {
 	seen[j] = true;
 	num[j] = no_vertices++; v[j] = num[j];
 	z.push(j);
-	trav(it,g[j]) {
+	trav(it, g[j]) {
 		int i = *it;
 		if (!seen[i]) {
 			int zz = no_vertices;
@@ -39,8 +41,7 @@ void dfs(int j, int p, G &g) {
 			v[j] = min(v[j], num[*it]);
 	}
 }
-template<class G>
-vector<vector<int> > go(G &g) {
+template<class G> vector<vector<int> > go(G &g) {
 	int n = g.size();
 	seen.assign(n, false);
 	num.assign(n, 0); v = num;

@@ -7,6 +7,9 @@
  */
 #pragma once
 
+#include <vector>
+using namespace std;
+
 template<class It> struct It_Less {
 	bool operator()(It i, It j) const {return *i < *j;} };
 

@@ -8,6 +8,8 @@
  */
 #pragma once
 #include <cstring>
+#include <vector>
+using namespace std;
 
 const int MAX_PR = 5000000;
 bool isprime[MAX_PR];
@@ -19,8 +21,6 @@ vector<int> eratosthenes_sieve(int LIMIT) {
 			for(int j=i*i;j<LIMIT;j+=i)
 				isprime[j]=false;
 	vector<int> pr;
-	for(int i=2;i<LIMIT;++i)
-		if(isprime[i])
-			pr.push_back(i);
+	rep(i,2,LIMIT) if(isprime[i]) pr.push_back(i);
 	return pr;
 }

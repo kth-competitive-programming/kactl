@@ -15,9 +15,7 @@ template <class T, int N> struct derangements {
 		fac[0] = choose[0][0] = 1;
 		memset(dgen, 0, sizeof(dgen));
 		rep(m,1,N) {
-			
 			fac[m] = fac[m-1] * m;
-			
 			choose[m][0] = choose[m][m] = 1;
 			rep(k,1,m)
 				choose[m][k] = choose[m-1][k-1] + choose[m-1][k];
@@ -26,8 +24,7 @@ template <class T, int N> struct derangements {
 	T DGen(int n, int k) {
 		T ans = 0;
 		if (dgen[n][k]) return dgen[n][k];
-		rep(i,0,k+1)
-			ans += (i&1?-1:1) * choose[k][i] * fac[n-i];
+		rep(i,0,k+1) ans += (i&1?-1:1) * choose[k][i] * fac[n-i];
 		return dgen[n][k] = ans;
 	}
 	void generate(int n, T idx, int *res) {

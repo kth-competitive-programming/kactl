@@ -5,6 +5,7 @@
  * Description: N/A
  * Status: Unknown
  */
+#pragma once
 const double undefined = 1.0/0.0;
 const double eps = 1e-12;
 

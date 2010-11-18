@@ -7,6 +7,10 @@
  */
 #pragma once
 
+#include <map>
+#include <vector>
+using namespace std;
+
 struct Node {
 	// <destination node, edge number>
 	// Might be exchanged with vector<pair> or map instead.

@@ -11,6 +11,9 @@
  */
 #pragma once
 
+#include <vector>
+using namespace std;
+
 template <class T, class It>
 vector<pair<T,T> > intervalUnion(It begin, It end) {
 	if (end==begin) return vector<pair<T,T> >();

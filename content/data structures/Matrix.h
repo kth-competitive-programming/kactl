@@ -13,8 +13,7 @@
 #include <cmath>
 #include <iostream>
 
-template <class T>
-struct Matrix {
+template <class T> struct Matrix {
 	typedef T elemType;
 	typedef Matrix M;
 	typedef const M & R;
