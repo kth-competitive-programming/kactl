@@ -9,31 +9,18 @@
  */
 #pragma once
 
-template <typename T, typename Matrix>
-void floydWarshall2(Matrix& m, int n, const T& inf, const T& negInf){
+template <typename T, typename Matrix> void floydWarshall2(Matrix& m, int n, const T& inf, const T& negInf){
   for(int k = 0; k < n; ++k)
-  {
     for(int i = 0; i < n; ++i)
-    {
-      for(int j = 0; j < n; ++j) {
+      for(int j = 0; j < n; ++j)
         if(m[i][k] != inf && m[k][j] != inf) {
           T newDist = m[i][k] + m[k][j];
           if(m[i][j] == inf || newDist < m[i][j])
               m[i][j] = newDist;
         }
-      }
-    }
-  }
-
   for(int i = 0; i < n; ++i)
-  {
     for(int j = 0; j < n; ++j)
-    {
       for(int k = 0; m[i][j] != negInf && k < n; ++k)
-      {
         if(m[i][k] != inf && m[k][j] != inf && (m[k][k] < 0 || m[k][k] == negInf))
           m[i][j] = negInf;
-      }
-    }
-  }
 }
