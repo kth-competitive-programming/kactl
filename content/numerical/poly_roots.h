@@ -2,7 +2,10 @@
 * Author:
 * Date: 2010-11-18
 * Source: tinyKACTL
-* Description:
+* Description: Finds the real roots to a polynomial.
+* Usage: vector<double> roots; polynomial p(2);
+p.a[0] = 2; p.a[1] = -3; p.a[2] = 1;
+poly_roots(p,-1e10,1e10,roots); // x^2-3x+2=0
 */
 #pragma once
 

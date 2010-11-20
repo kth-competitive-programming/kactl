@@ -16,14 +16,14 @@ simplex_res simplex(M &a, I &var, int m, int n, int twophase=0) {
 		for (int j = 1; j <= n; ++j)
 			if (a[0][j] > 0 && (idx == 0 || a[0][j] > a[0][idx]))
 			idx = j;
-		// Done if al l a[m][j]<=0
+		// Done if all a[m][j]<=0
 		if (idx == 0) return OK;
 		// Find the variable to leave the basis
 		int j = idx; idx = 0;
 		for (int i = 1; i <= m; ++i)
 			if (a[i][j] > 0 && (idx == 0 || a[i][0]/a[i][j] < a[idx][0]/a[idx][j]))
 				idx = i;
-		// Problem unbounded if al l a[i][j]<=0
+		// Problem unbounded if all a[i][j]<=0
 		if (idx == 0) return UNBOUNDED;
 		// Pivot on a[i][j]
 		int i = idx;

@@ -1,5 +1,5 @@
 /**
- * Author: Ulf Lundstrom
+ * Author: Lukas Polacek
  * Date: 2009-10-27
  * Source: folklore
  * Description: Calculates determinant using modular
