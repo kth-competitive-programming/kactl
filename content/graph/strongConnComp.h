@@ -3,7 +3,8 @@
  * Date: 2009-10-28
  * Source: Czech graph algorithms book, by Demel.
  * Description: Finds strongly connected components in a
- * directed graph.
+ * directed graph. If vertices $u, v$ belong to the same component,
+ * we can reach $u$ from $v$ and vice versa.
  * Time: O(N + M)
  * Status: Works
  * Usage: Create a graph, then run go(graph). As a result

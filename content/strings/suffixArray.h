@@ -3,8 +3,8 @@
  * Date: 2009-10-27
  * Source: folklore and Linear-time longest-common-prefix
  * computation in suffix arrays and its applications (2001).
- * Description: Builds suffix array for a string. res[i] is
- * the starting index of the suffix, which is $i$-th in the
+ * Description: Builds suffix array for a string. $res[i]$ is
+ * the starting index of the suffix which is $i$-th in the
  * sorted suffix array. Empty string appears on the first
  * position. lcp function calculates longest common
  * prefixes for neighbouring strings in suffix array.

@@ -3,7 +3,8 @@
  * Date: 2009-11-01
  * Source: Czech graph algorithms book by Demel.
  * Description: Finds biconnected components in an
- * undirected graph.
+ * undirected graph. In a biconnected component there are at least two distinct
+ * paths between any two nodes. Note that a vertex can be in more components.
  * Time: $O(N + M)$
  * Status: Tested on UVa Live 4544
  * Usage: Create a graph, then run go(graph). As a result
