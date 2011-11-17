@@ -4,7 +4,7 @@ d () { eval "r $* | diff - $*.out"; } #diff
 p () { a2ps --line-numbers=1 "$*"; }  #print
 c () { eval "~/script/c $*"; }        #compile
 #We have to create a script for compiling, because otherwise
-#compiling in vim with ":make" wouldn't work
+#compiling in vim with ":make" wouldn't work.
 
 # Only used for strange keyboads. Check that paths and
 # keycodes with xev!

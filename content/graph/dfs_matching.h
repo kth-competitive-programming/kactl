@@ -2,7 +2,7 @@
  * Author: Lukas
  * Date: 2009-10-28
  * Source:
- * Description: This is a silly matching algorithm but should
+ * Description: This is a simple matching algorithm but should
  * be just fine in most cases. Graph $g$ should be a list of
  * neighbours of the left partition. $n$ is the size of the left
  * partition and $m$ is the size of the right partition.
@@ -35,9 +35,9 @@ int dfs_matching(G &g, int n, int m) {
 	match.assign(m, -1);
 	rep(i,0,n) {
 		seen.assign(m, false);
-		rep(j,0,g[i].size())
-			if (find(g[i][j], g)) {
-				match[g[i][j]] = i;
+		trav(j,g[i])
+			if (find(*j, g)) {
+				match[*j] = i;
 				break;
 			}
 	}

@@ -41,7 +41,7 @@ template<class G> vector<int> go(G &g) {
 	val.assign(n, 0); num = val;
 	no_vertices = no_components = 0;
 	comp.assign(n, -1);
-	for (int i = 0; i < n; i++) if (comp[i] == -1) dfs(i, g);
-	for (int i = 0; i < n; i++) comp[i]--;
+	rep(i,0,n) if (comp[i] == -1) dfs(i, g);
+	rep(i,0,n) comp[i]--;
 	return comp;
 }

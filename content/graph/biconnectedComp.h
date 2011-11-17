@@ -48,7 +48,7 @@ template<class G> vector<vector<int> > go(G &g) {
 	num.assign(n, 0); v = num;
 	no_vertices = 0;
 	comp.clear();
-	for (int i = 0; i < n; i++)
+	rep(i,0,n)
 		if (!seen[i]) dfs(i, -1, g);
 	return comp;
 }

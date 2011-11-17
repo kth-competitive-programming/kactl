@@ -2,7 +2,7 @@
  * Author: Lukas Polacek
  * Date: 2009-10-26
  * Source: folklore
- * Description: At the beginning every set contains one element. The only
+ * Description: In the beginning every set contains one element. The only
  * allowed operation is set union. You can make a query whether two elements are
  * in the same set.
  * Time: $O(\log^* N)$, that is less than 6 for any reasonable $N$.

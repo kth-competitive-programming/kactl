@@ -6,11 +6,11 @@
  * matching. Initialize the tree with create(patterns) where no
  * string in patterns is a suffix of another string. It can be
  * rewritten to suffix-friendly version but I never needed
- * this. So be careful. find(word) returns, for each position
- * in word, -1 if no pattern ends here or i if pattern[i] ends
+ * this. find(word) returns for each position
+ * in word $-1$ if no pattern ends here or $i$ if $pattern[i]$ ends
  * here.
  * Time: Function create is $O(N_1+\dots+N_k)$ where $N_i$ is
- * the length of the $i$-th pattern. Function find is $O(M)$ 
+ * the length of the $i$-th pattern. Function find is $O(M)$
  * where $M$ is the length of the word.
  * Status: tested
  */

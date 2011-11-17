@@ -4,8 +4,7 @@
  * Source: folklore
  * Description: Treap is a binary search tree where each node
  * stores a secondary key. The tree is a heap according to the
- * secondary key. Secondary keys are random, so this
- * datas tructure is randomized.
+ * secondary key. Secondary keys are random, so it's randomized.
  * Time: Expected running time of each operation is $O(\log N)$.
  */
 #pragma once

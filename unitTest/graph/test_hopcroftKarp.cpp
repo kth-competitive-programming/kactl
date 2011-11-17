@@ -1,7 +1,6 @@
 #include "../UnitTest.h"
 #include "../../content/graph/hopcroftKarp.h"
 #include <fstream>
-#include <sstream>
 
 class test_HopcorftKarp :
 	public UnitTest

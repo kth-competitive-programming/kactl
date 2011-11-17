@@ -2,6 +2,7 @@
 
 #include "global.h"
 #include "UnitTestManager.h"
+#include <sstream>
 
 class UnitTestFailed
 {
