@@ -2,10 +2,8 @@
  * Author: Lukas Polacek
  * Date: 2009-09-28
  * Source: folklore
- * Description: operators for modular arithmetic.
- * Status: works
- * Usage: First set mod to some number. Then you can use Mod
- * structure.
+ * Description: Operators for modular arithmetic. You need to set {\tt mod} to
+ * some number first and then you can use the structure.
  * Time: Division is O(\log mod), everything else is O(1).
  */
 #include <vector>

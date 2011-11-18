@@ -1,7 +1,6 @@
 #include "../UnitTest.h"
 #include "../../content/graph/dfs_matching.h"
 #include <fstream>
-#include <sstream>
 
 class test_DFSMatching :
 	public UnitTest

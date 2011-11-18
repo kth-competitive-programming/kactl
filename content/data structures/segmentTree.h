@@ -2,9 +2,9 @@
  * Author: Lukas Polacek
  * Date: 2009-10-26
  * Source: folklore
- * Description: Segment tree can be used to retrieve maximum
- * of a sequence $a[x], a[x+1], \dots, a[y]$. The array is zero-indexed. You can also
- * update value $a[x]$.
+ * Description: In the beginning we have an array $a[n]$ full of zeroes. Segment
+ * tree can be used to retrieve maximum of the sequence $a[x], a[x+1], \dots,
+ * a[y]$. You can also update value $a[x]$. The array is zero-indexed.
  * Time: Both operations are O(\log N).
  */
 #pragma once
