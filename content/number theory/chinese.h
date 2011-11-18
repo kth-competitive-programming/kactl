@@ -13,7 +13,9 @@
 
 template <class Z> inline Z chinese(Z a, Z m, Z b, Z n) {
 	Z x, y; euclid(m, n, x, y);
-	return a * (y + m) % m * n + b * (x + n) % n * m;
+	Z ret = a * (y + m) % m * n + b * (x + n) % n * m;
+	if (ret >= m * n) ret -= m * n;
+	return ret;
 }
 
 template <class Z> inline Z chinese_common(Z a, Z m, Z b, Z n) {
