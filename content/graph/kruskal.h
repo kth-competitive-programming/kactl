@@ -3,6 +3,7 @@
 * Date: 2010-11-18
 * Source: tinyKACTL
 * Description: Minimum Spanning Tree
+* Time: $O(|E|\log |E|)$
 */
 #pragma once
 

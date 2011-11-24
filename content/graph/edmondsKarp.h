@@ -2,7 +2,8 @@
  * Author: Chen Xing
  * Date: 2009-10-13
  * Source: N/A
- * Description: N/A
+ * Description: Flow algorithm with guaranteed complexity $O(VE^2)$, where $V$
+ * is the number of vertices and $E$ is the number of edges.
  * Status: Working
  */
 

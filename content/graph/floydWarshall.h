@@ -3,7 +3,7 @@
  * Date: 2009-08-26
  * Source: http://en.wikipedia.org/wiki/Floyd–Warshall_algorithm
  * Description: Calculates all-pairs shortest path in a directed graph that might have negative edge distances. Returns true if negative-distance cycles exist. Input is an adjacency matrix where $path[i][j]$ is the weight between vertice $i$ and $j$, or $\infty$ if they aren't adjacent, and $N$ is the number of vertices.
- * Time: O(V^3) where V is the number of vertices.
+ * Time: O(V^3) where $V$ is the number of vertices.
  * Memory: O(1) (given a matrix of size O(V^2) to store the output).
  * Status: Unknown
  * Usage:

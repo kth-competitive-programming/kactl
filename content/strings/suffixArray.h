@@ -6,7 +6,7 @@
  * Description: Builds suffix array for a string. $res[i]$ is
  * the starting index of the suffix which is $i$-th in the
  * sorted suffix array. Empty string appears on the first
- * position. lcp function calculates longest common
+ * position. The {\tt lcp} function calculates longest common
  * prefixes for neighbouring strings in suffix array.
  * Time: $O(N \log N)$ where $N$ is the length of the string
  * for creation of the SA. $O(N)$ for longest common prefixes.
@@ -53,6 +53,7 @@ struct SuffixArray {
 		while ((1 << q) < s.size()) q++;
 		for (int moc = 0;; moc++) {
 			count_sort(b, q);
+			//sort(b.begin(), b.end()) can be used as well
 			a[b[0].second] = 0;
 			for (unsigned i = 1; i < s.size(); i++)
 				a[b[i].second] = a[b[i - 1].second] +

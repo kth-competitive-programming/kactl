@@ -3,7 +3,7 @@
  * Date: 2009-04-10
  * Source: http://en.wikipedia.org/wiki/Bellman-Ford_algorithm
  * Description: Calculates shortest path in a graph that might have negative edge distances. Returns true if negative-distance cycles exist.
- * Time: O(E * V) where E is the number of edges and V is the number of vertices.
+ * Time: O(EV) where $E$ is the number of edges and $V$ is the number of vertices.
  * Memory: O(1)
  * Status: Unknown
  * Usage:

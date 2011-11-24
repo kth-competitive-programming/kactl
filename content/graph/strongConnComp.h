@@ -5,7 +5,7 @@
  * Description: Finds strongly connected components in a
  * directed graph. If vertices $u, v$ belong to the same component,
  * we can reach $u$ from $v$ and vice versa.
- * Time: O(N + M)
+ * Time: O(E + V) where $E$ is the number of edges and $V$ is the number of vertices.
  * Status: Works
  * Usage: Create a graph, then run go(graph). As a result
  * you get a number for each vertex - a number of SC-component

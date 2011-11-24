@@ -3,6 +3,8 @@
  * Date: 2010-01-26
  * Source: TopCoder tutorial
  * Description: Calculate $a^b\bmod c$.
+ * Time: O(64/bits \cdot \log b), where $bits = 64-k$, if we want to deal with
+ * $k$-bit numbers.
  */
 #pragma once
 

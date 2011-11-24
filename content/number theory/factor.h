@@ -5,7 +5,7 @@
  * Description: Pollard's rho algorithm. It is a probabilistic factorisation
  * algorithm, whose expected time complexity is good. Before you start using it,
  * run {\tt init(bits)}, where bits is the length of the numbers you use.
- * Time: Expected running time should be well enough for 50-bit numbers.
+ * Time: Expected running time should be good enough for 50-bit numbers.
  */
 #pragma once
 
@@ -24,6 +24,7 @@ vector<ull> factor(ull d) {
 			while (d % pr[i] == 0) d /= pr[i];
 			res.push_back(pr[i]);
 		}
+	//d is now a product of at most 2 primes.
 	if (d > 1) {
 		if (prime(d))
 			res.push_back(d);

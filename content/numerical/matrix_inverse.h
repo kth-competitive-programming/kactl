@@ -2,7 +2,7 @@
  * Author:
  * Date: 2009-04-17
  * Source: tinyKACTL
- * Description: Invert matrix A. Result is stored in A.
+ * Description: Invert matrix $A$. Result is stored in $A$.
  * Time: O(n^3)
  * Usage: double A[3][3];
  bool singular = matrix_inverse(A,3);

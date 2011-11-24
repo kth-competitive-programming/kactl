@@ -164,7 +164,7 @@ def isdefaultinclude(line):
 		else:
 			return line
 	return None
-	
+
 def getlang(input):
 	return input.rsplit('.',1)[-1]
 

@@ -5,7 +5,7 @@
  * Description: Finds biconnected components in an
  * undirected graph. In a biconnected component there are at least two distinct
  * paths between any two nodes. Note that a vertex can be in more components.
- * Time: $O(N + M)$
+ * Time: O(E + V) where $E$ is the number of edges and $V$ is the number of vertices.
  * Status: Tested on UVa Live 4544
  * Usage: Create a graph, then run go(graph). As a result
  * you get a vector with biconnected components.

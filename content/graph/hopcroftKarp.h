@@ -5,7 +5,8 @@
  * Description: Find a maximum matching in a bipartite graph.
  * Status: Working
  * Usage: vi ba(m, -1); hopcroftKarp(g, ba);
- * Time: O(\sqrt{N}M)
+ * Time: O(\sqrt{V}E), where $V$ is the number of vertices and $E$ is the number
+ * of edges.
  */
 #pragma once
 

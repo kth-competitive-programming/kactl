@@ -4,7 +4,7 @@
  * Source: tinyKACTL
  * Description: Lift-to-front algorithm is a variant of
  * preflow-push algorithm.
- * Time: $O(n^3)$
+ * Time: $O(V^3)$, where $V$ is the number of vertices.
  * Status: Works
  */
 #include "flow_graph.h"

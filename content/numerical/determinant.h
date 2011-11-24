@@ -3,7 +3,8 @@
  * Date: 2009-10-27
  * Source: folklore
  * Description: Calculates determinant using modular
- * arithmetics. Can be rewritten to use doubles.
+ * arithmetics. Can be rewritten to use doubles, but then use some epsilon to
+ * avoid division by zero.
  * Status: tested
  * Time: $O(N^3)$
  */
