@@ -7,7 +7,7 @@
  * Usage: chinese(a, m, b, n) returns a number $x$, such that
  * $x\equiv a \pmod m$ and $x\equiv b \pmod n$. For not
  * coprime $n, m$, use chinese_common. Note that all numbers must be less than
- * $2^{31}$.
+ * $2^{31}$ if you have Z = unsigned long long.
  * Time: $\log(m + n)$
  */
 #include "euclid.h"
