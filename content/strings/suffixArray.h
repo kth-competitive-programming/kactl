@@ -21,8 +21,8 @@
 #include <numeric>
 using namespace std;
 
-typedef pair<int, int> pii;
-void count_sort(vector<pii> &b, int bits) {
+typedef pair<long long, int> pli;
+void count_sort(vector<pli> &b, int bits) {
 	//this is just 3 times faster than stl sort for N=10^6
 	int mask = (1 << bits) - 1;
 	for (int it = 0; it < 2; it++) {
@@ -31,18 +31,18 @@ void count_sort(vector<pii> &b, int bits) {
 		for (unsigned i = 0; i < b.size(); i++)
 			q[(b[i].first >> move) & mask]++;
 		partial_sum(q.begin(), q.end(), w.begin() + 1);
-		vector<pii> res(b.size());
+		vector<pli> res(b.size());
 		for (unsigned i = 0; i < b.size(); i++)
 			res[w[(b[i].first >> move) & mask]++] = b[i];
 		swap(b, res);
 	}
 }
 struct SuffixArray {
-	vector<int> a;
+	vector<long long> a;
 	string s;
 	SuffixArray(string _s) {
 		s = _s + '\0';
-		vector<pii> b(s.size());
+		vector<pli> b(s.size());
 		a.resize(s.size());
 		for (unsigned i = 0; i < s.size(); i++) {
 			b[i].first = s[i];
