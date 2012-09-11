@@ -4,7 +4,8 @@
  * Source: folklore
  * Description: In the beginning every set contains one element. The only
  * allowed operation is set union. You can make a query whether two elements are
- * in the same set.
+ * in the same set. You can also query the size of the set in which an element
+ * resides.
  * Time: $O(\log^* N)$, that is less than 6 for any reasonable $N$.
  */
 #pragma once
@@ -30,6 +31,10 @@ struct union_find {
 	int find(int x) { // Find set-head with path-compression
 		if (e[x] < 0) return x;
 		return e[x] = find(e[x]);
+	}
+
+	int size(int x) { // Size of the set where x is
+		return -e[find(x)];
 	}
 
 };
