@@ -22,10 +22,10 @@ struct FenwickTree {
 		for (; pos < n; pos |= pos + 1)
 			s[pos] += dif;
 	}
-	int query(int val) {
+	int query(int pos) {
 		int count = 0;
-		for (; val >= 0; val = (val & (val + 1)) - 1)
-			count += s[val];
+		for (; pos >= 0; pos = (pos & (pos + 1)) - 1)
+			count += s[pos];
 		return count;
 	}
 };

@@ -173,7 +173,7 @@
 	\setboolean{hasmemory}{false}
 	\setboolean{hasleftcaption}{false}
 	\immediate\write18{rm -f kactl.tmp} % Don't include old kactl.tmp on failure.
-	\immediate\write18{python kactlprocessor.py -i "\@kactldir/#2" -o kactl.tmp #1}
+	\immediate\write18{python2 kactlprocessor.py -i "\@kactldir/#2" -o kactl.tmp #1}
 	\immediate\input{kactl.tmp}
 }
 

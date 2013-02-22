@@ -38,7 +38,7 @@ template<class G, class A, class D = typename G::NodeT::DistanceT, class PQ =
 		pq.insert(PQVT(0, src));
 		while(!pq.empty()) {
 			int cur = (pqit = pq.begin())->second;
-			tot += pqit->second;
+			tot += pqit->first;
 			pq.erase(pqit);
 			if(cur == dest) break;
 			trav(out, g.nodes[cur].outs) {
