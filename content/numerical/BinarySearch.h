@@ -12,8 +12,9 @@
  */
 #pragma once
 
-double bs(double a, double b, double (*f)(double), 
+double bs(double a, double b, double (*f)(double),
 		double e = 1e-6) {
+	//for(int i = 0; i < 60; ++i){
 	while (b-a > e) {
 		double m = (a+b)/2;
 		if (f(m) > 0) b = m;

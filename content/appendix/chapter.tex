@@ -3,19 +3,24 @@
 
 \appendix
 
+\chapter{Tekniker}
+\kactlimport[-l raw]{../../doc/techniques.txt}
+
+\appendix
+
 \chapter{Test session}
 
 \section{Att testa under testsessionen}
 \begin{itemize}
 	\item Byta tangentbordslayout
 	\item Bash-script
-	\item Backuper
+	\item Vim-konfig
 	\item template.cpp
 	\item Java
 	\item Skriva ut
 	\item Skicka clarifications
 	\item Documentation
-	\item calc, python, octave
+	\item python
 	\item Submitscript
 	\item Storlek av int, long long, etc.
 	\item Skicka in med assert(true), assert(false)
@@ -23,32 +28,22 @@
 	\item Returvärden från main
 	\item Skriva till stderr
 	\item Källkods-storleks-gräns
-	\item Alla dommarsvar
+	\item Hur lång tid tar array-accesser på datorn resp domaren?
+	\item Hur lång tid tar små operationer på datorn resp domaren?
+	\item Alla domarsvar
 		\begin{itemize}
- 			\item Accepted
- 			\item WA
+			\item Accepted
+			\item WA
 			\item Presentation Error, \texttt{diff -aiwB}
- 			\item Runtime Error, what results in RE?
- 			\item TLE
- 			\item Memory limit, both stack and heap
- 			\item Output limit
- 			\item Illegal function
- 			\item Compilation error
- 			\item Compilation time limit exceeded
- 			\item To late
+			\item Runtime Error, what results in RE?
+			\item TLE
+			\item Memory limit, both stack and heap
+			\item Output limit
+			\item Illegal function
+			\item Compilation error
+			\item Compilation time limit exceeded
+			\item Too late
 		\end{itemize}
 	\item skriva ut allt i pathen\\
 		\texttt{echo \$PATH | tr ':' ' ' | xargs ls | grep -v / | sort | uniq | tr '\char`\\n' ' ' > path.txt}
 \end{itemize}
-
-\appendix
-
-\chapter{Tekniker}
-\kactlimport[-l raw]{../../doc/techniques.txt}
-
-%\chapter{Emacs cheat sheet}
-
-%\chapter{Vim cheat sheet}
-
-%\chapter{TODO}
-%\kactlimport[-l raw]{../../doc/TODO.txt}

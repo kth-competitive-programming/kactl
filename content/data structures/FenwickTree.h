@@ -12,10 +12,10 @@
 #include <vector>
 using namespace std;
 
-struct FenwickTree {
+struct FT {
 	int n;
-	vector<int> s;
-	FenwickTree(int _n) : n(_n) {
+	vi s;
+	FT(int _n) : n(_n) {
 		s.assign(n, 0);
 	}
 	void update(int pos, int dif) {

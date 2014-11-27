@@ -53,13 +53,3 @@ struct Point3D {
 	}
 	operator double() const { return dist(); }
 };
-template <class T>
-ostream & operator<<(ostream & os, const Point3D<T> & p) {
-	os << "(" << p.x << "," << p.y << "," << p.z << ")";
-	return os;
-}
-template <class T>
-istream & operator>>(istream & is, Point3D<T> & p) {
-	is >> p.x >> p.y >> p.z;
-	return is;
-}

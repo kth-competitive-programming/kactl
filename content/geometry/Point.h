@@ -44,13 +44,3 @@ struct Point {
 		return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a));
 	}
 };
-template <class T>
-ostream & operator<<(ostream & os, const Point<T> & p) {
-	os << "(" << p.x << "," << p.y << ")";
-	return os;
-}
-template <class T>
-istream & operator>>(istream & is, Point<T> & p) {
-	is >> p.x >> p.y;
-	return is;
-}

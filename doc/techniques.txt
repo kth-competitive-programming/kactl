@@ -29,6 +29,7 @@ Dynamisk programmering
 	Dynprog over sannolikheter
 	Dynprog over trad
 	3^n set cover
+Grafteori
 	Floyd-Warshall
 	Eulercykler
 	Flodesnatverk
