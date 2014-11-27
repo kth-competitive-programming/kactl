@@ -4,6 +4,7 @@
 
 \usepackage[utf8]{inputenc}				% Encoding UTF-8
 \usepackage{listings}					% Source code listings
+\usepackage{framed}					% Source code listings
 \usepackage[a4paper,landscape,hmargin={0.5cm,0.5cm},vmargin={1.0cm,0.4cm}]{geometry}
 \usepackage{multicol}					% Split page in multiple columns
 \usepackage{fancyhdr}					% Fancy headers
@@ -22,20 +23,16 @@
 \AtEndDocument{}
 
 \pagestyle{fancy}
-\renewcommand{\headrulewidth}{0 pt}
-\lhead{}\chead{}\rhead{}
+\renewcommand{\headrulewidth}{0pt}
+\headheight 25pt
+\lhead{KTH}\chead{}\rhead{\thepage}
 %\lhead{}\chead{\thepage}\rhead{}
-\lfoot{}\cfoot{}\rfoot{\raisebox{1cm}{\rotatebox{-90}{\thepage}}}
+\lfoot{}\cfoot{}\rfoot{}
 \fancyheadoffset{0pt}
 \fancyfootoffset{0pt}
 \setlength\headsep{10pt}
 
 \renewcommand\chapter{
-	\ifnum \c@chapter > 0
-		\clearpage
-	\else
-		\vspace{10pt}
-	\fi
 	\global\@topnum\z@
 	\secdef
 	\@chapter
@@ -65,16 +62,16 @@
 }
 
 \def\@makechapterhead#1{
+	\begin{framed}
 	\parindent \z@ \raggedright \normalfont
+		\interlinepenalty\@M
+	{\Large \bfseries #1 }
 	\ifnum \c@secnumdepth >\m@ne
-		{\huge\bfseries \@chapapp\space \thechapter:{}}
+		{\Large\bfseries (\thechapter) \par\nobreak }
 	\fi
-	\interlinepenalty\@M
-	{\huge \bfseries #1 \par\nobreak}
-	\vspace{10pt} % Space between chapter name and local toc
+	\end{framed}
+
 	\startcontents[chapters]
-	\printcontents[chapters]{local}{1}{\setcounter{tocdepth}{2}}
-	\vspace{5pt} % Space between local toc and chapter content
 }
 
 \renewcommand\section{\@startsection {section}{1}{\z@}%

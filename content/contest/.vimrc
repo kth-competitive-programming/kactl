@@ -1,7 +1,2 @@
-"cindent, autowrite, autoindent, tabstop, line numbering,
-"no beeping, dark terminal
-set cin aw ai sts=4 sw=4 nu noeb bg=dark
-"Syntax highlighting
+set cin aw ai ts=4 sts=4 sw=4 nu noeb bg=dark ruler cursorline
 sy on
-"Typing :make will compile the program
-set mp=~/script/c\ `basename\ %\ .cpp`

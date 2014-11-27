@@ -1,0 +1,168 @@
+Rekursion
+Divide and conquer
+Algoritmanalys
+	Rekurrenser och master theorem
+	Amortized tidskomplexitet
+Greedy algoritmer
+	Scheduling
+	Max contigous subvector sum
+	Invarianter
+Grafteori
+	Dynamiska grafer (extra book-keeping)
+	Bredden forst-sokning
+	Djupet forst-sokning
+	* Normal trees / DFS-trad
+	Dijkstra's algoritm
+	Minsta spannande trad: Prim's algoritm
+	Bellman-Ford
+Dynamisk programmering
+	Knapsack
+	Coin change
+	Longest common subsequence
+	Longest increasing subsequence
+	Edit distance
+	Antal vagar i en dag
+	Kortaste vagen i en dag
+	Dynprog som sokning i en DAG
+	Dynprog over intervall
+	Dynprog over delmangder
+	Dynprog over sannolikheter
+	Dynprog over trad
+	3^n set cover
+	Floyd-Warshall
+	Eulercykler
+	Flodesnatverk
+	* Augumenting paths
+	* Edmonds-Karp
+	Bipartit matchning
+	Min. path cover
+	Topologisk sortering
+	Strongly Connected Components
+	2-SAT
+	Cutvertices, cutedges och biconnected components
+	Edge coloring
+	* Trad
+	Vertex coloring
+	* Bipartita grafer (=> trad)
+	* 3^n (specialfall av set cover)
+	Diametern och centroid
+	K-th shortest path
+	Kortaste cyceln
+Kombinatorik
+	Permutationer, arrangemang, val med/utan ordning
+	Berakning av binomialkoefficienter
+	Pigeon hole
+	Inklusion/exklusion
+	Catalantal
+	Rekurrens-relationer
+	Picks sats
+Talteori
+	Heltalsdelar
+	Talbaser
+	Delbarthet
+	Euklides algoritm
+	Modular aritmetik
+	* Modulara inverser
+	* Modular exponentiation by swuaring
+	Kinesiska restsatsen
+	Fermats lilla sats
+	Eulers sats
+	Phi-funktionen
+Spelteori
+	Kombinatoriska spel
+	Speltrad
+	Mini-max
+	Nim
+	Spel pa grafer
+	Spel pa grafer med loopar
+Sannolikhetslara
+Optimering
+	Binarsokning
+	Trinarsokning
+	Unimodalitet och konvexa funktioner
+	Binarsokning pa derivatan
+Numeriska metoder
+	Numerisk integration
+	Newtons metod
+	Hitta rotter med binarsokning/trinarsokning
+Matriser
+	Gausselimination
+	Exponentiation by squaring
+Sortering
+	Radix sort    
+Berakningsgeomteri
+	Koordinater och vektorer
+	* Kryssprodukten
+	* Skalarprodukt
+	Geometriska primitiver
+	Point in polygon
+	Tangent points
+	Konvext holje
+	Polygon cut
+	Closest pair
+	Koordinat-komprimering
+Svepning
+	Diskretisering (gora till events och svepa)
+	Vinkelsvepning
+	Linjesvepning
+Strangar
+	Longest Common Substring
+	Longest Palindromic Subsequence
+	Knuth-Morris-Pratt
+	Tries
+Kombinatorisk sokning
+	Meet in the middle
+	Brute force med pruning
+	Best-First (A*)
+	Bidirectional search
+Greedy algoritmer
+	Huffman encoding
+Numeriska metoder
+	Golden Section Search
+Svepning
+	Diskreta andraderivator
+Dynamisk programmering
+	Divide and conquer
+	Knuth optimization
+	Convex hull optimizations
+	RMQ
+	Bitonic cycle
+Kombinatorisk sokning
+	Iterative deepening DFS / A*
+Datastrukturer
+	LCA (tvapotenshopp i trad i allmanhet)
+	Pull/push-tekniken pa trad
+	Heavy-Light decomposition
+	Centroid decomposition
+	Lazy propagation
+	Nagot sjalvbalanserande trad
+	Convex hull trick (wcipeg.com/wiki/Convex_hull_trick)
+	Monotona koer / monotona stackar / sliding queues
+Talteori
+	Frobenius number
+	Bignums
+	Kvadratisk reciprocitet
+	Pollard-Rho
+	Miller-Rabin
+Grafer
+	Konig's sats och vertex cover
+	Min-cost max flow
+	Lovasz toggle
+	Matrix tree theorem
+	Maximal matchning, generella grafer
+	Hopcroft-Karp
+	Hall's marriage theorem
+	Graphical sequences
+Geometri
+	Quadtrees
+	All segment-segment intersection
+Spelteori    
+	Grundytal
+	Bipartita spel utan repetition
+	Generella spel utan repetition
+Strangar
+	Rullande polynom-hashar
+	Suffix Array
+	Suffix Tree
+	Aho-Corasick
+	Manacher's algorithm

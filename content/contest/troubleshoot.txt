@@ -1,17 +1,3 @@
-/**
- * Author: Ulf Lundstrom
- * Date: 2009-08-09
- * Source: Experience
- * Description: This file gives you a list of what to do when you get an unexpected result on your submission.
- * Time: O(M+N) where M and N are the number of characters in the problem statement and your submission respectivly.
- * Status: Under construction
- * Usage: Find the list corresponding to your judge response. Answer each question truthfully and ponder upon your answer. Follow the instructions and think for yourself. When you have gone through the list twice ask your team mates for what to do and go to another problem if they will not help you.
- * Changes:
- */
-
-Accepted:
-Congrats!
-
 Wrong answer:
 Print your solution!
 Is your output format correct? (including whitespace)
@@ -51,19 +37,3 @@ Are you clearing all datastructures between test cases?
 Output limit exceeded:
 Did you remove all debug printing?
 Can your output loop run amok?
-
-Illegal function:
-What the %#@$ are you doing?
-I hope you are not trying to read or write to a file or check the time.
-
-Compilation error:
-Compile locally!
-Include all files you need explicitly even if they should be included by some other file.
-Send a clarification.
-
-Compilation time limit exceeded:
-Recursive templates aren't any good so stop using them.
-
-Too late:
-Sorry about that. Better luck next time!
-
