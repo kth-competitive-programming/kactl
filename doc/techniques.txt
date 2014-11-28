@@ -7,6 +7,7 @@ Greedy algoritmer
 	Scheduling
 	Max contigous subvector sum
 	Invarianter
+	Huffman encoding
 Grafteori
 	Dynamiska grafer (extra book-keeping)
 	Bredden forst-sokning
@@ -15,6 +16,14 @@ Grafteori
 	Dijkstra's algoritm
 	Minsta spannande trad: Prim's algoritm
 	Bellman-Ford
+	Konig's sats och vertex cover
+	Min-cost max flow
+	Lovasz toggle
+	Matrix tree theorem
+	Maximal matchning, generella grafer
+	Hopcroft-Karp
+	Hall's marriage theorem
+	Graphical sequences
 Dynamisk programmering
 	Knapsack
 	Coin change
@@ -29,6 +38,11 @@ Dynamisk programmering
 	Dynprog over sannolikheter
 	Dynprog over trad
 	3^n set cover
+	Divide and conquer
+	Knuth optimization
+	Convex hull optimizations
+	RMQ
+	Bitonic cycle
 Grafteori
 	Floyd-Warshall
 	Eulercykler
@@ -64,11 +78,16 @@ Talteori
 	Euklides algoritm
 	Modular aritmetik
 	* Modulara inverser
-	* Modular exponentiation by swuaring
+	* Modular exponentiation by squaring
 	Kinesiska restsatsen
 	Fermats lilla sats
 	Eulers sats
 	Phi-funktionen
+	Frobenius number
+	Bignums
+	Kvadratisk reciprocitet
+	Pollard-Rho
+	Miller-Rabin
 Spelteori
 	Kombinatoriska spel
 	Speltrad
@@ -76,6 +95,9 @@ Spelteori
 	Nim
 	Spel pa grafer
 	Spel pa grafer med loopar
+	Grundytal
+	Bipartita spel utan repetition
+	Generella spel utan repetition
 Sannolikhetslara
 Optimering
 	Binarsokning
@@ -86,12 +108,13 @@ Numeriska metoder
 	Numerisk integration
 	Newtons metod
 	Hitta rotter med binarsokning/trinarsokning
+	Golden Section Search
 Matriser
 	Gausselimination
 	Exponentiation by squaring
 Sortering
 	Radix sort    
-Berakningsgeomteri
+Geometri
 	Koordinater och vektorer
 	* Kryssprodukten
 	* Skalarprodukt
@@ -102,33 +125,28 @@ Berakningsgeomteri
 	Polygon cut
 	Closest pair
 	Koordinat-komprimering
+	Quadtrees
+	All segment-segment intersection
 Svepning
 	Diskretisering (gora till events och svepa)
 	Vinkelsvepning
 	Linjesvepning
+	Diskreta andraderivator
 Strangar
 	Longest Common Substring
 	Longest Palindromic Subsequence
 	Knuth-Morris-Pratt
 	Tries
+	Rullande polynom-hashar
+	Suffix Array
+	Suffix Tree
+	Aho-Corasick
+	Manacher's algorithm
 Kombinatorisk sokning
 	Meet in the middle
 	Brute force med pruning
 	Best-First (A*)
 	Bidirectional search
-Greedy algoritmer
-	Huffman encoding
-Numeriska metoder
-	Golden Section Search
-Svepning
-	Diskreta andraderivator
-Dynamisk programmering
-	Divide and conquer
-	Knuth optimization
-	Convex hull optimizations
-	RMQ
-	Bitonic cycle
-Kombinatorisk sokning
 	Iterative deepening DFS / A*
 Datastrukturer
 	LCA (tvapotenshopp i trad i allmanhet)
@@ -139,31 +157,3 @@ Datastrukturer
 	Nagot sjalvbalanserande trad
 	Convex hull trick (wcipeg.com/wiki/Convex_hull_trick)
 	Monotona koer / monotona stackar / sliding queues
-Talteori
-	Frobenius number
-	Bignums
-	Kvadratisk reciprocitet
-	Pollard-Rho
-	Miller-Rabin
-Grafer
-	Konig's sats och vertex cover
-	Min-cost max flow
-	Lovasz toggle
-	Matrix tree theorem
-	Maximal matchning, generella grafer
-	Hopcroft-Karp
-	Hall's marriage theorem
-	Graphical sequences
-Geometri
-	Quadtrees
-	All segment-segment intersection
-Spelteori    
-	Grundytal
-	Bipartita spel utan repetition
-	Generella spel utan repetition
-Strangar
-	Rullande polynom-hashar
-	Suffix Array
-	Suffix Tree
-	Aho-Corasick
-	Manacher's algorithm
