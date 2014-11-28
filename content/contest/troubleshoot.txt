@@ -14,24 +14,25 @@ Go through the algorithm for a simple case.
 Explain your algorithm to a team mate.
 Ask the team mate to look at your code.
 Rewrite your solution from the start or let a team mate do it.
+Are you clearing all datastructures between test cases?
 Go for a small walk, e.g. to the toilet.
 
 Runtime error:
 Have you tested all corner cases locally?
 Are you reading or writing outside the range of any vector?
-Any possible division by 0?
+Any possible division by 0? (mod 0 for example)
 Any possible infinite recursion?
 
 Time limit exceeded:
 Do you have any possible infinite loops?
 What is the complexity of your algorithm?
-Are you copying a lot of unneccessary data?
+Are you copying a lot of unneccessary data? (References)
 How big is the input and output?
 What do your team mates think about your algorithm?
 
 Memory limit exceeded:
-What is the maximum amount of memory your algorithm should need?
-Do you have any memory leaks? (use stl instead)
+What is the max amount of memory your algorithm should need?
+Do you have any memory leaks? (use STL instead)
 Are you clearing all datastructures between test cases?
 
 Output limit exceeded:
