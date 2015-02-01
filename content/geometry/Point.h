@@ -4,12 +4,6 @@
  * Source: My head with inspiration from tinyKACTL
  * Description: Class to handle points in the plane.
  * 	T can be e.g. double or long long.
- * Usage:
- * 	Point<doubel> p1(5.1, -3.9), p2;
- * 	cin >> p2;
- * 	double distance = (p1*2-p2.rotate(M_PI/3)).dist();
- * 	double area = p1.cross(p2)/2;
- * 	cout << "p1=" << p1;
  * Status: Works fine, used a lot
  */
 #pragma once
