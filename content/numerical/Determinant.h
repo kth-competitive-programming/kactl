@@ -4,7 +4,7 @@
  * Source: folklore
  * Description: Calculates determinant using modular
  * arithmetics. Can be rewritten to use doubles, but then use some epsilon to
- * avoid division by zero.
+ * avoid division by zero. The modulus is assumed to be a prime number.
  * Status: tested
  * Time: $O(N^3)$
  */
