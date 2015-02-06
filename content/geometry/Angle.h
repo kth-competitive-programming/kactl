@@ -30,7 +30,7 @@ struct Angle {
 	Angle t360() const { Angle r = *this; r.turn++; return r; }
 };
 bool operator<(const Angle& a, const Angle& b) {
-	return make_pair(a.turn, a.quad(), a.y * (ll)b.x) <
-	       make_pair(b.turn, b.quad(), a.x * (ll)b.y);
+	return make_tuple(a.turn, a.quad(), a.y * (ll)b.x) <
+	       make_tuple(b.turn, b.quad(), a.x * (ll)b.y);
 }
 
