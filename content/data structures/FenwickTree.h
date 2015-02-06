@@ -2,7 +2,7 @@
  * Author: Lukas Polacek
  * Date: 2009-10-30
  * Source: folklore/TopCoder
- * Description: In the beggining there is an array $a[n]$ full of zeroes.
+ * Description: In the beginning there is an array $a[n]$ full of zeroes.
  * Fenwick tree can be used to retrieve sum $a[0]+\dots+a[x]$. You
  * can also update the value $a[x]$ (update function takes the difference
  * between the old and new value).

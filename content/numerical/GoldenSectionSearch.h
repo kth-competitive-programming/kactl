@@ -2,7 +2,7 @@
  * Author: Ulf Lundstrom
  * Date: 2009-04-17
  * Source: Numeriska algoritmer med matlab, Gerd Eriksson, NADA, KTH
- * Description: Finds the argument minimizing the function $f$ in the interval $[a,b]$ assuming $f$ is unimodal on the interval, i.e. has only one local minima. The maximum error in the result is $e$. Works equaly well for maximization with a small change in the code.
+ * Description: Finds the argument minimizing the function $f$ in the interval $[a,b]$ assuming $f$ is unimodal on the interval, i.e. has only one local minima. The maximum error in the result is $e$. Works equally well for maximization with a small change in the code.
  * Status: tested
  * Usage:
 	double func(double x) { return 4+x+.3*x*x; }
