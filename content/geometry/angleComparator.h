@@ -26,7 +26,7 @@ struct AngleComp {
 	bool operator()(P a, P b) const {
 		a = a - around;
 		b = b - around;
-		int qa = quad(a), qb = quad(b);
-		return make_pair(qa, a.y * b.x) < make_pair(qb, a.x * b.y);
+		return make_pair(quad(a), a.y * b.x) <
+		       make_pair(quad(b), a.x * b.y);
 	}
 };
