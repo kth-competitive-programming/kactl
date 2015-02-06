@@ -14,7 +14,7 @@ using namespace std;
 template <class G>
 void kruskal(const G *graph, G *tree, int n) {
 	typedef typename G::value_type::second_type D;
-	union_find sets(n);
+	UF sets(n);
 	vector<pair< D,pair<int,int> > > E;
 	// Convert all edges into a single edge-list
 	rep(i,0,n)
