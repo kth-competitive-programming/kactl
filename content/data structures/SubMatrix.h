@@ -2,8 +2,12 @@
  * Date: 2014-11-28
  * Author: Johan Sannemo
  * Source: Folklore
+ * Status: Tested on Kattis
  * Description: Calculate submatrix sums quickly, given upper-left and lower-right corners (inclusive).
- * Time: O(n^2 + q)
+ * Usage:
+ * SubMatrix m(matrix);
+ * m.sum(0, 0, 1, 1); //top left 4 elements
+ * Time: O(N^2 + Q)
  */
 
 template<typename T>
