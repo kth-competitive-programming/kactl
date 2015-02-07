@@ -19,7 +19,7 @@ template <class T> struct Matrix {
 	int r, c;
 	T* d;
 	Matrix(int _r, int _c) : r(_r), c(_c) {
-		d = new T[r*c];
+		d = new T[r*c]();
 	}
 	Matrix() : r(0), c(0), d(0) {}
 	Matrix(int _r, int _c, T value)
@@ -32,9 +32,10 @@ template <class T> struct Matrix {
 		d = new T[r*c];
 		rep(i,0,r) rep(j,0,c)
 			operator()(i,j) = m(i,j);
+			(*this)(i,j) = m(i,j);
 	}
 	~Matrix() { delete[] d; }
-	T& operator()(int row, int col) const { return d[row*c+col]; }
+	T& operator()(int row, int col) const { return d[row*c + col]; }
 	bool operator==(R m) const {
 		rep(i,0,r) rep(j,0,c)
 			if (!(operator()(i,j)==m(i,j))) return false;
@@ -104,7 +105,7 @@ template <class T> struct Matrix {
 			a(i,j) = operator()(i,j)/v;
 		return a;
 	}
-	M operator^(int p) {
+	M operator^(ll p) {
 		M a(r, c, 0), b(*this);
 		rep(i,0,r) a(i,i) = 1;
 		while (p) {
