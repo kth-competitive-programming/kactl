@@ -3,8 +3,9 @@
  * Date: 2015-01-31
  * Source:
  * Description: A class for ordering angles (as represented by int points and
- *  a number of rotations around the origin). Useful for rotational sweeping.
- * Status: Works, used once
+ *  a number of rotations around the origin), plus some sample usages.
+ *  Useful for rotational sweeping.
+ * Status: Used, works well
  */
 #pragma once
 #include <set>
@@ -33,6 +34,14 @@ bool operator<(Angle a, Angle b) {
 bool operator>=(Angle a, Angle b) { return !(a < b); }
 bool operator>(Angle a, Angle b) { return b < a; }
 bool operator<=(Angle a, Angle b) { return !(b < a); }
+
+// Given two points, this calculates the smallest angle between
+// them, i.e., the angle that covers the defined line segment.
+pair<Angle, Angle> segmentAngles(Angle a, Angle b) {
+	if (b < a) swap(a, b);
+	return (b < a.turn180() ?
+	        make_pair(a, b) : make_pair(b, a.turn360()));
+}
 
 void sampleSweeping(const vector<pii>& points, int N) {
 	rep(basei, 0, N) {
