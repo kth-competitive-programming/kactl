@@ -1,21 +1,21 @@
 Wrong answer:
 Print your solution!
+Are you clearing all datastructures between test cases?
+Can your algorithm handle the whole range of input?
+Read the full problem statement again.
 Is your output format correct? (including whitespace)
 Do you handle all corner cases correctly?
 Have you understood the problem correctly?
-Can your algorithm handle the whole range of input?
 Are you sure your algorithm works?
 What special cases have you not thought of?
 Are you sure the STL functions you use work as you think?
-Read the full problem statement again.
 Create some testcases to run your algorithm on.
-Go through this list again.
 Go through the algorithm for a simple case.
+Go through this list again.
 Explain your algorithm to a team mate.
 Ask the team mate to look at your code.
-Rewrite your solution from the start or let a team mate do it.
-Are you clearing all datastructures between test cases?
 Go for a small walk, e.g. to the toilet.
+Rewrite your solution from the start or let a team mate do it.
 
 Runtime error:
 Have you tested all corner cases locally?
