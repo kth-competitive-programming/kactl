@@ -3,8 +3,8 @@
  * Author: github
  * Source: github
  * Date: today
+ * Time: $O(N^4)$ probably.
  */
-
 
 #include <algorithm>
 #include <cstdio>
