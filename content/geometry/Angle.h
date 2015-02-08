@@ -39,8 +39,8 @@ bool operator<=(Angle a, Angle b) { return !(b < a); }
 // them, i.e., the angle that covers the defined line segment.
 pair<Angle, Angle> segmentAngles(Angle a, Angle b) {
 	if (b < a) swap(a, b);
-	return (b < a.turn180() ?
-	        make_pair(a, b) : make_pair(b, a.turn360()));
+	return (b < a.t180() ?
+	        make_pair(a, b) : make_pair(b, a.t360()));
 }
 
 void sampleSweeping(const vector<pii>& points, int N) {
