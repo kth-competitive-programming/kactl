@@ -1,7 +1,8 @@
 Rekursion
 Divide and conquer
+	Hitta intressanta punkter i N log N
 Algoritmanalys
-	Rekurrenser och master theorem
+	Master theorem
 	Amortized tidskomplexitet
 Greedy algoritmer
 	Scheduling
@@ -14,7 +15,7 @@ Grafteori
 	Djupet forst-sokning
 	* Normal trees / DFS-trad
 	Dijkstra's algoritm
-	Minsta spannande trad: Prim's algoritm
+	MST: Prim's algoritm
 	Bellman-Ford
 	Konig's sats och vertex cover
 	Min-cost max flow
@@ -24,26 +25,6 @@ Grafteori
 	Hopcroft-Karp
 	Hall's marriage theorem
 	Graphical sequences
-Dynamisk programmering
-	Knapsack
-	Coin change
-	Longest common subsequence
-	Longest increasing subsequence
-	Edit distance
-	Antal vagar i en dag
-	Kortaste vagen i en dag
-	Dynprog som sokning i en DAG
-	Dynprog over intervall
-	Dynprog over delmangder
-	Dynprog over sannolikheter
-	Dynprog over trad
-	3^n set cover
-	Divide and conquer
-	Knuth optimization
-	Convex hull optimizations
-	RMQ
-	Bitonic cycle
-Grafteori
 	Floyd-Warshall
 	Eulercykler
 	Flodesnatverk
@@ -63,20 +44,35 @@ Grafteori
 	Diametern och centroid
 	K-th shortest path
 	Kortaste cyceln
+Dynamisk programmering
+	Knapsack
+	Coin change
+	Longest common subsequence
+	Longest increasing subsequence
+	Antal vagar i en dag
+	Kortaste vagen i en dag
+	Dynprog over intervall
+	Dynprog over delmangder
+	Dynprog over sannolikheter
+	Dynprog over trad
+	3^n set cover
+	Divide and conquer
+	Knuth optimization
+	Convex hull optimizations
+	RMQ
+	Bitonic cycle
 Kombinatorik
-	Permutationer, arrangemang, val med/utan ordning
 	Berakning av binomialkoefficienter
 	Pigeon hole
 	Inklusion/exklusion
 	Catalantal
-	Rekurrens-relationer
 	Picks sats
 Talteori
 	Heltalsdelar
-	Talbaser
-	Delbarthet
+	Delbarhet
 	Euklides algoritm
 	Modular aritmetik
+	* Modular multiplikation
 	* Modulara inverser
 	* Modular exponentiation by squaring
 	Kinesiska restsatsen
@@ -84,7 +80,6 @@ Talteori
 	Eulers sats
 	Phi-funktionen
 	Frobenius number
-	Bignums
 	Kvadratisk reciprocitet
 	Pollard-Rho
 	Miller-Rabin
@@ -98,6 +93,7 @@ Spelteori
 	Grundytal
 	Bipartita spel utan repetition
 	Generella spel utan repetition
+	Alpha-beta-pruning
 Sannolikhetslara
 Optimering
 	Binarsokning
@@ -118,14 +114,12 @@ Geometri
 	Koordinater och vektorer
 	* Kryssprodukten
 	* Skalarprodukt
-	Geometriska primitiver
-	Point in polygon
-	Tangent points
 	Konvext holje
 	Polygon cut
 	Closest pair
 	Koordinat-komprimering
 	Quadtrees
+	KD tree
 	All segment-segment intersection
 Svepning
 	Diskretisering (gora till events och svepa)
@@ -134,7 +128,7 @@ Svepning
 	Diskreta andraderivator
 Strangar
 	Longest Common Substring
-	Longest Palindromic Subsequence
+	Palindromsubsekvenser
 	Knuth-Morris-Pratt
 	Tries
 	Rullande polynom-hashar
@@ -142,6 +136,7 @@ Strangar
 	Suffix Tree
 	Aho-Corasick
 	Manacher's algorithm
+	Bokstavspositionslistor
 Kombinatorisk sokning
 	Meet in the middle
 	Brute force med pruning
