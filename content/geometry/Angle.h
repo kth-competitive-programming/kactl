@@ -16,15 +16,16 @@ struct Angle {
 	int x, y;
 	int t;
 	Angle(int x, int y, int t=0) : x(x), y(y), t(t) {}
+	Angle operator-(Angle a) const { return {x-a.x, y-a.y, t}; }
 	int quad() const {
 		assert(x || y);
 		if (y < 0) return (x >= 0) + 2;
 		if (y > 0) return (x <= 0);
 		return (x <= 0) * 2;
 	}
-	Angle t90() const { return Angle(-y, x, t + (quad() == 3)); }
-	Angle t180() const { return Angle(-x, -y, t + (quad()>=2)); }
-	Angle t360() const { return Angle(x, y, t + 1); }
+	Angle t90() const { return {-y, x, t + (quad() == 3)}; }
+	Angle t180() const { return {-x, -y, t + (quad() >= 2)}; }
+	Angle t360() const { return {x, y, t + 1}; }
 };
 bool operator<(Angle a, Angle b) {
 	// add a.dist2() and b.dist2() to also compare distances
@@ -43,18 +44,17 @@ pair<Angle, Angle> segmentAngles(Angle a, Angle b) {
 	        make_pair(a, b) : make_pair(b, a.t360()));
 }
 
-void sampleSweeping(const vector<pii>& points, int N) {
+void sampleSweeping(const vector<Angle>& points, int N) {
 	rep(basei, 0, N) {
 		vector<Angle> v;
 		rep(i, 0, N) if (i != basei) {
-			Angle a(points[i].first - points[basei].first,
-			        points[i].second - points[basei].second);
+			Angle a = points[i] - points[basei];
 			v.push_back(a);
 			v.push_back(a.t360());
 		}
 		sort(all(v));
 		int half = 0, res = 0;
-		rep(i, 0, N-1) {
+		for (int i = 0; v[i].t == 0; ++i) {
 			// Count the number of points x in (v[i], v[i].rot(180))
 			int m = 1;
 			while (v[i+1] <= v[i]) ++i, ++m; // colinear points
