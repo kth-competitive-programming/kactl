@@ -14,15 +14,12 @@
 using namespace std;
 
 typedef vector<int> vi;
-typedef vector<vi> vector<vi>;
-
 
 struct Edge {
 	int from, to, cap, flow, index;
 	Edge(int from, int to, int cap, int flow, int index) :
 		from(from), to(to), cap(cap), flow(flow), index(index) {}
 };
-
 
 template<typename Graph>
 void AddEdge(Graph& G, int from, int to, int cap) {
@@ -34,7 +31,7 @@ void AddEdge(Graph& G, int from, int to, int cap) {
 const int INF = 1000000000;
 
 pair<int, vi> GetMinCut(vector<vi> &weights) {
-	int N = weights.size();
+	int N = sz(weights);
 	vi used(N), cut, best_cut;
 	int best_weight = -1;
 
