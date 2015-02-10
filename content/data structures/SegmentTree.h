@@ -16,13 +16,13 @@ struct Tree {
 
 	int n;
 	vi s;
-	Tree() {} 
-	Tree(int _n, T def=0) { init(_n, def); }
-	void init(int _n, T def){
-		n = 1; while (n < _n) n *= 2;
-		s.assign(n + _n, def);
+	Tree() {}
+	Tree(int m, T def=0) { init(m, def); }
+	void init(int m, T def) {
+		n = 1; while (n < m) n *= 2;
+		s.assign(n + m, def);
 		s.resize(2 * n, LOW);
-		for(int i = n - 1; i >= 1; --i)
+		for (int i = n; i --> 1; )
 			s[i] = f(s[i * 2], s[i*2 + 1]);
 	}
 	void update(int pos, T val) {
