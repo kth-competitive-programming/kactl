@@ -16,13 +16,13 @@
 
 #pragma once
 
-#include "dfs.h"
-#include "../data structures/rmq.h"
+#include "../data structures/RMQ.h"
 #include <vector>
 
 using namespace std;
 
 typedef vector<pii> vpi;
+const pii inf(1 << 29, -1);
 
 struct LCA {
 	int time;

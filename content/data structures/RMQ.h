@@ -14,20 +14,17 @@
  */
 #pragma once
 
-
 #include <vector>
-
 using namespace std;
 
-int inf = numeric_limits<int>::max();
+const int inf = numeric_limits<int>::max();
 
 template<class T>
 struct RMQ {
 	vector<vector<T>> jmp;
 
 	void init(vector<T>& V){
-		int N = V.size();
-		int on = 1, depth = 1;
+		int N = sz(V), on = 1, depth = 1;
 		while(on < (int)V.size()) on *= 2, depth++;
 		jmp.assign(depth, vector<T>(N));
 		jmp[0] = V;
