@@ -1,18 +1,16 @@
 /**
- * Author: Lukas Polacek
- * Date: 2009-10-31
+ * Author: Simon Lindholm
+ * Date: 2015-02-18
  * Source: marian's (TC) code
  * Description: Aho-Corasick tree is used for mutiple pattern
- * matching. Initialize the tree with create(patterns) where no
- * string in patterns is a suffix of another string. It can be
- * rewritten to suffix-friendly version but I never needed
- * this. find(word) returns for each position
- * in word $-1$ if no pattern ends here or $i$ if $pattern[i]$ ends
- * here.
- * Time: Function create is $O(N_1+\dots+N_k)$ where $N_i$ is
- * the length of the $i$-th pattern. Function find is $O(M)$
- * where $M$ is the length of the word.
- * Status: tested
+ * matching. Initialize the tree with create(patterns). find(word) returns for each position
+ * the index of the longest word that ends there, or -1 if none. findAll(\_, word) finds all words
+ * (up to $N^2$ many) that start at each position (shortest first).
+ * Duplicate patterns are allowed; empty patterns are not.
+ * To find the longest words that start at each position, reverse all input.
+ * Time: Function create is $O(26N)$ where $N$ is the sum of length of patterns.
+ * find is $O(M)$ where $M$ is the length of the word. findAll is $O(NM)$.
+ * Status: lightly tested
  */
 #include <cstring>
 #include <string>
@@ -20,48 +18,70 @@
 #include <queue>
 using namespace std;
 
-struct Node {
-	int back, next[26], ends;
-	Node() { memset(next,0xff,sizeof(next)); ends = -1; }
-};
-vector<Node> nodes;
-void insert(string &s, int j) {
-	int n=0;
-	for (int i = 0; i < s.size(); i++) {
-		if (nodes[n].next[s[i]-'A'] == -1) {
-			nodes[n].next[s[i]-'A'] = nodes.size();
-			nodes.push_back(Node());
+struct AhoCorasick {
+	enum {alpha = 26, first = 'A'};
+	struct Node {
+		// (nmatches is optional)
+		int back, next[alpha], start = -1, end = -1, nmatches = 0;
+		Node(int v = -1) { memset(next, v, sizeof(next)); }
+	};
+	vector<Node> N;
+	vector<int> backp;
+	void insert(string& s, int j) {
+		assert(!s.empty());
+		int n = 0;
+		for (char c : s) {
+			int& m = N[n].next[c - first];
+			if (m == -1) { n = m = sz(N); N.emplace_back(); }
+			else n = m;
 		}
-		n = nodes[n].next[s[i]-'A'];
+		if (N[n].end == -1) N[n].start = j;
+		backp.push_back(N[n].end);
+		N[n].end = j;
+		N[n].nmatches++;
 	}
-	nodes[n].ends = j;
-}
-void create(vector<string> &s) {
-	nodes.assign(1, Node());
-	for (size_t i = 0; i < s.size(); i++) insert(s[i], i);
-	nodes.push_back(Node());
-	for (int i=0;i<26;i++) nodes.back().next[i]=0;
-	nodes[0].back = nodes.size() - 1;
+	AhoCorasick(vector<string>& pat) {
+		N.emplace_back();
+		rep(i,0,sz(pat)) insert(pat[i], i);
+		N[0].back = sz(N);
+		N.emplace_back(0);
 
-	queue<int> q;
-	for (q.push(0); !q.empty(); q.pop()) {
-		int n = q.front();
-		for (int i = 0; i < 26; i++)
-			if (nodes[n].next[i] == -1)
-				nodes[n].next[i]=nodes[nodes[n].back].next[i];
-			else {
-				nodes[nodes[n].next[i]].back =
-					nodes[nodes[n].back].next[i];
-				q.push(nodes[n].next[i]);
+		queue<int> q;
+		for (q.push(0); !q.empty(); q.pop()) {
+			int n = q.front(), prev = N[n].back;
+			for (int i = 0; i < alpha; i++) {
+				int &ed = N[n].next[i], y = N[prev].next[i];
+				if (ed == -1) ed = y;
+				else {
+					N[ed].back = y;
+					(N[ed].end == -1 ? N[ed].end : backp[N[ed].start])
+						= N[y].end;
+					N[ed].nmatches += N[y].nmatches;
+					q.push(ed);
+				}
 			}
+		}
 	}
-}
-vi find(string word) {
-	int n = 0;
-	vi res(word.size());
-	for (int i = 0; i < word.size(); i++) {
-		n = nodes[n].next[word[i]-'A'];
-		res[i] = nodes[n].ends;
+	vi find(string word) {
+		int n = 0;
+		vi res; // ll count = 0;
+		for (char c : word) {
+			n = N[n].next[c - first];
+			res.push_back(N[n].end);
+			// count += N[n].nmatches;
+		}
+		return res;
 	}
-	return res;
-}
+	vector<vi> findAll(vector<string>& pat, string word) {
+		vi r = find(word);
+		vector<vi> res(sz(word));
+		rep(i,0,sz(word)) {
+			int ind = r[i];
+			while (ind != -1) {
+				res[i - sz(pat[ind]) + 1].push_back(ind);
+				ind = backp[ind];
+			}
+		}
+		return res;
+	}
+};
