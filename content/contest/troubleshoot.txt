@@ -19,6 +19,7 @@ Rewrite your solution from the start or let a team mate do it.
 
 Runtime error:
 Have you tested all corner cases locally?
+Any uninitialized variables?
 Are you reading or writing outside the range of any vector?
 Any possible division by 0? (mod 0 for example)
 Any possible infinite recursion?
@@ -32,9 +33,4 @@ What do your team mates think about your algorithm?
 
 Memory limit exceeded:
 What is the max amount of memory your algorithm should need?
-Do you have any memory leaks? (use STL instead)
 Are you clearing all datastructures between test cases?
-
-Output limit exceeded:
-Did you remove all debug printing?
-Can your output loop run amok?
