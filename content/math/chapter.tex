@@ -175,12 +175,12 @@ $\mathbf{P}^{(n)} = \mathbf{P}^n$\\
 $\mathbf{p}^{(n)} = \mathbf{p}^{(0)}\mathbf{P}^{(n)} = \mathbf{p}^{(0)}\mathbf{P}^{(n)}$
 
 \subsubsection{Stationary distribution}
-$\mathbf{\pi}$ is a stationary distribution if $\mathbf{\pi} = \mathbf{\pi P}$. If the Markov chain is irreducible (it is possible to get to any state from any state), then $\pi_i = \frac{1}{\mathbb{E}(T_i)}$ where $\mathbb{E}(T_i)$  is the expected time between two visits in state $i$. $\pi_j/\pi_i$ is the expected number of visits in state $j$ between two visits in state $i$.
+$\mathbf{\pi}$ is a stationary distribution if $\mathbf{\pi} = \mathbf{\pi P}$. If the Markov chain is \emph{irreducible} (it is possible to get to any state from any state), then $\pi_i = \frac{1}{\mathbb{E}(T_i)}$ where $\mathbb{E}(T_i)$  is the expected time between two visits in state $i$. $\pi_j/\pi_i$ is the expected number of visits in state $j$ between two visits in state $i$.
 
 For a connected, undirected and non-bipartite graph, where the transition probability is uniform among all neighbors, $\pi_i$ is proportional to node $i$'s degree. If the graph is regular, then the stationary distribution is uniform.
 
 \subsubsection{Ergodicity}
-A Markov chain is \emph{ergodic} if the asymptotic distribution is independent of the initial distribution. A finit Markov chain is ergodic iff it is irreducible and aperiodic. $\lim_{k\rightarrow\infty}\mathbf{P}^k = \mathbf{1}\pi$.
+A Markov chain is \emph{ergodic} if the asymptotic distribution is independent of the initial distribution. A finite Markov chain is ergodic iff it is irreducible and \emph{aperiodic} (i.e., the gcd of cycle lengths is 1). $\lim_{k\rightarrow\infty}\mathbf{P}^k = \mathbf{1}\pi$.
 
 \subsubsection{Absorption}
 A Markov chain is an A-chain if the states can be partitioned into two sets $\mathbf{A}$ and $\mathbf{G}$, such that all states in $\mathbf{A}$ are absorbing ($p_{ii}=1$), and all states in $\mathbf{G}$ leads to an absorbing state in $\mathbf{A}$. The probability for absorption in state $j\in\mathbf{A}$, when the initial state is $i$, is $a_{ij} = p_{ij}+\sum_{k\in\mathbf{G}} p_{ik}a_{kj}$. The expected time until absorption, when the initial state is $i$, is $t_i = 1+\sum_{k\in\mathbf{G}}p_{ik}t_k$.
