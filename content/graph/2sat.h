@@ -52,15 +52,15 @@ struct TwoSat {
                 Node& n = nodes[v];
                 if (n.vis) return;
                 n.vis = 1;
-                trav(it, n.outs) dfs1(*it);
+                for (int e : n.outs) dfs1(e);
                 st.push_back(v);
         }
         
         void dfs2(int v){
                 nodes[v].vis = 1;
-                nodes[v].comp_id = comp.size()-1;
+                nodes[v].comp_id = sz(comp)-1;
                 comp.back().nodes.push_back(v);
-                trav(it, nodes[v].ins) if (!nodes[*it].vis) dfs2(*it);
+                for (int e : nodes[v].ins) if (!nodes[e].vis) dfs2(e);
         }
         
         bool solve(){
@@ -74,13 +74,12 @@ struct TwoSat {
                         }
                         st.pop_back();
                 }
-                trav(it, comp){
-                        if (it->value == 0){
-                                Comp& c = comp[nodes[it->nodes.front()^1].comp_id];
-                                if (&c == &*it) return 0;
-                                c.value = 1;
-                                trav(n, it->nodes) values[*n/2] = !(*n%2);
-                        }
+                for (Comp& d : comp) {
+                        if (d.value) continue;
+                        Comp& c = comp[nodes[d.nodes.front()^1].comp_id];
+                        if (&c == &d) return 0;
+                        c.value = 1;
+                        for (int e : d.nodes) values[e/2] = !(e%2);
                 }
                 return 1;
         }
