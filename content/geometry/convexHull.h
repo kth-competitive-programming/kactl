@@ -23,10 +23,10 @@ Rearanges the points between begin and end so that the points of the hull are in
 
 //change to use other types of points
 typedef Point<double> ptype;
-ptype ref;
+ptype Ref;
 bool comp(const ptype &p, const ptype &q) {
-	return (p-ref).cross(q-p)>0 ||
-			(p-ref).cross(q-p)==0 && (p-ref).dist2()<(q-ref).dist2();
+	return (p-Ref).cross(q-p)>0 ||
+	    ((p-Ref).cross(q-p)==0 && (p-Ref).dist2()<(q-Ref).dist2());
 }
 
 template <class It>
@@ -34,7 +34,7 @@ It convexHull(It begin, It end) {
 	//zero or one point always form a hull
 	if (end-begin < 2) return end;
 	//find a guaranteed hull point to use as origo
-	ref = *min_element(begin,end);
+	Ref = *min_element(begin,end);
 	sort(begin, end, comp); //sort in scan order
 	//place hull points first by doing a Graham scan
 	It r = begin + 1;
