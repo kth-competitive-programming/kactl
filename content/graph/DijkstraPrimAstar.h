@@ -28,8 +28,8 @@ template<class G, class A, class D = typename G::NodeT::DistanceT, class PQ =
 
 	static D exec(G& g, int src, int dest = -1) {
 		trav(node, g.nodes) {
-			node->srcDist = 0;
-			node->srcPrev = -1;
+			node.srcDist = 0;
+			node.srcPrev = -1;
 		}
 
 		D tot = 0; PQIT pqit; PQ pq;
@@ -42,8 +42,8 @@ template<class G, class A, class D = typename G::NodeT::DistanceT, class PQ =
 			pq.erase(pqit);
 			if(cur == dest) break;
 			trav(out, g.nodes[cur].outs) {
-				int next = out->first;
-				D nextDistNew = A::calc<G, D>(g, cur, next, dest, out->second);
+				int next = out.first;
+				D nextDistNew = A::calc<G, D>(g, cur, next, dest, out.second);
 				int& nextPrev = g.nodes[next].srcPrev;
 				D& nextDist = g.nodes[next].srcDist;
 				if(nextPrev == -1 || nextDistNew < nextDist) {

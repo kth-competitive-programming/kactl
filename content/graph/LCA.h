@@ -47,8 +47,8 @@ struct LCA {
 		dist[v] = dst;
 		D.push_back(pii(d, v));
 		start[v] = time++;
-		trav(it, C[v]) if(it->first != p){
-			dfs(it->first, v, d+1, dst + it->second, D, C);
+		trav(e, C[v]) if(e.first != p){
+			dfs(e.first, v, d+1, dst + e.second, D, C);
 			D.push_back(pii(d, v));
 			time++;
 		}

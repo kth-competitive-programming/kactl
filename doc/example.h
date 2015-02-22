@@ -34,7 +34,7 @@ int exampleFunction1(vi mice, int* cats, int catsCount) {
 		trav(it, mice) {
 			/// This will be removed.
 			// And this kept.
-			sum += cats[i] * (*it);
+			sum += cats[i] * it;
 		}
 	}
 	//Use tab indent and keep the lines shorter than 63 characters

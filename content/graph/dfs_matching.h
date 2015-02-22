@@ -23,8 +23,8 @@ bool find(int j, G &g) {
 	if (match[j] == -1) return true;
 	seen[j] = true; int di = match[j];
 	trav(e, g[di])
-		if (!seen[*e] && find(*e, g)) {
-			match[*e] = di;
+		if (!seen[e] && find(e, g)) {
+			match[e] = di;
 			match[j] = -1;
 			return true;
 		}
@@ -36,8 +36,8 @@ int dfs_matching(G &g, int n, int m) {
 	rep(i,0,n) {
 		seen.assign(m, false);
 		trav(j,g[i])
-			if (find(*j, g)) {
-				match[*j] = i;
+			if (find(j, g)) {
+				match[j] = i;
 				break;
 			}
 	}

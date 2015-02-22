@@ -19,13 +19,13 @@ int no_vertices, no_components;
 stack<int> z;
 template<class G> void dfs(int j, G &g) {
 	num[j] = val[j] = no_vertices++; comp[j] = 0; z.push(j);
-	trav(it,g[j])
-		if (comp[*it] == -1) {
-			dfs(*it, g);
-			num[j] = min(num[j], num[*it]);
+	trav(e,g[j])
+		if (comp[e] == -1) {
+			dfs(e, g);
+			num[j] = min(num[j], num[e]);
 		}
-		else if (comp[*it] == 0)
-			num[j] = min(num[j], val[*it]);
+		else if (comp[e] == 0)
+			num[j] = min(num[j], val[e]);
 
 	if (val[j] == num[j]) {
 		no_components++;

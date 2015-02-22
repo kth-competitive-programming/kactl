@@ -71,7 +71,7 @@ private:
 
 		oss << "{ ";
 		trav(it, data)
-			oss << convertToString(*it) << " ";
+			oss << convertToString(it) << " ";
 		oss << "}";
 
 		return oss.str();

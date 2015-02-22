@@ -3,10 +3,6 @@
 // as the contest template file.
 #pragma once
 
-#ifdef __INTEL_COMPILER
-#	define typeof(x) auto
-#endif
-
 #include <cmath>
 #include <cstdlib>
 #include <cstdio>
@@ -20,8 +16,7 @@
 using namespace std;
 
 #define rep(i, a, b) for(int i = (a); i < int(b); ++i)
-#define trav(it, v) for(__typeof((v).begin()) it = (v).begin(); \
-                        it != (v).end(); ++it)
+#define trav(it, v) for(auto& it : v)
 
 typedef long long ll;
 typedef pair<int, int> pii;

@@ -20,15 +20,15 @@ bool bellmanFord(G& g, int src) {
 	typedef typename G::NodeT N;
 	typedef typename N::DistanceT D;
 
-	trav(node, g.nodes) { node->srcDist = 0; node->srcPrev = -1; }
+	trav(node, g.nodes) { node.srcDist = 0; node.srcPrev = -1; }
 	g.nodes[src].srcPrev = src;
 	rep(i, 0, g.nodes.size())
 		trav(e, g.edges) {
-			int a = e->a, b = e->b;
-			rep(j, 0, 1 + e->bidir) {
+			int a = e.a, b = e.b;
+			rep(j, 0, 1 + e.bidir) {
 				N& cur = g.nodes[a];
 				if(cur.srcPrev != -1) {
-					D nextDistNew = cur.srcDist + e->dist;
+					D nextDistNew = cur.srcDist + e.dist;
 					D& nextDist = g.nodes[b].srcDist;
 					int& nextPrev = g.nodes[b].srcPrev;
 					if(nextPrev == -1 || nextDistNew < nextDist) {

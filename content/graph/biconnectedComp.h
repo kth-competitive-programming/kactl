@@ -24,8 +24,7 @@ template<class G> void dfs(int j, int p, G &g) {
 	seen[j] = true;
 	num[j] = no_vertices++; v[j] = num[j];
 	z.push(j);
-	trav(it, g[j]) {
-		int i = *it;
+	trav(i, g[j]) {
 		if (!seen[i]) {
 			int zz = no_vertices;
 			dfs(i, j, g);
@@ -39,7 +38,7 @@ template<class G> void dfs(int j, int p, G &g) {
 			v[j] = min(v[j], v[i]);
 		}
 		else if (i != p)
-			v[j] = min(v[j], num[*it]);
+			v[j] = min(v[j], num[i]);
 	}
 }
 template<class G> vector<vector<int> > go(G &g) {

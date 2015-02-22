@@ -15,7 +15,7 @@ UnitTestManager::UnitTestManager():
 UnitTestManager::~UnitTestManager()
 {
 	trav(it, m_unitTestWrappers)
-		delete (it->second);
+		delete it.second;
 
 	m_unitTestWrappers.clear();
 }
@@ -59,7 +59,7 @@ void UnitTestManager::registerWrapper(UnitTestWrapper* unitTestWrapper)
 void UnitTestManager::runAll()
 {
 	trav(it, m_unitTestWrappers)
-		runTest(it->second);
+		runTest(it.second);
 }
 
 void UnitTestManager::runTest(const string& name)

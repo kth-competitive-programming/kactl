@@ -19,8 +19,8 @@ bool topo_sort(const E *edges, I &idx, int n) {
 	vector<int> indeg(n);
 	rep(i,0,n)
 		trav(e, edges[i])
-		indeg[*e]++;
-	queue<int> q; // use priority queue for lexic. smal lest ans.
+			indeg[e]++;
+	queue<int> q; // use priority queue for lexic. smallest ans.
 	rep(i,0,n) if (indeg[i] == 0) q.push(-i);
 	int nr = 0;
 	while (q.size() > 0) {
@@ -28,7 +28,7 @@ bool topo_sort(const E *edges, I &idx, int n) {
 		idx[i] = ++nr;
 		q.pop();
 		trav(e, edges[i])
-			if (--indeg[*e] == 0) q.push(-*e);
+			if (--indeg[e] == 0) q.push(-e);
 	}
 	return nr == n;
 }

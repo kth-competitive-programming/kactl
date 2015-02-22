@@ -18,8 +18,7 @@
 #include <cctype>
 using namespace std;
 
-#define rep(i,a,b) for(__typeof(b) i=a; i<(b); ++i)
-#define trav(it,c) for(__typeof((c).begin()) it=(c).begin(); it!=(c).end(); ++it)
+#define rep(i,a,b) for(int i=a; i<int(b); ++i)
 
 typedef long long ll;
 typedef pair<string, int> pii;

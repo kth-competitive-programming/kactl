@@ -17,8 +17,8 @@ vector<int> fleury(G& g, int src = 0) {
 	vector<int> ret, s;
 	vector<bool> eu;
 	vector<OutsItT> its;
-	trav(it, g.nodes)
-		its.push_back(it->outs.begin());
+	trav(n, g.nodes)
+		its.push_back(n.outs.begin());
 	eu.resize(g.edges.size(), false);
 	s.push_back(src);
 	while(!s.empty()) {

@@ -16,11 +16,11 @@ public:
 	void test(vpii s, vpii r) {
 		vpii res = intervalUnion<int>(s.begin(),s.end());
 		stringstream ss;
-		trav(i,s) ss << "(" << i->first << "," << i->second << ")";
+		trav(i,s) ss << "(" << i.first << "," << i.second << ")";
 		ss << endl <<  " -> ";
-		trav(i,res) ss << "(" << i->first << "," << i->second << ")";
+		trav(i,res) ss << "(" << i.first << "," << i.second << ")";
 		ss << endl << " != ";
-		trav(i,r) ss << "(" << i->first << "," << i->second << ")";
+		trav(i,r) ss << "(" << i.first << "," << i.second << ")";
 		if (res != r)
 			fail(ss.str());
 	}

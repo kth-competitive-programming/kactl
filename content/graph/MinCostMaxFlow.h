@@ -36,12 +36,12 @@ pair<Flow, int> aug(G &g, int s, int t) {
 	bool changed = true; mindist[s] = 0;
 	for (int i = 1; !(changed = !changed); ++i)
 		for (int v = 0; v < n; ++v)
-			trav(it, g[v]) {
-				Flow dist =mindist[v]+(it->f<0 ? -it->cost : it->cost);
-				if (it->r() > 0 && dist < mindist[it->dest]) {
+			trav(e, g[v]) {
+				Flow dist =mindist[v]+(e.f<0 ? -e.cost : e.cost);
+				if (e.r() > 0 && dist < mindist[e.dest]) {
 					if (i >= n) assert(0);// negative cycle! shouldn't be
-					mindist[it->dest] = dist;
-					mark[it->dest] = it->back;
+					mindist[e.dest] = dist;
+					mark[e.dest] = e.back;
 					changed = true;
 				}
 			}
