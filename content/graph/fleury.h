@@ -8,26 +8,23 @@
  */
 #pragma once
 
-#include "Graph.h"
+struct N { vector<pii> outs; }; // (dest, edge index)
 
-template<class G>
-vector<int> fleury(G& g, int src = 0) {
-	typedef typename G::NodeT::OutsT::iterator OutsItT;
+vector<int> fleury(vector<N>& nodes, int nedges, int src=0) {
 	vector<int> ret, s;
-	vector<bool> eu;
-	vector<OutsItT> its;
-	trav(n, g.nodes)
+	vector<vector<pii>::iterator> its;
+	trav(n, nodes)
 		its.push_back(n.outs.begin());
-	eu.resize(g.edges.size(), false);
+	vector<bool> eu(nedges);
 	s.push_back(src);
 	while(!s.empty()) {
 		int x = s.back();
-		OutsItT& it = its[x], end = g.nodes[x].outs.end();
+		auto& it = its[x], end = nodes[x].outs.end();
 		while(it != end && eu[it->second]) it++;
 		if(it == end) { ret.push_back(x); s.pop_back(); }
 		else { s.push_back(it->first); eu[it->second] = true; }
 	}
-	if(ret.size() != g.edges.size() + 1)
+	if(sz(ret) != nedges + 1)
 		ret.clear(); // No Eulerian cycles/paths.
 	reverse(ret.begin(), ret.end()); // Necessary for directed graphs.
 	return ret;
