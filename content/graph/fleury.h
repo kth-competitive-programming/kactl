@@ -4,7 +4,6 @@
  * Source: http://en.wikipedia.org/wiki/Fleury's_algorithm
  * Description: Fleury's Eulerian undirected/directed path/cycle algorithm executor that returns a list of nodes in the Eulerian path/cycle starting from src (or empty if no such cycle/path is available). Code is modifiable to return edges instead of nodes.
  * Time: O(E) where E is the number of edges.
- * Memory: O(E) where E is the number of edges.
  * Status: Unknown
  */
 #pragma once

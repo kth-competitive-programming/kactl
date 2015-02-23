@@ -25,7 +25,7 @@ template<class T> T edmondsKarp(vector<map<int, T> >& graph, int source, int sin
 		for(int bfsPos = 0; bfsPos < bfsEnd && prevNode[sink] == -1; ++bfsPos) {
 			int x = bfs[bfsPos];
 			trav(e, graph[x]) {
-				if(prevNode[e.first] == -1 && e.second > 0)	{
+				if(prevNode[e.first] == -1 && e.second > 0) {
 					prevNode[e.first] = x;
 					bfs[bfsEnd++] = e.first;
 				}

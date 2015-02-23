@@ -4,7 +4,6 @@
  * Source: http://en.wikipedia.org/wiki/Floyd–Warshall_algorithm
  * Description: Same as normal floydWarshall. Propagates negative distances.
  * Time: O(V^3) where V is the number of vertices.
- * Memory: O(1) (given a matrix of size O(V^2) to store the output).
  * Status: Working
  */
 #pragma once

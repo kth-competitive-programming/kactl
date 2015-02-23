@@ -4,7 +4,7 @@
  * Source: Czech graph algorithms book by Demel.
  * Description: Finds biconnected components in an
  * undirected graph. In a biconnected component there are at least two distinct
- * paths between any two nodes. Note that a vertex can be in more components.
+ * paths between any two nodes. Note that a node can be in several components.
  * Time: O(E + V) where $E$ is the number of edges and $V$ is the number of vertices.
  * Status: Tested on UVa Live 4544
  * Usage: Create a graph, then run go(graph). As a result
@@ -20,25 +20,25 @@ vector<int> num, v;
 int no_vertices;
 vector<vector<int> > comp;
 
-template<class G> void dfs(int j, int p, G &g) {
-	seen[j] = true;
-	num[j] = no_vertices++; v[j] = num[j];
-	z.push(j);
-	trav(i, g[j]) {
+template<class G> void dfs(int at, int p, G &g) {
+	seen[at] = true;
+	num[at] = no_vertices++; v[at] = num[at];
+	z.push(at);
+	trav(i, g[at]) {
 		if (!seen[i]) {
 			int zz = no_vertices;
-			dfs(i, j, g);
-			if (v[i] >= num[j]) {
+			dfs(i, at, g);
+			if (v[i] >= num[at]) {
 				vector<int> r;
 				for (; !z.empty() && num[z.top()] >= zz; z.pop())
 					r.push_back(z.top());
-				r.push_back(j);
+				r.push_back(at);
 				comp.push_back(r);
 			}
-			v[j] = min(v[j], v[i]);
+			v[at] = min(v[at], v[i]);
 		}
 		else if (i != p)
-			v[j] = min(v[j], num[i]);
+			v[at] = min(v[at], num[i]);
 	}
 }
 template<class G> vector<vector<int> > go(G &g) {
