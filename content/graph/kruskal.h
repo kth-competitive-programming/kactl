@@ -20,7 +20,7 @@ void kruskal(const G *graph, G *tree, int n) {
 	rep(i,0,n)
 		trav(e, graph[i])
 			if (i < e.first) //Undirected: only use half of the edges
-				E.push_back(make_pair(e.second, make_pair(i, e.first)));
+				E.emplace_back(e.second, make_pair(i, e.first));
 	sort(E.begin(), E.end());
 	rep(i,0,n) tree[i].clear();
 	int numEdges = E.size();
@@ -28,8 +28,8 @@ void kruskal(const G *graph, G *tree, int n) {
 		pair<int,int> &e = E[i].second;
 		if(!sets.same_set(e.first, e.second)) {
 			sets.join(e.first, e.second);
-			tree[e.first].push_back(make_pair(e.second, E[i].first));
-			tree[e.second].push_back(make_pair(e.first, E[i].first));
+			tree[e.first].emplace_back(e.second, E[i].first);
+			tree[e.second].emplace_back(e.first, E[i].first);
 		}
 	}
 }
