@@ -8,7 +8,7 @@
 #pragma once
 
 #include <vector>
-#include "../data structures/union_find.h"
+#include "../data structures/UnionFind.h"
 using namespace std;
 
 template <class G>

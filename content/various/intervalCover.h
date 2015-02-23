@@ -19,7 +19,7 @@ template<typename It> struct Cmp {
 };
 
 template<typename C> vi intervalCover(pair<C, C> toCover, vector<pair<C, C> >& is) {
-    typedef typeof(is.begin()) It;
+    typedef decltype(is.begin()) It;
     vector<It> sorted;
     vi answer;
     C nextCover = toCover.first;
