@@ -31,7 +31,7 @@ struct PushRelabel {
 
 	void add_flow(Edge& e, Flow f) {
 		Edge &back = g[e.dest][e.back];
-		if (!exc[e.dest]) hs[H[e.dest]].push_back(e.dest);
+		if (!exc[e.dest] && f) hs[H[e.dest]].push_back(e.dest);
 		e.f += f; e.c -= f; exc[e.dest] += f;
 		back.f -= f; back.c += f; exc[back.dest] -= f;
 	}
@@ -39,8 +39,7 @@ struct PushRelabel {
 		int v = sz(g); H[s] = v; exc[t] = 1;
 		vi co(2*v); co[0] = v-1;
 		rep(i,0,v) cur[i] = g[i].data();
-		trav(e, g[s])
-			if (e.c > 0) add_flow(e, e.c);
+		trav(e, g[s]) add_flow(e, e.c);
 
 		for (int hi = 0;;) {
 			while (hs[hi].empty()) if (!hi--) return -exc[s];
@@ -48,13 +47,13 @@ struct PushRelabel {
 			while (exc[u] > 0)  // discharge u
 				if (cur[u] == g[u].data() + sz(g[u])) {
 					H[u] = 1e9;
-					trav(e, g[u]) if (e.c > 0 && H[u] > H[e.dest]+1)
+					trav(e, g[u]) if (e.c && H[u] > H[e.dest]+1)
 						H[u] = H[e.dest]+1, cur[u] = &e;
 					if (++co[H[u]], !--co[hi] && hi < v)
 						rep(i,0,v) if (hi < H[i] && H[i] < v)
 							--co[H[i]], H[i] = v + 1;
 					hi = H[u];
-				} else if (cur[u]->c > 0 && H[u] == H[cur[u]->dest]+1)
+				} else if (cur[u]->c && H[u] == H[cur[u]->dest]+1)
 					add_flow(*cur[u], min(exc[u], cur[u]->c));
 				else ++cur[u];
 		}
