@@ -58,6 +58,7 @@ solve_linear(int n, double A[N][N], double b[N], double x[N]) {
 		}
 	}
 
+	rep(i,rank,n) if(fabs(B(i)) > eps) return -1; // (optional)
 	rep(i,0,n) if(i >= rank || undef[i])
 		B(i) = undefined;
 	rep(i,0,n) x[col[i]] = B(i);
