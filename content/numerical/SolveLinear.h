@@ -20,7 +20,7 @@ const double eps = 1e-12;
 
 template <int N> int
 solve_linear(int n, double A[N][N], double b[N], double x[N]) {
-	int row[N], col[N], undef[N], invrow[N], invcol[N], rank = 0;
+	int row[N], col[N], undef[N], rank = 0;
 	rep(i,0,n) row[i] = col[i] = i, undef[i] = false;
 #define A(i,j) A[row[i]][col[j]]
 #define B(i) b[row[i]]
@@ -58,9 +58,8 @@ solve_linear(int n, double A[N][N], double b[N], double x[N]) {
 		}
 	}
 
-	rep(i,0,n) invrow[row[i]] = i, invcol[col[i]] = i;
-	rep(i,0,n) if(invrow[i] >= rank || undef[invrow[i]])
-		b[i] = undefined;
-	rep(i,0,n) x[i] = B(invcol[i]);
+	rep(i,0,n) if(i >= rank || undef[i])
+		B(i) = undefined;
+	rep(i,0,n) x[col[i]] = B(i);
 	return rank;
 }
