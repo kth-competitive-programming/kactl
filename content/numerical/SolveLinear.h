@@ -22,35 +22,37 @@ template <int N> int
 solve_linear(int n, double A[N][N], double b[N], double x[N]) {
 	int row[N], col[N], undef[N], invrow[N], invcol[N], rank = 0;
 	rep(i,0,n) row[i] = col[i] = i, undef[i] = false;
+#define A(i,j) A[row[i]][col[j]]
+#define B(i) b[row[i]]
 
 	for (int i = 0; i < n; rank = ++i) {
 		int br = i, bc = i;
-		double v, bv = fabs(A[row[i]][col[i]]);
+		double v, bv = -1;
 		rep(r,i,n) rep(c,i,n)
-			if ((v = fabs(A[row[r]][col[c]])) > bv)
+			if ((v = fabs(A(r,c))) > bv)
 				br = r, bc = c, bv = v;
 		if (bv < eps) break;
-		if (i != br) swap(row[i], row[br]);
-		if (i != bc) swap(col[i], col[bc]);
+		swap(row[i], row[br]);
+		swap(col[i], col[bc]);
 		rep(j,i+1,n) {
-			double fac = A[row[j]][col[i]] / bv;
-			A[row[j]][col[i]] = 0;
-			b[row[j]] -= fac * b[row[i]];
-			rep(k,i+1,n) A[row[j]][col[k]]-=fac*A[row[i]][col[k]];
+			double fac = A(j,i) / bv;
+			A(j,i) = 0;
+			B(j) -= fac * B(i);
+			rep(k,i+1,n) A(j,k) -= fac*A(i,k);
 		}
 	}
 
 	for (int i = rank; i--; ) {
-		b[row[i]] /= A[row[i]][col[i]];
-		A[row[i]][col[i]] = 1;
-		rep(j,rank,n) if(fabs(A[row[i]][col[j]]) > eps)
+		B(i) /= A(i,i);
+		A(i,i) = 1;
+		rep(j,rank,n) if(fabs(A(i,j)) > eps)
 			undef[i] = true;
 		for (int j = i - 1; j >= 0; --j) {
-			if (undef[i] && fabs(A[row[j]][col[i]]) > eps)
+			if (undef[i] && fabs(A(j,i)) > eps)
 				undef[j] = true;
 			else {
-				b[row[j]] -= A[row[j]][col[i]] * b[row[i]];
-				A[row[j]][col[i]] = 0;
+				B(j) -= A(j,i) * B(i);
+				A(j,i) = 0;
 			}
 		}
 	}
@@ -58,6 +60,6 @@ solve_linear(int n, double A[N][N], double b[N], double x[N]) {
 	rep(i,0,n) invrow[row[i]] = i, invcol[col[i]] = i;
 	rep(i,0,n) if(invrow[i] >= rank || undef[invrow[i]])
 		b[i] = undefined;
-	rep(i,0,n) x[i] = b[row[invcol[i]]];
+	rep(i,0,n) x[i] = B(invcol[i]);
 	return rank;
 }
