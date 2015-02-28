@@ -32,6 +32,7 @@ solve_linear(int n, double A[N][N], double b[N], double x[N]) {
 			if ((v = fabs(A(r,c))) > bv)
 				br = r, bc = c, bv = v;
 		if (bv < eps) break;
+		bv = A(br,bc);
 		swap(row[i], row[br]);
 		swap(col[i], col[bc]);
 		rep(j,i+1,n) {
