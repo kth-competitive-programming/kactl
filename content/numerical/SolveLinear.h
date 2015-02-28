@@ -2,8 +2,12 @@
  * Author: Per Austrin
  * Date: 2009-04-17
  * Source: tinyKACTL
- * Description: Solves $A * x = b$, or as much of $x$ as possible. Returns rank.
- * Data in $A$ and $b$ is lost.
+ * Description: Solves $A * x = b$, or as much of $x$ as possible.
+ *  Returns rank, or -1 if there is no solution.
+ *  Data in $A$ and $b$ is lost.
+ *  When $x[i]$ has two possible values it is set to nan; to
+ *  suppress this behavior and return any solution, remove every mention of "undef"/"undefined".
+ *  Consider using 'long double' and removing the unsolvability check for better stability.
  * Time: O(n^3)
  * Usage: double A[3][3], b[3], x[3];
  int rank = solve_linear(3,A,b,x);
