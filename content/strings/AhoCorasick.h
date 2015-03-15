@@ -2,8 +2,8 @@
  * Author: Simon Lindholm
  * Date: 2015-02-18
  * Source: marian's (TC) code
- * Description: Aho-Corasick tree is used for mutiple pattern
- * matching. Initialize the tree with create(patterns). find(word) returns for each position
+ * Description: Aho-Corasick tree is used for multiple pattern matching.
+ * Initialize the tree with create(patterns). find(word) returns for each position
  * the index of the longest word that ends there, or -1 if none. findAll(\_, word) finds all words
  * (up to $N^2$ many) that start at each position (shortest first).
  * Duplicate patterns are allowed; empty patterns are not.
@@ -23,16 +23,16 @@ struct AhoCorasick {
 	struct Node {
 		// (nmatches is optional)
 		int back, next[alpha], start = -1, end = -1, nmatches = 0;
-		Node(int v = -1) { memset(next, v, sizeof(next)); }
+		Node(int v) { memset(next, v, sizeof(next)); }
 	};
 	vector<Node> N;
 	vector<int> backp;
 	void insert(string& s, int j) {
 		assert(!s.empty());
 		int n = 0;
-		for (char c : s) {
+		trav(c, s) {
 			int& m = N[n].next[c - first];
-			if (m == -1) { n = m = sz(N); N.emplace_back(); }
+			if (m == -1) { n = m = sz(N); N.emplace_back(-1); }
 			else n = m;
 		}
 		if (N[n].end == -1) N[n].start = j;
@@ -41,7 +41,7 @@ struct AhoCorasick {
 		N[n].nmatches++;
 	}
 	AhoCorasick(vector<string>& pat) {
-		N.emplace_back();
+		N.emplace_back(-1);
 		rep(i,0,sz(pat)) insert(pat[i], i);
 		N[0].back = sz(N);
 		N.emplace_back(0);
@@ -49,7 +49,7 @@ struct AhoCorasick {
 		queue<int> q;
 		for (q.push(0); !q.empty(); q.pop()) {
 			int n = q.front(), prev = N[n].back;
-			for (int i = 0; i < alpha; i++) {
+			rep(i,0,alpha) {
 				int &ed = N[n].next[i], y = N[prev].next[i];
 				if (ed == -1) ed = y;
 				else {
@@ -65,7 +65,7 @@ struct AhoCorasick {
 	vi find(string word) {
 		int n = 0;
 		vi res; // ll count = 0;
-		for (char c : word) {
+		trav(c, word) {
 			n = N[n].next[c - first];
 			res.push_back(N[n].end);
 			// count += N[n].nmatches;
