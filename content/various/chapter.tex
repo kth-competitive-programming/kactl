@@ -1,4 +1,4 @@
-% This is the LaTeX file for the chapter "Games and Puzzles" in KACTL (KTH ACM Contest Template Library)
+% This is the LaTeX file for the chapter "Various" in KACTL (KTH ACM Contest Template Library)
 % Written by Håkan Terelius, 2009-02-10
 
 \chapter{Various}
@@ -8,6 +8,11 @@
 		\kactlimport{lis.h}
 		\kactlimport{lcs.h}
 		\kactlimport{intervalCover.h}
+
+	\section{Optimization tricks}
+		\subsection{Pragmas}
+			\lstinline{#pragma GCC target ("avx,avx2,arch=corei7")} and \lstinline{#pragma GCC optimize ("Ofast")} may make GCC generate better code. Use when desperate.
+		\kactlimport{SIMD.h}
 
 	\section{Hex and tri grids}
 		\kactlimport{bricks.ps}

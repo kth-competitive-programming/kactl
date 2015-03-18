@@ -157,7 +157,7 @@ def linecount(source):
 def isdefaultinclude(line):
 	defaultinclude = ['<iostream>', '<algorithm>', '<string>', '<vector>', '<cmath>', '<cstring>', '<cstdio>', '<cassert>', '<queue>', '<map>', '<set>']
 	line = line.strip()
-	if line.startswith("#include"):
+	if line.startswith("#include") and not line.endswith("/** keep-include */"):
 		line = line[8:].strip()
 		if line in defaultinclude:
 			return ""
