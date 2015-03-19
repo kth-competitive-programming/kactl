@@ -2,15 +2,16 @@
  * Author: Simon Lindholm
  * Date: 2015-03-18
  * Source: https://software.intel.com/sites/landingpage/IntrinsicsGuide/
- * Description: Cheat sheet of SSE/AVX intrinsics, for doing arithmetic on several numbers at once. Can provide a constant factor improvement of about 4.
+ * Description: Cheat sheet of SSE/AVX intrinsics, for doing arithmetic on several numbers at once.
+ * Can provide a constant factor improvement of about 4, orthogonal to loop unrolling.
  * Operations follow the pattern \texttt{"\_mm(256)?\_name\_(si(128|256)|epi(8|16|32|64)|pd|ps)"}. Not all are described here;
  * grep for \texttt{\_mm\_} in \texttt{/usr/lib/gcc/{*}/4.9/include/} for more.
  * If AVX is unsupported, try 128-bit operations, "emmintrin.h" and \#define \texttt{\_\_SSE\_\_} and \texttt{\_\_MMX\_\_} before including it.
- * Memory must be aligned, so use \texttt{\_mm\_malloc(size, 32)} or \texttt{\_\_attribute\_\_((aligned(32)))} for 256 bits.
+ * Memory must be aligned, so (for 256 bits) use \texttt{\_mm\_malloc(size, 32)} or \texttt{\_\_attribute\_\_((aligned(32)))}.
  */
 #pragma once
 
-#pragma GCC target ("avx,avx2,arch=corei7") // mmx,sse, etc.
+#pragma GCC target ("avx,avx2") // mmx,sse,arch=corei7, etc.
 #include "immintrin.h" /** keep-include */
 
 typedef __m256i mi;
@@ -38,15 +39,17 @@ bool all_one(mi m) { return _mm256_testc_si256(zero(), m); }
 
 // Example application (runs 3x faster than w/ unrolled loops):
 vector<int*> floydWarshall(int N, int E) {
-	N = ((N-1)|7)+1;
 	vector<int*> d(N); int a, b, di;
-	rep(i,0,N) d[i] = (int*)_mm_malloc(N*4, 256/8);
+	rep(i,0,N) d[i] = (int*)_mm_malloc((4*N + 31) & ~31, 32);
 	rep(i,0,N) rep(j,0,N) d[i][j] = (i == j ? 0 : 1 << 29);
 	rep(i,0,E) scanf("%d%d%d", &a, &b, &di), d[a][b] = di;
 	rep(k,0,N) rep(i,0,N) {
 		mi dik = M32(set1)(d[i][k]);
 		mi *di = (mi*)d[i], *dk = (mi*)d[k];
-		rep(j,0,N/8) di[j] = M32(min)(di[j], M32(add)(dik, dk[j]));
+		int j = 0; for (; j < N>>3; ++j)
+			di[j] = M32(min)(di[j], M32(add)(dik, dk[j]));
+		for (j <<= 3; j < N; ++j)
+			d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
 	}
 	return d;
 }
