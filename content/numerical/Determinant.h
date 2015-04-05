@@ -5,7 +5,7 @@
  * Description: Calculates determinant using modular arithmetics.
  * Can be rewritten to use doubles, but then use some epsilon to avoid division
  * by zero. The modulus is assumed to be a prime number. For composite moduli,
- * use CRT; for prime powers, you are screwed, but at least A is invertible iff
+ * use CRT; for prime powers, you are on your own, but at least A is invertible iff
  * it is invertible mod p, and the identity $\det A = (\Pi^n_{k=1}(A^{-1}_k)_{k,k})^{-1}$
  * could be used on a LU decomposition of A ($A_k$ is the $k \times k$ upper-left part of A).
  * Status: tested

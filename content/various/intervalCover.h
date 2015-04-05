@@ -3,8 +3,7 @@
  * Date: 2009-10-13
  * Source: N/A
  * Description: Calculate the minimum number of intervals required to cover a specified interval. Returns indices of intervals forming the smallest set necessary to cover specified interval.
- * Time: O(N * log(N)) where N is the number of intervals.
- * Memory: O(N) where N is the number of is.
+ * Time: O(n \log n) where $n$ is the number of intervals.
  * Status: Working
  */
 #pragma once
