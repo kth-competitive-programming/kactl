@@ -20,7 +20,7 @@
 			\item \texttt{c = x\&-x, r = x+c; (((r\^{}x) >> 2)/c) | r} is the next number after \texttt{x} with the same number of bits set.
 			\end{enumerate}
 		\subsection{Pragmas}
-			\lstinline{#pragma GCC target ("avx,avx2,arch=corei7")} and \lstinline{#pragma GCC optimize ("Ofast")} may make GCC generate better code. Use when desperate.
+			\lstinline{#pragma GCC target ("avx,avx2")} and \lstinline{#pragma GCC optimize ("Ofast")} may make GCC generate better code (especially for tight loops). Use when desperate.
 		\kactlimport{SIMD.h}
 		\kactlimport{Unrolling.h}
 
