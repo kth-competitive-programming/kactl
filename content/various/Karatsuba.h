@@ -24,8 +24,8 @@ void kar(int len, T* ap, T* bp, T* out) {
 	}
 	int B = len / 2, C = len - B;
 	vt t(2*len + 2);
-	T *L = &t[0], *R = L + C;
-	T *st = L + 2, *temp = st + 2*B;
+	T *L = &t[0], *R = L + C,
+	  *st = L + 2, *temp = st + 2*B;
 	kar(B, ap, bp, st);
 	kar(C, ap+B, bp+B, temp);
 	i(2*len, out, st);
