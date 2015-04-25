@@ -25,7 +25,7 @@ pair<T,double> mec(It begin, It end) {
 	L.push_back(*min_element(begin,end));//point on convex hull
 	L.push_back(*(begin+(L[0]==*begin)));//next on convex hull
 	for (It i = begin; i != end; ++i) {
-		//T::coordType p = (*i-L[0]).cross(L[1]-L[0]);
+		//auto p = (*i-L[0]).cross(L[1]-L[0]);
 		double p = (*i-L[0]).cross(L[1]-L[0]);
 		if ((*i == L[0]) && (p>0 || p==0 &&
 				(*i-L[0]).dist2()>(L[1]-L[0]).dist2()))

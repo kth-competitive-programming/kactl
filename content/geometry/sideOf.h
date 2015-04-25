@@ -12,13 +12,13 @@
 
 template <class P>
 int sideOf(const P& s, const P& e, const P& p) {
-	typename P::coordType a = (e-s).cross(p-s);
+	auto a = (e-s).cross(p-s);
 	return (a > 0) - (a < 0);
 }
 
 template <class P>
 int sideOf(const P& s, const P& e, const P& p, double epsilon) {
-	typename P::coordType a = (e-s).cross(p-s);
+	auto a = (e-s).cross(p-s);
 	double l = (e-s).dist()*epsilon;
 	return (a > l) - (a < -l);
 }

@@ -14,9 +14,8 @@ using namespace std;
 
 template <class T>
 struct Point3D {
-	typedef T coordType;
 	typedef Point3D P;
-	typedef const P & R;
+	typedef const P& R;
 	T x, y, z;
 	Point3D(T x, T y, T z) : x(x), y(y), z(z) { }
 	bool operator<(R p) const {

@@ -13,9 +13,8 @@ using namespace std;
 
 template <class T>
 struct Point {
-	typedef T coordType;
 	typedef Point P;
-	typedef const P & R;
+	typedef const P& R;
 	T x, y;
 	explicit Point(T x=T(), T y=T()) : x( x), y( y) { }
 	bool operator<(R p) const { return x<p.x || x==p.x && y<p.y; }
