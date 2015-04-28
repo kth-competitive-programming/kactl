@@ -1,7 +1,7 @@
 /**
- * Author: Stanford notebook
+ * Author: Stanford
  * Date: Unknown
- * Source: Stanford notebook
+ * Source: Stanford Notebook
  * Description: Find minimum cut in graph
  * Time: O(V^3)
  * Status: Unknown
