@@ -1,56 +1,83 @@
 /**
-* Author:
-* Date: 2010-11-18
-* Source: tinyKACTL
-* Description: Solves a linear minimization problem. The first row of the input matrix is the objective function to be minimized. The first column is the maximum allowed value for each linear row.
-*/
+ * Author: Stanford
+ * Date: Unknown
+ * Source: Stanford Notebook
+ * Description: Solves a general linear maximization problem: maximize $c^T x$ subject to $Ax \le b$, $x \ge 0$.
+ * Returns -inf if there is no solution, inf if there are arbitrarily good solutions, or the maximum value of $c^T x$ otherwise.
+ * The input vector is set to an optimal $x$ (or in the unbounded case, an arbitrary solution fulfilling the constraints).
+ * Numerical stability is not guaranteed.
+ * Usage:
+ * vvd A = {{1,-1}, {-1,1}, {-1,-2}};
+ * vd b = {1,1,-4}, c = {-1,-1}, x;
+ * T val = LPSolver(A, b, c).solve(x);
+ * Time: worst case O(2^n), in practice maybe O(N^4). Provably polynomial if inputs are randomly perturbed.
+ * Status: somewhat, but not very, tested
+ */
 #pragma once
 
-enum Result { OK, UNBOUNDED, NO_SOLUTION };
+typedef long double T; // or Rational, or double + mod<P> + CRT
+typedef vector<T> vd;
+typedef vector<vd> vvd;
 
-template <class M, class I>
-Result simplex(M &a, I &var, int m, int n, int twophase=0) {
-	while (true) {
-		/// Choose a variable to enter the basis
-		int idx = 0;
-		rep(j,1,n+1)
-			if (a[0][j] > 0 && (!idx || a[0][j] > a[0][idx]))
-			idx = j;
-		if (!idx) return OK;
-		int j = idx; idx = 0;
-		rep(i,1,m)
-			if (a[i][j] > 0 && (!idx || a[i][0]/a[i][j] < a[idx][0]/a[idx][j]))
-				idx = i;
-		/// Problem unbounded if all a[m][j] <= 0
-		if (!idx) return UNBOUNDED;
-		int i = idx;
-		for (int l = 0; l <= n; ++l)
-			if (l != j) a[i][l] /= a[i][j];
-		a[i][j] = 1;
-		for (int k = 0; k <= m + twophase; ++k) if (k != i) {
-			for (int l = 0; l <= n; ++l)
-				if (l != j) a[k][l] -= a[k][j] * a[i][l];
-			a[k][j] = 0;
+const T eps = 1e-9, inf = 1/.0;
+#define MP make_pair
+#define ltj(X) if(s == -1 || MP(X[j],N[j]) < MP(X[s],N[s])) s=j
+
+struct LPSolver {
+	int m, n;
+	vi N, B;
+	vvd D;
+
+	LPSolver(const vvd& A, const vd& b, const vd& c) :
+		m(sz(b)), n(sz(c)), N(n+1), B(m), D(m+2, vd(n+2)) {
+			rep(i,0,m) rep(j,0,n) D[i][j] = A[i][j];
+			rep(i,0,m) B[i] = n+i, D[i][n] = -1;
+			rep(i,0,m) D[i][n+1] = b[i]; // + eps if degenerate
+			rep(j,0,n) { N[j] = j; D[m][j] = -c[j]; }
+			N[n] = -1; D[m+1][n] = 1;
 		}
-		/// Keep track of the variable change.
-		/// XXX this doesn't seem to be used? it is meaningful as output?
-		var[i] = j;
+
+	void pivot(int r, int s) {
+		rep(i,0,m+2) if (i != r)
+			rep(j,0,n+2) if (j != s)
+				D[i][j] -= D[r][j] * D[i][s] / D[r][s];
+		rep(j,0,n+2) if (j != s) D[r][j] /= D[r][s];
+		rep(i,0,m+2) if (i != r) D[i][s] /= -D[r][s];
+		D[r][s] = 1.0 / D[r][s];
+		swap(B[r], N[s]);
 	}
-}
-template <class M, class I>
-Result twophase_simplex(M &a, I &var, int m, int n, int artificial) {
-	/// Save primary objective, clear phase I objective
-	rep(j,0,n+artificial+1)
-		a[m + 1][j] = a[0][j], a[0][j] = 0;
-	/// Express phase I objective in terms of non-basic variables
-	rep(i,1,m+1) rep(j,n+1,n+artificial+1)
-			if (a[i][j] == 1)
-				rep(l,0,n+1)
-					if (l != j) a[0][l] += a[i][l];
-	simplex(a, var, m, n + artificial, 1); /// Phase I
-	/// Check solution
-	rep(j,n+1,n+artificial+1) if (a[0][j] >= 0) return NO_SOLUTION;
-	/// Restore primary objective
-	rep(j,0,n+1) a[0][j] = a[m + 1][j];
-	return simplex(a, var, m, n);
-}
+
+	bool simplex(int phase) {
+		int x = m + phase - 1;
+		for (;;) {
+			int s = -1;
+			rep(j,0,n+1) if (N[j] != -phase) ltj(D[x]);
+			if (D[x][s] >= -eps) return true;
+			int r = -1;
+			rep(i,0,m) {
+				if (D[i][s] <= eps) continue;
+				if (r == -1 || MP(D[i][n+1] / D[i][s], B[i])
+				             < MP(D[r][n+1] / D[r][s], B[r])) r = i;
+			}
+			if (r == -1) return false;
+			pivot(r, s);
+		}
+	}
+
+	T solve(vd &x) {
+		int r = 0;
+		rep(i,1,m) if (D[i][n+1] < D[r][n+1]) r = i;
+		if (D[r][n+1] <= -eps) {
+			pivot(r, n);
+			if (!simplex(2) || D[m+1][n+1] < -eps) return -inf;
+			rep(i,0,m) if (B[i] == -1) {
+				int s = 0;
+				rep(j,1,n+1) ltj(D[i]);
+				pivot(i, s);
+			}
+		}
+		bool ok = simplex(1); x = vd(n);
+		rep(i,0,m) if (B[i] < n) x[B[i]] = D[i][n+1];
+		return ok ? D[m][n+1] : inf;
+	}
+};
