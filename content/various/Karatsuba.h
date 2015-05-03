@@ -46,3 +46,22 @@ vt conv(vt a, vt b) {
 	out.resize(s);
 	return out;
 }
+
+// Example application: subset-sum-knapsack in O(sum^1.6) time
+vector<bool> knapsack(vi weights) {
+	if (weights.empty()) return {1};
+	multimap<int, vi> dps;
+	trav(w, weights) {
+		vi v(w+1); v[0] = v[w] = 1;
+		dps.insert(make_pair(w, v));
+	}
+	while (dps.size() > 1) {
+		auto it = dps.begin(), it2 = it++;
+		int sz = it->first + it2->first;
+		vi r = conv(it->second, it2->second);
+		trav(x, r) if (x) x = 1; // convert back to booleans
+		dps.erase(it); dps.erase(it2);
+		dps.insert(make_pair(sz, r));
+	}
+	return {all(dps.begin()->second)};
+}
