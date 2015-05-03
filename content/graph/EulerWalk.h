@@ -5,7 +5,7 @@
  * Description: Eulerian undirected/directed path/cycle algorithm. Returns a list of nodes in the Eulerian path/cycle with src at both start and end, or
  *  empty list if no cycle/path exists. To get edge indices back, also put it->second in s (and then ret).
  * Time: O(E) where E is the number of edges.
- * Status: Unknown
+ * Status: tested
  */
 #pragma once
 
