@@ -31,8 +31,7 @@ struct LPSolver {
 	LPSolver(const vvd& A, const vd& b, const vd& c) :
 		m(sz(b)), n(sz(c)), N(n+1), B(m), D(m+2, vd(n+2)) {
 			rep(i,0,m) rep(j,0,n) D[i][j] = A[i][j];
-			rep(i,0,m) B[i] = n+i, D[i][n] = -1;
-			rep(i,0,m) D[i][n+1] = b[i]; // + eps if degenerate
+			rep(i,0,m) { B[i] = n+i; D[i][n] = -1; D[i][n+1] = b[i];}
 			rep(j,0,n) { N[j] = j; D[m][j] = -c[j]; }
 			N[n] = -1; D[m+1][n] = 1;
 		}
