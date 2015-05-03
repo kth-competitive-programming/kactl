@@ -20,15 +20,15 @@ vector<int> match;
 vector<bool> seen;
 template<class G>
 bool find(int j, G &g) {
-	if (match[j] == -1) return true;
-	seen[j] = true; int di = match[j];
+	if (match[j] == -1) return 1;
+	seen[j] = 1; int di = match[j];
 	trav(e, g[di])
 		if (!seen[e] && find(e, g)) {
 			match[e] = di;
 			match[j] = -1;
-			return true;
+			return 1;
 		}
-	return false;
+	return 0;
 }
 template<class G>
 int dfs_matching(G &g, int n, int m) {
@@ -41,5 +41,5 @@ int dfs_matching(G &g, int n, int m) {
 				break;
 			}
 	}
-	return m - count(match.begin(), match.end(), -1);
+	return m - count(all(match), -1);
 }
