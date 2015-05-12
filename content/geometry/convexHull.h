@@ -26,7 +26,7 @@ typedef Point<double> ptype;
 ptype Ref;
 bool comp(const ptype &p, const ptype &q) {
 	return (p-Ref).cross(q-p)>0 ||
-	    ((p-Ref).cross(q-p)==0 && (p-Ref).dist2()<(q-Ref).dist2());
+	  ((p-Ref).cross(q-p)==0 && (p-Ref).dist2()<(q-Ref).dist2());
 }
 
 template <class It>
