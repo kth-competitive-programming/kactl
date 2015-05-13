@@ -31,9 +31,8 @@ typedef __m256i mi;
 
 int geti32(mi m, int i) {
 	union {int v[8]; mi m;} u; u.m = m; return u.v[i]; }
-mi undef() { return _mm256_undefined_si256(); }
 mi zero() { return _mm256_setzero_si256(); }
-mi one() { return _mm256_cmpeq_epi8(undef(), undef()); }
+mi one() { mi x = _mm256_undefined_si256(); return _mm256_cmpeq_epi8(x, x); }
 bool all_zero(mi m) { return _mm256_testz_si256(m, m); }
 bool all_one(mi m) { return _mm256_testc_si256(zero(), m); }
 
