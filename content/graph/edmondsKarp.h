@@ -2,8 +2,8 @@
  * Author: Chen Xing
  * Date: 2009-10-13
  * Source: N/A
- * Description: Flow algorithm with guaranteed complexity $O(VE^2)$, where $V$
- * is the number of vertices and $E$ is the number of edges.
+ * Description: Flow algorithm with guaranteed complexity $O(VE^2)$. To get edge flow values, compare
+ * capacities before and after, and take the positive values only.
  * Status: Working
  */
 
@@ -14,33 +14,32 @@ using namespace std;
 template<class T> T edmondsKarp(vector<map<int, T> >& graph, int source, int sink) {
 	if(source == sink) return numeric_limits<T>::max();
 	T flow = 0;
-	vector<int> prevNode(graph.size()), bfs(graph.size());
+	vi prev(sz(graph)), bfs = prev;
 
-	while(true)	{
-		fill(prevNode.begin(), prevNode.end(), -1);
+	for (;;) {
+		fill(all(prev), -1);
 		int bfsEnd = 0;
-		prevNode[source] = -2;
+		prev[source] = -2;
 		bfs[bfsEnd++] = source;
 
-		for(int bfsPos = 0; bfsPos < bfsEnd && prevNode[sink] == -1; ++bfsPos) {
-			int x = bfs[bfsPos];
+		for(int i = 0; i < bfsEnd && prev[sink] == -1; ++i) {
+			int x = bfs[i];
 			trav(e, graph[x]) {
-				if(prevNode[e.first] == -1 && e.second > 0) {
-					prevNode[e.first] = x;
+				if(prev[e.first] == -1 && e.second > 0) {
+					prev[e.first] = x;
 					bfs[bfsEnd++] = e.first;
 				}
 			}
 		}
 
-		if(prevNode[sink] == -1) break;
+		if(prev[sink] == -1) break;
 		T incrFlow = numeric_limits<T>::max();
-		for(int y = sink; prevNode[y] != -2; y = prevNode[y]) {
-			int x = prevNode[y];
-			incrFlow = min(incrFlow, graph[x][y]);
-		}
+		for(int y = sink; prev[y] != -2; y = prev[y])
+			incrFlow = min(incrFlow, graph[prev[y]][y]);
+
 		flow += incrFlow;
-		for(int y = sink; prevNode[y] != -2; y = prevNode[y]) {
-			int x = prevNode[y];
+		for(int y = sink; prev[y] != -2; y = prev[y]) {
+			int x = prev[y];
 			if((graph[x][y] -= incrFlow) <= 0) graph[x].erase(y);
 			graph[y][x] += incrFlow;
 		}
