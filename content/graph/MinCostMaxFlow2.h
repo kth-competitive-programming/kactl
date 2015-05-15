@@ -2,7 +2,7 @@
  * Author: Unknown, Johan Sannemo
  * Date: 2009-04-17
  * Source: tinyKACTL
- * Description: Min-cost max-flow
+ * Description: Old min-cost max-flow. Slow, but probably supports negative costs and double edges. Returns (flow, cost).
  * Status: Tested
  */
 #pragma once
@@ -10,6 +10,7 @@
 using namespace std;
 
 typedef int Flow;
+Flow inf = 1<<28;
 
 struct FlowEdge {
 	int dest, back;
@@ -22,16 +23,15 @@ struct FlowEdge {
 template<class G>
 void flow_add_edge(G& g, int s, int t,
 		Flow c, Flow cost = 0) {
-	g[s].push_back(FlowEdge(t, g[t].size(), c, cost));
-	g[t].push_back(FlowEdge(s, g[s].size() - 1, 0, cost));
+	assert(s != t);
+	g[s].push_back(FlowEdge(t, sz(g[t]), c, cost));
+	g[t].push_back(FlowEdge(s, sz(g[s]) - 1, 0, cost));
 }
 
-Flow inf = 1<<28;
-
 template<class G>
-pair<Flow, int> aug(G &g, int s, int t) {
-	int n = g.size();
-	vector<int> mark(n, -1);
+pair<Flow, Flow> aug(G &g, int s, int t) {
+	int n = sz(g);
+	vi mark(n, -1);
 	vector<Flow> mindist(n, inf);
 	bool changed = true; mindist[s] = 0;
 	for (int i = 1; !(changed = !changed); ++i)
@@ -61,13 +61,11 @@ pair<Flow, int> aug(G &g, int s, int t) {
 }
 
 template<class G>
-pair<Flow, int> min_cost_max_flow(G& graph, int s, int t) {
-	pair<Flow, int> flow, inc;
+pair<Flow, Flow> min_cost_max_flow(G& graph, int s, int t) {
+	pair<Flow, Flow> flow, inc;
 	while ((inc = aug(graph, s, t)).first){
 		flow.first += inc.first;
 		flow.second += inc.second;
 	}
 	return flow;
 }
-
-
