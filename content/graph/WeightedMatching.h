@@ -4,7 +4,7 @@
  * Source: Stanford Notebook
  * Description: Min cost bipartite matching. Negate costs for max cost.
  * Time: Claimed to be O(N^3) and reasonably fast in practice.
- * Status: untested
+ * Status: tested during ICPC 2015
  */
 
 #pragma once
