@@ -7,12 +7,11 @@
  * Status: untested
  */
 
-/*
-todo:
-clean up unpair_all
-clean away secondmate
-try to understand the code better
-*/
+/// TODO:
+/// fix brokenness that Austrin mentioned
+/// clean up unpair_all
+/// clean away secondmate
+/// try to understand the code better
 typedef int Weight;
 template <int maxV=50, int maxE=500, int asize = maxV+2*maxE+3>
 struct matcher {
@@ -157,7 +156,7 @@ struct matcher {
 		return 0;
 	}
 
-	//Merge a subblossom's pair list into a new blossom's pair list
+	// Merge a subblossom's pair list into a new blossom's pair list
 	// v is the base of the previously unlinked subblossom
 	// b is the base of the new blossom
 	// nextpair[dummyEdge] is the first edge on b's pair list
