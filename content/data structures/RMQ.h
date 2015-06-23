@@ -23,9 +23,9 @@ template<class T>
 struct RMQ {
 	vector<vector<T>> jmp;
 
-	void init(vector<T>& V){
+	void init(vector<T>& V) {
 		int N = sz(V), on = 1, depth = 1;
-		while(on < (int)V.size()) on *= 2, depth++;
+		while (on < sz(V)) on *= 2, depth++;
 		jmp.assign(depth, vector<T>(N));
 		jmp[0] = V;
 		rep(i,0,depth-1) rep(j,0,N)
@@ -33,10 +33,9 @@ struct RMQ {
 			jmp[i][min(N - 1, j + (1 << i))]);
 	}
 
-	T query(int a, int b){
-		if(b <= a) return inf;
-		int on = 1, depth = 0;
-		while(b - 2*on - 1 >= a) on *= 2, depth++;
-		return min(jmp[depth][a], jmp[depth][b-on]);
+	T query(int a, int b) {
+		if (b <= a) return inf;
+		int dep = 31 - __builtin_clz(b - a);
+		return min(jmp[dep][a], jmp[dep][b - (1 << dep)]);
 	}
 };
