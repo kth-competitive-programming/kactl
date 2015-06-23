@@ -3,13 +3,15 @@
 
 \chapter{Number theory}
 
-	\section{Power modulo}
+	\section{Modular arithmetic}
+		\kactlimport{modularArithmetic.h}
 		\kactlimport{mod_power.h}
 
 	\section{Primality}
 		\kactlimport{eratosthenes.h}
 		\kactlimport{prime_sieve.h}
 		\kactlimport{miller_rabin.h}
+		\kactlimport{factor.h}
 
 	\section{Divisibility}
 		\kactlimport{euclid.h}
@@ -19,15 +21,11 @@
 		$$ax+by=d$$
 		If $(x,y)$ is one solution, then all solutions are given by
 		$$\left(x+\frac{kb}{\gcd(a,b)}, y-\frac{ka}{\gcd(a,b)}\right), \quad k\in\mathbb{Z}$$
-		
+
 		% \import{divisibilityRules}
-		
 
-	\section{Chinese reminder theorem}
+	\section{Chinese remainder theorem}
 		\kactlimport{chinese.h}
-
-	\section{Modular arithmetic}
-		\kactlimport{modularArithmetic.h}
 
 	\section{Primes}
 		$p=962592769$ is such that $2^{21} \mid p-1$, which may be useful. For hashing
@@ -38,6 +36,3 @@
 		$\sum_{d|n} d = O(n \log \log n)$.
 
 		The number of divisors of $n$ is at most around 100 for $n < 5e4$, 500 for $n < 1e7$, 2000 for $n < 1e10$, 200\,000 for $n < 1e19$.
-
-	\section{Factorisation}
-		\kactlimport{factor.h}
