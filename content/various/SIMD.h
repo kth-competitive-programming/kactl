@@ -27,12 +27,12 @@ typedef __m256i mi;
 
 // Methods that work with most data types (append e.g. _epi32):
 // extract, set1, hadd, blend (i8?x:y), add, adds (sat.), mullo
-// sub, and/or, andnot, abs, min, max, sign(1,x), cmp(lt|gt|eq)
+// sub, and/or, andnot, abs, min, max, sign(1,x), cmp(gt|eq)
 
 int geti32(mi m, int i) {
 	union {int v[8]; mi m;} u; u.m = m; return u.v[i]; }
 mi zero() { return _mm256_setzero_si256(); }
-mi one() { mi x = _mm256_undefined_si256(); return _mm256_cmpeq_epi8(x, x); }
+mi one() { return M32(set1)(-1); }
 bool all_zero(mi m) { return _mm256_testz_si256(m, m); }
 bool all_one(mi m) { return _mm256_testc_si256(zero(), m); }
 
