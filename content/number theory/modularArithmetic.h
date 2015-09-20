@@ -9,7 +9,7 @@
 #include <vector>
 #include "euclid.h"
 
-int mod = 17;//change to something else
+const int mod = 17;//change to something else
 template<class Z> struct Mod {
 	Z x;
 	Mod(Z xx) : x(xx) {}
