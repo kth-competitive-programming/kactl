@@ -10,16 +10,14 @@
 #include <vector>
 using namespace std;
 
-template<class It> struct Cmp {
-	bool operator()(It i, It j) const {return *i < *j;} };
-
-template<class It> vi lis3(It begin, It end) {
-	if(begin == end) return vi;
-	vector<It> idx, back(end-begin);
+template<class I> vi lis3(I begin, I end) {
+	struct {bool operator()(I i, I j) const {return *i<*j;}} cmp;
+	if(begin == end) return {};
+	vector<I> idx, back(end-begin);
 	idx.push_back(end);
-	for(It it = begin; it != end; ++it) {
+	for(I it = begin; it != end; ++it) {
 		// upper_bound if non-decreasing rather than increasing
-		auto b = lower_bound(idx.begin() + 1, idx.end(), it, Cmp<It>());
+		auto b = lower_bound(idx.begin() + 1, idx.end(), it, cmp);
 		back[it-begin] = *(b-1);
 		if(b == idx.end()) idx.push_back(it); else *b = it;
 	}
