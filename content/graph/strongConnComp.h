@@ -14,7 +14,7 @@
 #include <stack>
 using namespace std;
 
-vector<int> val, num, comp;
+vi val, num, comp;
 int no_vertices, no_components;
 stack<int> z;
 template<class G> void dfs(int j, G &g) {
@@ -36,8 +36,8 @@ template<class G> void dfs(int j, G &g) {
 		}
 	}
 }
-template<class G> vector<int> go(G &g) {
-	int n = g.size();
+template<class G> vi go(G &g) {
+	int n = sz(g);
 	val.assign(n, 0); num = val;
 	no_vertices = no_components = 0;
 	comp.assign(n, -1);

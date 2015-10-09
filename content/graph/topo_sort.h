@@ -15,8 +15,8 @@
 using namespace std;
 
 template <class E, class I>
-bool topo_sort(const E *edges, I &idx, int n) {
-	vector<int> indeg(n);
+bool topo_sort(const E &edges, I &idx, int n) {
+	vi indeg(n);
 	rep(i,0,n)
 		trav(e, edges[i])
 			indeg[e]++;
