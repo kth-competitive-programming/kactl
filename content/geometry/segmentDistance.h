@@ -20,6 +20,6 @@ Returns the shortest distance between point p and the line segment from point s 
 template <class P>
 double segDist(const P& s, const P& e, const P& p) {
 	if (s==e) return (p-s).dist();
-	auto d = (e-s).dist2(), t = min(d,max(T(0),(p-s).dot(e-s)));
+	auto d = (e-s).dist2(), t = min(d,max({},(p-s).dot(e-s)));
 	return ((p-s)*d-(e-s)*t).dist()/d;
 }

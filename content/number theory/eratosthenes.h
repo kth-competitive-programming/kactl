@@ -4,7 +4,7 @@
  * Source: http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
  * Description: Prime sieve for generating all primes up to a certain limit. isprime$[i]$ is true iff $i$ is a prime. prime[] contains all primes up to LIMIT, in total $primes$ numbers.
  * Status: Tested
- * Time: LIMIT=5'000'000 $\approx$ 0.1 s
+ * Time: LIMIT=5'000'000 $\approx$ 0.07 s
  */
 #pragma once
 #include <cstring>

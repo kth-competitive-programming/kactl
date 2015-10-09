@@ -20,5 +20,5 @@ ll dominoTiling(int N, int M) {
 		for(int n=1;n<=N;n++)
 			prod*=pow(cos((m*M_PI)/(M+1))*cos((m*M_PI)/(M+1))+
 				cos((n*M_PI)/(N+1))*cos((n*M_PI)/(N+1)),0.25);
-	return ((1LL<<((M*N)/2))*prod)+.5;
+	return (ll)round(double(1LL<<((M*N)/2))*prod);
 }

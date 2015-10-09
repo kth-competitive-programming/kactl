@@ -10,7 +10,7 @@ poly_roots(p,-1e10,1e10,roots); // x^2-3x+2=0
 #pragma once
 
 #include <vector>
-#include "polynomial.h"
+#include "Polynomial.h"
 using namespace std;
 
 const double eps = 1e-8;
@@ -28,11 +28,11 @@ void poly_roots(const Polynomial& p, double xmin, double xmax, vector<double>& r
 		for (auto i = droots.begin(), j = i++; i != droots.end(); j = i++) {
 			double l = *j, h = *i, m, f;
 			bool sign = p(l) > 0;
-			if (sign ^ p(h) > 0) {
+			if (sign ^ (p(h) > 0)) {
 				//for(int i = 0; i < 60; ++i){
 				while(h - l > eps) {
 					m = (l + h) / 2, f = p(m);
-					if (f <= 0 ^ sign) l = m;
+					if ((f <= 0) ^ sign) l = m;
 					else h = m;
 				}
 				roots.push_back((l + h) / 2);

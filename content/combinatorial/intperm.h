@@ -10,7 +10,7 @@
 #include <algorithm>
 using namespace std;
 
-int factorial[ ] = {1, 1, 2, 6, 24, 120, 720, 5040, ...}; 
+int factorial[] = {1, 1, 2, 6, 24, 120, 720, 5040}; // etc.
 template <class Z, class It> 
 void perm_to_int(Z& val, It begin, It end) { 
 	int x = 0, n = 0; 
@@ -24,7 +24,7 @@ void perm_to_int(Z& val, It begin, It end) {
 template <class Z, class It> 
 void int_to_perm(Z val, It begin, It end) {
 	Z fac = factorial[end - begin - 1]; 
-// Note that the division result will fit in an integer! 
+	// Note that the division result will fit in an integer!
 	int x = val / fac; 
 	nth_element(begin, begin + x, end); 
 	swap(*begin, *(begin + x));

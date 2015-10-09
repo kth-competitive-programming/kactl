@@ -12,19 +12,20 @@
  * \emph{Euler's thm}: $a,n$ coprime $\Rightarrow a^{\phi(n)} \equiv 1 \pmod{n}$.
  *
  * \emph{Fermat's little thm}: $p$ prime $\Rightarrow a^{p-1} \equiv 1 \pmod{p}$ $\forall a$.
- * Status: Untested
+ * Status: Tested
  */
 #pragma once
 
 #include "eratosthenes.h"
 
-ll phi[LIMIT];
+const int LIMIT = MAX_PR;
+int phi[LIMIT];
 
 void calculatePhi() {
-	eratosthenes_sieve();
-	for(int i=0;i<LIMIT;++i) phi[i] = i&1?i:i/2;
+	eratosthenes_sieve(LIMIT);
+	rep(i,0,LIMIT) phi[i] = i&1 ? i : i/2;
 	for(int i=3;i<LIMIT;i+=2)
 		if(isprime[i])
 			for(int j=i;j<LIMIT;j+=i)
-				(phi[j]*=i-1)/=i;
+				(phi[j]/=i)*=i-1;
 }

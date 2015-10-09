@@ -8,9 +8,11 @@
  * Time: O(\log n)
  */
 
+#include "Point.h"
+
 template <class V, class T>
 struct line_hull_isct {
-  typedef point<T> P;
+  typedef Point<T> P;
   const V &p;
   int n;
   const P &p1, &p2;
@@ -42,7 +44,7 @@ struct line_hull_isct {
   }
 };
 template <class V, class T>
-bool line_hull_intersect(const V &p, int n, const point<T> &p1, const point<T> &p2, int &s1, int &s2) {
+bool line_hull_intersect(const V &p, int n, const Point<T> &p1, const Point<T> &p2, int &s1, int &s2) {
   double d = linedist(p1, p2, p[0]);
   return line_hull_isct<V, T>(p, n, d >= 0 ? p1 : p2, d >= 0 ? p2 : p1, s1, s2)
       .isct(0, n, 2 *n, fabs(d));

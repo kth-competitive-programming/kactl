@@ -1,20 +1,22 @@
 /**
-* Description: Matrix tree theorem
-* Author: Unknown
-* Source: Unknown
-* Date: 2014-11-27
-*/
+ * Author: Unknown
+ * Description: Matrix tree theorem. Counts the number of spanning trees in an undirected graph.
+ * Source: Unknown
+ * Date: 2014-11-27
+ * Usage:
+ *  vector<vi> mat(N, vi(N));
+ *  addEdge(mat, u, v); // for each edge (u, v)
+ *  int nSpanningTrees = det(reduce(mat));
+ */
 
-//determinant calculation: euclid extension
-ll det(vector<vi>& a) {
-	ll ans = 1, t;
-	rep(i,0,a.size()){
-		rep(j,i+1,a.size()){
-			while (a[j][i] != 0){
-				t = a[i][i] / a[j][i];
-				rep(k,i,v)
+ll det(vector<vi>& a) { // integer determinant
+	ll ans = 1;
+	rep(i,0,a.size()) {
+		rep(j,i+1,a.size()) {
+			while (a[j][i] != 0) {
+				int t = a[i][i] / a[j][i];
+				rep(k,i,a.size())
 					a[i][k] = (a[i][k] - a[j][k] * t);
-				}
 				rep(k,0,a.size())
 					swap(a[i][k], a[j][k]);
 				ans = -ans;
@@ -34,8 +36,8 @@ void addEdge(vector<vi>& mat, int a, int b){
 }
 
 vector<vi> reduce(vector<vi>& mat){
-	vector<vi> reduced(mat.size() - 1, vi(mat.size()-1));
-	rep(i,1,mat.size()) rep(j,1,mat.size())
-		reduced[i-1][j-1] = mat[i][j];
-	return mat;
+	vector<vi> ret = mat;
+	ret.pop_back();
+	trav(r, ret) r.pop_back();
+	return ret;
 }

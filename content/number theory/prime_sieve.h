@@ -21,7 +21,7 @@ struct prime_sieve {
 
 	bool is_prime(int n) { // primality check
 		if(n%2==0 || n<=2) return n==2;
-		return isprime[n-3>>4] & 1 << (n-3 >> 1&7);
+		return isprime[(n-3)>>4] & 1 << ((n-3) >> 1&7);
 	}
 
 	prime_sieve(int _n) : n(_n), sqrtn((int)ceil(sqrt(1.0*n))) {
@@ -34,9 +34,9 @@ struct prime_sieve {
 		memset(isprime, 255, n0);
 
 		for(int j=1,p=prime[j];j<6;p=prime[++j])
-			for(int i=p*p-3>>4,s=p*p-3>>1&7;
+			for(int i=(p*p-3)>>4,s=(p*p-3)>>1&7;
 				i<=pregen; i+= (s+=p)>>3, s&=7)
-					isprime[i] &= ~(1<<s);
+					isprime[i] &= (uchar)~(1<<s);
 		for(int d=pregen, b=pregen+1; b<n0; b+=d,d<<=1)
 			memcpy(isprime+b,isprime+1,(n0<b+d)?n0-b:d);
 		for(uint p=17,i=0,s=7; p<n; p+=2, i+= ++s>>3, s&=7)
@@ -47,5 +47,5 @@ struct prime_sieve {
 					for(uint pp=p*p; pp<n; pp+=p<<1, ss+=p) {
 						ii += ss>>3;
 						ss &=7;
-						isprime[ii] &= ~(1<<ss);
+						isprime[ii] &= (uchar)~(1<<ss);
 }	}		}	}	};

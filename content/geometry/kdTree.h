@@ -84,7 +84,7 @@ struct kdnode {
 
 			// divide by taking half the array for each child (not
 			// best performance with many duplicates in the middle)
-			int half = vp.size()/2;
+			int half = sz(vp)/2;
 			vector<P> vl(vp.begin(), vp.begin()+half);
 			vector<P> vr(vp.begin()+half, vp.end());
 			first = new kdnode();   first->construct(vl);
@@ -117,12 +117,12 @@ struct kdtree {
 		pair<ntype, P> best;
 		if (bfirst < bsecond) {
 			best = search(node->first, p);
-			if (bsecond < best)
+			if (bsecond < best.first)
 				best = min(best, search(node->second, p));
 		}
 		else {
 			best = search(node->second, p);
-			if (bfirst < best)
+			if (bfirst < best.first)
 				best = min(best, search(node->first, p));
 		}
 		return best;

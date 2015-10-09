@@ -17,7 +17,7 @@ struct Point {
 	typedef Point P;
 	T x, y;
 	explicit Point(T x=0, T y=0) : x(x), y(y) {}
-	bool operator<(P p) R(x<p.x || x==p.x && y<p.y)
+	bool operator<(P p) R(x<p.x || (x==p.x && y<p.y))
 	bool operator==(P p) R(x==p.x && y==p.y)
 	P operator+(P p) R(P(x+p.x, y+p.y))
 	P operator-(P p) R(P(x-p.x, y-p.y))
