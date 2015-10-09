@@ -7,8 +7,7 @@
  * min(V[a], V[a + 1], ... V[b - 1]) in constant time. 
  * Set inf to something reasonable before use.
  * Usage:
- *  RMQ rmq;
- *  rmq.init(values);
+ *  RMQ rmq(values);
  *  rmq.query(inclusive, exclusive);
  * Time: $O(|V| \log |V| + Q)$
  */
@@ -23,7 +22,7 @@ template<class T>
 struct RMQ {
 	vector<vector<T>> jmp;
 
-	void init(vector<T>& V) {
+	RMQ(const vector<T>& V) {
 		int N = sz(V), on = 1, depth = 1;
 		while (on < sz(V)) on *= 2, depth++;
 		jmp.assign(depth, vector<T>(N));

@@ -1,14 +1,14 @@
 /**
- * Author: Johan Sannemo
- * Date: 2015-02-06
+ * Author: Johan Sannemo, Simon Lindholm
+ * Date: 2015-09-20
  * Source: Folklore
- * Status: Tested at Petrozavodsk
+ * Status: Somewhat tested
  * Description: Lowest common ancestor. Finds the lowest common
- * ancestor in a tree. C should be an adjacency list of the tree
- * and P should be a vector containing the parents of all the
- * nodes. Can also find the distance between two nodes.
+ * ancestor in a tree (with 0 as root). C should be an adjacency list of the tree,
+ * either directed or undirected.
+ * Can also find the distance between two nodes.
  * Usage:
- *  LCA lca(tree, parents); 
+ *  LCA lca(undirGraph);
  *  lca.query(firstNode, secondNode);
  *  lca.distance(firstNode, secondNode);
  * Time: $O(|V| \log |V| + Q)$
@@ -23,47 +23,39 @@ using namespace std;
 
 typedef vector<pii> vpi;
 const pii inf(1 << 29, -1);
+typedef vector<vpi> graph;
 
 struct LCA {
-	int time;
-	vi start, end;
+	vi time;
 	vector<ll> dist;
 	RMQ<pii> rmq;
 
-	LCA(vector<vpi>& C){
-		int on = 1, depth = 1;
-		while(on < (int)C.size()) on*=2, depth++;
-		start.resize(C.size());
-		end.resize(C.size());
-		dist.resize(C.size());
-		time = 0;
-		vector<pii> D;
-		dfs(0, -1, 0, 0, D, C);
-		rmq.init(D);
-	}
+	LCA(graph& C) : time(sz(C), -99), dist(sz(C)), rmq(dfs(C)) {}
 
-	void dfs(int v, int p, int d, ll dst,
-			vpi& D, vector<vpi>& C){
-		dist[v] = dst;
-		D.push_back(pii(d, v));
-		start[v] = time++;
-		trav(e, C[v]) if(e.first != p){
-			dfs(e.first, v, d+1, dst + e.second, D, C);
-			D.push_back(pii(d, v));
-			time++;
+	vpi dfs(graph& C) {
+		vector<tuple<int, int, int, ll> > q(1);
+		vpi ret;
+		int T = 0, v, p, d; ll di;
+		while (!q.empty()) {
+			tie(v, p, d, di) = q.back();
+			q.pop_back();
+			if (d) ret.emplace_back(d, p);
+			time[v] = T++;
+			dist[v] = di;
+			trav(e, C[v]) if (e.first != p)
+				q.emplace_back(e.first, v, d+1, di + e.second);
 		}
-		end[v] = time++;
-		D.push_back(pii(d, v));
+		return ret;
 	}
 
-	pii query(int a, int b){
-		return rmq.query(
-				min(start[a], start[b]),
-				max(end[a], end[b]) + 1);
+	int query(int a, int b) {
+		if (a == b) return a;
+		a = time[a], b = time[b];
+		return rmq.query(min(a, b), max(a, b)).second;
 	}
 
-	ll distance(int a, int b){
-		pii lca = query(a, b);
-		return dist[a] + dist[b] - 2 * dist[lca.second];
+	ll distance(int a, int b) {
+		int lca = query(a, b);
+		return dist[a] + dist[b] - 2 * dist[lca];
 	}
 };
