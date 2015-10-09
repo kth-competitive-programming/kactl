@@ -5,7 +5,6 @@ using namespace std;
 #define trav(a, v) for(auto& a : v)
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
-#define D(x) cerr << #x << " = " << x << endl
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
