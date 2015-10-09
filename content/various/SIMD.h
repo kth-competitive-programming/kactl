@@ -19,7 +19,7 @@ typedef __m256i mi;
 
 // High-level/specific methods:
 // load(u)?_si256, store(u)?_si256, setzero_si256, _mm_malloc
-// blendv_(epi8|ps|pd) (z?x:y), movemask_epi8 (hibits of bytes)
+// blendv_(epi8|ps|pd) (z?y:x), movemask_epi8 (hibits of bytes)
 // i32gather(addr, x, 4): map addr[] over each 32-bit part of x
 // sad_epu8: sum of absolute differences of u8, outputs 4xi64
 // extractf128_si256(, i) (256->128), cvtsi128_si32 (128->lo32)
@@ -34,7 +34,7 @@ int geti32(mi m, int i) {
 mi zero() { return _mm256_setzero_si256(); }
 mi one() { return M32(set1)(-1); }
 bool all_zero(mi m) { return _mm256_testz_si256(m, m); }
-bool all_one(mi m) { return _mm256_testc_si256(zero(), m); }
+bool all_one(mi m) { return _mm256_testc_si256(one(), m); }
 
 // Example application (runs 3x faster than w/ unrolled loops):
 vector<int*> floydWarshall(int N, int E) {
