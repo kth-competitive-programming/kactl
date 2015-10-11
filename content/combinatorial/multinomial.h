@@ -1,9 +1,10 @@
 /**
- * Author:
- * Date: 2009-09-25
+ * Author: Edits by Simon Lindholm
+ * Date: 2015-10-11
  * Source: tinyKACTL
  * Description: $\binom{\sum k_i}{k_1,k_2,...,k_n}=\frac{(\sum k_i)!}{k_1!k_2!...k_n!}$
  * Time: O((\sum k_i)-k_1)
+ * Status: Tested on kattis:lexicography
  */
 #pragma once
 #include <algorithm>
