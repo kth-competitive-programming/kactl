@@ -9,12 +9,10 @@
 #include <algorithm>
 using namespace std;
 
-template<class T, class V>
-T multinomial(int n, V &k) {
-	T c = 1;
-	int m=k[0];
-	for(int i=1;i<n;++i)
-		for(int j=1;j<=k[i];++j)
-			c = c * T(++m) / T(j);
+ll multinomial(vi& v) {
+	ll c = 1;
+	int m = v.empty() ? 1 : v[0];
+	rep(i,1,sz(v)) rep(j,0,v[i])
+		c = c * ll(++m) / (j+1);
 	return c;
 }
