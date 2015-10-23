@@ -18,22 +18,22 @@ using namespace std;
 typedef valarray<complex<double> > carray;
 const double PI = acos(-1);
 void fft(carray& x) {
-    int N = sz(x);
-    if (N <= 1) return;
-    carray even = x[slice(0, N/2, 2)];
-    carray odd = x[slice(1, N/2, 2)];
-    fft(even);
-    fft(odd);
+	int N = sz(x);
+	if (N <= 1) return;
+	carray even = x[slice(0, N/2, 2)];
+	carray odd = x[slice(1, N/2, 2)];
+	fft(even);
+	fft(odd);
 	rep(k,0,N/2) {
-        auto t = polar(1.0, -2 * M_PI * k / N) * odd[k];
-        x[k    ] = even[k] + t;
-        x[k+N/2] = even[k] - t;
-    }
+		auto t = polar(1.0, -2 * M_PI * k / N) * odd[k];
+		x[k    ] = even[k] + t;
+		x[k+N/2] = even[k] - t;
+	}
 }
 
 void ifft(carray& x) {
-    fft(x = x.apply(conj));
-    x = x.apply(conj) / sz(x);
+	fft(x = x.apply(conj));
+	x = x.apply(conj) / sz(x);
 }
 
 typedef vector<double> vd;
@@ -47,4 +47,3 @@ vd conv(const vd& a, const vd& b) {
 	vd c(s); rep(i,0,s) c[i] = cv[i].real();
 	return c;
 }
-
