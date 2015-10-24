@@ -9,12 +9,12 @@
  *  int nSpanningTrees = det(reduce(mat));
  */
 
-ll det(vector<vi>& a) { // integer determinant
+ll det(vector<vector<ll>>& a) { // integer determinant
 	ll ans = 1;
 	rep(i,0,a.size()) {
 		rep(j,i+1,a.size()) {
 			while (a[j][i] != 0) {
-				int t = a[i][i] / a[j][i];
+				ll t = a[i][i] / a[j][i];
 				rep(k,i,a.size())
 					a[i][k] = (a[i][k] - a[j][k] * t);
 				rep(k,0,a.size())
@@ -30,13 +30,13 @@ ll det(vector<vi>& a) { // integer determinant
 	return ans;
 }
 
-void addEdge(vector<vi>& mat, int a, int b){
+void addEdge(vector<vector<ll>>& mat, int a, int b){
 	mat[a][a]++; mat[b][b]++;
 	mat[a][b]--; mat[b][a]--;
 }
 
-vector<vi> reduce(vector<vi>& mat){
-	vector<vi> ret = mat;
+vector<vector<ll>> reduce(vector<vector<ll>>& mat){
+	vector<vector<ll>> ret = mat;
 	ret.pop_back();
 	trav(r, ret) r.pop_back();
 	return ret;
