@@ -25,14 +25,14 @@ typedef pair<ll, int> pli;
 void count_sort(vector<pli> &b, int bits) {
 	//this is just 3 times faster than stl sort for N=10^6
 	int mask = (1 << bits) - 1;
-	for (int it = 0; it < 2; it++) {
+	rep(it,0,2) {
 		int move = it * bits;
-		vector<int> q(1 << bits, 0), w(q.size() + 1, 0);
-		for (unsigned i = 0; i < b.size(); i++)
+		vi q(1 << bits), w(sz(q) + 1);
+		rep(i,0,sz(b))
 			q[(b[i].first >> move) & mask]++;
 		partial_sum(q.begin(), q.end(), w.begin() + 1);
 		vector<pli> res(b.size());
-		for (unsigned i = 0; i < b.size(); i++)
+		rep(i,0,sz(b))
 			res[w[(b[i].first >> move) & mask]++] = b[i];
 		swap(b, res);
 	}
@@ -40,8 +40,7 @@ void count_sort(vector<pli> &b, int bits) {
 struct SuffixArray {
 	vi a;
 	string s;
-	SuffixArray(string s) {
-		s += '\0';
+	SuffixArray(const string& _s) : s(_s + '\0') {
 		int N = sz(s);
 		vector<pli> b(N);
 		a.resize(N);
@@ -56,7 +55,7 @@ struct SuffixArray {
 			count_sort(b, q);
 			//sort(b.begin(), b.end()) can be used as well
 			a[b[0].second] = 0;
-			rep(i,0,N)
+			rep(i,1,N)
 				a[b[i].second] = a[b[i - 1].second] +
 					(b[i - 1].first != b[i].first);
 
@@ -72,10 +71,10 @@ struct SuffixArray {
 	}
 	vi lcp() {
 		//longest common prefix of two neighbouring strings in SA
-		int n = sz(a);
-		vector<int> inv(n), res(n);
-		for (int i = 0; i < n; i++) inv[a[i]] = i;
-		for (int i = 0, h = 0; i < n; i++) if (inv[i] > 0) {
+		int n = sz(a), h = 0;
+		vi inv(n), res(n);
+		rep(i,0,n) inv[a[i]] = i;
+		rep(i,0,n) if (inv[i] > 0) {
 			int p0 = a[inv[i] - 1];
 			while (s[i + h] == s[p0 + h]) h++;
 			res[inv[i]] = h;
