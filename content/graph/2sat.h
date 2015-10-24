@@ -1,5 +1,5 @@
 /**
- * Author: Emil Lenngren
+ * Author: Emil Lenngren, Simon Lindholm
  * Date: 2011-11-29
  * Source:
  * Description: Calculates a valid assignment to boolean variables a, b, c,... to a 2-SAT problem, so that an expression of the type $(a\|\|b)\&\&(!a\|\|c)\&\&(d\|\|!b)\&\&...$ becomes true, or reports that it is unsatisfiable.
@@ -19,29 +19,22 @@
 using namespace std;
 
 struct TwoSat {
-	vector<char> values; //0 = false, 1 = true
 	int N;
+	vector<vi> gr;
+	vi values; // 0 = false, 1 = true
 
-	struct Node {
-		vi ins, outs;
-		int comp_id, vis;
-		Node() : vis(0) {}
-	};
-	vector<Node> nodes;
-
-	TwoSat(int n = 0) : values(n), N(n), nodes(2*n) {}
+	TwoSat(int n = 0) : N(n), gr(2*n) {}
 
 	int add_var() { // (optional)
-		values.emplace_back();
-		nodes.emplace_back();
-		nodes.emplace_back();
+		gr.emplace_back();
+		gr.emplace_back();
 		return N++;
 	}
 
 	void add_clause(int a_index, bool a_value, int b_index, bool b_value) {
 		int a = 2*a_index + a_value, b = 2*b_index + b_value;
-		nodes[a^1].outs.push_back(b), nodes[b].ins.push_back(a^1);
-		nodes[b^1].outs.push_back(a), nodes[a].ins.push_back(b^1);
+		gr[a^1].push_back(b);
+		gr[b^1].push_back(a);
 	}
 
 	void set_value(int index, bool value) { // (optional)
@@ -61,47 +54,32 @@ struct TwoSat {
 		add_clause(cur, !val, li[1], !val);
 	}
 
-	struct Comp {
-		vi nodes;
-		bool value;
-		Comp() : value(0) {}
-	};
-	vector<Comp> comp;
-	vi st;
-
-	void dfs1(int v){
-		Node& n = nodes[v];
-		if (n.vis) return;
-		n.vis = 1;
-		for (int e : n.outs) dfs1(e);
-		st.push_back(v);
-	}
-
-	void dfs2(int v){
-		nodes[v].vis = 1;
-		nodes[v].comp_id = sz(comp)-1;
-		comp.back().nodes.push_back(v);
-		for (int e : nodes[v].ins) if (!nodes[e].vis) dfs2(e);
-	}
-
-	bool solve(){
-		st.reserve(2*N);
-		rep(i, 0, 2*N) dfs1(i);
-		rep(i, 0, 2*N) nodes[i].vis = 0;
-		while(!st.empty()){
-			if (!nodes[st.back()].vis){
-				comp.push_back(Comp());
-				dfs2(st.back());
+	vi orig, low, col, z;
+	void dfs(int j, int& time) {
+		low[j] = orig[j] = time++; col[j] = 1; z.push_back(j);
+		trav(e, gr[j])
+			if (col[e] == 0) {
+				dfs(e, time);
+				low[j] = min(low[j], low[e]);
 			}
-			st.pop_back();
+			else if (col[e] == 1)
+				low[j] = min(low[j], orig[e]);
+		time++;
+		if (orig[j] == low[j]) for (;;) {
+			int x = z.back(); z.pop_back();
+			if (values[x>>1] == -1)
+				values[x>>1] = x&1;
+			col[x] = time;
+			if (x == j) break;
 		}
-		for (Comp& d : comp) {
-			if (d.value) continue;
-			Comp& c = comp[nodes[d.nodes.front()^1].comp_id];
-			if (&c == &d) return 0;
-			c.value = 1;
-			for (int e : d.nodes) values[e/2] = !(e%2);
-		}
+	}
+
+	bool solve() {
+		int time = 0;
+		values.assign(N, -1);
+		low.assign(2*N, 0); col = orig = low;
+		rep(i,0,2*N) if (!col[i]) dfs(i, time);
+		rep(i,0,N) if (col[2*i] == col[2*i+1]) return 0;
 		return 1;
 	}
 };
