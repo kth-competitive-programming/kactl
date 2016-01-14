@@ -16,14 +16,16 @@
 
 #pragma once
 
-#include "../data structures/RMQ.h"
 #include <vector>
 
 using namespace std;
 
 typedef vector<pii> vpi;
-const pii inf(1 << 29, -1);
 typedef vector<vpi> graph;
+const pii inf(1 << 29, -1);
+
+#define RMQ_HAVE_INF /** exclude-line */
+#include "../data structures/RMQ.h"
 
 struct LCA {
 	vi time;

@@ -62,6 +62,8 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 		# Remove '#pragma once' and 'using namespace std;' lines
 		if line == "#pragma once" or line == "using namespace std;":
 			continue
+		if line.endswith("/** exclude-line */"):
+			continue
 		# Check includes
 		include = isdefaultinclude(line)
 		if include is None:

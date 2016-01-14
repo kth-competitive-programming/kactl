@@ -16,7 +16,9 @@
 #include <vector>
 using namespace std;
 
+#ifndef RMQ_HAVE_INF /** exclude-line */
 const int inf = numeric_limits<int>::max();
+#endif /** exclude-line */
 
 template<class T>
 struct RMQ {
