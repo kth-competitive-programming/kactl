@@ -3,8 +3,8 @@
  * Date: 2015-02-06
  * Source: Folklore
  * Status: Tested at Petrozavodsk
- * Description: Calculate power of two jumps
- * in a tree.
+ * Description: Calculate power of two jumps in a tree.
+ * Assumes the root node points to itself.
  * Time: $O(|V| \log |V|)$
  */
 

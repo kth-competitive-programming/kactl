@@ -4,7 +4,7 @@
  * Source: Unknown
  * Date: 2014-11-27
  * Usage:
- *  vector<vi> mat(N, vi(N));
+ *  vvll mat(N, vector<ll>(N));
  *  addEdge(mat, u, v); // for each edge (u, v)
  *  ll nSpanningTrees = det(reduce(mat));
  */
