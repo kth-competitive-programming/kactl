@@ -47,9 +47,8 @@ struct HLD {
 	}
 
 	void update(int node, T val) {
-		Node& n = V[node];
-		if (n.chain == -1) n.val = val;
-		else C[n.chain].tree.update(n.pos, val);
+		Node& n = V[node]; n.val = val;
+		if (n.chain != -1) C[n.chain].tree.update(n.pos, val);
 	}
 
 	int pard(Node& nod) {
