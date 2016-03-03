@@ -27,7 +27,7 @@ Any possible infinite recursion?
 Time limit exceeded:
 Do you have any possible infinite loops?
 What is the complexity of your algorithm?
-Are you copying a lot of unneccessary data? (References)
+Are you copying a lot of unnecessary data? (References)
 How big is the input and output?
 What do your team mates think about your algorithm?
 
