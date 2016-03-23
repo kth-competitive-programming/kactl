@@ -204,7 +204,7 @@ def main(argv=None):
 				language = value
 			if option in ("-c", "--caption"):
 				caption = value
-		print "Processing", caption	
+		print " * \x1b[1m{}\x1b[0m".format(caption)
 		if language == "cpp" or language == "cc" or language == "c" or language == "h" or language == "hpp":
 			processwithcomments(caption, instream, outstream)
 		elif language == "java":

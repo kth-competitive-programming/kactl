@@ -3,6 +3,7 @@
 
 LATEXCMD = pdflatex
 LATEXFLAGS = -shell-escape
+export max_print_line = 1048576
 
 .PHONY: help
 help:
@@ -10,6 +11,7 @@ help:
 	@echo ""
 	@echo "Available commands are:"
 	@echo "	make kactl	- to build the KACTL"
+	@echo "	make debug	- to build the KACTL with interactive LaTeX"
 	@echo "	make clean	- to clean up the build process"
 	@echo "	make veryclean	- to clean up and remove kactl.pdf"
 	@echo "	make help	- to show this information"
@@ -18,7 +20,12 @@ help:
 
 .PHONY: kactl
 kactl:
-	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex && $(LATEXCMD) $(LATEXFLAGS) kactl.tex
+	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex </dev/null && $(LATEXCMD) $(LATEXFLAGS) kactl.tex
+	cp build/kactl.pdf kactl.pdf
+
+.PHONY: debug
+debug:
+	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex
 	cp build/kactl.pdf kactl.pdf
 
 .PHONY: clean
