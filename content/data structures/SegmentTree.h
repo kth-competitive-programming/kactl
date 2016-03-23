@@ -2,7 +2,7 @@
  * Author: Lukas Polacek, Johan Sannemo
  * Date: 2009-10-26, 2015-02-10
  * Source: folklore
- * Description: Zero-indexed max-tree. Bounds are inclusive to the left and exclusive to the right. The tree can be changed by modifying T, LOW and f.
+ * Description: Zero-indexed max-tree. Bounds are inclusive to the left and exclusive to the right. Can be changed by modifying T, LOW and f.
  * Time: O(\log N).
  */
 #pragma once

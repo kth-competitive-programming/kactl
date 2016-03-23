@@ -11,13 +11,11 @@ using namespace std;
 
 struct UF {
 	vi e;
-	UF(int n) {
-		e.assign(n, -1);
-	}
-	bool same_set(int a, int b){ return (find(a)==find(b));}
+	UF(int n) : e(n, -1) {}
+	bool same_set(int a, int b) { return find(a) == find(b); }
 	int size(int x) { return -e[find(x)]; }
 	void join(int a, int b) {
-		a = find(a); b = find(b);
+		a = find(a), b = find(b);
 		if (a == b) return;
 		if (e[a] > e[b]) swap(a, b);
 		e[a] += e[b]; e[b] = a;
