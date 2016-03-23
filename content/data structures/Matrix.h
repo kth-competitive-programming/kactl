@@ -24,15 +24,6 @@ template <class T> struct Matrix {
 	Matrix() : r(0), c(0) {}
 	Matrix(int _r, int _c, T val) : r(_r), c(_c), d(r*c, val) {}
 	T& operator()(int row, int col) { return d[row*c + col]; }
-	const T& operator()(int row, int col) const { return d[row*c + col]; }
-#define OP(op, o) M operator op(R m) const { \
-	M a(r,c); rep(i,0,r*c) a.d[i] = d[i] o m.d[i]; return a; } \
-	M operator o(T v) const { \
-	M a(r,c); rep(i,0,r*c) a.d[i] = d[i] o v; return a; }
-	OP(+,+)
-	OP(-,-)
-	OP(->*,*)
-	OP(/,/)
 	M operator*(R m) const {
 		assert(c == m.r);
 		M a(r, m.c);
