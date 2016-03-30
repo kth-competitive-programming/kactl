@@ -17,7 +17,7 @@ struct Point3D {
 	typedef Point3D P;
 	typedef const P& R;
 	T x, y, z;
-	Point3D(T x, T y, T z) : x(x), y(y), z(z) { }
+	explicit Point3D(T x=0, T y=0, T z=0) : x(x), y(y), z(z) {}
 	bool operator<(R p) const {
 		return x<p.x || x==p.x && (y<p.y || y==p.y && z<p.z);
 	}
