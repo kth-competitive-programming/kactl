@@ -17,7 +17,8 @@ vpi compressTree(LCA& lca, const vi& subset) {
 	vi li = subset, &T = lca.time;
 	auto cmp = [&](int a, int b) { return T[a] < T[b]; };
 	sort(all(li), cmp);
-	rep(i,0,sz(li)-1) {
+	int m = sz(li)-1;
+	rep(i,0,m) {
 		int a = li[i], b = li[i+1];
 		li.push_back(lca.query(a, b));
 	}
