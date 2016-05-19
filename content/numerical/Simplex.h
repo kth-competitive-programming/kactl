@@ -15,11 +15,11 @@
  */
 #pragma once
 
-typedef long double T; // or Rational, or double + mod<P> + CRT
+typedef double T; // or long double, Rational, or double + mod<P> + CRT
 typedef vector<T> vd;
 typedef vector<vd> vvd;
 
-const T eps = 1e-9, inf = 1/.0;
+const T eps = 1e-8, inf = 1/.0;
 #define MP make_pair
 #define ltj(X) if(s == -1 || MP(X[j],N[j]) < MP(X[s],N[s])) s=j
 
@@ -37,12 +37,13 @@ struct LPSolver {
 		}
 
 	void pivot(int r, int s) {
+		T inv = 1.0 / D[r][s];
 		rep(i,0,m+2) if (i != r)
 			rep(j,0,n+2) if (j != s)
-				D[i][j] -= D[r][j] * D[i][s] / D[r][s];
-		rep(j,0,n+2) if (j != s) D[r][j] /= D[r][s];
-		rep(i,0,m+2) if (i != r) D[i][s] /= -D[r][s];
-		D[r][s] = 1.0 / D[r][s];
+				D[i][j] -= D[r][j] * D[i][s] * inv;
+		rep(j,0,n+2) if (j != s) D[r][j] *= inv;
+		rep(i,0,m+2) if (i != r) D[i][s] *= -inv;
+		D[r][s] = inv;
 		swap(B[r], N[s]);
 	}
 
