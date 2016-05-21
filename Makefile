@@ -10,22 +10,22 @@ help:
 	@echo "This makefile builds KACTL (KTH ACM Contest Template Library)"
 	@echo ""
 	@echo "Available commands are:"
+	@echo "	make fast	- to build the KACTL, quickly (only runs LaTeX once)"
 	@echo "	make kactl	- to build the KACTL"
-	@echo "	make debug	- to build the KACTL with interactive LaTeX"
 	@echo "	make clean	- to clean up the build process"
 	@echo "	make veryclean	- to clean up and remove kactl.pdf"
 	@echo "	make help	- to show this information"
 	@echo ""
 	@echo "For more information see the file 'doc/README'"
 
-.PHONY: kactl
-kactl:
-	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex </dev/null && $(LATEXCMD) $(LATEXFLAGS) kactl.tex
+.PHONY: fast
+fast:
+	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex </dev/null
 	cp build/kactl.pdf kactl.pdf
 
-.PHONY: debug
-debug:
-	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex
+.PHONY: kactl
+kactl:
+	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex && $(LATEXCMD) $(LATEXFLAGS) kactl.tex
 	cp build/kactl.pdf kactl.pdf
 
 .PHONY: clean
