@@ -19,11 +19,11 @@ const double eps = 1e-12;
 
 enum { YES, NO, MULT };
 int solve_linear(vector<vd>& A, vd& b, vd& x) {
-	int n = sz(A), m = sz(x), br = -1, bc = -1;
+	int n = sz(A), m = sz(x), br, bc;
 	vi col(m); iota(all(col), 0);
 
 	rep(i,0,n) {
-		double v, bv = -1;
+		double v, bv = 0;
 		rep(r,i,n) rep(c,i,m)
 			if ((v = fabs(A[r][c])) > bv)
 				br = r, bc = c, bv = v;
@@ -46,7 +46,8 @@ int solve_linear(vector<vd>& A, vd& b, vd& x) {
 	if (n < m) return MULT;
 
 	for (int i = m; i--;) {
-		x[col[i]] = (b[i] /= A[i][i]);
+		b[i] /= A[i][i];
+		x[col[i]] = b[i];
 		rep(j,0,i)
 			b[j] -= A[j][i] * b[i];
 	}
