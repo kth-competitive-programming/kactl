@@ -59,8 +59,9 @@ Dynamisk programmering
 	Divide and conquer
 	Knuth optimization
 	Convex hull optimizations
-	RMQ
+	RMQ (sparse table a.k.a tvapotenshopp)
 	Bitonic cycle
+	Log-partitionering
 Kombinatorik
 	Berakning av binomialkoefficienter
 	Pigeon hole
@@ -152,3 +153,5 @@ Datastrukturer
 	Nagot sjalvbalanserande trad
 	Convex hull trick (wcipeg.com/wiki/Convex_hull_trick)
 	Monotona koer / monotona stackar / sliding queues
+	Sliding Queue som 2 stackar
+	Persistent segment tree
