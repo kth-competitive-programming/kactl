@@ -42,7 +42,7 @@ template<class G> void dfs(int at, int p, G &g) {
 	}
 }
 template<class G> vector<vector<int> > go(G &g) {
-	int n = g.size();
+	int n = sz(g);
 	seen.assign(n, false);
 	num.assign(n, 0); v = num;
 	no_vertices = 0;
