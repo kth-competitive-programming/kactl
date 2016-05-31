@@ -9,12 +9,9 @@
 #include <algorithm>
 using namespace std;
 
-template<class T>
-T choose(int n, int k) {
-	if(k>n || k<0) return T(0);
-	k = min(k, n-k);
-	T c(1);
-	for(int i = 1; i <= k; ++i)
-		c = c * T(n - i + 1) / T(i);
+ll choose(int n, int k) {
+	ll c = 1, to = min(k, n-k);
+	if (to < 0) return 0;
+	rep(i,0,to) c = c * (n - i) / (i + 1);
 	return c;
 }
