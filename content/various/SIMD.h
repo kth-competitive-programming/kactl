@@ -20,10 +20,11 @@ typedef __m256i mi;
 // High-level/specific methods:
 // load(u)?_si256, store(u)?_si256, setzero_si256, _mm_malloc
 // blendv_(epi8|ps|pd) (z?y:x), movemask_epi8 (hibits of bytes)
-// i32gather(addr, x, 4): map addr[] over each 32-bit part of x
+// i32gather_epi32(addr, x, 4): map addr[] over 32-b parts of x
 // sad_epu8: sum of absolute differences of u8, outputs 4xi64
 // extractf128_si256(, i) (256->128), cvtsi128_si32 (128->lo32)
 // 128-bit: shuffle: _mm_shuffle_epi32(x, 3*64+2*16+1*4+0) == x
+// _mm_shuffle_epi8(x, y) takes a vector instead of an imm
 
 // Methods that work with most data types (append e.g. _epi32):
 // extract, set1, hadd, blend (i8?x:y), add, adds (sat.), mullo
