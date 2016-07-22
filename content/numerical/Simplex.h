@@ -10,12 +10,12 @@
  * vvd A = {{1,-1}, {-1,1}, {-1,-2}};
  * vd b = {1,1,-4}, c = {-1,-1}, x;
  * T val = LPSolver(A, b, c).solve(x);
- * Time: worst case O(2^n), in practice maybe O(N^4). Provably polynomial if inputs are randomly perturbed.
+ * Time: O(NM * \#pivots), where a pivot may be e.g. an edge relaxation. O(2^n) in the general case.
  * Status: somewhat, but not very, tested
  */
 #pragma once
 
-typedef double T; // or long double, Rational, or double + mod<P> + CRT
+typedef double T; // long double, Rational, double + mod<P>...
 typedef vector<T> vd;
 typedef vector<vd> vvd;
 
