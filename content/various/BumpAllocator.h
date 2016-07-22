@@ -8,10 +8,10 @@
  * Status: tested
  */
 
-static char buf[450<<20] alignas(16); // 450 MB
+static char buf[450 << 20] alignas(16);
 struct Small {
 	void* operator new(size_t s) {
-		static size_t i = 0;
-		return (void*)&buf[i += s];
+		static size_t i = sizeof buf;
+		return (void*)&buf[i -= s];
 	}
 };
