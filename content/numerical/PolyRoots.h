@@ -13,24 +13,22 @@ poly_roots(p,-1e10,1e10,roots); // x^2-3x+2=0
 #include "Polynomial.h"
 using namespace std;
 
-const double eps = 1e-8;
-
 void poly_roots(const Polynomial& p, double xmin, double xmax, vector<double>& roots) {
 	if (p.n == 1) { roots.push_back(-p.a.front()/p.a.back()); }
 	else {
 		Polynomial d = p;
-		vector<double> droots;
 		d.diff();
-		poly_roots(d, xmin, xmax, droots);
-		droots.push_back(xmin-1);
-		droots.push_back(xmax+1);
-		sort(droots.begin(), droots.end());
-		for (auto i = droots.begin(), j = i++; i != droots.end(); j = i++) {
+		vector<double> dr;
+		poly_roots(d, xmin, xmax, dr);
+		dr.push_back(xmin-1);
+		dr.push_back(xmax+1);
+		sort(all(dr));
+		for (auto i = dr.begin(), j = i++; i != dr.end(); j = i++){
 			double l = *j, h = *i, m, f;
 			bool sign = p(l) > 0;
 			if (sign ^ (p(h) > 0)) {
 				//for(int i = 0; i < 60; ++i){
-				while(h - l > eps) {
+				while(h - l > 1e-8) {
 					m = (l + h) / 2, f = p(m);
 					if ((f <= 0) ^ sign) l = m;
 					else h = m;

@@ -12,14 +12,13 @@
 #include <iostream>
 using namespace std;
 
-template <class T>
-struct Point3D {
+template <class T> struct Point3D {
 	typedef Point3D P;
 	typedef const P& R;
 	T x, y, z;
 	explicit Point3D(T x=0, T y=0, T z=0) : x(x), y(y), z(z) {}
 	bool operator<(R p) const {
-		return x<p.x || x==p.x && (y<p.y || y==p.y && z<p.z);
+		return x<p.x || (x==p.x && (y<p.y || (y==p.y && z<p.z)));
 	}
 	bool operator==(R p) const { return x==p.x&&y==p.y&&z==p.z; }
 	P operator+(R p) const { return P(x+p.x, y+p.y, z+p.z); }
@@ -30,7 +29,7 @@ struct Point3D {
 	P cross(R p) const {
 		return P(y*p.z - z*p.y, z*p.x - x*p.z, x*p.y - y*p.x);
 	}
-	T dist2() const { return x*x + y*y + z*z; } //distance^2
+	T dist2() const { return x*x + y*y + z*z; }
 	double dist() const { return sqrt((double)dist2()); }
 	//Azimuthal angle (longitude) to x-axis in interval [-pi, pi]
 	double phi() const { return atan2(y, x); } 
@@ -50,5 +49,4 @@ struct Point3D {
 				(u.x*u.z*(1-c)-u.y*s)*x + (u.y*u.z*(1-c)+u.x*s)*y
 				+ (u.z*u.z+(1-u.z*u.z)*c)*z);
 	}
-	operator double() const { return dist(); }
 };

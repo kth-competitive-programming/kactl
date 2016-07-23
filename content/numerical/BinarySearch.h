@@ -7,15 +7,13 @@
  * Usage:
 	double func(double x) { return .23*x-sin(x); }
 	double x0 = bs(0,4,func);
-	double pi = bs(4,9,sin)/2;
- * Time: O(\log\left(\frac{b-a}{e}\right))
+ * Time: O(\log((b-a) / \epsilon))
  */
 #pragma once
 
-double bs(double a, double b, double (*f)(double),
-		double e = 1e-6) {
+double bs(double a, double b, double (*f)(double)) {
 	//for(int i = 0; i < 60; ++i){
-	while (b-a > e) {
+	while (b-a > 1e-6) {
 		double m = (a+b)/2;
 		if (f(m) > 0) b = m;
 		else a = m;

@@ -59,7 +59,6 @@ struct kdnode {
 	bool leaf;
 	P pt; // if this is a leaf, the single point in it
 	bbox bound;
-
 	kdnode *first, *second;
 
 	kdnode() : leaf(false), first(0), second(0) {}

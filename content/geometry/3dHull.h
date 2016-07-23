@@ -16,20 +16,18 @@ struct ABC {
 		return make_tuple(a,b,c) < make_tuple(o.a,o.b,o.c);
 	}
 };
-
-typedef double T; // e.g.
-typedef Point3D<T> P3;
+typedef Point3D<double> P3; // or e.g. long long
 bool convex_hull_space(vector<P3>& p, list<ABC>& trilist) {
 	int n = sz(p);
 	int a, b, c; // Find a proper tetrahedron (could use an eps)
 	for (a = 1; a < n; ++a)
-		if ((p[a] - p[0]).dist2() != T()) break;
+		if ((p[a] - p[0]).dist2() != 0) break;
 	for (b = a + 1; b < n; ++b)
 		if ((p[a] - p[0]).cross(p[b] - p[0]).dist2()) break;
 	for (c = b + 1; c < n; ++c) if ( (p[a] - p[0]).
-			cross(p[b] - p[0]).dot(p[c] - p[0]) != T()) break;
+			cross(p[b] - p[0]).dot(p[c] - p[0]) != 0) break;
 	if (c >= n) return false; // same plane!
-	if ((p[a] - p[0]).cross(p[b] - p[0]).dot(p[c] - p[0]) > T())
+	if ((p[a] - p[0]).cross(p[b] - p[0]).dot(p[c] - p[0]) > 0)
 		swap(a, b);
 	trilist.emplace_back(0, a, b);
 	trilist.emplace_back(0, b, c);
@@ -41,15 +39,13 @@ bool convex_hull_space(vector<P3>& p, list<ABC>& trilist) {
 		P3 P = p[i];
 		while (it != trilist.end()) {
 			int a = it->a, b = it->b, c = it->c;
-
 			P3 A = p[a], B = p[b], C = p[c];
 			P3 normal = (B - A).cross(C - A);
-			T d = normal.dot(P - A);
-			if (d > T()) {
+			if (normal.dot(P - A) > 0) {
 				edges.insert(pii(a, b));
 				edges.insert(pii(b, c));
 				edges.insert(pii(c, a));
-				trilist.erase(it++); // ugly!!
+				trilist.erase(it++); /// ugly!!
 			} else ++it;
 		}
 		trav(j, edges)

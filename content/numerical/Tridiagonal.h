@@ -18,7 +18,7 @@ The size of diag and b should be the same and super and sub should be one elemen
 
 This is useful for solving problems on the type 
 $$a_i=b_ia_{i-1}+c_ia_{i+1}+d_i,\,1\leq i\leq n,$$
-where $a_0$, $a_{n+1}$, $b_i$, $c_i$ and $d_i$ are known. The $a$ vector can then be obtained from
+where $a_0$, $a_{n+1}$, $b_i$, $c_i$ and $d_i$ are known. $a$ can then be obtained from
 \begin{align*}
 \{a_i\}=\textrm{tridiagonal}(&\{1,-1,-1,...,-1,1\}, \{0,c_1,c_2,\dots,c_n\},\\
 &\{b_1,b_2,\dots,b_n,0\}, \{a_0,d_1,d_2,\dots,d_n,a_{n+1}\}).
