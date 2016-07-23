@@ -16,16 +16,13 @@
  */
 #pragma once
 
-#include "eratosthenes.h"
-
-const int LIMIT = MAX_PR;
-int phi[LIMIT];
+const int LIM = 5000000;
+int phi[LIM];
 
 void calculatePhi() {
-	eratosthenes_sieve(LIMIT);
-	rep(i,0,LIMIT) phi[i] = i&1 ? i : i/2;
-	for(int i=3;i<LIMIT;i+=2)
-		if(isprime[i])
-			for(int j=i;j<LIMIT;j+=i)
-				(phi[j]/=i)*=i-1;
+	rep(i,0,LIM) phi[i] = i&1 ? i : i/2;
+	for(int i = 3; i < LIM; i += 2)
+		if(phi[i] == i)
+			for(int j = i; j < LIM; j += i)
+				(phi[j] /= i) *= i-1;
 }
