@@ -3,34 +3,34 @@
 
 \chapter{Various}
 
-	\section{Intervals}
-		\kactlimport{intervalUnion.h}
-		\kactlimport{intervalCover.h}
-		\kactlimport{ConstantIntervals.h}
+\section{Intervals}
+	\kactlimport{intervalUnion.h}
+	\kactlimport{intervalCover.h}
+	\kactlimport{ConstantIntervals.h}
 
-	\section{Misc. algorithms}
-		\kactlimport{TernarySearch.h}
-		\kactlimport{lis.h}
-		\kactlimport{lcs.h}
-		\kactlimport{Karatsuba.h}
+\section{Misc. algorithms}
+	\kactlimport{TernarySearch.h}
+	\kactlimport{Karatsuba.h}
+	\kactlimport{lis.h}
+	\kactlimport{lcs.h}
 
-	\section{Optimization tricks}
-		\subsection{Bit hacks}
-			\begin{itemize}
-			\item \texttt{x \& -x} is the least bit in \texttt{x}.
-			\item \texttt{for (int x = m; x; ) \{ --x \&= m; ... \}} loops over all subset masks of \texttt{m} (except \texttt{m} itself).
-			\item \texttt{c = x\&-x, r = x+c; (((r\^{}x) >> 2)/c) | r} is the next number after \texttt{x} with the same number of bits set.
-			\end{itemize}
-		\subsection{Pragmas}
-			\begin{itemize}
-				\item \lstinline{#pragma GCC optimize ("Ofast")} will make GCC auto-vectorize for loops and optimizes floating points better.
-				\item \lstinline{#pragma GCC target ("avx,avx2")} can double performance of vectorized code, but causes crashes on old machines.
-			\end{itemize}
-		\kactlimport{SIMD.h}
-		\kactlimport{Unrolling.h}
-		\kactlimport{BumpAllocator.h}
-		\kactlimport{BumpAllocatorSTL.h}
+\section{Optimization tricks}
+	\subsection{Bit hacks}
+		\begin{itemize}
+		\item \texttt{x \& -x} is the least bit in \texttt{x}.
+		\item \texttt{for (int x = m; x; ) \{ --x \&= m; ... \}} loops over all subset masks of \texttt{m} (except \texttt{m} itself).
+		\item \texttt{c = x\&-x, r = x+c; (((r\^{}x) >> 2)/c) | r} is the next number after \texttt{x} with the same number of bits set.
+		\end{itemize}
+	\subsection{Pragmas}
+		\begin{itemize}
+			\item \lstinline{#pragma GCC optimize ("Ofast")} will make GCC auto-vectorize for loops and optimizes floating points better.
+			\item \lstinline{#pragma GCC target ("avx,avx2")} can double performance of vectorized code, but causes crashes on old machines.
+		\end{itemize}
+	\kactlimport{BumpAllocatorSTL.h}
+	\kactlimport{BumpAllocator.h}
+	\kactlimport{SIMD.h}
+	\kactlimport{Unrolling.h}
 
-	\section{Hex and tri grids}
-		\kactlimport{bricks.ps}
-		\kactlimport{grids.ps}
+\section{Hex and tri grids}
+	\kactlimport{bricks.ps}
+	\kactlimport{grids.ps}
