@@ -15,7 +15,7 @@
 
 vector<ull> pr;
 ull f(ull a, ull n, ull &has) {
-	return (mulmod(a, a, n) + has) % n;
+	return (mod_mul(a, a, n) + has) % n;
 }
 vector<ull> factor(ull d) {
 	vector<ull> res;

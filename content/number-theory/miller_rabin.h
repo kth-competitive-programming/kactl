@@ -9,7 +9,7 @@
  */
 #pragma once
 
-#include "mod_power.h"
+#include "ModMulLL.h"
 
 bool prime(ull p) {
 	if (p == 2) return true;
@@ -20,7 +20,7 @@ bool prime(ull p) {
 		ull a = rand() % (p - 1) + 1, tmp = s;
 		ull mod = mod_pow(a, tmp, p);
 		while (tmp != p - 1 && mod != 1 && mod != p - 1) {
-			mod = mulmod(mod, mod, p);
+			mod = mod_mul(mod, mod, p);
 			tmp *= 2;
 		}
 		if (mod != p - 1 && tmp % 2 == 0) return false;
