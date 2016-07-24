@@ -11,8 +11,7 @@ using namespace std;
 const ll mod = 1000000007;
 vector<ll> invs; // precomputed up to max n, inclusively
 struct Bin {
-	int N = 0, K = 0;
-	ll r = 1;
+	int N = 0, K = 0;  ll r = 1;
 	void m(ll a, ll b) { r = r * a % mod * invs[b] % mod; }
 	ll choose(int n, int k) {
 		if (k > n || k < 0) return 0;

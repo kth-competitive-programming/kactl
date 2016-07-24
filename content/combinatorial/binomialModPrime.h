@@ -2,21 +2,23 @@
  * Author: Håkan Terelius
  * Date: 2009-09-25
  * Source: http://en.wikipedia.org/wiki/Lucas'_theorem
- * Description: Lucas' thm: Let $m,n$ be non-negative integers and $p$ a prime. Write $m=m_kp^k+...+m_1p+m_0$ and $n=n_kp^k+...+n_1p+n_0$. Then $\binom{m}{n} \equiv \prod_{i=0}^k\binom{m_i}{n_i} \pmod{p}$.
+ * Description: Lucas' thm: Let $n,m$ be non-negative integers and $p$ a prime.
+ * Write $n=n_kp^k+...+n_1p+n_0$ and $m=m_kp^k+...+m_1p+m_0$.
+ * Then $\binom{n}{m} \equiv \prod_{i=0}^k\binom{n_i}{m_i} \pmod{p}$.
+ * fact and invfact must hold pre-computed factorials / inverse factorials, e.g. from ModInverse.h.
  * Status: Untested
- * Time: O(p\log_p m)
+ * Time: O(\log_p n)
  */
 #pragma once
 #include <algorithm>
-#include "binomial.h"
-#include "../number-theory/ModularArithmetic.h"
 
-template<class T>
-T chooseModP(T m, T n, int p) {
-	Mod<T> c(1); mod = p;
-	while((m || n) && c.x != 0) {
-		c = c * choose<Mod<T>>(m % p, n % p);
-		m /= p; n /= p;
+ll chooseModP(ll n, ll m, int p, vi& fact, vi& invfact) {
+	ll c = 1;
+	while (n || m) {
+		ll a = n % p, b = m % p;
+		if (a < b) return 0;
+		c = c * fact[a] % p * invfact[b] % p * invfact[a - b] % p;
+		n /= p; m /= p;
 	}
-	return c.x;
+	return c;
 }
