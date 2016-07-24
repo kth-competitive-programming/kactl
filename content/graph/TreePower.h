@@ -11,8 +11,7 @@
 vector<vi> treeJump(vi& P){
 	int on = 1, d = 1;
 	while(on < sz(P)) on *= 2, d++;
-	vector<vi> jmp(d, vi(sz(P)));
-	jmp[0] = P;
+	vector<vi> jmp(d, P);
 	rep(i,1,d) rep(j,0,sz(P))
 		jmp[i][j] = jmp[i-1][jmp[i-1][j]];
 	return jmp;

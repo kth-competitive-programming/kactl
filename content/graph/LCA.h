@@ -55,7 +55,6 @@ struct LCA {
 		a = time[a], b = time[b];
 		return rmq.query(min(a, b), max(a, b)).second;
 	}
-
 	ll distance(int a, int b) {
 		int lca = query(a, b);
 		return dist[a] + dist[b] - 2 * dist[lca];
