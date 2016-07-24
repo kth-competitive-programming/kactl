@@ -1,8 +1,7 @@
 # Makefile for building KACTL (KTH ACM Contest Template Library)
 # Written by Håkan Terelius, 2008-11-24
 
-LATEXCMD = pdflatex
-LATEXFLAGS = -shell-escape
+LATEXCMD = pdflatex -shell-escape
 export max_print_line = 1048576
 
 .PHONY: help
@@ -20,13 +19,15 @@ help:
 
 .PHONY: fast
 fast:
-	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex </dev/null
+	cd build && $(LATEXCMD) kactl.tex </dev/null
 	cp build/kactl.pdf kactl.pdf
 
 .PHONY: kactl
 kactl:
-	cd build && $(LATEXCMD) $(LATEXFLAGS) kactl.tex && $(LATEXCMD) $(LATEXFLAGS) kactl.tex
+	cd build && $(LATEXCMD) kactl.tex && $(LATEXCMD) kactl.tex
+	cd build && $(LATEXCMD) test-session.tex
 	cp build/kactl.pdf kactl.pdf
+	cp build/test-session.pdf test-session.pdf
 
 .PHONY: clean
 clean: 
