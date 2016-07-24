@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/data structures/intervalUnion.h"
+#include "../../content/various/intervalUnion.h"
 #include <fstream>
 #include <sstream>
 

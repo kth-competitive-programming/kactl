@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/data structures/union_find.h"
+#include "../../content/data-structures/union_find.h"
 #include <fstream>
 #include <sstream>
 

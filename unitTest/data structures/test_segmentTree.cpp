@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/data structures/segmentTree.h"
+#include "../../content/data-structures/segmentTree.h"
 #include <fstream>
 #include <sstream>
 

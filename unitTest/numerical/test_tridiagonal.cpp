@@ -1,6 +1,6 @@
 #include "../UnitTest.h"
 #include "../../content/numerical/tridiagonal.h"
-#include "../../content/data structures/Matrix.h"
+#include "../../content/data-structures/Matrix.h"
 #include <fstream>
 #include <sstream>
 

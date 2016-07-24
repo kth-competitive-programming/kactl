@@ -11,7 +11,7 @@
  * Status: tested
  * Time: $O(N^3)$
  */
-#include "../number theory/modularArithmetic.h"
+#include "../number-theory/ModularArithmetic.h"
 
 template<class Z> Mod<Z>
 det(Mod<Z> a[100][100], int n) {

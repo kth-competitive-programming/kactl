@@ -9,7 +9,7 @@
 #pragma once
 #include <algorithm>
 #include "binomial.h"
-#include "../number theory/modularArithmetic.h"
+#include "../number-theory/ModularArithmetic.h"
 
 template<class T>
 T chooseModP(T m, T n, int p) {

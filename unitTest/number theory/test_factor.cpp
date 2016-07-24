@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/number theory/factor.h"
+#include "../../content/number-theory/factor.h"
 #include <algorithm>
 
 class test_factor :

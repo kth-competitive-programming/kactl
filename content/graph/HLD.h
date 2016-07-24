@@ -14,7 +14,7 @@
  */
 #include <vector>
 #include <map>
-#include "../data structures/SegmentTree.h"
+#include "../data-structures/SegmentTree.h"
 using namespace std;
 
 typedef vector<pii> vpi;
