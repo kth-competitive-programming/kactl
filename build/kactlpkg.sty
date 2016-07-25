@@ -102,6 +102,16 @@
 \renewcommand{\cftbeforechapskip}{10pt}
 \renewcommand{\cftdotsep}{4.5}
 
+% A proper caret
+\newcommand*{\caret}{%
+  \begingroup
+    \fontencoding{T1}%
+    \fontfamily{pcr}% Courier
+    \selectfont
+    \string^%
+  \endgroup
+}
+
 % Configure source code listings
 \lstset{language=C++}
 \lstset{morekeywords={alignas,alignof}}
@@ -111,6 +121,7 @@
 \lstset{breaklines=true}
 \lstset{basicstyle=\scriptsize\ttfamily}
 \lstset{commentstyle=\normalfont\itshape}
+\lstset{literate={^}{\caret}{1}}
 \lstset{emptylines=*1}
 \lstset{inputencoding=utf8}
 \lstset{aboveskip=3pt}
