@@ -11,21 +11,29 @@
 	\kactlimport{lis.h}
 	\kactlimport{lcs.h}
 
+\section{Debugging tricks}
+	\begin{itemize}
+		\item \texttt{signal(SIGSEGV, [](int) \{ \_Exit(0); \});} converts segfaults into Wrong Answers.
+			Similarly one can catch SIGABRT (assertion failures) and SIGFPE (zero divisions).
+			\texttt{\_GLIBCXX\_DEBUG} violations generate SIGABRT (or SIGSEGV on gcc 5.4.0 apparently).
+		\item \texttt{feenableexcept(29);} kills the program on NaNs (\texttt 1), 0-divs (\texttt 4), infinities (\texttt 8) and denormals (\texttt{16}).
+	\end{itemize}
+
 \section{Optimization tricks}
 	\subsection{Bit hacks}
 		\begin{itemize}
-		\item \texttt{x \& -x} is the least bit in \texttt{x}.
-		\item \texttt{for (int x = m; x; ) \{ --x \&= m; ... \}} loops over all subset masks of \texttt{m} (except \texttt{m} itself).
-		\item \texttt{c = x\&-x, r = x+c; (((r\^{}x) >> 2)/c) | r} is the next number after \texttt{x} with the same number of bits set.
+			\item \texttt{x \& -x} is the least bit in \texttt{x}.
+			\item \texttt{for (int x = m; x; ) \{ --x \&= m; ... \}} loops over all subset masks of \texttt{m} (except \texttt{m} itself).
+			\item \texttt{c = x\&-x, r = x+c; (((r\^{}x) >> 2)/c) | r} is the next number after \texttt{x} with the same number of bits set.
 		\end{itemize}
 	\subsection{Pragmas}
 		\begin{itemize}
 			\item \lstinline{#pragma GCC optimize ("Ofast")} will make GCC auto-vectorize for loops and optimizes floating points better (assumes associativity and turns off denormals).
 			\item \lstinline{#pragma GCC target ("avx,avx2")} can double performance of vectorized code, but causes crashes on old machines.
 		\end{itemize}
-	\kactlimport{BumpAllocatorSTL.h}
 	\kactlimport{BumpAllocator.h}
 	\kactlimport{SIMD.h}
+	\kactlimport{BumpAllocatorSTL.h}
 	\kactlimport{Unrolling.h}
 
 \section{Hex and tri grids}
