@@ -36,7 +36,6 @@ struct TwoSat {
 		gr[a^1].push_back(b);
 		gr[b^1].push_back(a);
 	}
-
 	void set_value(int index, bool value) { // (optional)
 		add_clause(index, value, index, value);
 	}
