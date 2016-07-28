@@ -1,6 +1,3 @@
-# Makefile for building KACTL (KTH ACM Contest Template Library)
-# Written by Håkan Terelius, 2008-11-24
-
 LATEXCMD = pdflatex -shell-escape
 export max_print_line = 1048576
 
@@ -23,11 +20,9 @@ fast:
 	cp build/kactl.pdf kactl.pdf
 
 .PHONY: kactl
-kactl:
+kactl: test-session.pdf
 	cd build && $(LATEXCMD) kactl.tex && $(LATEXCMD) kactl.tex
-	cd build && $(LATEXCMD) test-session.tex
 	cp build/kactl.pdf kactl.pdf
-	cp build/test-session.pdf test-session.pdf
 
 .PHONY: clean
 clean: 
@@ -35,4 +30,8 @@ clean:
 
 .PHONY: veryclean
 veryclean: clean
-	rm -f kactl.pdf
+	rm -f kactl.pdf test-session.pdf
+
+test-session.pdf: content/test-session/chapter.tex
+	cd build && $(LATEXCMD) test-session.tex
+	cp build/test-session.pdf test-session.pdf
