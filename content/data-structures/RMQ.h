@@ -20,15 +20,14 @@ using namespace std;
 const int inf = numeric_limits<int>::max();
 #endif /** exclude-line */
 
-template<class T>
+template <class T>
 struct RMQ {
 	vector<vector<T>> jmp;
 
 	RMQ(const vector<T>& V) {
 		int N = sz(V), on = 1, depth = 1;
 		while (on < sz(V)) on *= 2, depth++;
-		jmp.assign(depth, vector<T>(N));
-		jmp[0] = V;
+		jmp.assign(depth, jmp);
 		rep(i,0,depth-1) rep(j,0,N)
 			jmp[i+1][j] = min(jmp[i][j],
 			jmp[i][min(N - 1, j + (1 << i))]);

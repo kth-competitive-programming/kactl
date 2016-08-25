@@ -3,36 +3,25 @@
  * Author: Johan Sannemo
  * Source: Folklore
  * Status: Tested on Kattis
- * Description: Calculate submatrix sums quickly, given upper-left and lower-right corners (inclusive).
+ * Description: Calculate submatrix sums quickly, given upper-left and lower-right corners (half-open).
  * Usage:
- * SubMatrix m(matrix);
- * m.sum(0, 0, 1, 1); //top left 4 elements
+ * SubMatrix<int> m(matrix);
+ * m.sum(0, 0, 2, 2); // top left 4 elements
  * Time: O(N^2 + Q)
  */
 
-template<typename T>
+template <class T>
 struct SubMatrix {
-	int n, m;
 	vector<vector<T>> p;
-	SubMatrix(vector<vector<T>>& v){
-		n = v.size(), m = v[0].size();
-		p.assign(n, vector<T>(m, 0));
-		rep(i,0,n){
-			rep(j,0,m){
-				p[i][j] += v[i][j];
-				if(i) p[i][j] += p[i-1][j];
-				if(j) p[i][j] += p[i][j-1];
-				if(i&&j) p[i][j] -= p[i-1][j-1];
-			}
+	SubMatrix(vector<vector<T>>& v) {
+		int n = sz(v), m = sz(v[0]);
+		p.assign(n+1, vector<T>(m+1));
+		rep(i,0,n) rep(j,0,m) {
+			p[i+1][j+1] = v[i][j] +
+				p[i][j+1] + p[i+1][j] - p[i][j];
 		}
 	}
-
-	T sum(int r1, int c1, int r2, int c2){
-		T ans = 0;
-		ans += p[r2][c2];
-		if(c1) ans -= p[r2][c1-1];
-		if(r1) ans -= p[r1-1][c2];
-		if(r1&&c1) ans += p[r1-1][c1-1];
-		return ans;
+	T sum(int r1, int c1, int r2, int c2) {
+		return p[r2][c2] - p[r2][c1] - p[r1][c2] + p[r1][c1];
 	}
 };
