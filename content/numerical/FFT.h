@@ -38,14 +38,14 @@ void fft(carray& x, carray& roots) {
 
 typedef vector<double> vd;
 vd conv(const vd& a, const vd& b) {
-	int s = sz(a)+sz(b)-1, L = 32-__builtin_clz(s), n = 1 << L;
+	int s = sz(a) + sz(b) - 1, L = 32-__builtin_clz(s), n = 1<<L;
 	if (s <= 0) return {};
 	carray av(n), bv(n), roots(n);
 	rep(i,0,n) roots[i] = polar(1.0, -2 * M_PI * i / n);
 	copy(all(a), begin(av)); fft(av, roots);
 	copy(all(b), begin(bv)); fft(bv, roots);
 	roots = roots.apply(conj);
-	carray cv = av * bv; fft(cv, roots); cv /= n;
-	vd c(s); rep(i,0,s) c[i] = cv[i].real();
+	carray cv = av * bv; fft(cv, roots);
+	vd c(s); rep(i,0,s) c[i] = cv[i].real() / n;
 	return c;
 }
