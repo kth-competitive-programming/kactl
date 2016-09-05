@@ -53,32 +53,26 @@ struct TwoSat {
 		add_clause(cur, !val, li[1], !val);
 	}
 
-	vi orig, low, col, z;
-	void dfs(int j, int& time) {
-		low[j] = orig[j] = time++; col[j] = 1; z.push_back(j);
-		trav(e, gr[j])
-			if (col[e] == 0) {
-				dfs(e, time);
-				low[j] = min(low[j], low[e]);
-			}
-			else if (col[e] == 1)
-				low[j] = min(low[j], orig[e]);
-		time++;
-		if (orig[j] == low[j]) for (;;) {
-			int x = z.back(); z.pop_back();
+	vi val, comp, z; int time = 0;
+	int dfs(int i) {
+		int low = val[i] = ++time, x; z.push_back(i);
+		trav(e, gr[i]) if (!comp[e])
+			low = min(low, val[e] ?: dfs(e));
+		++time;
+		if (low == val[i]) do {
+			x = z.back(); z.pop_back();
+			comp[x] = time;
 			if (values[x>>1] == -1)
 				values[x>>1] = x&1;
-			col[x] = time;
-			if (x == j) break;
-		}
+		} while (x != i);
+		return val[i] = low;
 	}
 
 	bool solve() {
-		int time = 0;
 		values.assign(N, -1);
-		low.assign(2*N, 0); col = orig = low;
-		rep(i,0,2*N) if (!col[i]) dfs(i, time);
-		rep(i,0,N) if (col[2*i] == col[2*i+1]) return 0;
+		val.assign(2*N, 0); comp = val;
+		rep(i,0,2*N) if (!comp[i]) dfs(i);
+		rep(i,0,N) if (comp[2*i] == comp[2*i+1]) return 0;
 		return 1;
 	}
 };
