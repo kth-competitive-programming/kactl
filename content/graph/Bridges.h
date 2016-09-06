@@ -13,7 +13,7 @@ struct Node {
 	vector<pii> ed;
 };
 vector<Node> nodes;
-int nedges = 0;
+int nedges = 0, Time = 0;
 
 void add_edge(int a, int b) {
 	nodes[a].ed.emplace_back(b, nedges);
@@ -21,17 +21,16 @@ void add_edge(int a, int b) {
 	// (and add to some edge container and return nedges, say)
 }
 
-void dfs(Node& n, int epar, int& time) {
-	n.epar = epar; n.lo = n.time = ++time;
+void dfs(Node& n, int epar) {
+	n.epar = epar; n.lo = n.time = ++Time;
 	trav(e, n.ed) if (e.second != epar) {
 		Node& o = nodes[e.first];
-		n.lo = min(n.lo, o.time ?: (dfs(o, e.second, time), o.lo));
+		n.lo = min(n.lo, o.time ?: (dfs(o, e.second), o.lo));
 	}
 }
 
 vector<bool> find_bridges() {
-	int time = 0;
-	trav(n, nodes) if (!n.time) dfs(n, -1, time);
+	trav(n, nodes) if (!n.time) dfs(n, -1);
 	vector<bool> ret(nedges);
 	trav(n, nodes)
 		if (n.lo == n.time && n.epar != -1) ret[n.epar] = 1;
