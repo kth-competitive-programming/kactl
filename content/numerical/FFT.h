@@ -3,13 +3,11 @@
  * Date: 2015-06-25
  * Source: http://rosettacode.org/wiki/Fast_Fourier_transform
    Papers about accuracy: http://www.daemonology.net/papers/fft.pdf, http://www.cs.berkeley.edu/~fateman/papers/fftvsothers.pdf
- * Description: In-place fast Fourier transform. Also includes a function for convolution:
+ * Description: Fast Fourier transform. Also includes a function for convolution:
    \texttt{conv(a, b) = c}, where $c[x] = \sum a[i]b[x-i]$. $a$ and $b$ should be of roughly equal size.
    For convolutions of integers, rounding the results of conv
-   works if $(|a| + |b|)\max(a, b) < \mathtt{\sim} 10^9$ (in theory maybe $10^6$).
-   If that is unviable, one can either use long doubles, work modulo some prime
-   which has $2^N$'th primitive roots, use CRT, use Karatsuba (see the Various chapter),
-   or split the convolution.
+   works if $(|a| + |b|)\max(a, b) < \mathtt{\sim} 10^9$ (in theory maybe $10^6$);
+   you may want to use an NTT from the Number Theory chapter instead.
  * Time: O(N \log N)
  * Status: somewhat tested
  */
