@@ -13,10 +13,8 @@ using namespace std;
 
 const int MAX_PR = 5000000;
 bitset<MAX_PR> isprime;
-
 vi eratosthenes_sieve(int lim) {
-	isprime.set();
-	isprime[0] = isprime[1] = 0;
+	isprime.set(); isprime[0] = isprime[1] = 0;
 	for (int i = 4; i < lim; i += 2) isprime[i] = 0;
 	for (int i = 3; i*i < lim; i += 2) if (isprime[i])
 		for (int j = i*i; j < lim; j += i*2) isprime[j] = 0;

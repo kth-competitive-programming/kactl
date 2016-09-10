@@ -2,7 +2,7 @@
  * Author: Lukas Polacek
  * Date: 2010-01-26
  * Source: TopCoder tutorial
- * Description: Calculate $a^b\bmod c$ (or $a\cdot b\bmod c$) for large $c$.
+ * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for large $c$.
  * Time: O(64/bits \cdot \log b), where $bits = 64-k$, if we want to deal with
  * $k$-bit numbers.
  */
@@ -10,7 +10,7 @@
 
 typedef unsigned long long ull;
 const int bits = 10;
-//if all numbers are less than 2^k, set bits = 64-k
+// if all numbers are less than 2^k, set bits = 64-k
 const ull po = 1 << bits;
 ull mod_mul(ull a, ull b, ull &c) {
 	ull x = a * (b & (po - 1)) % c;

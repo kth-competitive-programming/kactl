@@ -9,7 +9,7 @@
  * and $a[0] = n$. The {\tt lcp} function calculates longest
  * common prefixes for neighbouring strings in suffix array.
  * The returned vector is of size $n+1$, and $ret[0] = 0$.
- * Time: $O(N \log N)$ where $N$ is the length of the string
+ * Time: $O(N \log^2 N)$ where $N$ is the length of the string
  * for creation of the SA. $O(N)$ for longest common prefixes.
  * Memory: $O(N)$
  * Status: Tested on UVa Live 4513
@@ -23,7 +23,7 @@
 using namespace std;
 
 typedef pair<ll, int> pli;
-void count_sort(vector<pli> &b, int bits) {
+void count_sort(vector<pli> &b, int bits) { // (optional)
 	//this is just 3 times faster than stl sort for N=10^6
 	int mask = (1 << bits) - 1;
 	rep(it,0,2) {
