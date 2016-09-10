@@ -2,9 +2,9 @@
  * Author: Håkan Terelius
  * Date: 2009-08-26
  * Source: http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
- * Description: Prime sieve for generating all primes up to a certain limit. isprime$[i]$ is true iff $i$ is a prime. prime[] contains all primes up to LIMIT, in total $primes$ numbers.
+ * Description: Prime sieve for generating all primes up to a certain limit. isprime$[i]$ is true iff $i$ is a prime.
  * Status: Tested
- * Time: LIMIT=5'000'000 $\approx$ 0.07 s
+ * Time: lim=100'000'000 $\approx$ 0.8 s. Runs 30\% faster if only odd indices are stored.
  */
 #pragma once
 #include <cstring>
@@ -12,15 +12,15 @@
 using namespace std;
 
 const int MAX_PR = 5000000;
-bool isprime[MAX_PR];
-vector<int> eratosthenes_sieve(int LIMIT) {
-	memset(isprime, 1, sizeof(isprime));
-	isprime[0]=isprime[1]=false;
-	for(int i=2;i*i<LIMIT;++i)
-		if(isprime[i])
-			for(int j=i*i;j<LIMIT;j+=i)
-				isprime[j]=false;
-	vector<int> pr;
-	rep(i,2,LIMIT) if(isprime[i]) pr.push_back(i);
+bitset<MAX_PR> isprime;
+
+vi eratosthenes_sieve(int lim) {
+	isprime.set();
+	isprime[0] = isprime[1] = 0;
+	for (int i = 4; i < lim; i += 2) isprime[i] = 0;
+	for (int i = 3; i*i < lim; i += 2) if (isprime[i])
+		for (int j = i*i; j < lim; j += i*2) isprime[j] = 0;
+	vi pr;
+	rep(i,2,lim) if (isprime[i]) pr.push_back(i);
 	return pr;
 }
