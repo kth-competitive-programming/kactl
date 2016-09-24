@@ -3,8 +3,12 @@
  * Date: 2015-01-31
  * Source:
  * Description: A class for ordering angles (as represented by int points and
- *  a number of rotations around the origin), plus some sample usages.
- *  Useful for rotational sweeping.
+ *  a number of rotations around the origin). Useful for rotational sweeping.
+ * Usage:
+ *  vector<Angle> v = {w[0], w[0].t360() ...}; // sorted
+ *  int j = 0; rep(i,0,n) {
+ *    while (v[j] < v[i].t180()) ++j;
+ *  } // sweeps j such that (j-i) represents the number of positively oriented triangles with vertices at 0 and i
  * Status: Used, works well
  */
 #pragma once
@@ -44,23 +48,3 @@ pair<Angle, Angle> segmentAngles(Angle a, Angle b) {
 	        make_pair(a, b) : make_pair(b, a.t360()));
 }
 
-void sampleSweeping(const vector<Angle>& points, int N) {
-	rep(basei, 0, N) {
-		vector<Angle> v;
-		rep(i, 0, N) if (i != basei) {
-			Angle a = points[i] - points[basei];
-			v.push_back(a);
-			v.push_back(a.t360());
-		}
-		sort(all(v));
-		int half = 0, res = 0;
-		for (int i = 0; v[i].t == 0; ++i) {
-			// Count the number of points x in (v[i], v[i].rot(180))
-			int m = 1;
-			while (v[i+1] <= v[i]) ++i, ++m; // colinear points
-			while (v[half] < v[i].t180()) ++half;
-			res += m * (half - i - 1);
-		}
-		printf("%d\n", res);
-	}
-}
