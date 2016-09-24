@@ -4,14 +4,18 @@
  * Source:
  * Description:\\
 \begin{minipage}{75mm}
-If a unique intersetion point between the line segments going from s1 to e1 and from s2 to e2 exists r1 is set to this point and 1 is returned. If no intersection point exists 0 is returned and if infinitely many exists 2 is returned and r1 and r2 are set to the two ends of the common line. The wrong position will be returned if P is Point<int> and the intersection point does not have integer coordinates. Products of three coordinates are used in intermediate steps so watch out for overflow if using int or long long.
+If a unique intersetion point between the line segments going from s1 to e1 and from s2 to e2 exists r1 is set to this point and 1 is returned.
+If no intersection point exists 0 is returned and if infinitely many exists 2 is returned and r1 and r2 are set to the two ends of the common line.
+The wrong position will be returned if P is Point<int> and the intersection point does not have integer coordinates.
+Products of three coordinates are used in intermediate steps so watch out for overflow if using int or long long.
+Use segmentIntersectionQ to get just a true/false answer.
 \end{minipage}
 \begin{minipage}{15mm}
 \includegraphics[width=\textwidth]{../content/geometry/segmentIntersection}
 \end{minipage}
  * Status: Well tested with unitTest and with Kattis problem intersection.
  * Usage:
- *	point<double> intersection, dummy;
+ *	Point<double> intersection, dummy;
  * 	if (segmentIntersection(s1,e1,s2,e2,intersection,dummy)==1)
  * 		cout << "segments intersect at " << intersection << endl;
  */
@@ -24,7 +28,7 @@ int segmentIntersection(const P& s1, const P& e1,
 	if (e1==s1) {
 		if (e2==s2) {
 			if (e1==e2) { r1 = e1; return 1; } //all equal
-	    else return 0; //different point segments
+			else return 0; //different point segments
 		} else return segmentIntersection(s2,e2,s1,e1,r1,r2);//swap
 	}
 	//segment directions and separation
