@@ -48,3 +48,8 @@ pair<Angle, Angle> segmentAngles(Angle a, Angle b) {
 	        make_pair(a, b) : make_pair(b, a.t360()));
 }
 
+Angle operator+(Angle a, Angle b) { // where b is a vector
+	Angle r(a.x + b.x, a.y + b.y, a.t);
+	if (r > a.t180()) r.t--;
+	return r.t180() < a ? r.t360() : r;
+}
