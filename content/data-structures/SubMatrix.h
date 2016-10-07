@@ -16,10 +16,8 @@ struct SubMatrix {
 	SubMatrix(vector<vector<T>>& v) {
 		int n = sz(v), m = sz(v[0]);
 		p.assign(n+1, vector<T>(m+1));
-		rep(i,0,n) rep(j,0,m) {
-			p[i+1][j+1] = v[i][j] +
-				p[i][j+1] + p[i+1][j] - p[i][j];
-		}
+		rep(i,0,n) rep(j,0,m)
+			p[i+1][j+1] = v[i][j] + p[i][j+1] + p[i+1][j] - p[i][j];
 	}
 	T sum(int r1, int c1, int r2, int c2) {
 		return p[r2][c2] - p[r2][c1] - p[r1][c2] + p[r1][c1];
