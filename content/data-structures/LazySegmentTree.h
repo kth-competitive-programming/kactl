@@ -1,67 +1,65 @@
 /**
- * Author: Stanford, Simon Lindholm
- * Date: Unknown
- * Source: Stanford Notebook
- * Description: Compute/update sums of intervals. Can be changed to other associative operations, with some effort.
+ * Author: Simon Lindholm
+ * Date: 2016-10-08
+ * Source: me
+ * Description: Segment tree with ability to add or set values of large intervals, and compute max of intervals.
+ * Can be changed to other things.
+ * Use with a bump allocator for better performance, and SmallPtr or implicit indices to save memory.
  * Time: O(\log N).
- * Status: untested
+ * Usage: Node* tr = new Node(v, 0, sz(v));
+ * Status: fuzz-tested a bit
  */
 #pragma once
 
-struct LazySegmentTree {
-	typedef ll T; typedef vector<T> vt;
-	int N;
-	vt leaf, upd;
-	LazySegmentTree(vt& li) : N(sz(li)), leaf(4*N), upd(4*N) {
-		build(1,0,N-1,li);
+#include "../various/BumpAllocator.h"
+
+const int inf = 1e9;
+struct Node {
+	Node *L = 0, *R = 0;
+	int lo, hi, mset = inf, madd = 0, val = -inf;
+	Node(int lo,int hi):lo(lo),hi(hi){} // Large interval of -inf
+	Node(vi& v, int lo, int hi) : lo(lo), hi(hi) {
+		if (lo + 1 < hi) {
+			int mid = lo + (hi - lo)/2;
+			L = new Node(v, lo, mid); R = new Node(v, mid, hi);
+			val = max(L->val, R->val);
+		}
+		else val = v[lo];
 	}
-	void build(int cur, int a, int b, vt& li) {
-		if (a == b)
-			leaf[cur] = li[a];
+	int query(int from, int to) {
+		if (to <= lo || hi <= from) return -inf;
+		if (from <= lo && hi <= to) return val;
+		push();
+		return max(L->query(from, to), R->query(from, to));
+	}
+	void set(int from, int to, int x) {
+		if (to <= lo || hi <= from) return;
+		if (from <= lo && hi <= to) mset = val = x, madd = 0;
 		else {
-			int mid = (a+b)/2;
-			build(2 * cur, a, mid, li);
-			build(2 * cur + 1, mid+1, b, li);
-			leaf[cur] = leaf[2*cur] + leaf[2*cur+1];
+			push(), L->set(from, to, x), R->set(from, to, x);
+			val = max(L->val, R->val);
 		}
 	}
-	void update(int a, int b, T val) { // add val to [a,b)
-		assert(0 <= a && a <= b && b <= N);
-		update(1,0,N-1,a,b-1,val);
-	}
-	void update(int cur, int L, int R, int a, int b, T val) {
-		if(a <= L && R <= b)
-			upd[cur] += val;
+	void add(int from, int to, int x) {
+		if (to <= lo || hi <= from) return;
+		if (from <= lo && hi <= to) {
+			if (mset != inf) mset += x;
+			else madd += x;
+			val += x;
+		}
 		else {
-			leaf[cur] += (min(b,R)-max(a,L)+1) * val;
-			int mid = (L+R)/2;
-			if (mid >= a && L <= b)
-				update(2*cur, L, mid, a, b, val);
-			if (R >= a && mid+1 <= b)
-				update(2*cur+1, mid+1, R, a, b, val);
+			push(), L->add(from, to, x), R->add(from, to, x);
+			val = max(L->val, R->val);
 		}
 	}
-	T query(int a, int b) { // compute sum of values in [a,b)
-		assert(0 <= a && a <= b && b <= N);
-		return query(1,0,N-1,a,b-1);
-	}
-	T query(int cur, int L, int R, int a, int b) {
-		if (upd[cur]) {
-			leaf[cur] += (R-L+1) * upd[cur];
-			if (cur < 2*N) {
-				upd[2*cur] += upd[cur];
-				upd[2*cur+1] += upd[cur];
-			}
-			upd[cur] = 0;
+	void push() {
+		if (!L) {
+			int mid = lo + (hi - lo)/2;
+			L = new Node(lo, mid); R = new Node(mid, hi);
 		}
-		if (a <= L && R <= b)
-			return leaf[cur];
-		int mid = (L+R)/2;
-		T ret = 0;
-		if (mid >= a && L <= b)
-			ret += query(2*cur, L, mid, a, b);
-		if (R >= a && mid+1 <= b)
-			ret += query(2*cur+1, mid+1, R, a, b);
-		return ret;
+		if (mset != inf)
+			L->set(lo,hi,mset), R->set(lo,hi,mset), mset = inf;
+		else if (madd)
+			L->add(lo,hi,madd), R->add(lo,hi,madd), madd = 0;
 	}
 };
