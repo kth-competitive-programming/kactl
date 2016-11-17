@@ -14,7 +14,7 @@
 #pragma once
 #include "Point.h"
 #include "onSegment.h"
-#include "segmentDistance.h"
+#include "SegmentDistance.h"
 
 template <class It, class P>
 bool insidePolygon(It begin, It end, const P& p,
