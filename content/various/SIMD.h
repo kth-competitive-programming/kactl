@@ -22,16 +22,19 @@ typedef __m256i mi;
 // blendv_(epi8|ps|pd) (z?y:x), movemask_epi8 (hibits of bytes)
 // i32gather_epi32(addr, x, 4): map addr[] over 32-b parts of x
 // sad_epu8: sum of absolute differences of u8, outputs 4xi64
+// maddubs_epi16: dot product of unsigned i7's, outputs 16xi15
+// madd_epi16: dot product of signed i16's, outputs 8xi32
 // extractf128_si256(, i) (256->128), cvtsi128_si32 (128->lo32)
-// 128-bit: shuffle: _mm_shuffle_epi32(x, 3*64+2*16+1*4+0) == x
-// _mm_shuffle_epi8(x, y) takes a vector instead of an imm
+// permute2f128_si256(x,x,1) swaps 128-bit lanes
+// shuffle_epi32(x, 3*64+2*16+1*4+0) == x for each lane
+// shuffle_epi8(x, y) takes a vector instead of an imm
 
 // Methods that work with most data types (append e.g. _epi32):
-// extract, set1, hadd, blend (i8?x:y), add, adds (sat.), mullo
-// sub, and/or, andnot, abs, min, max, sign(1,x), cmp(gt|eq)
+// set1, blend (i8?x:y), add, adds (sat.), mullo, sub, and/or,
+// andnot, abs, min, max, sign(1,x), cmp(gt|eq), unpack(lo|hi)
 
-int geti32(mi m, int i) {
-	union {int v[8]; mi m;} u; u.m = m; return u.v[i]; }
+int sumi32(mi m) { union {int v[8]; mi m;} u; u.m = m;
+	int ret = 0; rep(i,0,8) ret += u.v[i]; return ret; }
 mi zero() { return _mm256_setzero_si256(); }
 mi one() { return M32(set1)(-1); }
 bool all_zero(mi m) { return _mm256_testz_si256(m, m); }
