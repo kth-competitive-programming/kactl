@@ -41,5 +41,5 @@ int dfs_matching(G &g, int n, int m) {
 				break;
 			}
 	}
-	return m - count(all(match), -1);
+	return m - (int)count(all(match), -1);
 }
