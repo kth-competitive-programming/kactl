@@ -17,16 +17,20 @@
 \usepackage{fix-cm}						% Large font sizes
 \usepackage{paralist}					% For compact enumerations
 \usepackage[parfill]{parskip}					% For compact enumerations
+\usepackage{etoolbox}
 
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
 \AtBeginDocument{}
 \AtEndDocument{}
 
+\newcommand{\thelistings}{}
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \headheight 25pt
-\lhead{KTH}\chead{}\rhead{\textbf{Chapter \thechapter}, page \thepage}
+\lhead{KTH}
+\chead{\thelistings \gdef\thelistings{}}
+\rhead{\thepage}
 %\lhead{}\chead{\thepage}\rhead{}
 \lfoot{}\cfoot{}\rfoot{}
 \fancyheadoffset{0pt}
@@ -174,6 +178,7 @@
 }
 
 \newcommand{\kactlimport}[2][]{ % Using empty default parameter
+	\gappto\thelistings{\textbf{#2 }}
 	\leftcaption{}\rightcaption{}
 	\setboolean{hasdescription}{false}
 	\setboolean{hasusage}{false}
