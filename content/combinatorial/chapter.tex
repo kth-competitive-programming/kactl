@@ -17,8 +17,6 @@
 		$$D(n) = (n-1)(D(n-1)+D(n-2)) = n D(n-1)+(-1)^n = \left\lfloor\frac{n!}{e}\right\rceil$$
 		\kactlimport{derangements.h}
 
-	\columnbreak
-
 	\subsection{Involutions}
 		An involution is a permutation with maximum cycle length 2, and it is its own inverse.
 		$$a(n) = a(n-1) + (n-1)a(n-2)$$
@@ -44,8 +42,6 @@
 		Partitions of $n$ with exactly $k$ parts, $p(n,k)$, i.e., writing $n$ as a sum of $k$ positive integers, disregarding the order of the summands.
 		$$p(n,k) = p(n-1,k-1)+p(n-k,k)$$
 		$$p(0,0)=p(1,n)=p(n,n)=p(n,n-1)=1$$
-
-	\columnbreak
 
 	\subsection{Binomials}
 		\kactlimport{binomial.h}

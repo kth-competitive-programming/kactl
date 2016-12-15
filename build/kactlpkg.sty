@@ -16,6 +16,7 @@
 \usepackage{graphicx}					% To rotate page numbers
 \usepackage{fix-cm}						% Large font sizes
 \usepackage{paralist}					% For compact enumerations
+\usepackage[parfill]{parskip}					% For compact enumerations
 
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
@@ -25,12 +26,12 @@
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \headheight 25pt
-\lhead{KTH}\chead{}\rhead{\thepage}
+\lhead{KTH}\chead{}\rhead{\textbf{Chapter \thechapter}, page \thepage}
 %\lhead{}\chead{\thepage}\rhead{}
 \lfoot{}\cfoot{}\rfoot{}
 \fancyheadoffset{0pt}
 \fancyfootoffset{0pt}
-\setlength\headsep{10pt}
+\setlength\headsep{5pt}
 
 \renewcommand\chapter{
 	\global\@topnum\z@
@@ -62,30 +63,28 @@
 }
 
 \def\@makechapterhead#1{
-	\begin{framed}
+
 	\parindent \z@ \raggedright \normalfont
 		\interlinepenalty\@M
-	{\Large \bfseries #1 }
+	{\underline{\Large \bfseries #1 }}
 	\ifnum \c@secnumdepth >\m@ne
 		{\Large\bfseries (\thechapter) \par\nobreak }
 	\fi
-	\end{framed}
-
 	\startcontents[chapters]
 }
 
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-0.5ex \@plus -1ex \@minus -.2ex}%
-                                   {1ex \@plus.2ex}%
-                                   {\normalfont\Large\bfseries}}
+                                   {.4ex}%
+                                   {\normalfont\large\bfseries}}
 
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}
-	{1ex\@plus -1ex \@minus -.2ex}
-	{0.5ex \@plus .2ex}
-	{\normalfont\large\bfseries}}
+	{1ex\@plus -1ex \@minus -.3ex}
+	{.2ex}
+	{\normalfont\bfseries}}
 
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}
-	{1ex\@plus -1ex \@minus -.2ex}
+	{1ex\@plus -1ex \@minus -.3ex}
 	{1ex \@plus .2ex}
 	{\normalfont\normalsize\bfseries}}
 
@@ -269,7 +268,7 @@
 }
 
 \long\def\@makecaption#1#2{
-   \sbox\@tempboxa{\textbf{#1: #2}}
+   \sbox\@tempboxa{#1: #2}
 	\ifdim \wd\@tempboxa >\hsize
      #1: #2\par
    \else
@@ -279,7 +278,6 @@
 	\vspace{2pt}
 	\ifthenelse{\boolean{hasdescription}}{\codeheader{Description}{\@defdescription}}{}
 	\ifthenelse{\boolean{hasusage}}{\codeheader{Usage}{\@defusage}}{}
-	\ifthenelse{\boolean{hastime}}{\codeheader{Time}{\@deftime}}{}
 	\ifthenelse{\boolean{hasmemory}}{\codeheader{Memory}{\@defmemory}}{}
 	\ifthenelse{\boolean{hasleftcaption}}{\vspace{0pt}}{\vspace{-5pt}}
 	\tiny
