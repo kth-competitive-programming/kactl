@@ -46,7 +46,7 @@ def ordoescape(input):
 
 def processwithcomments(caption, instream, outstream, listingslang = None):
 	knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'Status', 'Usage', 'Changes']
-	requiredcommands = ['Author', 'Date', 'Source', 'Description']
+	requiredcommands = ['Author', 'Description']
 	includelist = ""
 	error = ""
 	warning = ""
