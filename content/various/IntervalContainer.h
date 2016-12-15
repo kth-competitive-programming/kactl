@@ -25,3 +25,14 @@ void addInterval(set<pair<T, T>>& is, T l, T r) {
         is.erase(it2);
     }
 };
+
+template <class T>
+void removeInterval(set<pair<T, T>>& is, T l, T r) {
+	if (l == r) return;
+	addInterval(is, l, r);
+	auto it = --is.lower_bound({l+1, l});
+	T r2 = it->second;
+	if (it->first == l) is.erase(it);
+	else (T&)it->second = l;
+	if (r != r2) is.emplace(r, r2);
+};
