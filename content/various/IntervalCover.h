@@ -1,41 +1,30 @@
 /**
- * Author: Chen Xing
- * Date: 2009-10-13
- * Source: N/A
- * Description: Calculate the minimum number of intervals required to cover a specified interval. Returns indices of intervals forming the smallest set necessary to cover specified interval.
- * Time: O(n \log n) where $n$ is the number of intervals.
- * Status: Working
+ * Author: Johan Sannemo
+ * Description: Compute indices of smallest set of intervals covering another interval.
+ * Time: O(N \log N)
+ * Status: Tested on Kattis, intervalcover
  */
 #pragma once
 
 #include <vector>
 using namespace std;
 
-template<typename It> struct Cmp {
-    bool operator()(const It& first, const It& second) const {
-        return (*first) < (*second);
+template<class T>
+vi cover(pair<T, T> G, vector<pair<T, T>> I) {
+    vi S(sz(I)), R;
+    iota(all(S), 0);
+    sort(all(S), [&](int a, int b) { return I[a] < I[b]; });
+    T cur = G.first;
+    int at = -1;
+    while (R.empty() || cur < G.second) {
+        pair<T, int> mx = make_pair(cur, -1);
+        while (at + 1 < sz(I) && I[S[at + 1]].first <= cur) {
+            at++;
+            mx = max(mx, make_pair(I[S[at]].second, S[at]));
+        }
+        if (mx.second == -1) return {};
+        cur = mx.first;
+        R.push_back(mx.second);
     }
-};
-
-template<typename C> vi intervalCover(pair<C, C> toCover, vector<pair<C, C> >& is) {
-    typedef decltype(is.begin()) It;
-    vector<It> sorted;
-    vi answer;
-    C nextCover = toCover.first;
-    sorted.reserve(is.size());
-    rep(i,0,is.size()) sorted.push_back(is.begin() + i);
-    sort(sorted.begin(), sorted.end(), Cmp<It>());
-    int scan = 0;
-    while (answer.empty() || nextCover < toCover.second) {
-        int best = 1<<29;
-        while (scan < sorted.size() && sorted[scan]->first <= nextCover) {
-            if (best == (1<<29) || sorted[scan]->second > is[best].second)
-                best = sorted[scan] - is.begin();
-            ++scan;
-        }   
-        if (best == (1<<29)) return vi();
-        answer.push_back(best);
-        nextCover = is[best].second;
-    }   
-    return answer;
+    return R;
 }
