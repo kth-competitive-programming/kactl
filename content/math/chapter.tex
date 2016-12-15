@@ -21,32 +21,11 @@ cos(v+w)&{}=\cos v\cos w-\sin v\sin w\\
 \end{align*}
 where $V$ is the length of the side opposite the angle $v$, and
 similar for $W$.
-
 \begin{align*}
-\begin{cases}
 a\cos x+b\sin x=r\cos(x-\phi)\\
 a\sin x+b\cos x=r\sin(x+\phi)
-\end{cases}
 \end{align*}
 where $r=\sqrt{a^2+b^2}, \phi=\operatorname{atan2}(b,a)$.
-
-\begin{center}
-\begin{tabular}{|l|l|l|l|}
-\hline
-$\phi$ & $\sin\phi$ & $\cos\phi$ & $\tan\phi$ \\
-\hline
-$0 = 0^\circ$ & $0$ & $1$ & $0$\\
-\hline
-$\pi/6 = 30^\circ$ & $1/2$ & $\sqrt3/2$ & $1/\sqrt3$\\
-\hline
-$\pi/4 = 45^\circ$ & $1/\sqrt2$ & $1/\sqrt2$ & $1$\\
-\hline
-$\pi/3 = 60^\circ$ & $\sqrt3/2$ & $1/2$ & $\sqrt3$\\
-\hline
-$\pi/2 = 90^\circ$ & $1$ & $0$ & --\\
-\hline
-\end{tabular}
-\end{center}
 
 \section{Geometry}
 
@@ -78,28 +57,24 @@ z = r\cos\theta & \phi = \textrm{atan2}(y,x)
 \end{array}\]
 
 \section{Derivatives/Integrals}
-\begin{align*}
-\dfrac{d}{dx}\arcsin x = \dfrac{1}{\sqrt{1-x^2}} & \quad
-\dfrac{d}{dx}\arccos x = -\dfrac{1}{\sqrt{1-x^2}}\\
-\dfrac{d}{dx}\tan x = 1+\tan^2 x & \quad
-\dfrac{d}{dx}\arctan x = \dfrac{1}{1+x^2}\\
-\int\tan ax = -\dfrac{\ln|\cos ax|}{a} & \quad
-\int x\sin ax = \dfrac{\sin ax-ax \cos ax}{a^2}\\
-\int \frac{dx}{x} = \ln|x| & \quad
-\int xe^{ax}dx = \frac{e^{ax}}{a^2}(ax-1)\\
-\end{align*}
+$$\dfrac{d}{dx}\arcsin x = \dfrac{1}{\sqrt{1-x^2}} $$
+$$\dfrac{d}{dx}\arccos x = -\dfrac{1}{\sqrt{1-x^2}}$$
+$$\dfrac{d}{dx}\tan x = 1+\tan^2 x $$
+$$\dfrac{d}{dx}\arctan x = \dfrac{1}{1+x^2}$$
+$$\int\tan ax = -\dfrac{\ln|\cos ax|}{a}$$
+$$\int x\sin ax = \dfrac{\sin ax-ax \cos ax}{a^2}$$
+$$\int \frac{dx}{x} = \ln|x|$$
+$$\int xe^{ax}dx = \frac{e^{ax}}{a^2}(ax-1)$$
 
 Integration by parts:
 \[\int_a^bf(x)g(x)dx = [F(x)g(x)]_a^b-\int_a^bF(x)g'(x)dx\]
 
 \section{Series} 
-\begin{align*}
-e^x &= 1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\dots,\,(-\infty<x<\infty)\\
-\ln(1+x) &= x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\dots,\,(-1<x\leq1)\\
-\sqrt{1+x} &= 1+\frac{x}{2}-\frac{x^2}{8}+\frac{2x^3}{32}-\frac{5x^4}{128}+\dots,\,(-1\leq x\leq1)\\
-\sin x &= x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\dots,\,(-\infty<x<\infty)\\
-\cos x &= 1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\dots,\,(-\infty<x<\infty)\\
-\end{align*}
+$$e^x = 1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\dots,\,(-\infty<x<\infty)$$
+$$\ln(1+x) = x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\dots,\,(-1<x\leq1)$$
+$$\sqrt{1+x} = 1+\frac{x}{2}-\frac{x^2}{8}+\frac{2x^3}{32}-\frac{5x^4}{128}+\dots,\,(-1\leq x\leq1)$$
+$$\sin x = x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\dots,\,(-\infty<x<\infty)$$
+$$\cos x = 1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\dots,\,(-\infty<x<\infty)$$
 
 \section{Probability theory}
 Let $X$ be a discrete random variable with probability $p_X(x)$ of assuming the value $x$. It will then have an expected value (mean) $\mu=\mathbb{E}(X)=\sum_xxp_X(x)$ and variance $\sigma^2=V(X)=\mathbb{E}(X^2)-(\mathbb{E}(X))^2=\sum_x(x-\mathbb{E}(X))^2p_X(x)$ where $\sigma$ is the standard deviation. If $X$ is instead continuous it will have a probability density function $f_X(x)$ and the sums above will instead be integrals with $p_X(x)$ replaced by $f_X(x)$.
