@@ -15,9 +15,9 @@ Use segmentIntersectionQ to get just a true/false answer.
 \end{minipage}
  * Status: Well tested with unitTest and with Kattis problem intersection.
  * Usage:
- *	Point<double> intersection, dummy;
- * 	if (segmentIntersection(s1,e1,s2,e2,intersection,dummy)==1)
- * 		cout << "segments intersect at " << intersection << endl;
+ * Point<double> intersection, dummy;
+ * if (segmentIntersection(s1,e1,s2,e2,intersection,dummy)==1)
+ *   cout << "segments intersect at " << intersection << endl;
  */
 #pragma once
 #include "Point.h"

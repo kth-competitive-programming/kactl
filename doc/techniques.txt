@@ -110,7 +110,7 @@ Matriser
 	Gausselimination
 	Exponentiation by squaring
 Sortering
-	Radix sort    
+	Radix sort
 Geometri
 	Koordinater och vektorer
 	* Kryssprodukten
