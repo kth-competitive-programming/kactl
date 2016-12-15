@@ -1,8 +1,34 @@
 /**
- * Author:
- * Date: 2009-04-17
- * Source: Wikipedia
- * Description: (König's thm) Consider a bipartite graph where the vertices are partitioned into left $L$ and right $R$ sets. Suppose there is a maximum matching which partitions the edges into those used in the matching $Em$ and those not $E0$. Let $T$ consist of all unmatched vertices from $L$, as well as all vertices reachable from those by going left-to-right along edges from $E0$ and right-to-left along edges from $Em$. This essentially means that for each unmatched vertex in $L$, we add into $T$ all vertices that occur in a path alternating between edges from $E0$ and $Em$.
-
-Then $(L \backslash T) \cup (R \cap T)$ is a minimum vertex cover. Thus, the Hopcroft-Karp algorithm for finding maximum matchings in bipartite graphs may also be used to solve the vertex cover problem efficiently in these graphs.
+ * Author: Johan Sannemo
+ * Description: Finds a minimum vertex cover in a bipartite graph. The size is the same as the size of a maximum matching.
  */
+
+#include "DFSMatching.h"
+
+template<class G>
+bool find2(int i, G &g) {
+    trav(e, g[i])
+        if (!seen[e]) {
+            seen[e] = true;
+            if (match[e] != -1) find2(match[e], g);
+        }
+    return 0;
+}
+
+template<class G>
+vi dfs2(G &g, int a, int b) {
+    int res = dfs_matching(g, a, b);
+    seen.assign(b, false);
+    vector<bool> lfound(a, true), rfound(b);
+    trav(it, match) if (it != -1) lfound[it] = false;
+    rep(i,0,a) if (lfound[i]) find2(i, g);
+    rep(i,0,b)
+        if (seen[i]) {
+            rfound[i] = true;
+            if (match[i] != -1) lfound[match[i]] = true;
+        }
+    vi cover;
+    rep(i,0,a) if (lfound[i]) cover.push_back(i);
+    rep(i,0,b) if (!rfound[i]) cover.push_back(a+i);
+    return cover;
+}
