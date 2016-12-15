@@ -1,28 +1,28 @@
 /**
- * Author: Håkan Terelius
- * Date: 2010-11-07
- * Source: tinyKACTL, newKACTL, Wikipedia
- * Description: Compute indices for the longest increasing subsequence in specified input sequence.
- * Time: $O(n\log n)$ where n is the length of input sequence.
+ * Author: Johan Sannemo
+ * Description: Compute indices for the longest increasing subsequence.
+ * Status: Tested on Kattis, longincsubseq
+ * Time: $O(N \log N)$
  */
 #pragma once
 
 #include <vector>
 using namespace std;
 
-template<class I> vi lis3(I begin, I end) {
-	struct {bool operator()(I i, I j) const {return *i<*j;}} cmp;
-	if(begin == end) return {};
-	vector<I> idx, back(end-begin);
-	idx.push_back(end);
-	for(I it = begin; it != end; ++it) {
-		// upper_bound if non-decreasing rather than increasing
-		auto b = lower_bound(idx.begin() + 1, idx.end(), it, cmp);
-		back[it-begin] = *(b-1);
-		if(b == idx.end()) idx.push_back(it); else *b = it;
-	}
-	int len = idx.size()-1, last = idx.back()-begin;
-	vi ind(len);
-	while(len) ind[--len] = last, last = back[last]-begin;
-	return ind;
+template<class I> vi lis(vector<I> S) {
+    vi prev(sz(S));
+    typedef pair<I, int> p;
+    vector<p> res;
+    rep(i,0,sz(S)) {
+        p el { S[i], i };
+        //S[i]+1 for non-decreasing
+        auto it = lower_bound(all(res), p { S[i], 0 }); 
+        if (it == res.end()) res.push_back(el), it = --res.end();
+        *it = el;
+        prev[i] = it==res.begin() ?0:(it-1)->second; 
+    }                                                                                                                                                                                                               
+    int L = sz(res), cur = res.back().second;
+    vi ans(L);
+    while (L--) ans[L] = cur, cur = prev[cur];
+    return ans;
 }
