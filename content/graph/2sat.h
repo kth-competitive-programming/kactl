@@ -31,8 +31,8 @@ struct TwoSat {
 		return N++;
 	}
 
-	void add_clause(int a_index, bool a_value, int b_index, bool b_value) {
-		int a = 2*a_index + a_value, b = 2*b_index + b_value;
+	void add_clause(int aind, bool aval, int bind, bool bval) {
+		int a = 2*aind + aval, b = 2*bind + bval;
 		gr[a^1].push_back(b);
 		gr[b^1].push_back(a);
 	}
