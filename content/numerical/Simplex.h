@@ -69,7 +69,7 @@ struct LPSolver {
 	T solve(vd &x) {
 		int r = 0;
 		rep(i,1,m) if (D[i][n+1] < D[r][n+1]) r = i;
-		if (D[r][n+1] <= -eps) {
+		if (D[r][n+1] < -eps) {
 			pivot(r, n);
 			if (!simplex(2) || D[m+1][n+1] < -eps) return -inf;
 			rep(i,0,m) if (B[i] == -1) {
