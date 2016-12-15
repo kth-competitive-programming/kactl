@@ -18,6 +18,7 @@
 \usepackage{paralist}					% For compact enumerations
 \usepackage[parfill]{parskip}					% For compact enumerations
 \usepackage{etoolbox}
+\usepackage[dvipsnames]{xcolor}
 
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
@@ -70,7 +71,7 @@
 
 	\parindent \z@ \raggedright \normalfont
 		\interlinepenalty\@M
-	{\underline{\Large \bfseries #1 }}
+	{\underline{\Large \bfseries #1} }
 	\ifnum \c@secnumdepth >\m@ne
 		{\Large\bfseries (\thechapter) \par\nobreak }
 	\fi
@@ -178,13 +179,14 @@
 }
 
 \newcommand{\kactlimport}[2][]{ % Using empty default parameter
-	\gappto\thelistings{\textbf{#2 }}
 	\leftcaption{}\rightcaption{}
 	\setboolean{hasdescription}{false}
 	\setboolean{hasusage}{false}
 	\setboolean{hastime}{false}
 	\setboolean{hasmemory}{false}
 	\setboolean{hasleftcaption}{false}
+	#2
+	\gappto\thelistings{\textbf{#2 }}
 	\immediate\write18{rm -f kactl.tmp} % Don't include old kactl.tmp on failure.
 	\immediate\write18{python2 kactlprocessor.py -i "\@kactldir/#2" -o kactl.tmp #1}
 	\immediate\input{kactl.tmp}
@@ -273,21 +275,14 @@
 }
 
 \long\def\@makecaption#1#2{
-   \sbox\@tempboxa{#1: #2}
-	\ifdim \wd\@tempboxa >\hsize
-     #1: #2\par
-   \else
-     \global \@minipagefalse
-     \hb@xt@\hsize{\box\@tempboxa\hfil}
-   \fi
-	\vspace{2pt}
+	\vspace{-3pt}
 	\ifthenelse{\boolean{hasdescription}}{\codeheader{Description}{\@defdescription}}{}
 	\ifthenelse{\boolean{hasusage}}{\codeheader{Usage}{\@defusage}}{}
 	\ifthenelse{\boolean{hasmemory}}{\codeheader{Memory}{\@defmemory}}{}
+	\ifthenelse{\boolean{hastime}}{\codeheader{Time}{\@deftime}}{}
 	\ifthenelse{\boolean{hasleftcaption}}{\vspace{0pt}}{\vspace{-5pt}}
 	\tiny
 	\texttt{\@leftcaption} \hfill \@rightcaption
-	\vspace{1pt}
 }
 
 \newcommand{\bigo}[1] {\ensuremath{\mathcal{O} \left( #1 \right)}}
