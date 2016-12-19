@@ -1,17 +1,16 @@
 /**
  * Author: Stanford
- * Date: Unknown
  * Source: Stanford Notebook
  * Description: Solves a general linear maximization problem: maximize $c^T x$ subject to $Ax \le b$, $x \ge 0$.
  * Returns -inf if there is no solution, inf if there are arbitrarily good solutions, or the maximum value of $c^T x$ otherwise.
  * The input vector is set to an optimal $x$ (or in the unbounded case, an arbitrary solution fulfilling the constraints).
- * Numerical stability is not guaranteed.
+ * Numerical stability is not guaranteed. For better performance, define variables such that $x = 0$ is viable.
  * Usage:
  * vvd A = {{1,-1}, {-1,1}, {-1,-2}};
  * vd b = {1,1,-4}, c = {-1,-1}, x;
  * T val = LPSolver(A, b, c).solve(x);
  * Time: O(NM * \#pivots), where a pivot may be e.g. an edge relaxation. O(2^n) in the general case.
- * Status: somewhat, but not very, tested
+ * Status: seems to work?
  */
 #pragma once
 
