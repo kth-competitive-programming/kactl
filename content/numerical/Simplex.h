@@ -38,7 +38,7 @@ struct LPSolver {
 
 	void pivot(int r, int s) {
 		T *a = D[r].data(), inv = 1 / a[s];
-		rep(i,0,m+2) if (i != r) {
+		rep(i,0,m+2) if (i != r && abs(D[i][s]) > eps) {
 			T *b = D[i].data(), inv2 = b[s] * inv;
 			rep(j,0,n+2) b[j] -= a[j] * inv2;
 			b[s] = a[s] * inv2;
