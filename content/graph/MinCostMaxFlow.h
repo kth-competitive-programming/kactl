@@ -5,79 +5,78 @@
  * Description: Min-cost max-flow. cap[i][j] != cap[j][i] is allowed; negative costs probably are not.
  * To obtain the actual flow, look at positive values only.
  * Status: Tested on kattis mincostmaxflow
+ * Time: Approximately O(E^2)
  */
 #pragma once
 #include <vector>
 using namespace std;
 
-typedef long long L;
-typedef vector<L> vl;
+#include <ext/pb_ds/priority_queue.hpp> /** keep-include */
 
-const L INF = numeric_limits<L>::max() / 4;
+const ll INF = numeric_limits<ll>::max() / 4;
+typedef vector<ll> VL;
 
-struct MinCostMaxFlow {
+struct MCMF {
 	int N;
-	vector<vl> cap, flow, cost;
-	vi found;
-	vl dist, pi, width;
-	vector<pii> dad;
+	vector<vi> ed, red;
+	vector<VL> cap, flow, cost;
+	vi seen;
+	VL dist, pi;
+	vector<pii> par;
 
-	MinCostMaxFlow(int N) :
-		N(N), cap(N, vl(N)), flow(N, vl(N)), cost(N, vl(N)),
-		found(N), dist(N), pi(N), width(N), dad(N) {}
+	MCMF(int N) :
+		N(N), ed(N), red(N), cap(N, VL(N)), flow(cap), cost(cap),
+		seen(N), dist(N), pi(N), par(N) {}
 
-	void AddEdge(int from, int to, L cap, L cost) {
+	void addEdge(int from, int to, ll cap, ll cost) {
 		this->cap[from][to] = cap;
 		this->cost[from][to] = cost;
+		ed[from].push_back(to);
+		red[to].push_back(from);
 	}
 
-	void Relax(int s, int k, L cap, L cost, int dir) {
-		L val = dist[s] + pi[s] - pi[k] + cost;
-		if (cap && val < dist[k]) {
-			dist[k] = val;
-			dad[k] = {s, dir};
-			width[k] = min(cap, width[s]);
-		}
-	}
-
-	L Dijkstra(int s, int t) {
-		fill(all(found), 0);
+	void path(int s, int t) {
+		fill(all(seen), 0);
 		fill(all(dist), INF);
-		fill(all(width), 0);
-		dist[s] = 0;
-		width[s] = INF;
+		dist[s] = 0; ll di;
 
-		while (s != -1) {
-			int best = -1;
-			found[s] = 1;
-			rep(k,0,N) {
-				if (found[k]) continue;
-				Relax(s, k, cap[s][k] - flow[s][k], cost[s][k], 1);
-				Relax(s, k, flow[k][s], -cost[k][s], -1);
-				if (best == -1 || dist[k] < dist[best]) best = k;
+		__gnu_pbds::priority_queue<pair<ll, int>> q;
+		vector<decltype(q)::point_iterator> its(N);
+		q.push({0, s});
+
+		auto relax = [&](int i, ll cap, ll cost, int dir) {
+			ll val = di - pi[i] + cost;
+			if (cap && val < dist[i]) {
+				dist[i] = val;
+				par[i] = {s, dir};
+				if (its[i] == q.end()) its[i] = q.push({-dist[i], i});
+				else q.modify(its[i], {-dist[i], i});
 			}
-			s = best;
-		}
+		};
 
-		rep(k,0,N)
-			pi[k] = min(pi[k] + dist[k], INF);
-		return width[t];
+		while (!q.empty()) {
+			s = q.top().second; q.pop();
+			seen[s] = 1; di = dist[s] + pi[s];
+			trav(i, ed[s]) if (!seen[i])
+				relax(i, cap[s][i] - flow[s][i], cost[s][i], 1);
+			trav(i, red[s]) if (!seen[i])
+				relax(i, flow[i][s], -cost[i][s], 0);
+		}
+		rep(i,0,N) pi[i] = min(pi[i] + dist[i], INF);
 	}
 
-	pair<L, L> GetMaxFlow(int s, int t) {
-		L totflow = 0, totcost = 0;
-		while (L amt = Dijkstra(s, t)) {
-			totflow += amt;
-			for (int x = t; x != s; x = dad[x].first) {
-				if (dad[x].second == 1) {
-					flow[dad[x].first][x] += amt;
-					totcost += amt * cost[dad[x].first][x];
-				} else {
-					flow[x][dad[x].first] -= amt;
-					totcost -= amt * cost[x][dad[x].first];
-				}
-			}
+	pair<ll, ll> maxflow(int s, int t) {
+		ll totflow = 0, totcost = 0;
+		while (path(s, t), seen[t]) {
+			ll fl = INF;
+			for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
+				fl = min(fl, r ? cap[p][x] - flow[p][x] : flow[x][p]);
+			totflow += fl;
+			for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
+				if (r) flow[p][x] += fl;
+				else flow[x][p] -= fl;
 		}
+		rep(i,0,N) rep(j,0,N) totcost += cost[i][j] * flow[i][j];
 		return {totflow, totcost};
 	}
 };
