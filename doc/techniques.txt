@@ -84,6 +84,8 @@ Talteori
 	Kvadratisk reciprocitet
 	Pollard-Rho
 	Miller-Rabin
+	Hensel Lifting
+	Vieta Root Jumping
 Spelteori
 	Kombinatoriska spel
 	Speltrad
