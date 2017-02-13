@@ -30,7 +30,7 @@ template <class T>
 void removeInterval(set<pair<T, T>>& is, T l, T r) {
 	if (l == r) return;
 	addInterval(is, l, r);
-	auto it = --is.lower_bound({l+1, l});
+	auto it = --is.upper_bound({l, numeric_limits<T>::max()});
 	T r2 = it->second;
 	if (it->first == l) is.erase(it);
 	else (T&)it->second = l;
