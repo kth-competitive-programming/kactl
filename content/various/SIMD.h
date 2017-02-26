@@ -7,15 +7,15 @@
  * Operations follow the pattern \texttt{"\_mm(256)?\_name\_(si(128|256)|epi(8|16|32|64)|pd|ps)"}. Not all are described here;
  * grep for \texttt{\_mm\_} in \texttt{/usr/lib/gcc/{*}/4.9/include/} for more.
  * If AVX is unsupported, try 128-bit operations, "emmintrin.h" and \#define \texttt{\_\_SSE\_\_} and \texttt{\_\_MMX\_\_} before including it.
- * Memory must be aligned, so (for 256 bits) use \texttt{\_mm\_malloc(size, 32)} or \texttt{int buf[N] alignas(32)}.
+ * For aligned memory use \texttt{\_mm\_malloc(size, 32)} or \texttt{int buf[N] alignas(32)}, but prefer loadu/storeu.
  */
 #pragma once
 
-#pragma GCC target ("avx,avx2") // mmx,sse,arch=corei7, etc.
+#pragma GCC target ("avx2") // or sse4.1
 #include "immintrin.h" /** keep-include */
 
 typedef __m256i mi;
-#define M32(x) _mm256_##x##_epi32
+#define L(x) _mm256_loadu_si256((mi*)&(x))
 
 // High-level/specific methods:
 // load(u)?_si256, store(u)?_si256, setzero_si256, _mm_malloc
@@ -36,23 +36,21 @@ typedef __m256i mi;
 int sumi32(mi m) { union {int v[8]; mi m;} u; u.m = m;
 	int ret = 0; rep(i,0,8) ret += u.v[i]; return ret; }
 mi zero() { return _mm256_setzero_si256(); }
-mi one() { return M32(set1)(-1); }
+mi one() { return _mm256_set1_epi32(-1); }
 bool all_zero(mi m) { return _mm256_testz_si256(m, m); }
 bool all_one(mi m) { return _mm256_testc_si256(m, one()); }
 
-// Example application (runs 3x faster than w/ unrolled loops):
-vector<int*> floydWarshall(int N, int E) {
-	vector<int*> d(N); int a, b, di;
-	rep(i,0,N) d[i] = (int*)_mm_malloc((4*N + 31) & ~31, 32);
-	rep(i,0,N) rep(j,0,N) d[i][j] = (i == j ? 0 : 1 << 29);
-	rep(i,0,E) scanf("%d%d%d", &a, &b, &di), d[a][b] = di;
-	rep(k,0,N) rep(i,0,N) {
-		mi dik = M32(set1)(d[i][k]);
-		mi *di = (mi*)d[i], *dk = (mi*)d[k];
-		int j = 0; for (; j < N>>3; ++j)
-			di[j] = M32(min)(di[j], M32(add)(dik, dk[j]));
-		for (j <<= 3; j < N; ++j)
-			d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
+ll example_filteredDotProduct(int n, short* a, short* b) {
+	int i = 0; ll r = 0;
+	mi zero = _mm256_setzero_si256(), acc = zero;
+	while (i + 16 <= n) {
+		mi va = L(a[i]), vb = L(b[i]); i += 16;
+		va = _mm256_and_si256(_mm256_cmpgt_epi16(vb, va), va);
+		mi vp = _mm256_madd_epi16(va, vb);
+		acc = _mm256_add_epi64(_mm256_unpacklo_epi32(vp, zero),
+			_mm256_add_epi64(acc, _mm256_unpackhi_epi32(vp, zero)));
 	}
-	return d;
+	union {ll v[4]; mi m;} u; u.m = acc; rep(i,0,4) r += u.v[i];
+	for (;i<n;++i) if (a[i] < b[i]) r += a[i]*b[i]; // <- equiv
+	return r;
 }
