@@ -38,7 +38,7 @@ int sumi32(mi m) { union {int v[8]; mi m;} u; u.m = m;
 mi zero() { return _mm256_setzero_si256(); }
 mi one() { return M32(set1)(-1); }
 bool all_zero(mi m) { return _mm256_testz_si256(m, m); }
-bool all_one(mi m) { return _mm256_testc_si256(one(), m); }
+bool all_one(mi m) { return _mm256_testc_si256(m, one()); }
 
 // Example application (runs 3x faster than w/ unrolled loops):
 vector<int*> floydWarshall(int N, int E) {
