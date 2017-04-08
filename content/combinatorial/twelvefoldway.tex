@@ -5,8 +5,8 @@ Counts the \# of functions $f:N\rightarrow K$, $|N|=n$, $|K|=k$. The elements in
 	\hline
 	dist & dist & $k^n$ & $\frac{k!}{(k-n)!}$ & $k!S(n,k)$\\
 	indist & dist & $\binom{n+k-1}{n}$ & $\binom{k}{n}$ & $\binom{n-1}{n-k}$\\
-	dist & indist & $\sum_{t=0}^k S(n,t)$ & \textbf{bool}$(n\leq k)$ & $S(n,k)$\\
-	indist & indist & $\sum_{t=1}^k p(n,t)$ & \textbf{bool}$(n\leq k)$ & $p(n,k)$\\
+	dist & indist & $\sum_{t=0}^k S(n,t)$ & $[n\leq k]$ & $S(n,k)$\\
+	indist & indist & $\sum_{t=1}^k p(n,t)$ & $[n\leq k]$ & $p(n,k)$\\
 \end{tabular}
 \end{center}
 Here, $S(n,k)$ is the Stirling number of the second kind, and $p(n,k)$ is the partition number.

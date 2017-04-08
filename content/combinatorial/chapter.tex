@@ -43,6 +43,17 @@
 		$$p(n,k) = p(n-1,k-1)+p(n-k,k)$$
 		$$p(0,0)=p(1,n)=p(n,n)=p(n,n-1)=1$$
 
+		For partitions with any number of parts, $p(n)$ obeys
+		\[ p(0) = 1,\ p(n) = \sum_{k \in \mathbb Z \setminus \{0\}}{(-1)^{k+1} p(n - k(3k-1) / 2)} \]
+		\[ p(n) \sim 0.145 / n \cdot \exp(2.56 \sqrt{n}) \]
+
+		\begin{center}
+		\begin{tabular}{c|c@{\ }c@{\ }c@{\ }c@{\ }c@{\ }c@{\ }c@{\ }c@{\ }c@{\ }c@{\ }c@{\ }c@{\ }c}
+			$n$    & 0 & 1 & 2 & 3 & 4 & 5 & 6  & 7  & 8  & 9  & 20  & 50  & 100 \\ \hline
+			$p(n)$ & 1 & 1 & 2 & 3 & 5 & 7 & 11 & 15 & 22 & 30 & 627 & $\mathtt{\sim}$2e5 & $\mathtt{\sim}$2e8 \\
+		\end{tabular}
+		\end{center}
+
 	\subsection{Binomials}
 		\kactlimport{binomial.h}
 		\kactlimport{binomialModPrime.h}
