@@ -1,34 +1,31 @@
 /**
- * Author: Johan Sannemo
- * Description: Finds a minimum vertex cover in a bipartite graph. The size is the same as the size of a maximum matching.
+ * Author: Johan Sannemo, Simon Lindholm
+ * Date: 2016-12-15
+ * Description: Finds a minimum vertex cover in a bipartite graph.
+ *  The size is the same as the size of a maximum matching, and
+ *  the complement is an independent set.
+ * Status: fuzz-tested
  */
 
 #include "DFSMatching.h"
 
-template<class G>
-bool find2(int i, G &g) {
-	trav(e, g[i])
-		if (!seen[e]) {
-			seen[e] = true;
-			if (match[e] != -1) find2(match[e], g);
-		}
-	return 0;
-}
-
-template<class G>
-vi dfs2(G &g, int a, int b) {
-	int res = dfs_matching(g, a, b);
-	seen.assign(b, false);
-	vector<bool> lfound(a, true), rfound(b);
+vi cover(vector<vi>& g, int n, int m) {
+	int res = dfs_matching(g, n, m);
+	seen.assign(m, false);
+	vector<bool> lfound(n, true);
 	trav(it, match) if (it != -1) lfound[it] = false;
-	rep(i,0,a) if (lfound[i]) find2(i, g);
-	rep(i,0,b)
-		if (seen[i]) {
-			rfound[i] = true;
-			if (match[i] != -1) lfound[match[i]] = true;
+	vi q, cover;
+	rep(i,0,n) if (lfound[i]) q.push_back(i);
+	while (!q.empty()) {
+		int i = q.back(); q.pop_back();
+		lfound[i] = 1;
+		trav(e, g[i]) if (!seen[e] && match[e] != -1) {
+			seen[e] = true;
+			q.push_back(match[e]);
 		}
-	vi cover;
-	rep(i,0,a) if (lfound[i]) cover.push_back(i);
-	rep(i,0,b) if (!rfound[i]) cover.push_back(a+i);
+	}
+	rep(i,0,n) if (!lfound[i]) cover.push_back(i);
+	rep(i,0,m) if (seen[i]) cover.push_back(n+i);
+	assert(sz(cover) == res);
 	return cover;
 }
