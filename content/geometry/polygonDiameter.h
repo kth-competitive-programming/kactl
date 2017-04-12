@@ -2,14 +2,15 @@
  * Author: Johan Sannemo
  * Date: 2017-03-12
  * Source: Wikipedia
- * Description: Calculates the max diameter of a set of points.
+ * Description: Calculates the max distance^2 of a set of points.
  * Status: Tested.
  */
 #pragma once
 #include <vector>
+#include "Point.h"
 using namespace std;
 
-template <class P>
+typedef Point<ll> P;
 ll polygonDiameter(vector<P> points) {
     sort(all(points));
     vector<P> U, L;
