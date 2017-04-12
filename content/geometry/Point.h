@@ -24,6 +24,7 @@ struct Point {
 	P operator/(T d) const { return P(x/d, y/d); }
 	T dot(P p) const { return x*p.x + y*p.y; }
 	T cross(P p) const { return x*p.y - y*p.x; }
+	T cross(P p1, P p2) const { return (p1 - *this).cross(p2 - *this); }
 	T dist2() const { return x*x + y*y; }
 	double dist() const { return sqrt((double)dist2()); }
 	// angle to x-axis in interval [-pi, pi]
