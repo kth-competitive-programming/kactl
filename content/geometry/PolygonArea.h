@@ -11,7 +11,7 @@
 
 template <class T>
 T polygonArea2(vector<Point<T>>& v) {
-	auto i = v.begin(), end = v.end(), j = end-1; T a{};
-	for (;i != end; j=i++) a += j->cross(*i);
+	T a = v.back().cross(v[0]);
+	rep(i,0,sz(v)-1) a += v[i].cross(v[i+1]);
 	return a;
 }
