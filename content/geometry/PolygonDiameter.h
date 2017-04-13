@@ -2,7 +2,7 @@
  * Author: Johan Sannemo
  * Date: 2017-03-12
  * Source: Wikipedia
- * Description: Calculates the max distance^2 of a set of points.
+ * Description: Calculates the max squared distance of a set of points.
  * Status: Tested.
  */
 #pragma once
