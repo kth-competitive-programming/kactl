@@ -1,33 +1,33 @@
 /**
- * Author: Unknown
- * Date: Unknown
- * Source: tinyKACTL
- * Description: Determine whether a point t lies inside the hull given by
-the point vector p. The hull should not contain colinear
-points. A hull with 2 points are ok. The result is given as: 1 inside, 0 onedge, -1 outside. Untested!
+ * Author: Johan Sannemo
+ * Date: 2017-04-13
+ * Source: Inspired by old, broken tinyKACTL.
+ * Description: Determine whether a point t lies inside a given polygon (counter-clockwise order).
+ * The polygon must be such that every point on the circumference is visible from the first point in the vector.
+ * It returns 0 for points outside, 1 for points on the circumference, and 2 for points inside.
  * Usage:
- * Status: not tested
- * Time: O(\log n)
+ * Status: Tested at Moscow ICPC pre-finals workshop
+ * Time: O(\log N)
  */
 
-template <class It, class P>
-int inside_hull_sub(It begin, It end, It i1, It i2, const P& t) {
-	if (i2 - i1 <= 2) {
-		int s0 = sideof(*begin, *i1, t);
-		int s1 = sideof(*i1, *i2, t);
-		int s2 = sideof(*i2, *begin, t);
-		if (s0 < 0 || s1 < 0 || s2 < 0) return -1;
-		if (i1 == begin+1 && s0 == 0 || s1 == 0 || i2 == end - 1 && s2 == 0)
-			return 0;
-		return 1;
-	}
-	It i = i1 + (i2 - i1) / 2;
-	int side = sideof(*begin, *i, t);
-	if (side > 0) return inside_hull_sub(begin, end, i, i2, t);
-	else return inside_hull_sub(begin, end, i1, i, t);
+typedef Point<ll> P;
+int insideHull2(const vector<P>& H, int L, int R, const P& p) {
+    int len = R - L;
+    if (len == 2) {
+        int sa = sideOf(H[0], H[L], p);
+        int sb = sideOf(H[L], H[L+1], p);
+        int sc = sideOf(H[L+1], H[0], p);
+        if (sa < 0 || sb < 0 || sc < 0) return 0;
+        if (sb == 0 || (sa == 0 && L == 1) || (sc == 0 && R == sz(H))) return 1;
+        return 2;
+    }
+    int mid = L + len / 2;
+    if (sideOf(H[0], H[mid], p) >= 0)
+        return insideHull2(H, mid, R, p);
+    return insideHull2(H, L, mid+1, p);
 }
-template <class It, class P>
-int inside_hull(It begin, It end, const P& t) {
-	if (end-begin < 3) return onsegment(*begin, end[-1], t) - 1;
-	else return inside_hull_sub(begin, end, begin+1, end-1, t);
+
+int insideHull(const vector<P>& hull, const P& p) {
+        if (sz(hull) < 3) return onSegment(hull[0], hull.back(), p);
+        else return insideHull2(hull, 1, sz(hull), p);
 }
