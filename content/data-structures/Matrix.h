@@ -29,6 +29,7 @@ template <class T, int N> struct Matrix {
 		return ret;
 	}
 	M operator^(ll p) const {
+		assert(p >= 0);
 		M a, b(*this);
 		rep(i,0,N) a.d[i][i] = 1;
 		while (p) {
