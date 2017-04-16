@@ -7,30 +7,25 @@
  */
 #pragma once
 #include <vector>
-#include "Point.h"
+#include "ConvexHull.h"
 using namespace std;
 
-typedef Point<ll> P;
-ll polygonDiameter(vector<P> points) {
-    sort(all(points));
-    vector<P> U, L;
-    trav(it, points) {
-        while (sz(U) > 1 && U[sz(U)-2].cross(it, U.back()) <= 0) U.pop_back();
-        while (sz(L) > 1 && L[sz(L)-2].cross(it, L.back()) >= 0) L.pop_back();
-        U.push_back(it);
-        L.push_back(it);
-    }
-    vector<pair<P, P>> antipodal;
-    int i = 0;
-    int j = sz(L) - 1;
-    while (i < sz(U) - 1 || j > 0) {
-        antipodal.emplace_back(U[i], L[j]);
-        if (i == sz(U) - 1) --j;
-        else if (j == 0) ++i;
-        else if ((U[i+1].y - U[i].y) * (L[j].x - L[j-1].x) > (U[i+1].x - U[i].x) * (L[j].y - L[j-1].y)) ++i;
-        else --j;
-    }
-    ll ans = 0;
-    trav(it, antipodal) ans = max(ans, (it.first - it.second).dist2());
-    return ans;
+vector<pii> antipodal(const vector<P>& S, vi& U, vi& L) {
+	vector<pii> ret;
+	int i = 0, j = sz(L) - 1;
+	while (i < sz(U) - 1 || j > 0) {
+		ret.emplace_back(U[i], L[j]);
+		if (j == 0 || (i != sz(U)-1 && (S[L[j]] - S[L[j-1]])
+					.cross(S[U[i+1]] - S[U[i]]) > 0)) ++i;
+		else --j;
+	}
+	return ret;
+}
+
+pii polygonDiameter(const vector<P>& S) {
+	vi U, L; tie(U, L) = ulHull(S);
+	pair<ll, pii> ans;
+	trav(x, antipodal(S, U, L))
+		ans = max(ans, {(S[x.first] - S[x.second]).dist2(), x});
+	return ans.second;
 }
