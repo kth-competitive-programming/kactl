@@ -14,12 +14,12 @@ template <class T>
 struct SubMatrix {
 	vector<vector<T>> p;
 	SubMatrix(vector<vector<T>>& v) {
-		int n = sz(v), m = sz(v[0]);
-		p.assign(n+1, vector<T>(m+1));
-		rep(i,0,n) rep(j,0,m)
-			p[i+1][j+1] = v[i][j] + p[i][j+1] + p[i+1][j] - p[i][j];
+		int R = sz(v), C = sz(v[0]);
+		p.assign(R+1, vector<T>(C+1));
+		rep(r,0,R) rep(c,0,C)
+			p[r+1][c+1] = v[r][c] + p[r][c+1] + p[r+1][c] - p[r][c];
 	}
-	T sum(int r1, int c1, int r2, int c2) {
-		return p[r2][c2] - p[r2][c1] - p[r1][c2] + p[r1][c1];
+	T sum(int u, int l, int d, int r) {
+		return p[d][r] - p[d][l] - p[u][r] + p[u][l];
 	}
 };
