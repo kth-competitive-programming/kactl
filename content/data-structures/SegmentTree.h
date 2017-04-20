@@ -31,12 +31,12 @@ struct Tree {
 		for (pos /= 2; pos >= 1; pos /= 2)
 			s[pos] = f(s[pos * 2], s[pos * 2 + 1]);
 	}
-	T query(int a, int b) { return que(1, a, b, 0, n); }
-	T que(int pos, int a, int b, int x, int y) {
-		if (a >= b) return LOW;
-		if (a == x && b == y) return s[pos];
-		int m = (x + y) / 2;
-		return f(que(2 * pos, a, min(b, m), x, m),
-				que(2 * pos + 1, max(a, m), b, m, y));
+	T query(int l, int r) { return que(1, l, r, 0, n); }
+	T que(int pos, int l, int r, int lo, int hi) {
+		if (r <= lo || hi <= l) return LOW;
+		if (l <= lo && hi <= r) return s[pos];
+		int m = (lo + hi) / 2;
+		return f(que(2 * pos, l, r, lo, m),
+				que(2 * pos + 1, l, r, m, hi));
 	}
 };
