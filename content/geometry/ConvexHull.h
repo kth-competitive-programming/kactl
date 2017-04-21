@@ -8,13 +8,14 @@ Returns a vector of indices of the convex hull in counter-clockwise order.
 Points on the edge of the hull between two other points are not considered part of the hull.
 \end{minipage}
 \begin{minipage}{15mm}
+\vspace{-6mm}
 \includegraphics[width=\textwidth]{../content/geometry/convexHull}
+\vspace{-6mm}
 \end{minipage}
  * Status: tested with Kattis problems convexhull
  * Usage:
- * 	vector<P> points, hull;
- *  trav(i, convexHull(points))
- *    hull.push_back(points[i]);
+ * 	vector<P> ps, hull;
+ *  trav(i, convexHull(ps)) hull.push_back(ps[i]);
  * Time: O(n \log n)
 */
 #pragma once
