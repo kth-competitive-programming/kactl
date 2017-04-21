@@ -27,7 +27,7 @@ template<class F> void each(Node* n, F f) {
 
 pair<Node*, Node*> split(Node* n, int k) {
 	if (!n) return {};
-	if (cnt(n->l) >= k) {
+	if (cnt(n->l) >= k) { // "n->val >= v" for lower_bound(v)
 		auto pa = split(n->l, k);
 		n->l = pa.second;
 		recalc(n);
@@ -54,10 +54,15 @@ Node* merge(Node* l, Node* r) {
 	}
 }
 
-// Example application: cyclically shift [l, r) left by k steps
-Node* shift(Node* t, int l, int r, int k) {
-	k %= r - l;
-	auto a = split(t, l), b = split(a.second, r - l),
-		c = split(b.first, k);
-	return merge(a.first, merge(merge(c.second, c.first), b.second));
+Node* ins(Node* t, Node* n, int pos) {
+	auto pa = split(t, pos);
+	return merge(merge(pa.first, n), pa.second);
+}
+
+// Example application: move the range [l, r) to index k
+void move(Node*& t, int l, int r, int k) {
+	Node *a, *b, *c;
+	tie(a,b) = split(t, l); tie(b,c) = split(b, r - l);
+	if (k <= l) t = merge(ins(a, b, k), c);
+	else t = merge(a, ins(c, b, k - r));
 }
