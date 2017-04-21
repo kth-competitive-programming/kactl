@@ -4,33 +4,34 @@
  * Source:
  * Description:\\
 \begin{minipage}{75mm}
- Returns a vector with the vertices of the polygon created from the points between begin and end with everything to the left of the line going from s to e cut away. P can be e.g. Point<double> or Point<int> and It should be an iterator const\_iterator with value type P. Products are used in intermediate steps so watch out for overflow.
+ Returns a vector with the vertices of a polygon with everything to the left of the line going from s to e cut away.
 \end{minipage}
 \begin{minipage}{15mm}
+\vspace{-6mm}
 \includegraphics[width=\textwidth]{../content/geometry/polygonCut}
+\vspace{-6mm}
 \end{minipage}
- * Status: tested but not extensivly
+ * Status: tested but not extensively
  * Usage:
- * 	typedef Point<double> P;
  * 	vector<P> p = ...;
- * 	p = polygonCut(p.begin(),p.end(),P(0,0),P(1,0));
+ * 	p = polygonCut(p, P(0,0), P(1,0));
  */
 #pragma once
 #include "Point.h"
 #include "lineIntersection.h"
 
-template <class P, class It>
-vector<P> polygonCut(It begin, It end, P s, P e) {
+typedef Point<double> P;
+vector<P> polygonCut(const vector<P>& poly, P s, P e) {
 	vector<P> res;
-	if (begin == end) return res;
-	for (It i = begin, j = end-1; i != end; j = i++) {
-		bool side = (e-s).cross(*i-s) < 0;
-		if (side != ((e-s).cross(*j-s)<0)) {
-			res.push_back(P());
-			lineIntersection(s, e, *i, *j, res.back());
+	rep(i,0,sz(poly)) {
+		P cur = poly[i], prev = i ? poly[i-1] : poly.back();
+		bool side = s.cross(e, cur) < 0;
+		if (side != (s.cross(e, prev) < 0)) {
+			res.emplace_back();
+			lineIntersection(s, e, cur, prev, res.back());
 		}
 		if (side)
-			res.push_back(*i);
+			res.push_back(cur);
 	}
 	return res;
 }
