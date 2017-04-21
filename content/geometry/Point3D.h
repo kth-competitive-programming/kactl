@@ -38,15 +38,9 @@ template <class T> struct Point3D {
 	P unit() const { return *this/(T)dist(); } //makes dist()=1
 	//returns unit vector normal to *this and p
 	P normal(P p) const { return cross(p).unit(); }
-	//returns point rotated a radians ccw around axis
+	//returns point rotated 'angle' radians ccw around axis
 	P rotate(double angle, P axis) const {
-		double s = sin(angle), c = cos(angle);
-		P u = axis.unit();
-		return P((u.x*u.x+(1-u.x*u.x)*c)*x
-				+ (u.y*u.x*(1-c)-u.z*s)*y + (u.x*u.z*(1-c)+u.y*s)*z,
-				(u.x*u.y*(1-c)+u.z*s)*x + (u.y*u.y+(1-u.y*u.y))*y
-				+ (u.y*u.z*(1-c)-u.x*s)*z,
-				(u.x*u.z*(1-c)-u.y*s)*x + (u.y*u.z*(1-c)+u.x*s)*y
-				+ (u.z*u.z+(1-u.z*u.z)*c)*z);
+		double s = sin(angle), c = cos(angle); P u = axis.unit();
+		return u*dot(u)*(1-c) + (*this)*c - cross(u)*s;
 	}
 };
