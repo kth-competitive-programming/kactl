@@ -29,7 +29,7 @@ int dfs(int at, int par, F f) {
 		tie(y, e) = pa;
 		if (num[y]) {
 			top = min(top, num[y]);
-			if (num[y] < num[at])
+			if (num[y] < me)
 				st.push_back(e);
 		} else {
 			int si = sz(st);
