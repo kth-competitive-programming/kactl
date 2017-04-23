@@ -3,6 +3,7 @@
  * Date: 2015-02-24
  * Source: Wikipedia, tinyKACTL
  * Description: Push-relabel using the highest label selection rule and the gap heuristic. Quite fast in practice.
+ *  To obtain the actual flow, look at positive values only.
  * Time: $O(V^2\sqrt E)$
  * Status: Tested on kattis and SPOJ
  */
