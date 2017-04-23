@@ -2,8 +2,9 @@
  * Author: Stanford
  * Date: Unknown
  * Source: Stanford Notebook
- * Description: Min-cost max-flow. cap[i][j] != cap[j][i] is allowed; negative costs probably are not.
- * To obtain the actual flow, look at positive values only.
+ * Description: Min-cost max-flow. cap[i][j] != cap[j][i] is allowed; double edges are not.
+ *  If costs can be negative, call setpi before maxflow, but note that negative cost cycles are not allowed (that's NP-hard).
+ *  To obtain the actual flow, look at positive values only.
  * Status: Tested on kattis mincostmaxflow
  * Time: Approximately O(E^2)
  */
@@ -78,5 +79,17 @@ struct MCMF {
 		}
 		rep(i,0,N) rep(j,0,N) totcost += cost[i][j] * flow[i][j];
 		return {totflow, totcost};
+	}
+
+	// If some costs can be negative, call this before maxflow:
+	void setpi(int s) { // (otherwise, leave this out)
+		fill(all(pi), INF); pi[s] = 0;
+		int it = N, ch = 1; ll v;
+		while (ch-- && it--)
+			rep(i,0,N) if (pi[i] != INF)
+				trav(to, ed[i]) if (cap[i][to])
+					if ((v = pi[i] + cost[i][to]) < pi[to])
+						pi[to] = v, ch = 1;
+		assert(it >= 0); // negative cost cycle
 	}
 };
