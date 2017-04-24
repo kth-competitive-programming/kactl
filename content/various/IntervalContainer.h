@@ -3,7 +3,7 @@
  * Description: Add and remove intervals from a set of disjoint intervals.
  * Will merge the added interval with any overlapping intervals in the set when adding.
  * Intervals are [inclusive, exclusive).
- * Status: Tested, manually
+ * Status: fuzz-tested
  * Time: O(\log N)
  */
 #pragma once
@@ -12,27 +12,27 @@
 using namespace std;
 
 template <class T>
-void addInterval(set<pair<T, T>>& is, T l, T r) {
-	if (l == r) return;
-	auto it2 = is.insert({l, r}).first, it = it2++;
-	while (it2 != is.end() && it->second >= it2->first) {
-		(T&)it->second = max(it->second, it2->second);
-		it2 = is.erase(it2);
+auto addInterval(set<pair<T, T>>& is, T L, T R) {
+	if (L == R) return is.end();
+	auto it = is.lower_bound({L, R}), before = it;
+	while (it != is.end() && it->first <= R) {
+		R = max(R, it->second);
+		before = it = is.erase(it);
 	}
-	while (it != is.begin() && it->first <= (it2 = it, --it2)->second) {
-		(T&)it->first = min(it->first, it2->first);
-		(T&)it->second = max(it->second, it2->second);
-		is.erase(it2);
+	if (it != is.begin() && (--it)->second >= L) {
+		L = min(L, it->first);
+		R = max(R, it->second);
+		is.erase(it);
 	}
+	return is.insert(before, {L,R});
 };
 
 template <class T>
-void removeInterval(set<pair<T, T>>& is, T l, T r) {
-	if (l == r) return;
-	addInterval(is, l, r);
-	auto it = --is.upper_bound({l, numeric_limits<T>::max()});
+void removeInterval(set<pair<T, T>>& is, T L, T R) {
+	if (L == R) return;
+	auto it = addInterval(is, L, R);
 	T r2 = it->second;
-	if (it->first == l) is.erase(it);
-	else (T&)it->second = l;
-	if (r != r2) is.emplace(r, r2);
+	if (it->first == L) is.erase(it);
+	else (T&)it->second = L;
+	if (R != r2) is.emplace(R, r2);
 };
