@@ -15,51 +15,51 @@
 
 const int inf = 1e9;
 struct Node {
-	Node *L = 0, *R = 0;
+	Node *l = 0, *r = 0;
 	int lo, hi, mset = inf, madd = 0, val = -inf;
 	Node(int lo,int hi):lo(lo),hi(hi){} // Large interval of -inf
 	Node(vi& v, int lo, int hi) : lo(lo), hi(hi) {
 		if (lo + 1 < hi) {
 			int mid = lo + (hi - lo)/2;
-			L = new Node(v, lo, mid); R = new Node(v, mid, hi);
-			val = max(L->val, R->val);
+			l = new Node(v, lo, mid); r = new Node(v, mid, hi);
+			val = max(l->val, r->val);
 		}
 		else val = v[lo];
 	}
-	int query(int from, int to) {
-		if (to <= lo || hi <= from) return -inf;
-		if (from <= lo && hi <= to) return val;
+	int query(int L, int R) {
+		if (R <= lo || hi <= L) return -inf;
+		if (L <= lo && hi <= R) return val;
 		push();
-		return max(L->query(from, to), R->query(from, to));
+		return max(l->query(L, R), r->query(L, R));
 	}
-	void set(int from, int to, int x) {
-		if (to <= lo || hi <= from) return;
-		if (from <= lo && hi <= to) mset = val = x, madd = 0;
+	void set(int L, int R, int x) {
+		if (R <= lo || hi <= L) return;
+		if (L <= lo && hi <= R) mset = val = x, madd = 0;
 		else {
-			push(), L->set(from, to, x), R->set(from, to, x);
-			val = max(L->val, R->val);
+			push(), l->set(L, R, x), r->set(L, R, x);
+			val = max(l->val, r->val);
 		}
 	}
-	void add(int from, int to, int x) {
-		if (to <= lo || hi <= from) return;
-		if (from <= lo && hi <= to) {
+	void add(int L, int R, int x) {
+		if (R <= lo || hi <= L) return;
+		if (L <= lo && hi <= R) {
 			if (mset != inf) mset += x;
 			else madd += x;
 			val += x;
 		}
 		else {
-			push(), L->add(from, to, x), R->add(from, to, x);
-			val = max(L->val, R->val);
+			push(), l->add(L, R, x), r->add(L, R, x);
+			val = max(l->val, r->val);
 		}
 	}
 	void push() {
-		if (!L) {
+		if (!l) {
 			int mid = lo + (hi - lo)/2;
-			L = new Node(lo, mid); R = new Node(mid, hi);
+			l = new Node(lo, mid); r = new Node(mid, hi);
 		}
 		if (mset != inf)
-			L->set(lo,hi,mset), R->set(lo,hi,mset), mset = inf;
+			l->set(lo,hi,mset), r->set(lo,hi,mset), mset = inf;
 		else if (madd)
-			L->add(lo,hi,madd), R->add(lo,hi,madd), madd = 0;
+			l->add(lo,hi,madd), r->add(lo,hi,madd), madd = 0;
 	}
 };
