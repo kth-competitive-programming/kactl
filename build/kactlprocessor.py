@@ -44,6 +44,13 @@ def ordoescape(input):
 			return input[:start] + "\\bigo{" + input[start+2:end] + "}" + ordoescape(input[end+1:])
 	return input
 
+def print_title(caption, outstream):
+	caption = pathescape(caption)
+	print >> outstream, "\\kactlref{",caption,"}"
+	if not caption.startswith('.'):
+		caption = caption.split('.')[0]
+	print >> outstream, "\\gappto\\thelistings{\\textbf{",caption," }}"
+
 def processwithcomments(caption, instream, outstream, listingslang = None):
 	knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'Status', 'Usage', 'Changes']
 	requiredcommands = ['Author', 'Description']
@@ -123,7 +130,7 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 	if error:
 		print >> outstream, "\kactlerror{",caption,":",error,"}"
 	else:
-		print >> outstream, "\\kactlref{",pathescape(caption),"}"
+		print_title(caption, outstream)
 		if "Description" in commands and len(commands["Description"])>0:
 			print >> outstream, "\\defdescription{",escape(commands["Description"]),"}"
 		if "Usage" in commands and len(commands["Usage"])>0:
@@ -145,7 +152,7 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 def processraw(caption, instream, outstream, listingslang = 'raw'):
 	try:
 		source = instream.read().strip()
-		print >> outstream, "\\kactlref{",pathescape(caption),"}"
+		print_title(caption, outstream)
 		print >> outstream, "\\rightcaption{",str(linecount(source))," lines}"
 		print >> outstream, "\\begin{lstlisting}[language="+listingslang+",caption={",pathescape(caption),"}]"
 		print >> outstream, source
@@ -158,8 +165,8 @@ def linecount(source):
 
 def isdefaultinclude(line):
 	defaultinclude = ['<iostream>', '<algorithm>', '<string>', '<vector>',
-                '<cmath>', '<cstring>', '<cstdio>', '<cstdlib>', '<cassert>',
-                '<queue>', '<map>', '<set>', '<utility>']
+			'<cmath>', '<cstring>', '<cstdio>', '<cstdlib>', '<cassert>',
+			'<queue>', '<map>', '<set>', '<utility>']
 	line = line.strip()
 	if line.startswith("#include") and not line.endswith("/** keep-include */"):
 		line = line[8:].strip()
