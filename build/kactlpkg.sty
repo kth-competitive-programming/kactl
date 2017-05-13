@@ -107,7 +107,7 @@
 \renewcommand{\cftbeforechapskip}{10pt}
 \renewcommand{\cftdotsep}{4.5}
 
-% A proper caret
+% Proper carets and tildes
 \newcommand*{\caret}{%
   \begingroup
     \fontencoding{T1}%
@@ -116,6 +116,7 @@
     \string^%
   \endgroup
 }
+\renewcommand*{\tilde}{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}
 
 % Configure source code listings
 \lstset{language=C++}
@@ -127,6 +128,7 @@
 \lstset{basicstyle=\scriptsize\ttfamily}
 \lstset{commentstyle=\normalfont\itshape}
 \lstset{literate={^}{\caret}{1}}
+\lstset{literate={~}{\tilde}{1}}
 \lstset{emptylines=*1}
 \lstset{inputencoding=utf8}
 \lstset{aboveskip=3pt}
