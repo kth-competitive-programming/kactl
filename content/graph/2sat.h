@@ -3,11 +3,12 @@
  * Date: 2011-11-29
  * Source:
  * Description: Calculates a valid assignment to boolean variables a, b, c,... to a 2-SAT problem, so that an expression of the type $(a\|\|b)\&\&(!a\|\|c)\&\&(d\|\|!b)\&\&...$ becomes true, or reports that it is unsatisfiable.
+ * Negated variables are represented by bit-inversions (\texttt{\tilde{}x}).
  * Usage:
  *  TwoSat ts(number of boolean variables);
- *  ts.add_clause(0, true, 3, false); // Var 0 is true or var 3 is false (or both)
- *  ts.set_value(2, true); // Var 2 is true
- *  ts.at_most_one({0,1,2}); // <= 1 of vars 0, 1 and 2 are true
+ *  ts.either(0, \tilde3); // Var 0 is true or var 3 is false
+ *  ts.set_value(2); // Var 2 is true
+ *  ts.at_most_one({0,\tilde1,2}); // <= 1 of vars 0, \tilde1 and 2 are true
  *  ts.solve(); // Returns true iff it is solvable
  *  ts.values[0..N-1] holds the assigned values to the vars
  * Time: O(N+E), where N is the number of boolean variables, and E is the number of clauses.
@@ -31,26 +32,25 @@ struct TwoSat {
 		return N++;
 	}
 
-	void add_clause(int aind, bool aval, int bind, bool bval) {
-		int a = 2*aind + aval, b = 2*bind + bval;
+	void either(int a, int b) {
+		a = (a >= 0 ? 2*a : ~(2*a));
+		b = (b >= 0 ? 2*b : ~(2*b));
 		gr[a^1].push_back(b);
 		gr[b^1].push_back(a);
 	}
-	void set_value(int index, bool value) { // (optional)
-		add_clause(index, value, index, value);
-	}
+	void set_value(int x) { either(x, x); }
 
-	void at_most_one(const vi& li, bool val=1) { // (optional)
+	void at_most_one(const vi& li) { // (optional)
 		if (sz(li) <= 1) return;
-		int cur = li[0];
+		int cur = ~li[0];
 		rep(i,2,sz(li)) {
 			int next = add_var();
-			add_clause(cur, !val, li[i], !val);
-			add_clause(cur, !val, next, val);
-			add_clause(li[i], !val, next, val);
-			cur = next;
+			either(cur, ~li[i]);
+			either(cur, next);
+			either(~li[i], next);
+			cur = ~next;
 		}
-		add_clause(cur, !val, li[1], !val);
+		either(cur, ~li[1]);
 	}
 
 	vi val, comp, z; int time = 0;
@@ -63,7 +63,7 @@ struct TwoSat {
 			x = z.back(); z.pop_back();
 			comp[x] = time;
 			if (values[x>>1] == -1)
-				values[x>>1] = x&1;
+				values[x>>1] = 1 - x&1;
 		} while (x != i);
 		return val[i] = low;
 	}
