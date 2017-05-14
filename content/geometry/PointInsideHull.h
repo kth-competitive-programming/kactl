@@ -9,6 +9,9 @@
  * Status: Tested at Moscow ICPC pre-finals workshop
  * Time: O(\log N)
  */
+#include "Point.h"
+#include "sideOf.h"
+#include "onSegment.h"
 
 typedef Point<ll> P;
 int insideHull2(const vector<P>& H, int L, int R, const P& p) {
@@ -18,7 +21,8 @@ int insideHull2(const vector<P>& H, int L, int R, const P& p) {
 		int sb = sideOf(H[L], H[L+1], p);
 		int sc = sideOf(H[L+1], H[0], p);
 		if (sa < 0 || sb < 0 || sc < 0) return 0;
-		if (sb == 0 || (sa == 0 && L == 1) || (sc == 0 && R == sz(H))) return 1;
+		if (sb==0 || (sa==0 && L == 1) || (sc == 0 && R == sz(H)))
+			return 1;
 		return 2;
 	}
 	int mid = L + len / 2;
