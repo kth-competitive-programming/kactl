@@ -37,6 +37,14 @@
 		$$E(n,0) = E(n,n-1) = 1$$
 		$$E(n,k) = \sum_{j=0}^k(-1)^j\binom{n+1}{j}(k+1-j)^n$$
 
+	\subsection{Burnside's lemma}
+		Given a group $G$ of symmetries and a set $X$, the number of elements of $X$ \emph{up to symmetry} equals
+		 \[ {\frac {1}{|G|}}\sum _{{g\in G}}|X^{g}|, \]
+		 where $X^{g}$ are the elements fixed by $g$ ($g.x = x$).
+
+		 If $f(n)$ counts "configurations" (of some sort) of length $n$, we can ignore rotational symmetry using $G = \mathbb Z_n$ to get
+		 \[ g(n) = \frac 1 n \sum_{k=0}^{n-1}{f(\text{gcd}(n, k))} = \frac 1 n \sum_{k|n}{f(k)\phi(n/k)}. \]
+
 \section{Partitions and subsets}
 	\subsection{Partition function}
 		Partitions of $n$ with exactly $k$ parts, $p(n,k)$, i.e., writing $n$ as a sum of $k$ positive integers, disregarding the order of the summands.
