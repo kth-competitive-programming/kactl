@@ -3,74 +3,60 @@
  * Date: 2009-10-13
  * Source: N/A
  * Description: Find a maximum matching in a bipartite graph.
- * Status: Working
+ * Status: Tested on oldkattis.adkbipmatch and SPOJ:MATCHING
  * Usage: vi ba(m, -1); hopcroftKarp(g, ba);
- * Time: O(\sqrt{V}E), where $V$ is the number of vertices and $E$ is the number
- * of edges.
+ * Time: O(\sqrt{V}E)
  */
 #pragma once
 
 #include <vector>
 using namespace std;
 
-bool hopcroftKarp_dfs(int a, int layer, const vector<vector<int> >& AtoB, vector<int>& BtoA, vector<int>& layerA, vector<int>& layerB) {
-	if(layerA[a] != layer) return false;
-	layerA[a] = -1;
-	int layerNextB = layer + 1, layerNextA = layer + 2;
-	for(int i = 0; i < (int)AtoB[a].size(); ++i) {
-		int b = AtoB[a][i];
-		if(layerB[b] != layerNextB) continue;
-		layerB[b] = -1;
-		if(BtoA[b] == -1 || hopcroftKarp_dfs(BtoA[b], layerNextA, AtoB, BtoA, layerA, layerB))
-			return BtoA[b] = a, true;
+bool dfs(int a, int layer, const vector<vi>& g, vi& btoa,
+			vi& A, vi& B) {
+	if (A[a] != layer) return 0;
+	A[a] = -1;
+	trav(b, g[a]) if (B[b] == layer + 1) {
+		B[b] = -1;
+		if (btoa[b] == -1 || dfs(btoa[b], layer+2, g, btoa, A, B))
+			return btoa[b] = a, 1;
 	}
-	return false;
+	return 0;
 }
 
-int hopcroftKarp(const vector<vector<int> >& AtoB, vector<int>& BtoA) {
-	int incrMatching = 0, bfsAEnd, bfsANextEnd;
-	vector<int> layerA(AtoB.size()), layerB(BtoA.size()), bfsA(AtoB.size()), bfsANext(AtoB.size());
-	while(true) {
-		fill(layerA.begin(), layerA.end(), 0);
-		fill(layerB.begin(), layerB.end(), -1);
-		// Find the starting nodes for BFS (i.e. layer 0).
-		for(int b = 0; b < (int)BtoA.size(); ++b)
-			if(BtoA[b] != -1) layerA[BtoA[b]] = -1;
-		bfsAEnd = 0;
-		for(int a = 0; a < (int)AtoB.size(); ++a)
-			if(layerA[a] == 0) bfsA[bfsAEnd++] = a;
-		// Find all layers using bfs.
-		for(int layerNext = 1;; ++layerNext) {
-			bool layerIsLast = false;
-			bfsANextEnd = 0;
-			for(int bfsAPos = 0; bfsAPos < bfsAEnd; ++bfsAPos) {
-				int a = bfsA[bfsAPos];
-				for(int i = 0; i < (int)AtoB[a].size(); ++i) {
-					int b = AtoB[a][i];
-					if(BtoA[b] == -1) {
-						layerB[b] = layerNext;
-						layerIsLast = true;
-					}
-					else if(BtoA[b] != a && layerB[b] == -1) {
-						layerB[b] = layerNext;
-						bfsANext[bfsANextEnd++] = BtoA[b];
-					}
+int hopcroftKarp(const vector<vi>& g, vi& btoa) {
+	int res = 0;
+	vi A(g.size()), B(btoa.size()), cur, next;
+	for (;;) {
+		fill(all(A), 0);
+		fill(all(B), -1);
+		/// Find the starting nodes for BFS (i.e. layer 0).
+		cur.clear();
+		trav(a, btoa) if(a != -1) A[a] = -1;
+		rep(a,0,sz(g)) if(A[a] == 0) cur.push_back(a);
+		/// Find all layers using bfs.
+		for (int lay = 1;; lay += 2) {
+			bool islast = 0;
+			next.clear();
+			trav(a, cur) trav(b, g[a]) {
+				if (btoa[b] == -1) {
+					B[b] = lay;
+					islast = 1;
+				}
+				else if (btoa[b] != a && B[b] == -1) {
+					B[b] = lay;
+					next.push_back(btoa[b]);
 				}
 			}
-			if(layerIsLast) break;
-			if(bfsANextEnd == 0) return incrMatching;
-			++layerNext;
-			for(int bfsANextPos = 0; bfsANextPos < bfsANextEnd; ++bfsANextPos) {
-				int a = bfsANext[bfsANextPos];
-				layerA[a] = layerNext;
-			}
-			bfsAEnd = bfsANextEnd;
-			bfsA.swap(bfsANext);
+			if (islast) break;
+			if (next.empty()) return res;
+			trav(a, next) A[a] = lay+1;
+			cur.swap(next);
 		}
-		// Use DFS to scan for augmenting paths.
-		for(int a = 0; a < (int)AtoB.size(); ++a) {
-			if(hopcroftKarp_dfs(a, 0, AtoB, BtoA, layerA, layerB))
-				++incrMatching;
+		/// Use DFS to scan for augmenting paths.
+		rep(a,0,sz(g)) {
+			if(dfs(a, 0, g, btoa, A, B))
+				++res;
 		}
 	}
 }
