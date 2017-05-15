@@ -1,51 +1,82 @@
 /**
- * Author: Unknown
- * Date: Unknown
- * Source: tinyKACTL
- * Description: Line-hull intersection. Untested!
- * Usage:
- * Status: not tested
- * Time: O(\log n)
+ * Author: Johan Sannemo
+ * Date: 2017-05-15
+ * Source: thin air
+ * Description: Line-convex polygon intersection. The polygon must be ccw and have no colinear points.
+ *  isct(a, b) returns a pair describing the intersection of a line with the polygon:
+ *  \begin{itemize*}
+ *    \item $(-1, -1)$ if no collision,
+ *    \item $(i, -1)$ if touching the corner $i$,
+ *    \item $(i, i)$ if along side $(i, i+1)$,
+ *    \item $(i, j)$ if crossing sides $(i, i+1)$ and $(j, j+1)$.
+ *  \end{itemize*}
+ *  In the last case, if a corner $i$ is crossed, this is treated as happening on side $(i, i+1)$.
+ *  The points are returned in the same order as the line hits the polygon.
+ * Status: fuzz-tested
+ * Time: O(N + Q \log n)
  */
 
 #include "Point.h"
 
-template <class V, class T>
-struct line_hull_isct {
-	typedef Point<T> P;
-	const V &p;
-	int n;
-	const P &p1, &p2;
-	int &s1, &s2;
-	line_hull_isct(const V& p, int n, const P& p1, const P& p2, int& s1, int& s2)
-		: p(p), n(n), p1(p1), p2(p2), s1(s1), s2(s2) {}
-	// assumes 0 <= md <= i1d, i2d
-	bool isct(int i1, int m, int i2, double md) {
-		if (md <= 0) {
-			s1 = findisct(i1, m) % n;
-			s2 = findisct(i2, m) % n;
-			return true;
+ll sgn(ll a) { return (a > 0) - (a < 0); }
+typedef Point<ll> P;
+struct HullIntersection {
+	int N;
+	vector<P> p;
+	vector<pair<P, int>> a;
+
+	HullIntersection(const vector<P>& ps) : N(sz(ps)), p(ps) {
+		p.insert(p.end(), all(ps));
+		int b = 0;
+		rep(i,1,N) if (P{p[i].y,p[i].x} < P{p[b].y, p[b].x}) b = i;
+		rep(i,0,N) {
+			int f = (i + b) % N;
+			a.emplace_back(p[f+1] - p[f], f);
 		}
-		if (i2-i1 <= 2) return false;
-		int l = (i1 + m) / 2, r = (m + i2) / 2;
-		double ld = linedist(p1, p2, p[l % n]);
-		double rd = linedist(p1, p2, p[r % n]);
-		if (ld <= md && ld <= rd) return isct(i1, l, m, ld);
-		if (rd <= md && rd <= ld) return isct(m, r, i2, rd);
-		else return isct(l, m, r, md);
 	}
-	int findisct(int pos, int neg) {
-		int m = (pos + neg) / 2;
-		if (m == pos) return pos;
-		if (m == neg) return neg;
-		double d = linedist(p1, p2, p[m % n]);
-		if (d <= 0) return findisct(pos, m);
-		else return findisct(m, neg);
+
+	int qd(P p) {
+		return (p.y < 0) ? (p.x >= 0) + 2
+		     : (p.x <= 0) * (1 + (p.y <= 0));
+	}
+
+	int bs(P dir) {
+		int lo = -1, hi = N;
+		while (hi - lo > 1) {
+			int mid = (lo + hi) / 2;
+			if (make_pair(qd(dir), dir.y * a[mid].first.x) <
+				make_pair(qd(a[mid].first), dir.x * a[mid].first.y)) hi = mid;
+			else lo = mid;
+		}
+		return a[hi%N].second;
+	}
+
+	bool isign(P a, P b, int x, int y, int s) {
+		return sgn(a.cross(p[x], b)) * sgn(a.cross(p[y], b)) == s;
+	}
+
+	int bs2(int lo, int hi, P a, P b) {
+		int L = lo;
+		if (hi < lo) hi += N;
+		while (hi - lo > 1) {
+			int mid = (lo + hi) / 2;
+			if (isign(a, b, mid, L, -1)) hi = mid;
+			else lo = mid;
+		}
+		return lo;
+	}
+
+	pii isct(P a, P b) {
+		int f = bs(a - b), j = bs(b - a);
+		if (isign(a, b, f, j, 1)) return {-1, -1};
+		int x = bs2(f, j, a, b)%N,
+		    y = bs2(j, f, a, b)%N;
+		if (a.cross(p[x], b) == 0 &&
+		    a.cross(p[x+1], b) == 0) return {x, x};
+		if (a.cross(p[y], b) == 0 &&
+		    a.cross(p[y+1], b) == 0) return {y, y};
+		if (a.cross(p[f], b) == 0) return {f, -1};
+		if (a.cross(p[j], b) == 0) return {j, -1};
+		return {x, y};
 	}
 };
-template <class V, class T>
-bool line_hull_intersect(const V& p, int n, const Point<T>& p1, const Point<T>& p2, int& s1, int& s2) {
-	double d = linedist(p1, p2, p[0]);
-	return line_hull_isct<V, T>(p, n, d >= 0 ? p1 : p2, d >= 0 ? p2 : p1, s1, s2)
-		.isct(0, n, 2 * n, fabs(d));
-}
