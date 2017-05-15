@@ -33,8 +33,7 @@ double MinCostMatching(const vector<vd>& cost, vi& L, vi& R) {
 	}
 
 	/// find primal solution satisfying complementary slackness
-	L = vi(n, -1);
-	R = vi(n, -1);
+	L = R = vi(n, -1);
 	rep(i,0,n) rep(j,0,n) {
 		if (R[j] != -1) continue;
 		if (zero(cost[i][j] - u[i] - v[j])) {
@@ -91,7 +90,6 @@ double MinCostMatching(const vector<vd>& cost, vi& L, vi& R) {
 		R[j] = s;
 		L[s] = j;
 	}
-
 	auto value = vd(1)[0];
 	rep(i,0,n) value += cost[i][L[i]];
 	return value;

@@ -3,6 +3,7 @@
  * Date: 2017-04-20
  * Source: own work
  * Description: Container where you can add lines of the form kx+m, and query maximum values at points x.
+ *  Useful for dynamic programming.
  * Time: O(\log N)
  * Status: tested
  */

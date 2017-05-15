@@ -45,7 +45,8 @@ struct HullIntersection {
 		while (hi - lo > 1) {
 			int mid = (lo + hi) / 2;
 			if (make_pair(qd(dir), dir.y * a[mid].first.x) <
-				make_pair(qd(a[mid].first), dir.x * a[mid].first.y)) hi = mid;
+				make_pair(qd(a[mid].first), dir.x * a[mid].first.y))
+				hi = mid;
 			else lo = mid;
 		}
 		return a[hi%N].second;

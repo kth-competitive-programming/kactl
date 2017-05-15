@@ -5,8 +5,7 @@
  * Time: O(pattern) for pi, O(word + pattern) for find
  * Status: Tested on Kattis, stringmatching
  * Usage:
- *  vi p = pi(pattern);
- *  vi occ = find(word, p);
+ *  vi p = pi(pattern); vi occ = find(word, p);
  */
 #pragma once
 #include <vector>

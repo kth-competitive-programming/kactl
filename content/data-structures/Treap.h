@@ -16,10 +16,11 @@ struct Node {
 	Node *l = 0, *r = 0;
 	int val, y, c = 1;
 	Node(int val) : val(val), y(rand()) {}
+	void recalc();
 };
 
 int cnt(Node* n) { return n ? n->c : 0; }
-void recalc(Node* n) { n->c = cnt(n->l) + cnt(n->r) + 1; }
+void Node::recalc() { c = cnt(l) + cnt(r) + 1; }
 
 template<class F> void each(Node* n, F f) {
 	if (n) { each(n->l, f); f(n->val); each(n->r, f); }
@@ -30,12 +31,12 @@ pair<Node*, Node*> split(Node* n, int k) {
 	if (cnt(n->l) >= k) { // "n->val >= v" for lower_bound(v)
 		auto pa = split(n->l, k);
 		n->l = pa.second;
-		recalc(n);
+		n->recalc();
 		return {pa.first, n};
 	} else {
 		auto pa = split(n->r, k - cnt(n->l) - 1);
 		n->r = pa.first;
-		recalc(n);
+		n->recalc();
 		return {n, pa.second};
 	}
 }
@@ -45,11 +46,11 @@ Node* merge(Node* l, Node* r) {
 	if (!r) return l;
 	if (l->y > r->y) {
 		l->r = merge(l->r, r);
-		recalc(l);
+		l->recalc();
 		return l;
 	} else {
 		r->l = merge(l, r->l);
-		recalc(r);
+		r->recalc();
 		return r;
 	}
 }
