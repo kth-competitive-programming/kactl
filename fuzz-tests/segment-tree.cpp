@@ -20,11 +20,14 @@ int ra() {
 }
 
 int main() {
+	Tree t(0);
+	assert(t.query(0, 0) == t.LOW);
+
 	if (1) {
 		const int N = 10000;
 		Tree tr(N);
 		ll sum = 0;
-		rep(it,0,10000000) {
+		rep(it,0,1000000) {
 			tr.update(ra() % N, ra());
 			int i = ra() % N;
 			int j = ra() % N;
@@ -33,25 +36,27 @@ int main() {
 			sum += v;
 		}
 		cout << sum << endl;
-		return 0;
+		// return 0;
 	}
 
-	Tree tr(10);
-	vi v(10);
-	rep(it,0,10000000) {
-		int i = rand() % 11, j = rand() % 11;
-		int x = rand() % 10;
+	rep(n,1,10) {
+		Tree tr(n);
+		vi v(n);
+		rep(it,0,1000000) {
+			int i = rand() % (n+1), j = rand() % (n+1);
+			int x = rand() % n;
 
-		int r = rand() % 100;
-		if (r < 30) {
-			int ma = -1234567890;
-			rep(k,i,j) ma = max(ma, v[k]);
-			assert(ma == tr.query(i,j));
-		}
-		else {
-			i = min(i, 9);
-			tr.update(i, x);
-			v[i] = x;
+			int r = rand() % 100;
+			if (r < 30) {
+				int ma = -1234567890;
+				rep(k,i,j) ma = max(ma, v[k]);
+				assert(ma == tr.query(i,j));
+			}
+			else {
+				i = min(i, n-1);
+				tr.update(i, x);
+				v[i] = x;
+			}
 		}
 	}
 	exit(0);
