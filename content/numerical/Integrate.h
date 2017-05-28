@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-02-11
+ * License: CC0
  * Source: Wikipedia
  * Description: Simple integration of a function over an interval using
  *  Simpson's rule. The error should be proportional to $h^4$, although in

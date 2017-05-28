@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-03-15
+ * License: CC0
  * Source: own work
  * Description: Various self-explanatory methods for string hashing.
  * Use on Codeforces, which lacks 64-bit support and where solutions can be hacked.

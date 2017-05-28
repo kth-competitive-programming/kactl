@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-06-23
+ * License: CC0
  * Source: own work
  * Description: Sums of mod'ed arithmetic progressions.
  *

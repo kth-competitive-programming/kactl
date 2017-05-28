@@ -1,6 +1,7 @@
 /**
  * Author: Johan Sannemo
  * Date: 2015-02-06
+ * License: CC0
  * Source: Folklore
  * Status: Tested at Petrozavodsk
  * Description: Range Minimum Queries on an array. Returns

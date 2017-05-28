@@ -1,5 +1,6 @@
 /**
  * Author: Johan Sannemo
+ * License: CC0
  * Description: Compute indices for the longest increasing subsequence.
  * Status: Tested on Kattis, longincsubseq
  * Time: $O(N \log N)$

@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-09-10
+ * License: CC0
  * Source: based on KACTL's FFT
  * Description: Number theoretic transform. Can be used for
  * convolutions modulo specific nice primes

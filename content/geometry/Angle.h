@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-01-31
+ * License: CC0
  * Source:
  * Description: A class for ordering angles (as represented by int points and
  *  a number of rotations around the origin). Useful for rotational sweeping.

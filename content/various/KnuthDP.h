@@ -1,5 +1,6 @@
 /**
  * Author: Simon Lindholm
+ * License: CC0
  * Source: http://codeforces.com/blog/entry/8219
  * Description: When doing DP on intervals: $a[i][j] = \min_{i < k < j}(a[i][k] + a[k][j]) + f(i, j)$, where the (minimal) optimal $k$ increases with both $i$ and $j$,
  *  one can solve intervals in increasing order of length, and search $k = p[i][j]$ for $a[i][j]$ only between $p[i][j-1]$ and $p[i+1][j]$.

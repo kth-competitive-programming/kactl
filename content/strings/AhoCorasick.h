@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-02-18
+ * License: CC0
  * Source: marian's (TC) code
  * Description: Aho-Corasick tree is used for multiple pattern matching.
  * Initialize the tree with create(patterns). find(word) returns for each position

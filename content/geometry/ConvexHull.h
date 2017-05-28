@@ -1,6 +1,7 @@
 /**
  * Author: Johan Sannemo
  * Date: 2017-04-16
+ * License: CC0
  * Source: Basic algorithm knowledge
  * Description:
 \\\begin{minipage}{75mm}

@@ -1,6 +1,7 @@
 /**
  * Author: Johan Sannemo, Simon Lindholm
  * Date: 2015-09-20
+ * License: CC0
  * Source: Folklore
  * Status: Somewhat tested
  * Description: Lowest common ancestor. Finds the lowest common

@@ -52,7 +52,7 @@ def print_title(caption, outstream):
 	print >> outstream, "\\gappto\\thelistings{\\textbf{",caption," }}"
 
 def processwithcomments(caption, instream, outstream, listingslang = None):
-	knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'Status', 'Usage']
+	knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage']
 	requiredcommands = ['Author', 'Description']
 	includelist = ""
 	error = ""

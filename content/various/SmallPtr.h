@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-08-23
+ * License: CC0
  * Source: me
  * Description: A 32-bit pointer that points into BumpAllocator memory.
  * Status: tested

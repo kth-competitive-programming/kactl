@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-09-10
+ * License: CC0
  * Source: folklore
  * Description:
  * Status: tested

@@ -1,6 +1,7 @@
 /**
  * Author: Johan Sannemo
  * Date: 2017-04-13
+ * License: CC0
  * Source: Inspired by old, broken tinyKACTL.
  * Description: Determine whether a point t lies inside a given polygon (counter-clockwise order).
  * The polygon must be such that every point on the circumference is visible from the first point in the vector.

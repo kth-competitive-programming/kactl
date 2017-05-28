@@ -1,6 +1,7 @@
 /**
  * Date: 2014-11-28
  * Author: Johan Sannemo
+ * License: CC0
  * Source: Folklore
  * Status: Tested on Kattis
  * Description: Calculate submatrix sums quickly, given upper-left and lower-right corners (half-open).

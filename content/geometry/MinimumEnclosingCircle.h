@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2017-04-20
+ * License: CC0
  * Source: NAPC 2017 solution presentation
  * Description: Computes the minimum circle that encloses a set of points.
  * Time: expected O(n)

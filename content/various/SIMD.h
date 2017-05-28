@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-03-18
+ * License: CC0
  * Source: https://software.intel.com/sites/landingpage/IntrinsicsGuide/
  * Description: Cheat sheet of SSE/AVX intrinsics, for doing arithmetic on several numbers at once.
  * Can provide a constant factor improvement of about 4, orthogonal to loop unrolling.

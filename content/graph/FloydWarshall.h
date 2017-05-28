@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-12-15
+ * License: CC0
  * Source: http://en.wikipedia.org/wiki/Floyd–Warshall_algorithm
  * Description: Calculates all-pairs shortest path in a directed graph that might have negative edge distances.
  * Input is an distance matrix $m$, where $m[i][j] = \texttt{inf}$ if $i$ and $j$ are not adjacent.

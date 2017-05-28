@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-02-23
+ * License: CC0
  * Source: http://en.wikipedia.org/wiki/Bellman-Ford_algorithm
  * Description: Calculates shortest path in a graph that might have negative edge distances.
  * Propagates negative infinity distances (sets dist = -inf), and returns true

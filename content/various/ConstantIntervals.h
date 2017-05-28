@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-03-20
+ * License: CC0
  * Source: me
  * Description: Split a monotone function on [from, to) into a minimal set of half-open intervals on which it has the same value.
  *  Runs a callback g for each such interval.

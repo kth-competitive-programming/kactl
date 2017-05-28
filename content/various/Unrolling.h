@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-03-19
+ * License: CC0
  * Source: me
  * Description:
  */

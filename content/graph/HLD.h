@@ -1,6 +1,7 @@
 /**
  * Author: Johan Sannemo
  * Date: 2015-02-10
+ * License: CC0
  * Source: folkore
  * Description: Decomposes a tree into vertex disjoint heavy paths and light
  *  edges such that the path from any leaf to the root contains at most log(n)

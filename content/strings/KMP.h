@@ -1,5 +1,6 @@
 /**
  * Author: Johan Sannemo
+ * License: CC0
  * Description: pi[x] computes the length of the longest prefix of s that ends at x, other than s[0..x] itself
  * This is used by find to find all occurances of a string.
  * Time: O(pattern) for pi, O(word + pattern) for find

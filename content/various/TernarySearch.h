@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-05-12
+ * License: CC0
  * Source: own work
  * Description:
  * Find the smallest i in $[a,b]$ that maximizes $f(i)$, assuming that $f(a) < \dots < f(i) \ge \dots \ge f(b)$.

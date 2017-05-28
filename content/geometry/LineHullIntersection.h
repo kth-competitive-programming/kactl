@@ -1,6 +1,7 @@
 /**
  * Author: Johan Sannemo
  * Date: 2017-05-15
+ * License: CC0
  * Source: thin air
  * Description: Line-convex polygon intersection. The polygon must be ccw and have no colinear points.
  *  isct(a, b) returns a pair describing the intersection of a line with the polygon:

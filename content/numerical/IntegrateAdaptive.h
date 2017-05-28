@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-02-11
+ * License: CC0
  * Source: Wikipedia
  * Description: Fast integration using an adaptive Simpson's rule.
  * Status: mostly untested

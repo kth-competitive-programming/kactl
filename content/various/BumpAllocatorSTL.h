@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-07-23
+ * License: CC0
  * Source: me
  * Description: BumpAllocator for STL containers.
  * Usage: vector<vector<int, small<int>>> ed(N);

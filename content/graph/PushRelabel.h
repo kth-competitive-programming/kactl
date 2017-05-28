@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-02-24
+ * License: CC0
  * Source: Wikipedia, tinyKACTL
  * Description: Push-relabel using the highest label selection rule and the gap heuristic. Quite fast in practice.
  *  To obtain the actual flow, look at positive values only.

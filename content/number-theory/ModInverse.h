@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-07-24
+ * License: CC0
  * Source: Russian page
  * Description: Pre-computation of modular inverses. Assumes LIM $\le$ mod and that mod is a prime.
  * Status: Works

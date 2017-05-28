@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-03-02
+ * License: CC0
  * Source: own work
  * Description: $\binom{n}{k}\text{ (mod m)}$ in time proportional to the difference between (n, k) and the previous (n, k).
  * Status: tested

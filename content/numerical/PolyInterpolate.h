@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2017-05-10
+ * License: CC0
  * Source: Wikipedia
  * Description: Given $n$ points (x[i], y[i]), computes an n-1-degree polynomial $p$ that
  *  passes through them: $p(x) = a[0]*x^0 + ... + a[n-1]*x^{n-1}$.

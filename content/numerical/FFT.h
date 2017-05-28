@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-06-25
+ * License: GNU Free Documentation License 1.2
  * Source: http://rosettacode.org/wiki/Fast_Fourier_transform
    Papers about accuracy: http://www.daemonology.net/papers/fft.pdf, http://www.cs.berkeley.edu/~fateman/papers/fftvsothers.pdf
  * Description: Fast Fourier transform. Also includes a function for convolution:

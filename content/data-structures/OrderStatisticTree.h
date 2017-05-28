@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-03-22
+ * License: CC0
  * Source: hacKIT, NWERC 2015
  * Description: A set (not multiset!) with support for finding the n'th
  * element, and finding the index of an element.

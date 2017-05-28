@@ -1,6 +1,7 @@
 /**
  * Author: Johan Sannemo
  * Date: 2017-03-12
+ * License: CC0
  * Source: Wikipedia
  * Description: Calculates the max squared distance of a set of points.
  * Status: Tested.

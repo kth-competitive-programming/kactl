@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-10-08
+ * License: CC0
  * Source: me
  * Description: Segment tree with ability to add or set values of large intervals, and compute max of intervals.
  * Can be changed to other things.

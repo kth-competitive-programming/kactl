@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-07-24
+ * License: CC0
  * Source: folklore
  * Description: Finds \{x, y, d\} s.t. ax + by = d = gcd(a, b).
  * Status: Tested

@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2015-02-04
+ * License: CC0
  * Source: Johan Sannemo
  * Description: Poor man's optimization for unimodal functions.
  * Status: used with great success

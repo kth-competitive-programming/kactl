@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2016-08-27
+ * License: CC0
  * Source: own work
  * Description: Solves $Ax = b$ over $\mathbb F_2$. If there are multiple solutions, one is returned arbitrarily.
  *  Returns rank, or -1 if no solutions. Destroys $A$ and $b$.
