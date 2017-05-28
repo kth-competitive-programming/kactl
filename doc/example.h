@@ -10,9 +10,6 @@
  * Usage:
  *  int res = exampleFunction1(mice, cats, catsCount);
  *  int random = exampleFunction2();
- * Changes:
- *  2009-03-21 - Minor modifications by Ulf.
- *  2009-03-28 - 63 characters, by Håkan
  */
 #pragma once
 
