@@ -19,23 +19,23 @@ using namespace std;
 struct SuffixTree {
 	enum { N = 200010, ALPHA = 26 }; // N ~ 2*maxlen+10
 	int toi(char c) { return c - 'a'; }
-	string a;
+	string a; // v = cur node, q = cur position
 	int t[N][ALPHA],l[N],r[N],p[N],s[N],v=0,q=0,m=2;
 
-	void ukkadd(int la, int c) { suff:
+	void ukkadd(int i, int c) { suff:
 		if (r[v]<=q) {
-			if (t[v][c]==-1) { t[v][c]=m;  l[m]=la;
+			if (t[v][c]==-1) { t[v][c]=m;  l[m]=i;
 				p[m++]=v; v=s[v]; q=r[v];  goto suff; }
 			v=t[v][c]; q=l[v];
 		}
 		if (q==-1 || c==toi(a[q])) q++; else {
-			l[m+1]=la;  p[m+1]=m;  l[m]=l[v];  r[m]=q;
+			l[m+1]=i;  p[m+1]=m;  l[m]=l[v];  r[m]=q;
 			p[m]=p[v];  t[m][c]=m+1;  t[m][toi(a[q])]=v;
-			l[v]=q;  p[v]=m;  t[p[m]][toi(a[l[m]])]=m;  m+=2;
-			v=s[p[m-2]];  q=l[m-2];
-			while (q<r[m-2]) {  v=t[v][toi(a[q])];  q+=r[v]-l[v];}
-			if (q==r[m-2])  s[m-2]=v;  else s[m-2]=m; 
-			q=r[v]-(q-r[m-2]);  goto suff;
+			l[v]=q;  p[v]=m;  t[p[m]][toi(a[l[m]])]=m;
+			v=s[p[m]];  q=l[m];
+			while (q<r[m]) { v=t[v][toi(a[q])];  q+=r[v]-l[v]; }
+			if (q==r[m])  s[m]=v;  else s[m]=m+2;
+			q=r[v]-(q-r[m]);  m+=2;  goto suff;
 		}
 	}
 
