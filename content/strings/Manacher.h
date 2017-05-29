@@ -7,8 +7,6 @@
  * Status: Fuzz-tested
  */
 #pragma once
-#include <string>
-using namespace std;
 
 void manacher(const string& s) {
 	int n = sz(s);

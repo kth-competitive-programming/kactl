@@ -6,8 +6,6 @@
  * Time: $O(\alpha(N))$
  */
 #pragma once
-#include <vector>
-using namespace std;
 
 struct UF {
 	vi e;

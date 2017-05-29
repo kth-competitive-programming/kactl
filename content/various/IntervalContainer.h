@@ -9,8 +9,6 @@
  */
 #pragma once
 
-#include <vector>
-using namespace std;
 
 template <class T>
 auto addInterval(set<pair<T, T>>& is, T L, T R) {

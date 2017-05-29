@@ -7,9 +7,6 @@
  * Status: Works fine, used a lot
  */
 #pragma once
-#include <cmath>
-#include <iostream>
-using namespace std;
 
 template <class T>
 struct Point {

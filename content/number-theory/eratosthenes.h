@@ -7,9 +7,6 @@
  * Time: lim=100'000'000 $\approx$ 0.8 s. Runs 30\% faster if only odd indices are stored.
  */
 #pragma once
-#include <cstring>
-#include <vector>
-using namespace std;
 
 const int MAX_PR = 5000000;
 bitset<MAX_PR> isprime;

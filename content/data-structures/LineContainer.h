@@ -9,8 +9,6 @@
  * Status: tested
  */
 #pragma once
-#include <vector>
-using namespace std;
 
 bool Q;
 struct Line {

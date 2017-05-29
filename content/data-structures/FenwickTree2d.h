@@ -8,8 +8,6 @@
  * Time: $O(\log^2 N)$. (Use persistent segment trees for $O(\log N)$.)
  */
 #pragma once
-#include <vector>
-using namespace std;
 
 #include "FenwickTree.h"
 

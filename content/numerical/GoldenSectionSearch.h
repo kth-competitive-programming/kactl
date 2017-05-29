@@ -11,7 +11,6 @@
  */
 #pragma once
 
-#include <cmath>
 
 /// It is important for r to be precise, otherwise we don't necessarily maintain the inequality a < x1 < x2 < b.
 double gss(double a, double b, double (*f)(double)) {

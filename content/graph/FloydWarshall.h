@@ -10,8 +10,6 @@
  * Status: slightly tested
  */
 #pragma once
-#include <algorithm>
-using namespace std;
 
 const ll inf = 1LL << 62;
 void floydWarshall(vector<vector<ll>>& m) {

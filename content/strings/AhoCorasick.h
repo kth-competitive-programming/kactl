@@ -13,11 +13,6 @@
  * find is $O(M)$ where $M$ is the length of the word. findAll is $O(NM)$.
  * Status: lightly tested
  */
-#include <cstring>
-#include <string>
-#include <vector>
-#include <queue>
-using namespace std;
 
 struct AhoCorasick {
 	enum {alpha = 26, first = 'A'};

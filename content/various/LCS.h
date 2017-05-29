@@ -7,8 +7,6 @@
  */
 #pragma once
 
-#include <algorithm>
-using namespace std;
 
 template <class T> T lcs(const T &X, const T &Y) {
 	int a = sz(X), b = sz(Y);

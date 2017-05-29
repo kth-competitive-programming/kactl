@@ -11,10 +11,6 @@
  */
 #pragma once
 
-#include <cmath>
-#include <vector>
-#include <algorithm>
-using namespace std;
 
 int matInv(vector<vector<double>>& A) {
 	int n = sz(A); vi col(n);

@@ -10,8 +10,6 @@
  */
 #pragma once
 
-#include <vector>
-using namespace std;
 
 typedef vector<double> vd;
 vd interpolate(vd x, vd y, int n) {

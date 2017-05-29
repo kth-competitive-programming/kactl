@@ -7,7 +7,6 @@
  * Status: tested
  */
 #pragma once
-using namespace std;
 
 const ll mod = 1000000007;
 vector<ll> invs; // precomputed up to max n, inclusively

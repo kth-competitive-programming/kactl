@@ -7,8 +7,6 @@
  * Time: Both operations are $O(\log N)$.
  */
 #pragma once
-#include <vector>
-using namespace std;
 
 struct FT {
 	vector<ll> s;

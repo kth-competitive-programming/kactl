@@ -7,9 +7,6 @@
  * Status: used with great success
  */
 
-#include <array>
-using namespace std;
-
 typedef array<double, 2> P;
 
 double func(P p);

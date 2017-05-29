@@ -17,9 +17,7 @@
 
 #pragma once
 
-#include <vector>
 
-using namespace std;
 
 typedef vector<pii> vpi;
 typedef vector<vpi> graph;

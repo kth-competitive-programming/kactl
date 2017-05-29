@@ -5,7 +5,6 @@
  * Description: 
  */
 #pragma once
-#include <algorithm>
 #include "Point.h"
 
 template <class P>

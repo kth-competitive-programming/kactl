@@ -17,8 +17,6 @@
  *    ed[b].emplace_back(a, eid++); }
  *  bicomps([\&](const vi\& edgelist) {...});
  */
-#include <vector>
-using namespace std;
 
 vi num, st;
 vector<vector<pii>> ed;

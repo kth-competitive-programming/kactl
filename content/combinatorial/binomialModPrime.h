@@ -10,7 +10,6 @@
  * Time: O(\log_p n)
  */
 #pragma once
-#include <algorithm>
 
 ll chooseModP(ll n, ll m, int p, vi& fact, vi& invfact) {
 	ll c = 1;

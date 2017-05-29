@@ -6,8 +6,6 @@
 */
 #pragma once
 
-#include <vector>
-using namespace std;
 
 struct Polynomial {
 	int n; vector<double> a;

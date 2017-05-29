@@ -8,9 +8,6 @@
  * Status: tested, except for phi and theta
  */
 #pragma once
-#include <cmath>
-#include <iostream>
-using namespace std;
 
 template <class T> struct Point3D {
 	typedef Point3D P;

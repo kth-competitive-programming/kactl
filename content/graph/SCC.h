@@ -12,8 +12,6 @@
  * index of a node (a component only has edges to components with
  * lower index). ncomps will contain the number of components.
  */
-#include <vector>
-using namespace std;
 
 vi val, comp, z, cont;
 int Time, ncomps;

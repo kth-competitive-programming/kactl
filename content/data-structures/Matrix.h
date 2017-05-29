@@ -10,9 +10,6 @@
  * Status: tested
  */
 #pragma once
-#include <iostream>
-#include <vector>
-using namespace std;
 
 template <class T, int N> struct Matrix {
 	typedef Matrix M;

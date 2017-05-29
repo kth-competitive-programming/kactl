@@ -8,7 +8,6 @@
  to be tested with UVa 535
  */
 #pragma once
-#include <cmath>
 
 double sphericalDistance(double f1, double t1,
 		double f2, double t2, double radius) {

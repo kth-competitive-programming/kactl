@@ -9,9 +9,7 @@ poly_roots(p,-1e10,1e10,roots); // x^2-3x+2=0
 */
 #pragma once
 
-#include <vector>
 #include "Polynomial.h"
-using namespace std;
 
 void poly_roots(const Polynomial& p, double xmin, double xmax, vector<double>& roots) {
 	if (p.n == 1) { roots.push_back(-p.a.front()/p.a.back()); }

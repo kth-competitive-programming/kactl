@@ -8,8 +8,6 @@
  *  rotate(v.begin(), v.begin()+min_rotation(v), v.end());
  */
 #pragma once
-#include <string>
-using namespace std;
 
 int min_rotation(string s) {
 	int a=0, N=sz(s); s += s;

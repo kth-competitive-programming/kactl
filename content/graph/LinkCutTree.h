@@ -10,9 +10,6 @@
  */
 #pragma once
 
-#include <algorithm>
-#include <vector>
-using namespace std;
 
 struct Node { // Splay tree. Root's pp contains tree's parent.
 	Node *p = 0, *pp = 0, *c[2];

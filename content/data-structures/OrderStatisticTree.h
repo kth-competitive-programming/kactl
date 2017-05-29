@@ -9,9 +9,6 @@
  */
 #pragma once
 
-#include <iostream>
-#include <map>
-using namespace std;
 
 #include <ext/pb_ds/assoc_container.hpp> /** keep-include */
 #include <ext/pb_ds/tree_policy.hpp> /** keep-include */

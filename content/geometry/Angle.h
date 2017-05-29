@@ -13,9 +13,6 @@
  * Status: Used, works well
  */
 #pragma once
-#include <set>
-#include <cassert>
-using namespace std;
 
 struct Angle {
 	int x, y;

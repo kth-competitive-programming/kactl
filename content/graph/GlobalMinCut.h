@@ -7,9 +7,6 @@
  * Status: Lightly tested
  */
 
-#include <vector>
-#include <map>
-using namespace std;
 
 pair<int, vi> GetMinCut(vector<vi>& weights) {
 	int N = sz(weights);

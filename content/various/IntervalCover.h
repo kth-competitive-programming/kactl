@@ -9,8 +9,6 @@
  */
 #pragma once
 
-#include <vector>
-using namespace std;
 
 template<class T>
 vi cover(pair<T, T> G, vector<pair<T, T>> I) {

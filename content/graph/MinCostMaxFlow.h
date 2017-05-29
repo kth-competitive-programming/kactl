@@ -9,8 +9,6 @@
  * Time: Approximately O(E^2)
  */
 #pragma once
-#include <vector>
-using namespace std;
 
 #include <ext/pb_ds/priority_queue.hpp> /** keep-include */
 

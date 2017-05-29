@@ -9,8 +9,6 @@
  *  vi p = pi(pattern); vi occ = find(word, p);
  */
 #pragma once
-#include <vector>
-using namespace std;
 
 vi pi(const string& s) {
 	vi p(sz(s));

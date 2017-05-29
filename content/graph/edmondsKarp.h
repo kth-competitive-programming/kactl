@@ -7,9 +7,6 @@
  * Status: Working
  */
 
-#include <vector>
-#include <map>
-using namespace std;
 
 template<class T> T edmondsKarp(vector<map<int, T> >& graph, int source, int sink) {
 	if(source == sink) return numeric_limits<T>::max();

@@ -7,8 +7,6 @@
  * Status: Tested on kattis:lexicography
  */
 #pragma once
-#include <algorithm>
-using namespace std;
 
 ll multinomial(vi& v) {
 	ll c = 1, m = v.empty() ? 1 : v[0];

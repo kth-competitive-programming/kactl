@@ -8,9 +8,6 @@
  * Time: $O(\log N)$
  */
 #pragma once
-#include <cstdlib>
-#include <utility>
-using namespace std;
 
 struct Node {
 	Node *l = 0, *r = 0;

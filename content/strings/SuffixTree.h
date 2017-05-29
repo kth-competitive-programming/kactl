@@ -12,9 +12,6 @@
  * Status: fuzz-tested a bit
  */
 #pragma once
-#include <vector>
-#include <string>
-using namespace std;
 
 struct SuffixTree {
 	enum { N = 200010, ALPHA = 26 }; // N ~ 2*maxlen+10

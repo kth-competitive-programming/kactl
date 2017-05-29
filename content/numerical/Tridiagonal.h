@@ -31,8 +31,6 @@ vector<double> x = tridiagonal(diag, super, sub, b);
  */
 #pragma once
 
-#include <vector>
-using namespace std;
 
 template <class T>
 vector<T> tridiagonal(vector<T> diag, const vector<T>& super,

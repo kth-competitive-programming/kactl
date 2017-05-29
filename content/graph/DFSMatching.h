@@ -12,9 +12,6 @@
  * Time: O(EV) where $E$ is the number of edges and V is the number of vertices.
  * Status: works
  */
-#include <algorithm>
-#include <vector>
-using namespace std;
 
 vi match;
 vector<bool> seen;

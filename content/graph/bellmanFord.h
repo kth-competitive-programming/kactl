@@ -11,8 +11,6 @@
  */
 #pragma once
 
-#include <vector>
-using namespace std;
 
 typedef ll T; // or whatever
 struct Edge { int src, dest; T weight; };

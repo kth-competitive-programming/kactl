@@ -7,8 +7,6 @@
  */
 #pragma once
 
-#include <algorithm>
-using namespace std;
 
 int factorial[] = {1, 1, 2, 6, 24, 120, 720, 5040}; // etc.
 template <class Z, class It> 

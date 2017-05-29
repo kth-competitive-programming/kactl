@@ -13,7 +13,6 @@
  */
 #pragma once
 
-#include <iostream>
 #include "Example.h" /// Header name will be kept in final list.
 
 struct ExampleStructure {

@@ -9,10 +9,6 @@
  */
 #pragma once
 
-#include <cmath>
-#include <vector>
-#include <algorithm>
-using namespace std;
 
 typedef vector<double> vd;
 const double eps = 1e-12;

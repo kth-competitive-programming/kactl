@@ -54,7 +54,7 @@ def print_title(caption, outstream):
 def processwithcomments(caption, instream, outstream, listingslang = None):
 	knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage']
 	requiredcommands = ['Author', 'Description']
-	includelist = ""
+	includelist = []
 	error = ""
 	warning = ""
 	# Read lines from source file
@@ -72,14 +72,11 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 		if line.endswith("/** exclude-line */"):
 			continue
 		# Check includes
-		include = isdefaultinclude(line)
-		if include is None:
-			nlines.append(line)
-		elif len(include)>0:
-			if len(includelist)>0:
-				includelist = includelist + ", " + include
-			else:
-				includelist = include
+		include = isinclude(line)
+		if include is not None:
+			includelist.append(include)
+			continue
+		nlines.append(line)
 	# Remove and process /** */ comments
 	source = '\n'.join(nlines)
 	nsource = ''
@@ -139,8 +136,8 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 			print >> outstream, "\\deftime{",ordoescape(commands["Time"]),"}"
 		if "Memory" in commands and len(commands["Memory"])>0:
 			print >> outstream, "\\defmemory{",ordoescape(commands["Memory"]),"}"
-		if len(includelist)>0:
-			print >> outstream, "\\leftcaption{",pathescape(includelist),"}"
+		if includelist:
+			print >> outstream, "\\leftcaption{",pathescape(", ".join(includelist)),"}"
 		print >> outstream, "\\rightcaption{",str(linecount(nsource))," lines}"
 		print >> outstream, "\\begin{lstlisting}[caption={",pathescape(caption),"}",
 		if listingslang is not None:
@@ -163,17 +160,10 @@ def processraw(caption, instream, outstream, listingslang = 'raw'):
 def linecount(source):
 	return source.count("\n")+1
 
-def isdefaultinclude(line):
-	defaultinclude = ['<iostream>', '<algorithm>', '<string>', '<vector>',
-			'<cmath>', '<cstring>', '<cstdio>', '<cstdlib>', '<cassert>',
-			'<queue>', '<map>', '<set>', '<utility>']
+def isinclude(line):
 	line = line.strip()
 	if line.startswith("#include") and not line.endswith("/** keep-include */"):
-		line = line[8:].strip()
-		if line in defaultinclude:
-			return ""
-		else:
-			return line
+		return line[8:].strip()
 	return None
 
 def getlang(input):

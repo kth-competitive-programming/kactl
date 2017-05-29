@@ -9,11 +9,6 @@
 
 #pragma once
 
-#include <algorithm>
-#include <cstdio>
-#include <cmath>
-#include <vector>
-using namespace std;
 
 typedef vector<double> vd;
 bool zero(double x) { return fabs(x) < 1e-10; }

@@ -7,8 +7,6 @@
  */
 #pragma once
 
-#include <vector>
-using namespace std;
 
 template<class I> vi lis(vector<I> S) {
 	vi prev(sz(S));

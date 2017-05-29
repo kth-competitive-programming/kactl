@@ -7,8 +7,6 @@
  */
 #pragma once
 #include "Point.h"
-#include <vector>
-using namespace std;
 
 template <class It>
 bool it_less(const It& i, const It& j) { return *i < *j; }

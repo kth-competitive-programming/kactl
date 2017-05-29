@@ -15,12 +15,6 @@
  * Status: Tested on UVa Live 4513
  */
 #pragma once
-#include <vector>
-#include <algorithm>
-#include <string>
-#include <utility>
-#include <numeric>
-using namespace std;
 
 typedef pair<ll, int> pli;
 void count_sort(vector<pli> &b, int bits) { // (optional)

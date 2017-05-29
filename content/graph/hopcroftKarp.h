@@ -9,8 +9,6 @@
  */
 #pragma once
 
-#include <vector>
-using namespace std;
 
 bool dfs(int a, int layer, const vector<vi>& g, vi& btoa,
 			vi& A, vi& B) {

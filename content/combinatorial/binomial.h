@@ -6,8 +6,6 @@
  * Time: O(\min(k,n-k))
  */
 #pragma once
-#include <algorithm>
-using namespace std;
 
 ll choose(int n, int k) {
 	ll c = 1, to = min(k, n-k);

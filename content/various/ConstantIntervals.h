@@ -10,9 +10,6 @@
  * Status: tested
  */
 #pragma once
-#include <vector>
-#include <map>
-using namespace std;
 
 template<class F, class G, class T>
 void rec(int from, int to, F f, G g, int& i, T& p, T q) {

@@ -14,10 +14,6 @@
  */
 #pragma once
 #include <valarray>
-#include <algorithm>
-#include <vector>
-#include <cmath>
-using namespace std;
 
 typedef valarray<complex<double> > carray;
 void fft(carray& x, carray& roots) {

@@ -10,7 +10,6 @@
  */
 #pragma once
 #include "Point3D.h"
-using namespace std;
 
 typedef Point3D<double> P3;
 

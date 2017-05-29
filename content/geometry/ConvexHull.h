@@ -20,7 +20,6 @@ Points on the edge of the hull between two other points are not considered part 
  * Time: O(n \log n)
 */
 #pragma once
-#include <algorithm>
 #include "Point.h"
 
 typedef Point<ll> P;

@@ -10,8 +10,6 @@
  */
 #pragma once
 
-#include <algorithm>
-using namespace std;
 
 typedef bitset<1000> bs;
 

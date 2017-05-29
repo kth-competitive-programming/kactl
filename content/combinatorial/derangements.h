@@ -6,8 +6,6 @@
  */
 #pragma once
 
-#include <cstring>
-using namespace std;
 
 template <class T, int N>
 struct derangements {

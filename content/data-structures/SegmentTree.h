@@ -6,8 +6,6 @@
  * Time: O(\log N).
  */
 #pragma once
-#include <vector>
-using namespace std;
 
 struct Tree {
 	typedef int T;

@@ -10,9 +10,6 @@
  */
 #pragma once
 
-#include <vector>
-#include <queue>
-using namespace std;
 
 template <class E, class I>
 bool topo_sort(const E &edges, I &idx, int n) {

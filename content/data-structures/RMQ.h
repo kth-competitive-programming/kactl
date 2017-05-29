@@ -14,8 +14,6 @@
  */
 #pragma once
 
-#include <vector>
-using namespace std;
 
 #ifndef RMQ_HAVE_INF /** exclude-line */
 const int inf = numeric_limits<int>::max();

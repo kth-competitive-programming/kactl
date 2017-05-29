@@ -6,8 +6,6 @@
  * Status: Tested
  */
 #pragma once
-#include <vector>
-using namespace std;
 
 typedef int Flow;
 Flow inf = 1<<28;

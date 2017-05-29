@@ -6,12 +6,7 @@
  * Status: Untested, but works for Stanford
  */
 
-#include <iostream>
-#include <vector>
-#include <limits>
-#include <cstdlib>
 #include "Point.h"
-using namespace std;
 
 typedef long long T;
 typedef Point<T> P;
