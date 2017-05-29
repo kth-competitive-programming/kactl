@@ -3,20 +3,13 @@
 // as the contest template file.
 #pragma once
 
-#include <cmath>
-#include <cstdlib>
-#include <cstdio>
-#include <iostream>
-#include <map>
-#include <queue>
-#include <set>
-#include <string>
-#include <bitset>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
-#define rep(i, a, b) for(int i = (a); i < int(b); ++i)
+#define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define trav(it, v) for(auto& it : v)
+#define all(x) x.begin(), x.end()
+#define sz(x) (int)(x).size()
 
 typedef long long ll;
 typedef pair<int, int> pii;
