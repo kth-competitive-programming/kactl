@@ -18,6 +18,7 @@
  * 	p = polygonCut(p, P(0,0), P(1,0));
  */
 #pragma once
+
 #include "Point.h"
 #include "lineIntersection.h"
 

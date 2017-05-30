@@ -15,8 +15,6 @@
  */
 #pragma once
 
-
-
 struct TwoSat {
 	int N;
 	vector<vi> gr;

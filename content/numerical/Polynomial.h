@@ -6,7 +6,6 @@
 */
 #pragma once
 
-
 struct Polynomial {
 	int n; vector<double> a;
 	Polynomial(int n): n(n), a(n+1) {}

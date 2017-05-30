@@ -9,7 +9,6 @@
  */
 #pragma once
 
-
 template <class T>
 auto addInterval(set<pair<T, T>>& is, T L, T R) {
 	if (L == R) return is.end();

@@ -11,7 +11,6 @@
  */
 #pragma once
 
-
 #include "../number-theory/ModPow.h"
 
 int matInv(vector<vector<ll>>& A) {

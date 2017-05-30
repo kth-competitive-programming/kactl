@@ -6,6 +6,7 @@
  * Time: O(n \log n)
  */
 #pragma once
+
 #include "Point.h"
 
 template <class It>

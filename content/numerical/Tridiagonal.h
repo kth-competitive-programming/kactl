@@ -32,7 +32,6 @@ vector<double> x = tridiagonal(diag, super, sub, b);
  */
 #pragma once
 
-
 template <class T>
 vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 		const vector<T>& sub, vector<T> b) {

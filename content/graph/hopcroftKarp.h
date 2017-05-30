@@ -9,7 +9,6 @@
  */
 #pragma once
 
-
 bool dfs(int a, int layer, const vector<vi>& g, vi& btoa,
 			vi& A, vi& B) {
 	if (A[a] != layer) return 0;

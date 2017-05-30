@@ -16,6 +16,7 @@ Returns a pair of the two points on the circle with radius r centered around c w
  * 	pair<P,P> p = circleTangents(P(100,2),P(0,0),2);
  */
 #pragma once
+
 #include "Point.h"
 
 template <class P>

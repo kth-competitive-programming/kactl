@@ -6,7 +6,6 @@
  */
 #pragma once
 
-
 template <class T, int N>
 struct derangements {
 	T dgen[N][N], choose[N][N], fac[N];

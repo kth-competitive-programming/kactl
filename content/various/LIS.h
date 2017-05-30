@@ -7,7 +7,6 @@
  */
 #pragma once
 
-
 template<class I> vi lis(vector<I> S) {
 	vi prev(sz(S));
 	typedef pair<I, int> p;

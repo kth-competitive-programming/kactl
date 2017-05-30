@@ -14,7 +14,6 @@
  */
 #pragma once
 
-
 #ifndef RMQ_HAVE_INF /** exclude-line */
 const int inf = numeric_limits<int>::max();
 #endif /** exclude-line */

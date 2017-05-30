@@ -7,6 +7,7 @@
  * Status:
  */
 #pragma once
+
 #include "Point.h"
 
 template <class P>

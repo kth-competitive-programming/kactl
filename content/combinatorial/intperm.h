@@ -7,7 +7,6 @@
  */
 #pragma once
 
-
 int factorial[] = {1, 1, 2, 6, 24, 120, 720, 5040}; // etc.
 template <class Z, class It> 
 void perm_to_int(Z& val, It begin, It end) { 

@@ -9,7 +9,6 @@
  */
 #pragma once
 
-
 template<class T>
 vi cover(pair<T, T> G, vector<pair<T, T>> I) {
 	vi S(sz(I)), R;

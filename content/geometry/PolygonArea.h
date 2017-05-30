@@ -8,6 +8,7 @@
  * Status: Tested with unitTest, Kattis problems polygonarea and wrapping and UVa Online Judge Problem: 109 - SCUD Busters
  */
 #pragma once
+
 #include "Point.h"
 
 template <class T>

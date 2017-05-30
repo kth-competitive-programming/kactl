@@ -13,6 +13,7 @@
  * Status: somewhat tested
  */
 #pragma once
+
 #include <valarray>
 
 typedef valarray<complex<double> > carray;

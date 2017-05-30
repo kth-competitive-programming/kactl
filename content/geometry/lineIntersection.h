@@ -17,6 +17,7 @@ If a unique intersetion point of the lines going through s1,e1 and s2,e2 exists 
  * 		cout << "intersection point at " << intersection << endl;
  */
 #pragma once
+
 #include "Point.h"
 
 template <class P>

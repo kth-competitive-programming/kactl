@@ -13,6 +13,7 @@
  * 	bool in = insidePolygon(v.begin(),v.end(), pi(3,4), false);
  */
 #pragma once
+
 #include "Point.h"
 #include "onSegment.h"
 #include "SegmentDistance.h"

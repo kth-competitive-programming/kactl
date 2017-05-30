@@ -11,7 +11,6 @@
  */
 #pragma once
 
-
 typedef ll T; // or whatever
 struct Edge { int src, dest; T weight; };
 struct Node { T dist; int prev; };

@@ -7,6 +7,7 @@
  * Status: somewhat tested
  */
 #pragma once
+
 #include "Point.h"
 
 typedef Point<double> P;

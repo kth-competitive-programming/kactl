@@ -13,6 +13,7 @@ Returns the signed distance between point p and the line containing points a and
  * Status: tested 
  */
 #pragma once
+
 #include "Point.h"
 
 template <class P>

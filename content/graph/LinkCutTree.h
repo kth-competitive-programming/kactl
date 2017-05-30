@@ -10,7 +10,6 @@
  */
 #pragma once
 
-
 struct Node { // Splay tree. Root's pp contains tree's parent.
 	Node *p = 0, *pp = 0, *c[2];
 	bool flip = 0;

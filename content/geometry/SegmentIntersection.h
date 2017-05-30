@@ -21,6 +21,7 @@ Use segmentIntersectionQ to get just a true/false answer.
  *   cout << "segments intersect at " << intersection << endl;
  */
 #pragma once
+
 #include "Point.h"
 
 template <class P>

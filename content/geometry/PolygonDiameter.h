@@ -7,6 +7,7 @@
  * Status: Tested.
  */
 #pragma once
+
 #include "ConvexHull.h"
 
 vector<pii> antipodal(const vector<P>& S, vi& U, vi& L) {

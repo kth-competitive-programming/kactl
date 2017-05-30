@@ -6,9 +6,7 @@
  * Time: O(N^3)
  * Status: tested during ICPC 2015
  */
-
 #pragma once
-
 
 typedef vector<double> vd;
 bool zero(double x) { return fabs(x) < 1e-10; }

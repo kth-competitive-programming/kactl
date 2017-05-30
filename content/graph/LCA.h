@@ -14,10 +14,7 @@
  *  lca.distance(firstNode, secondNode);
  * Time: $O(|V| \log |V| + Q)$
  */
-
 #pragma once
-
-
 
 typedef vector<pii> vpi;
 typedef vector<vpi> graph;

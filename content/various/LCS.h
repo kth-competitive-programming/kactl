@@ -7,7 +7,6 @@
  */
 #pragma once
 
-
 template <class T> T lcs(const T &X, const T &Y) {
 	int a = sz(X), b = sz(Y);
 	vector<vi> dp(a+1, vi(b+1));

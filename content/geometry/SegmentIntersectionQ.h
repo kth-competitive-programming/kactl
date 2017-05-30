@@ -7,6 +7,7 @@
  * Status: Relatively well tested.
  */
 #pragma once
+
 #include "Point.h"
 
 template <class P>
