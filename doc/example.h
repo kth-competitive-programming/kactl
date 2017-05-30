@@ -1,7 +1,7 @@
 /**
  * Author: Chen Xing
  * Date: 2009-03-13
- * Source: Conversation with Håkan and Ulf.
+ * Source: Conversation with HÃ¥kan and Ulf.
  * Description: Example structures and functions that doesn't really do
  *  anything. Latex commands are supported here, though! Like this: $2^2=3$
  * Time: O(M * N^4) where M = cats, N = mice
