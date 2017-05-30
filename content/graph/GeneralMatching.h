@@ -8,6 +8,7 @@
  * Time: O(N^3)
  * Status: not very well tested
  */
+#pragma once
 
 #include "../numerical/MatrixInverse-mod.h"
 

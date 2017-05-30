@@ -6,6 +6,8 @@
  * Description: To get all uniquely determined values of $x$ back from SolveLinear, make the following changes:
  * Status: tested on kattis:equationsolverplus
  */
+#pragma once
+
 #include "SolveLinear.h"
 
 rep(j,0,n) if (j != i) // instead of rep(j,i+1,n)

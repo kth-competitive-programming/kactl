@@ -8,6 +8,7 @@
  * Time: $O(V^2\sqrt E)$
  * Status: Tested on kattis and SPOJ
  */
+#pragma once
 
 typedef ll Flow;
 struct Edge {

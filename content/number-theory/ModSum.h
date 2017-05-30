@@ -10,6 +10,7 @@
  * Status: Tested for |k|,|c|,to,m <= 50, and on "aladin" on kattis.
  * Time: $\log(m)$, with a large constant.
  */
+#pragma once
 
 typedef unsigned long long ull;
 ull sumsq(ull to) { return to / 2 * ((to-1) | 1); }

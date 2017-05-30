@@ -7,6 +7,7 @@
  * "new X" otherwise has an overhead of something like 0.05us + 16 bytes per allocation.
  * Status: tested
  */
+#pragma once
 
 // Either globally or in a single class:
 static char buf[450 << 20];

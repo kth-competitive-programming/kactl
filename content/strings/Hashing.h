@@ -6,6 +6,7 @@
  * Description: Various self-explanatory methods for string hashing.
  * Status: tested
  */
+#pragma once
 
 typedef unsigned long long H;
 static const H C = 123891739; // arbitrary

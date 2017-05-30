@@ -11,6 +11,7 @@
  * Time: O(N \log N)
  * Status: Somewhat tested
  */
+#pragma once
 
 #include "ModPow.h"
 

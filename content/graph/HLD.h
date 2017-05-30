@@ -13,6 +13,8 @@
  *  tie(value, lca) = hld.query(n1, n2);
  * Status: Tested at SPOJ
  */
+#pragma once
+
 #include "../data-structures/SegmentTree.h"
 
 typedef vector<pii> vpi;

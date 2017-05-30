@@ -6,6 +6,7 @@
  * Time: O(N^3)
  * Status: untested
  */
+#pragma once
 
 /// TODO:
 /// fix brokenness that Austrin mentioned

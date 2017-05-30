@@ -13,6 +13,7 @@
  * find is $O(M)$ where $M$ is the length of the word. findAll is $O(NM)$.
  * Status: lightly tested
  */
+#pragma once
 
 struct AhoCorasick {
 	enum {alpha = 26, first = 'A'};

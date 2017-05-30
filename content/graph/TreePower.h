@@ -8,6 +8,7 @@
  * Assumes the root node points to itself.
  * Time: $O(|V| \log |V|)$
  */
+#pragma once
 
 vector<vi> treeJump(vi& P){
 	int on = 1, d = 1;

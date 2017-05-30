@@ -8,6 +8,8 @@
  * Status: fuzz-tested
  * Time: O(n^2)
  */
+#pragma once
+
 #include "Point.h"
 #include "3dHull.h"
 

@@ -5,6 +5,7 @@
  * Source: me
  * Description:
  */
+#pragma once
 
 #define F {...; ++i;}
 int i = from;

@@ -16,6 +16,7 @@
  * Status: fuzz-tested
  * Time: O(N + Q \log n)
  */
+#pragma once
 
 #include "Point.h"
 

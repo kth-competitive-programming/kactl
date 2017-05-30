@@ -10,6 +10,8 @@
  * Status: Tested at Moscow ICPC pre-finals workshop
  * Time: O(\log N)
  */
+#pragma once
+
 #include "Point.h"
 #include "sideOf.h"
 #include "onSegment.h"

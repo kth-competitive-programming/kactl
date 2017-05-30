@@ -7,6 +7,7 @@
  * Usage: vector<vector<int, small<int>>> ed(N);
  * Status: tested
  */
+#pragma once
 
 char buf[450 << 20] alignas(16);
 size_t buf_ind = sizeof buf;

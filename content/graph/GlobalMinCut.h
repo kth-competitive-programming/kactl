@@ -6,7 +6,7 @@
  * Time: O(V^3)
  * Status: Lightly tested
  */
-
+#pragma once
 
 pair<int, vi> GetMinCut(vector<vi>& weights) {
 	int N = sz(weights);

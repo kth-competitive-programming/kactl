@@ -11,6 +11,8 @@
  * The root points to itself.
  * Time: $O(|S| \log |S|)$
  */
+#pragma once
+
 #include "LCA.h"
 
 vpi compressTree(LCA& lca, const vi& subset) {

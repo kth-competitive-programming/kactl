@@ -7,6 +7,7 @@
  *  the complement is an independent set.
  * Status: fuzz-tested
  */
+#pragma once
 
 #include "DFSMatching.h"
 

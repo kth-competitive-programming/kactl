@@ -7,6 +7,7 @@
  * Time: O(\log^2 p) worst case, often O(\log p)
  * Status: Tested for all a,p <= 10000
  */
+#pragma once
 
 #include "ModPow.h"
 

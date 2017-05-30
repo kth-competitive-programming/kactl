@@ -10,6 +10,7 @@
  * m.sum(0, 0, 2, 2); // top left 4 elements
  * Time: O(N^2 + Q)
  */
+#pragma once
 
 template <class T>
 struct SubMatrix {

@@ -7,6 +7,7 @@
  * Use on Codeforces, which lacks 64-bit support and where solutions can be hacked.
  * Status: somewhat tested
  */
+#pragma once
 
 typedef long long H;
 static const H M = INT_MAX;

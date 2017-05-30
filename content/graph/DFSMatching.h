@@ -13,6 +13,7 @@
  * Time: O(EV) where $E$ is the number of edges and V is the number of vertices.
  * Status: works
  */
+#pragma once
 
 vi match;
 vector<bool> seen;

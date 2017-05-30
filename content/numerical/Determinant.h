@@ -7,6 +7,7 @@
  * Status: somewhat tested
  * Time: $O(N^3)$
  */
+#pragma once
 
 double det(vector<vector<double>>& a) {
 	int n = sz(a); double res = 1;

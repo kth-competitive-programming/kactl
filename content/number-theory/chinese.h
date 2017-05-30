@@ -11,6 +11,8 @@
  * Status: Works
  * Time: $\log(m + n)$
  */
+#pragma once
+
 #include "euclid.h"
 
 template <class Z> Z chinese(Z a, Z m, Z b, Z n) {
