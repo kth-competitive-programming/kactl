@@ -1,6 +1,7 @@
 /**
  * Author: Chen Xing
  * Date: 2009-04-14
+ * License: CC0
  * Source: folklore
  * Description: Eulerian undirected/directed path/cycle algorithm. Returns a list of nodes in the Eulerian path/cycle with src at both start and end, or
  *  empty list if no cycle/path exists. To get edge indices back, also put it->second in s (and then ret).

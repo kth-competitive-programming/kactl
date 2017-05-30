@@ -1,6 +1,7 @@
 /**
  * Author: Chen Xing
  * Date: 2009-10-13
+ * License: CC0
  * Source: N/A
  * Description: Find a maximum matching in a bipartite graph.
  * Status: Tested on oldkattis.adkbipmatch and SPOJ:MATCHING

@@ -1,6 +1,7 @@
 /**
  * Author: Chen Xing
  * Date: 2009-10-13
+ * License: CC0
  * Source: N/A
  * Description: Flow algorithm with guaranteed complexity $O(VE^2)$. To get edge flow values, compare
  * capacities before and after, and take the positive values only.
