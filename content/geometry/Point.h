@@ -1,6 +1,7 @@
 /**
  * Author: Ulf Lundstrom
  * Date: 2009-02-26
+ * License: CC0
  * Source: My head with inspiration from tinyKACTL
  * Description: Class to handle points in the plane.
  * 	T can be e.g. double or long long. (Avoid int.)

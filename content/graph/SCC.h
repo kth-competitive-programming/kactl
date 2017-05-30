@@ -1,6 +1,7 @@
 /**
  * Author: Lukas Polacek
  * Date: 2009-10-28
+ * License: CC0
  * Source: Czech graph algorithms book, by Demel. (Tarjan's algorithm)
  * Description: Finds strongly connected components in a
  * directed graph. If vertices $u, v$ belong to the same component,

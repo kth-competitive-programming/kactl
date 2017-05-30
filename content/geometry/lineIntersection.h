@@ -1,6 +1,7 @@
 /**
  * Author: Ulf Lundstrom
  * Date: 2009-03-21
+ * License: CC0
  * Source:
  * Description:\\
 \begin{minipage}{75mm}

@@ -1,6 +1,7 @@
 /**
  * Author: Lukas Polacek
  * Date: 2010-01-26
+ * License: CC0
  * Source: TopCoder tutorial
  * Description: Miller-Rabin primality probabilistic test.
  * Probability of failing one iteration is at most 1/4. 15 iterations should be

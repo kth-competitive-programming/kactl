@@ -51,8 +51,8 @@ Simple variable renamings etc. don't need testing, but it's prudent to at least 
 ## License
 
 As usual for competitive programming, the licensing situation is a bit unclear.
-Some source files are marked with license (in particular, everything originally by Simon Lindholm or Johan Sannemo
-is [CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)), but many aren't.
+Many source files are marked with license (we try to go with
+[CC0](https://creativecommons.org/share-your-work/public-domain/cc0/)), but many also aren't.
 Presumably good will is to be assumed from other authors, though, and in many cases permission should not be needed since the code is not distributed.
 To help trace things back, sources and authors are noted in source files.
 

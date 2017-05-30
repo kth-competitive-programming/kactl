@@ -1,6 +1,7 @@
 /**
  * Author: Lukas Polacek
  * Date: 2010-01-26
+ * License: CC0
  * Source: TopCoder tutorial
  * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for large $c$.
  * Time: O(64/bits \cdot \log b), where $bits = 64-k$, if we want to deal with

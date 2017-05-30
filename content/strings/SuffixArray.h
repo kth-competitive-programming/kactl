@@ -1,6 +1,7 @@
 /**
  * Author: Lukas Polacek
  * Date: 2009-10-27
+ * License: CC0
  * Source: folklore and Linear-time longest-common-prefix
  * computation in suffix arrays and its applications (2001).
  * Description: Builds suffix array for a string. $a[i]$ is

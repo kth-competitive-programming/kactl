@@ -1,6 +1,7 @@
 /**
- * Author: Lukas
+ * Author: Lukas Polacek
  * Date: 2009-10-28
+ * License: CC0
  * Source:
  * Description: This is a simple matching algorithm but should
  * be just fine in most cases. Graph $g$ should be a list of

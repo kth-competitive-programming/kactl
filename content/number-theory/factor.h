@@ -1,6 +1,7 @@
 /**
  * Author: Lukas Polacek
  * Date: 2010-01-28
+ * License: CC0
  * Source: Wikipedia
  * Description: Pollard's rho algorithm. It is a probabilistic factorisation
  * algorithm, whose expected time complexity is good. Before you start using it,

@@ -1,6 +1,7 @@
 /**
  * Author: Ulf Lundstrom
  * Date: 2009-04-11
+ * License: CC0
  * Source: http://en.wikipedia.org/wiki/Circumcircle
  * Description:\\
 \begin{minipage}{75mm}
