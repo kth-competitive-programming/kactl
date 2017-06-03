@@ -1,5 +1,5 @@
 /**
- * Author:
+ * Author: Mattias de Zalenski, Per Austrin, Lukas Polacek
  * Date: 2009-04-17
  * Source: tinyKACTL
  * Description: Chinese Remainder Theorem.

@@ -1,5 +1,5 @@
 /**
- * Author: ?
+ * Author: Mattias de Zalenski
  * Date: ?
  * Source: tinyKACTL
  * Description: Magic formula for the volume of a polyhedron. Faces should point outwards.
