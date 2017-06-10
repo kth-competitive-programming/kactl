@@ -1,7 +1,6 @@
 /**
- * Author:
- * Date: 2009-04-17
- * Source: tinyKACTL
+ * Author: Max Bennedich
+ * Date: 2004-02-08
  * Description: Invert matrix $A$. Returns rank; result is stored in $A$ unless singular (rank < n).
  * Can easily be extended to prime moduli; for prime powers, repeatedly
  * set $A^{-1} = A^{-1} (2I - AA^{-1})\  (\text{mod }p^k)$ where $A^{-1}$ starts as

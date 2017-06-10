@@ -1,7 +1,7 @@
 /**
- * Author:
- * Date: 2010-11-15
- * Source: tinyKACTL
+ * Author: Per Austrin
+ * Date: 2004-03-22
+ * License: CC0
  * Description: Generates the $i$:th derangement of $S_n$ (in lexicographical order).
  */
 #pragma once

@@ -1,7 +1,7 @@
 /**
- * Author: Edits by Simon Lindholm
- * Date: 2015-10-11
- * Source: tinyKACTL
+ * Author: Mattias de Zalenski, Fredrik Niemelä, Per Austrin, Simon Lindholm
+ * Date: 2002-09-26
+ * Source: Max Bennedich
  * Description: $\binom{\sum k_i}{k_1,k_2,...,k_n}=\frac{(\sum k_i)!}{k_1!k_2!...k_n!}$
  * Time: O((\sum k_i)-k_1)
  * Status: Tested on kattis:lexicography

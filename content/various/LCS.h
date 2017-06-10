@@ -1,5 +1,7 @@
 /**
  * Author: Håkan Terelius
+ * Date: 2010-11-07
+ * License: CC0
  * Description: Finds the longest common subsequence.
  * Status: Tested on hackerrank, the longest common subsequence
  * Time: $O(nm)$ where n and m are the lengths of the sequences.

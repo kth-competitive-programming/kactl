@@ -1,9 +1,8 @@
 /**
-* Author:
-* Date: 2010-11-18
-* Source: tinyKACTL
-* Description:
-*/
+ * Author: David Rydh, Per Austrin
+ * Date: 2003-03-16
+ * Description:
+ */
 #pragma once
 
 struct Polynomial {

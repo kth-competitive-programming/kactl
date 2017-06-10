@@ -1,7 +1,7 @@
 /**
- * Author:
- * Date: 2010-11-15
- * Source: tinyKACTL
+ * Author: Per Austrin
+ * Date: 2003-09-23
+ * License: CC0
  * Description: Permutations to/from integers. The bijection is order preserving.
  * Time: O(n^2)
  */

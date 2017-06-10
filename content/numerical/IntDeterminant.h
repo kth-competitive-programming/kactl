@@ -1,7 +1,7 @@
 /**
  * Author: Unknown
  * Date: 2014-11-27
- * Source: Unknown
+ * Source: somewhere on github
  * Description: Calculates determinant using modular arithmetics.
  * Modulos can also be removed to get a pure-integer version.
  * Status: bruteforce-tested for N <= 3, mod <= 7

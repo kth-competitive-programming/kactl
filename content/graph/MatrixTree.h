@@ -1,5 +1,5 @@
 /**
- * Author:
+ * Author: Simon Lindholm
  * Date: 2016-09-06
  * Source: Wikipedia
  * Description: To count the number of spanning trees in an undirected graph $G$:

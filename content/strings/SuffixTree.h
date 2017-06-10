@@ -1,5 +1,5 @@
 /**
- * Author: ?
+ * Author: Unknown
  * Date: 2017-05-15
  * Source: https://e-maxx.ru/algo/ukkonen
  * Description: Ukkonen's algorithm for online suffix tree construction.

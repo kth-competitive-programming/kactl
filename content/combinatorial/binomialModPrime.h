@@ -1,6 +1,7 @@
 /**
  * Author: Håkan Terelius
  * Date: 2009-09-25
+ * License: CC0
  * Source: http://en.wikipedia.org/wiki/Lucas'_theorem
  * Description: Lucas' thm: Let $n,m$ be non-negative integers and $p$ a prime.
  * Write $n=n_kp^k+...+n_1p+n_0$ and $m=m_kp^k+...+m_1p+m_0$.

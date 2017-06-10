@@ -1,7 +1,7 @@
 /**
- * Author:
- * Date: 2010-11-18
- * Source: tinyKACTL
+ * Author: Unknown
+ * Date: 2002-09-13
+ * Source: predates tinyKACTL
  * Description: Topological sorting. Given is an oriented graph.
  * Output is an ordering of vertices (array idx), such that there are edges
  * only from left to right. The function returns false if there is a cycle in

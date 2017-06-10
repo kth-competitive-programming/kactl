@@ -1,7 +1,7 @@
 /**
- * Author:
+ * Author: Simon Lindholm
  * Date: 2016-12-08
- * Source: tinyKACTL
+ * Source: The regular matrix inverse code
  * Description: Invert matrix $A$ modulo a prime.
  * Returns rank; result is stored in $A$ unless singular (rank < n).
  * For prime powers, repeatedly set $A^{-1} = A^{-1} (2I - AA^{-1})\  (\text{mod }p^k)$ where $A^{-1}$ starts as

@@ -1,7 +1,6 @@
 /**
  * Author: Per Austrin, Max Bennedich, Gunnar Kreitz
- * Date: 2010-11-18
- * Source: tinyKACTL
+ * Date: 2004-03-15
  * Description: $i1$, $i2$ are the indices to the closest pair of points in the point vector $p$ after the call. The distance is returned.
  * Time: O(n \log n)
  */

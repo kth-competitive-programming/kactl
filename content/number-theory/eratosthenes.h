@@ -1,6 +1,7 @@
 /**
  * Author: Håkan Terelius
  * Date: 2009-08-26
+ * License: CC0
  * Source: http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
  * Description: Prime sieve for generating all primes up to a certain limit. isprime$[i]$ is true iff $i$ is a prime.
  * Status: Tested

@@ -1,8 +1,7 @@
 /**
  * Author: Per Austrin, Simon Lindholm
- * Date: 2009-04-17
+ * Date: 2004-02-08
  * License: CC0
- * Source: tinyKACTL
  * Description: Solves $A * x = b$. If there are multiple solutions, an arbitrary one is returned.
  *  Returns rank, or -1 if no solutions. Data in $A$ and $b$ is lost.
  * Time: O(n^2 m)
