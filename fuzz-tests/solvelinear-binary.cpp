@@ -15,18 +15,16 @@ const int nmax = 5, mmax = 5, nmmax = 16;
 typedef bitset<5> bs;
 
 int solveLinear(vector<bs>& A, vi& b, bs& x, int m) {
-	int n = sz(A), rank = 0, br, bc;
+	int n = sz(A), rank = 0, br;
 	assert(m <= sz(x));
 	vi col(m); iota(all(col), 0);
 	rep(i,0,n) {
-		rep(r,i,n) if (A[r].any())
-			rep(c,i,m) if (A[r][c]) {
-				br = r, bc = c;
-				goto found;
-			}
-		rep(j,i,n) if(b[j]) return -1;
-		break;
-found:
+		for (br=i; br<n; ++br) if (A[br].any()) break;
+		if (br == n) {
+			rep(j,i,n) if(b[j]) return -1;
+			break;
+		}
+		int bc = (int)A[br]._Find_next(i-1);
 		swap(A[i], A[br]);
 		swap(b[i], b[br]);
 		swap(col[i], col[bc]);
