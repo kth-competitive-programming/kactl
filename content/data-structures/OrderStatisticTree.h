@@ -16,7 +16,7 @@ template <class T>
 using Tree = tree<T, null_type, less<T>, rb_tree_tag,
 	  tree_order_statistics_node_update>;
 
-int main() {
+void example() {
 	Tree<int> t, t2; t.insert(8);
 	auto it = t.insert(10).first;
 	assert(it == t.lower_bound(9));
