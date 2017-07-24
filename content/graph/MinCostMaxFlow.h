@@ -10,7 +10,7 @@
  */
 #pragma once
 
-#include <ext/pb_ds/priority_queue.hpp> /** keep-include */
+#include <bits/extc++.h> /** keep-include */
 
 const ll INF = numeric_limits<ll>::max() / 4;
 typedef vector<ll> VL;
