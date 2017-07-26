@@ -1,159 +1,159 @@
-Rekursion
+Recursion
 Divide and conquer
-	Hitta intressanta punkter i N log N
-Algoritmanalys
+	Finding interesting points in N log N
+Algorithm analysis
 	Master theorem
-	Amortized tidskomplexitet
-Greedy algoritmer
+	Amortized time complexity
+Greedy algorithm
 	Scheduling
 	Max contigous subvector sum
-	Invarianter
+	Invariants
 	Huffman encoding
-Grafteori
-	Dynamiska grafer (extra book-keeping)
-	Bredden forst-sokning
-	Djupet forst-sokning
-	* Normal trees / DFS-trad
+Graph teory
+	Dynamic graphs (extra book-keeping)
+	Breadth first search
+	Depth first search
+	* Normal trees / DFS trees
 	Dijkstra's algoritm
 	MST: Prim's algoritm
 	Bellman-Ford
-	Konig's sats och vertex cover
+	Konig's theorem and vertex cover
 	Min-cost max flow
 	Lovasz toggle
 	Matrix tree theorem
-	Maximal matchning, generella grafer
+	Maximal matching, general graphs
 	Hopcroft-Karp
 	Hall's marriage theorem
 	Graphical sequences
 	Floyd-Warshall
 	Eulercykler
-	Flodesnatverk
+	Flow networks
 	* Augumenting paths
 	* Edmonds-Karp
-	Bipartit matchning
+	Bipartite matching
 	Min. path cover
-	Topologisk sortering
-	Strongly Connected Components
+	Topological sorting
+	Strongly connected components
 	2-SAT
 	Cutvertices, cutedges och biconnected components
 	Edge coloring
-	* Trad
+	* Trees
 	Vertex coloring
-	* Bipartita grafer (=> trad)
-	* 3^n (specialfall av set cover)
-	Diametern och centroid
-	K-th shortest path
-	Kortaste cyceln
-Dynamisk programmering
+	* Bipartite graphs (=> trees)
+	* 3^n (special case of set cover)
+	Diameter and centroid
+	K'th shortest path
+	Shortest cycle
+Dynamic programmering
 	Knapsack
 	Coin change
 	Longest common subsequence
 	Longest increasing subsequence
-	Antal vagar i en dag
-	Kortaste vagen i en dag
-	Dynprog over intervall
-	Dynprog over delmangder
-	Dynprog over sannolikheter
-	Dynprog over trad
+	Number of paths in a dag
+	Shortest path in a dag
+	Dynprog over intervals
+	Dynprog over subsets
+	Dynprog over probabilities
+	Dynprog over trees
 	3^n set cover
 	Divide and conquer
 	Knuth optimization
 	Convex hull optimizations
-	RMQ (sparse table a.k.a tvapotenshopp)
+	RMQ (sparse table a.k.a 2^k-jumps)
 	Bitonic cycle
-	Log-partitionering
-Kombinatorik
-	Berakning av binomialkoefficienter
-	Pigeon hole
-	Inklusion/exklusion
-	Catalantal
-	Picks sats
-Talteori
-	Heltalsdelar
-	Delbarhet
-	Euklides algoritm
-	Modular aritmetik
-	* Modular multiplikation
-	* Modulara inverser
+	Log partitioning (loop over most restricted)
+Combinatorics
+	Computation of binomial coefficients
+	Pigeon-hole principle
+	Inclusion/exclusion
+	Catalan number
+	Pick's theorem
+Number theory
+	Integer parts
+	Divisibility
+	Euklidean algorithm
+	Modular arithmetic
+	* Modular multiplication
+	* Modular inverses
 	* Modular exponentiation by squaring
-	Kinesiska restsatsen
-	Fermats lilla sats
-	Eulers sats
-	Phi-funktionen
+	Chinese remainder theorem
+	Fermat's small theorem
+	Euler's theorem
+	Phi function
 	Frobenius number
-	Kvadratisk reciprocitet
+	Quadratic reciprocity
 	Pollard-Rho
 	Miller-Rabin
-	Hensel Lifting
-	Vieta Root Jumping
-Spelteori
-	Kombinatoriska spel
-	Speltrad
+	Hensel lifting
+	Vieta root jumping
+Game theory
+	Combinatorial games
+	Game trees
 	Mini-max
 	Nim
-	Spel pa grafer
-	Spel pa grafer med loopar
-	Grundytal
-	Bipartita spel utan repetition
-	Generella spel utan repetition
-	Alpha-beta-pruning
-Sannolikhetslara
-Optimering
-	Binarsokning
-	Trinarsokning
-	Unimodalitet och konvexa funktioner
-	Binarsokning pa derivatan
-Numeriska metoder
-	Numerisk integration
-	Newtons metod
-	Hitta rotter med binarsokning/trinarsokning
-	Golden Section Search
-Matriser
-	Gausselimination
+	Games on graphs
+	Games on graphs with loops
+	Grundy numbers
+	Bipartite games without repetition
+	General games without repetition
+	Alpha-beta pruning
+Probability theory
+Optimization
+	Binary search
+	Ternary search
+	Unimodality and convex functions
+	Binary search on derivative
+Numerical methods
+	Numeric integration
+	Newton's method
+	Root-finding with binary/ternary search
+	Golden section search
+Matrices
+	Gaussian elimination
 	Exponentiation by squaring
-Sortering
+Sorting
 	Radix sort
-Geometri
-	Koordinater och vektorer
-	* Kryssprodukten
-	* Skalarprodukt
-	Konvext holje
+Geometry
+	Coordinates and vectors
+	* Cross product
+	* Scalar product
+	Convex hull
 	Polygon cut
 	Closest pair
-	Koordinat-komprimering
+	Coordinate-compression
 	Quadtrees
-	KD tree
+	KD-trees
 	All segment-segment intersection
-Svepning
-	Diskretisering (gora till events och svepa)
-	Vinkelsvepning
-	Linjesvepning
-	Diskreta andraderivator
-Strangar
-	Longest Common Substring
-	Palindromsubsekvenser
+Sweeping
+	Discretization (convert to events and sweep)
+	Angle sweeping
+	Line sweeping
+	Discrete second derivatives
+Strings
+	Longest common substring
+	Palindrome subsequences
 	Knuth-Morris-Pratt
 	Tries
-	Rullande polynom-hashar
-	Suffix Array
-	Suffix Tree
+	Rolling polynom hashes
+	Suffix array
+	Suffix tree
 	Aho-Corasick
 	Manacher's algorithm
-	Bokstavspositionslistor
-Kombinatorisk sokning
+	Letter position lists
+Combinatorial search
 	Meet in the middle
-	Brute force med pruning
-	Best-First (A*)
+	Brute-force with pruning
+	Best-first (A*)
 	Bidirectional search
 	Iterative deepening DFS / A*
-Datastrukturer
-	LCA (tvapotenshopp i trad i allmanhet)
-	Pull/push-tekniken pa trad
-	Heavy-Light decomposition
+Data structures
+	LCA (2^k-jumps in trees in general)
+	Pull/push-technique on trees
+	Heavy-light decomposition
 	Centroid decomposition
 	Lazy propagation
-	Nagot sjalvbalanserande trad
+	Self-balancing trees
 	Convex hull trick (wcipeg.com/wiki/Convex_hull_trick)
-	Monotona koer / monotona stackar / sliding queues
-	Sliding Queue som 2 stackar
+	Monotone queues / monotone stacks / sliding queues
+	Sliding queue using 2 stacks
 	Persistent segment tree
