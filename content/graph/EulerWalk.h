@@ -10,12 +10,12 @@
  */
 #pragma once
 
-struct N {
+struct V {
 	vector<pii> outs; // (dest, edge index)
-	int nins;
+	int nins = 0;
 };
 
-vi euler_walk(vector<N>& nodes, int nedges, int src=0) {
+vi euler_walk(vector<V>& nodes, int nedges, int src=0) {
 	int c = 0;
 	trav(n, nodes) c += abs(n.nins - sz(n.outs));
 	if (c > 2) return {};

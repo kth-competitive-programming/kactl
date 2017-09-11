@@ -15,10 +15,9 @@ struct Edge {
 	int dest, back;
 	Flow f, c;
 };
-typedef vector<vector<Edge> > graph;
 
 struct PushRelabel {
-	graph g;
+	vector<vector<Edge>> g;
 	vector<Flow> ec;
 	vector<Edge*> cur;
 	vector<vi> hs; vi H;
