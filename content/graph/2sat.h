@@ -59,7 +59,7 @@ struct TwoSat {
 			x = z.back(); z.pop_back();
 			comp[x] = time;
 			if (values[x>>1] == -1)
-				values[x>>1] = 1 - x&1;
+				values[x>>1] = !(x&1);
 		} while (x != i);
 		return val[i] = low;
 	}
