@@ -10,7 +10,7 @@
  */
 #pragma once
 
-#include "miller_rabin.h"
+#include "MillerRabin.h"
 #include "eratosthenes.h"
 #include "euclid.h"
 
