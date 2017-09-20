@@ -34,7 +34,7 @@ struct MCMF {
 		red[to].push_back(from);
 	}
 
-	void path(int s, int t) {
+	void path(int s) {
 		fill(all(seen), 0);
 		fill(all(dist), INF);
 		dist[s] = 0; ll di;
@@ -66,7 +66,7 @@ struct MCMF {
 
 	pair<ll, ll> maxflow(int s, int t) {
 		ll totflow = 0, totcost = 0;
-		while (path(s, t), seen[t]) {
+		while (path(s), seen[t]) {
 			ll fl = INF;
 			for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
 				fl = min(fl, r ? cap[p][x] - flow[p][x] : flow[x][p]);
