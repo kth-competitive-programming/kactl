@@ -9,7 +9,7 @@
  */
 #pragma once
 
-template<class T> T edmondsKarp(vector<map<int, T> >& graph, int source, int sink) {
+template<class T> T edmondsKarp(vector<unordered_map<int, T> >& graph, int source, int sink) {
 	if(source == sink) return numeric_limits<T>::max();
 	T flow = 0;
 	vi prev(sz(graph)), bfs = prev;
