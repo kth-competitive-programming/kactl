@@ -9,38 +9,38 @@
  */
 #pragma once
 
-template<class T> T edmondsKarp(vector<unordered_map<int, T> >& graph, int source, int sink) {
-	if(source == sink) return numeric_limits<T>::max();
+template<class T> T edmondsKarp(vector<unordered_map<int, T>>& graph, int source, int sink) {
+	assert(source != sink);
 	T flow = 0;
-	vi prev(sz(graph)), bfs = prev;
+	vi par(sz(graph)), q = par;
 
 	for (;;) {
-		fill(all(prev), -1);
-		int bfsEnd = 0;
-		prev[source] = -2;
-		bfs[bfsEnd++] = source;
+		fill(all(par), -1);
+		par[source] = 0;
+		int ptr = 1;
+		q[0] = source;
 
-		for(int i = 0; i < bfsEnd && prev[sink] == -1; ++i) {
-			int x = bfs[i];
+		rep(i,0,ptr) {
+			int x = q[i];
 			trav(e, graph[x]) {
-				if(prev[e.first] == -1 && e.second > 0) {
-					prev[e.first] = x;
-					bfs[bfsEnd++] = e.first;
+				if (par[e.first] == -1 && e.second > 0) {
+					par[e.first] = x;
+					q[ptr++] = e.first;
+					if (e.first == sink) goto out;
 				}
 			}
 		}
+		return flow;
+out:
+		T inc = numeric_limits<T>::max();
+		for (int y = sink; y != source; y = par[y])
+			inc = min(inc, graph[par[y]][y]);
 
-		if(prev[sink] == -1) break;
-		T incrFlow = numeric_limits<T>::max();
-		for(int y = sink; prev[y] != -2; y = prev[y])
-			incrFlow = min(incrFlow, graph[prev[y]][y]);
-
-		flow += incrFlow;
-		for(int y = sink; prev[y] != -2; y = prev[y]) {
-			int x = prev[y];
-			if((graph[x][y] -= incrFlow) <= 0) graph[x].erase(y);
-			graph[y][x] += incrFlow;
+		flow += inc;
+		for (int y = sink; y != source; y = par[y]) {
+			int p = par[y];
+			if ((graph[p][y] -= inc) <= 0) graph[p].erase(y);
+			graph[y][p] += inc;
 		}
 	}
-	return flow;
 }
