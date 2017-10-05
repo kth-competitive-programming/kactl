@@ -3,7 +3,7 @@
  * Date: 2004-02-08
  * License: CC0
  * Description: Finds the real roots to a polynomial.
- * Usage: vector<double> roots; polynomial p(2);
+ * Usage: vector<double> roots; Polynomial p(2);
  p.a[0] = 2; p.a[1] = -3; p.a[2] = 1;
  poly_roots(p,-1e10,1e10,roots); // x^2-3x+2=0
  */
