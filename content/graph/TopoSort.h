@@ -21,7 +21,7 @@ bool topo_sort(const E &edges, I &idx, int n) {
 	int nr = 0;
 	while (q.size() > 0) {
 		int i = -q.front(); // top() for priority queue
-		idx[i] = ++nr;
+		idx[i] = nr++;
 		q.pop();
 		trav(e, edges[i])
 			if (--indeg[e] == 0) q.push(-e);
