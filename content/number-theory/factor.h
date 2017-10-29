@@ -20,7 +20,7 @@ ull f(ull a, ull n, ull &has) {
 }
 vector<ull> factor(ull d) {
 	vector<ull> res;
-	for (size_t i = 0; i < pr.size() && pr[i]*pr[i] <= d; i++)
+	for (int i = 0; i < sz(pr) && pr[i]*pr[i] <= d; i++)
 		if (d % pr[i] == 0) {
 			while (d % pr[i] == 0) d /= pr[i];
 			res.push_back(pr[i]);
@@ -47,7 +47,5 @@ vector<ull> factor(ull d) {
 }
 void init(int bits) {//how many bits do we use?
 	vi p = eratosthenes_sieve(1 << ((bits + 2) / 3));
-	vector<ull> pr(p.size());
-	for (size_t i=0; i<pr.size(); i++)
-		pr[i] = p[i];
+	copy(all(p), back_inserter(pr));
 }
