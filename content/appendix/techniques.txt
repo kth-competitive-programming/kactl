@@ -44,7 +44,7 @@ Graph teory
 	Diameter and centroid
 	K'th shortest path
 	Shortest cycle
-Dynamic programmering
+Dynamic programming
 	Knapsack
 	Coin change
 	Longest common subsequence
