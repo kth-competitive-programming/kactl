@@ -23,7 +23,7 @@ auto addInterval(set<pair<T, T>>& is, T L, T R) {
 		is.erase(it);
 	}
 	return is.insert(before, {L,R});
-};
+}
 
 template <class T>
 void removeInterval(set<pair<T, T>>& is, T L, T R) {
@@ -33,4 +33,4 @@ void removeInterval(set<pair<T, T>>& is, T L, T R) {
 	if (it->first == L) is.erase(it);
 	else (T&)it->second = L;
 	if (R != r2) is.emplace(R, r2);
-};
+}
