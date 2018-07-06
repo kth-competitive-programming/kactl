@@ -2,7 +2,7 @@
  * Author: Simon Lindholm
  * Date: 2018-07-06
  * License: CC0
- * Description: Permutation -> integer
+ * Description: Permutation -> integer conversion. (Not order preserving.)
  * Time: O(n)
  */
 #pragma once
