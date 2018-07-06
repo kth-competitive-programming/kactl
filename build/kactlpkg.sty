@@ -22,7 +22,37 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage[normalem]{ulem}
 
+% Config commands
+\newcommand{\subtitle}[1]{
+	\def\@subtitle{#1}
+}
+\newcommand{\team}[2]{
+	\def\@teamname{#1}
+	\def\@teammembers{#2}
+}
+\newcommand{\contest}[2]{
+	\def\@contestname{#1}
+	\def\@contestdate{#2}
+}
+\newcommand{\university}[3]{
+	\def\@unishort{#1}
+	\def\@unilong{#2}
+	\def\@unilogo{#3}
+}
+
+% Some default config
+\subtitle{{\tiny new}KACTL}
+\title{KTH ACM Contest Template Library}
+
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
+
+\renewcommand{\maketitle}[2]{
+	\begin{center}
+		{\LARGE \@title}\\
+		{\Large \@subtitle{} version #2}\\[0.1cm]
+		{\LARGE \textsc{#1}}
+	\end{center}
+}
 
 \AtBeginDocument{}
 \AtEndDocument{}
@@ -31,7 +61,7 @@
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \headheight 25pt
-\lhead{KTH}
+\lhead{\@unishort}
 \chead{\hspace{3mm} \thelistings \gdef\thelistings{}}
 \rhead{\thepage}
 %\lhead{}\chead{\thepage}\rhead{}
@@ -143,30 +173,20 @@
 
 \pdfsuppresswarningpagegroup=1
 
-\newcommand{\edition}[1]{
-	\def\@edition{#1}
-}
-% \edition{}
-\newcommand{\subtitle}[1]{
-	\def\@subtitle{#1}
-}
-\subtitle{{\tiny new}KACTL}
-\title{KTH ACM Contest Template Library}
-
-\newcommand{\maketeampage}[4]{
+\newcommand{\maketeampage}{
 	\pagestyle{empty}
 	\begin{center}
 		\strut % Magic
 		\vspace{3cm}\\
-		\includegraphics[width=3cm]{kth}\\
-		{\Huge KTH Royal Institute of Technology\\}
-		{\fontsize{60}{60}\selectfont #1\\}
+		\includegraphics[width=3cm]{\@unilogo}\\
+		{\Huge \@unilong\\}
+		{\fontsize{60}{60}\selectfont \@teamname\\}
 		\vspace{0.5cm}
-		{\Large #2\\}
+		{\Large \@teammembers\\}
 		\vfill
-		{\huge #3}\\
+		{\huge \@contestname}\\
 		\vspace{0.5cm}
-		{\Large #4}\\
+		{\Large \@contestdate}\\
 		\vspace{1cm}
 	\end{center}
 	\clearpage
@@ -219,14 +239,6 @@
 
 \newcommand{\kactlwarning}[1]{
 	\PackageWarning{kactlpkg}{#1}
-}
-
-\renewcommand{\maketitle}{
-	\begin{center}
-		{\LARGE \@title}\\
-		{\Large \@subtitle{} version \@date}\\[0.1cm]
-		{\LARGE \textsc{\@edition}}
-	\end{center}
 }
 
 \newboolean{hasleftcaption}
