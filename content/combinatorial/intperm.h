@@ -1,29 +1,15 @@
 /**
- * Author: Per Austrin
- * Date: 2003-09-23
+ * Author: Simon Lindholm
+ * Date: 2018-07-06
  * License: CC0
- * Description: Permutations to/from integers. The bijection is order preserving.
- * Time: O(n^2)
+ * Description: Permutation -> integer
+ * Time: O(n)
  */
 #pragma once
 
-int factorial[] = {1, 1, 2, 6, 24, 120, 720, 5040}; // etc.
-template <class Z, class It> 
-void perm_to_int(Z& val, It begin, It end) { 
-	int x = 0, n = 0; 
-	for (It i = begin; i != end; ++i, ++n) 
-		if (*i < *begin) ++x; 
-	if (n > 2) perm_to_int<Z>(val, ++begin, end); 
-	else val = 0;
-	val += factorial[n-1]*x; 
-} 
-/* range [begin, end) does not have to be sorted. */ 
-template <class Z, class It> 
-void int_to_perm(Z val, It begin, It end) {
-	Z fac = factorial[end - begin - 1]; 
-	// Note that the division result will fit in an integer!
-	int x = val / fac; 
-	nth_element(begin, begin + x, end); 
-	swap(*begin, *(begin + x));
-	if (end - begin > 2) int_to_perm(val % fac, ++begin, end);
+int permToInt(vi& v) {
+	int use = 0, i = 0, r = 0;
+	trav(x, v) r = r * ++i + __builtin_popcount(use & -(1 << x)),
+		use |= 1 << x;                     // (note: minus, not ~!)
+	return r;
 }
