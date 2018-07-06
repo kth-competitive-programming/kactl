@@ -97,26 +97,27 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 		command = None
 		value = ""
 		for cline in commentlines:
+			allow_command = False
 			cline = cline.strip()
 			if cline.startswith('*'):
 				cline = cline[1:].strip()
+				allow_command = True
 			ind = cline.find(':')
-			if ind>-1 and cline[:ind].find(' ')==-1:
+			if allow_command and ind != -1 and ' ' not in cline[:ind]:
 				if command:
 					if command not in knowncommands:
-						warning = warning + "Unknown command: " + command + ". "
-					commands[command]=value.lstrip()
+						error = error + "Unknown command: " + command + ". "
+					commands[command] = value.lstrip()
 				command = cline[:ind]
 				value = cline[ind+1:].strip()
 			else:
 				value = value + '\n' + cline
 		if command:
 			if command not in knowncommands:
-				warning = warning + "Unknown command: " + command + ". "
-			commands[command]=value.lstrip()
-	for rcommand in requiredcommands:
-		if not rcommand in commands:
-			error = error + "Missing command: " + rcommand + ". "
+				error = error + "Unknown command: " + command + ". "
+			commands[command] = value.lstrip()
+	for rcommand in sorted(set(requiredcommands) - set(commands)):
+		error = error + "Missing command: " + rcommand + ". "
 	if end>=0:
 		nsource = nsource.rstrip() + source[end:]
 	nsource = nsource.strip()
