@@ -6,20 +6,19 @@
 #pragma once
 
 struct Polynomial {
-	int n; vector<double> a;
-	Polynomial(int n): n(n), a(n+1) {}
+	vector<double> a;
 	double operator()(double x) const {
 		double val = 0;
-		for(int i = n; i >= 0; --i) (val *= x) += a[i];
+		for(int i = sz(a); i--;) (val *= x) += a[i];
 		return val;
 	}
 	void diff() {
-		rep(i,1,n+1) a[i-1] = i*a[i];
-		a.pop_back(); --n;
+		rep(i,1,sz(a)) a[i-1] = i*a[i];
+		a.pop_back();
 	}
 	void divroot(double x0) {
 		double b = a.back(), c; a.back() = 0;
-		for(int i=n--; i--;) c = a[i], a[i] = a[i+1]*x0+b, b=c;
+		for(int i=sz(a)-1; i--;) c = a[i], a[i] = a[i+1]*x0+b, b=c;
 		a.pop_back();
 	}
 };

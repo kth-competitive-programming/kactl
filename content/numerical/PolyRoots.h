@@ -3,36 +3,34 @@
  * Date: 2004-02-08
  * License: CC0
  * Description: Finds the real roots to a polynomial.
- * Usage: vector<double> roots; Polynomial p(2);
- p.a[0] = 2; p.a[1] = -3; p.a[2] = 1;
- poly_roots(p,-1e10,1e10,roots); // x^2-3x+2=0
+ * Usage: poly_roots({{2,-3,1}},-1e9,1e9) // solve x^2-3x+2 = 0
+ * Time: O(n^2 \log(1/\epsilon))
  */
 #pragma once
 
 #include "Polynomial.h"
 
-void poly_roots(const Polynomial& p, double xmin, double xmax, vector<double>& roots) {
-	if (p.n == 1) { roots.push_back(-p.a.front()/p.a.back()); }
-	else {
-		Polynomial d = p;
-		d.diff();
-		vector<double> dr;
-		poly_roots(d, xmin, xmax, dr);
-		dr.push_back(xmin-1);
-		dr.push_back(xmax+1);
-		sort(all(dr));
-		for (auto i = dr.begin(), j = i++; i != dr.end(); j = i++){
-			double l = *j, h = *i, m, f;
-			bool sign = p(l) > 0;
-			if (sign ^ (p(h) > 0)) {
-				//for(int i = 0; i < 60; ++i){
-				while(h - l > 1e-8) {
-					m = (l + h) / 2, f = p(m);
-					if ((f <= 0) ^ sign) l = m;
-					else h = m;
-				}
-				roots.push_back((l + h) / 2);
+typedef double d;
+vector<d> poly_roots(const Polynomial& p, d xmin, d xmax) {
+	if (sz(p.a) == 2) { return {-p.a[0]/p.a[1]}; }
+	vector<d> ret;
+	Polynomial der = p;
+	der.diff();
+	auto dr = poly_roots(der, xmin, xmax);
+	dr.push_back(xmin-1);
+	dr.push_back(xmax+1);
+	sort(all(dr));
+	rep(i,0,sz(dr)-1) {
+		double l = dr[i], h = dr[i+1];
+		bool sign = p(l) > 0;
+		if (sign ^ (p(h) > 0)) {
+			rep(it,0,60) { // while (h - l > 1e-8)
+				double m = (l + h) / 2, f = p(m);
+				if ((f <= 0) ^ sign) l = m;
+				else h = m;
 			}
+			ret.push_back((l + h) / 2);
 		}
 	}
+	return ret;
 }
