@@ -1,20 +1,15 @@
-/**
- * Author: Simon Lindholm
- * Date: 2015-06-25
- * License: GNU Free Documentation License 1.2
- * Source: http://rosettacode.org/wiki/Fast_Fourier_transform
-   Papers about accuracy: http://www.daemonology.net/papers/fft.pdf, http://www.cs.berkeley.edu/~fateman/papers/fftvsothers.pdf
- * Description: Fast Fourier transform. Also includes a function for convolution:
-   \texttt{conv(a, b) = c}, where $c[x] = \sum a[i]b[x-i]$. $a$ and $b$ should be of roughly equal size.
-   For convolutions of integers, rounding the results of conv
-   works if $(|a| + |b|)\max(a, b) < \mathtt{\sim} 10^9$ (in theory maybe $10^6$);
-   you may want to use an NTT from the Number Theory chapter instead.
- * Time: O(N \log N)
- * Status: somewhat tested
- */
-#pragma once
-
+#include <bits/stdc++.h>
 #include <valarray>
+using namespace std;
+
+#define rep(i, a, b) for(int i = a; i < int(b); ++i)
+#define trav(a, v) for(auto& a : v)
+#define all(x) x.begin(), x.end()
+#define sz(x) (int)(x).size()
+
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
 
 typedef valarray<complex<double> > carray;
 void fft(carray& x, carray& roots) {
@@ -44,4 +39,20 @@ vd conv(const vd& a, const vd& b) {
 	carray cv = av * bv; fft(cv, roots);
 	vd c(s); rep(i,0,s) c[i] = cv[i].real() / n;
 	return c;
+}
+
+int main() {
+	int n = 8;
+	carray a(n), av(n), roots(n);
+	rep(i,0,n) a[i] = rand() % 10 - 5;
+	rep(i,0,n) roots[i] = polar(1.0, -2 * M_PI * i / n);
+	av = a;
+	fft(av, roots);
+	rep(k,0,n) {
+		complex<double> sum{};
+		rep(x,0,n) {
+			sum += a[x] * polar(1.0, -2 * M_PI * k * x / n);
+		}
+		cout << sum << ' ' << av[k] << endl;
+	}
 }
