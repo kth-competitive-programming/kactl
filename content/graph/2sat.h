@@ -29,8 +29,8 @@ struct TwoSat {
 	}
 
 	void either(int f, int j) {
-		f = (f >= 0 ? 2*f : -1-2*f);
-		j = (j >= 0 ? 2*j : -1-2*j);
+		f = max(2*f, -1-2*f);
+		j = max(2*j, -1-2*j);
 		gr[f^1].push_back(j);
 		gr[j^1].push_back(f);
 	}
