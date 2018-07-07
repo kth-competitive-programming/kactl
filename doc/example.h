@@ -14,6 +14,8 @@
  */
 #pragma once
 
+/// Headers and macros from contest/template.h are automatically included.
+
 #include "Example.h" /// Header name will be kept in final list.
 
 struct ExampleStructure {
@@ -34,8 +36,8 @@ int exampleFunction1(vi mice, int* cats, int catsCount) {
 			sum += cats[i] * it;
 		}
 	}
-	//Use tab indent and keep the lines shorter than 63 characters
-	//where tabs are 2 characters wide.
+	// Use tab indent and keep a line width of at most 63 chars,
+	// where tabs count as 2 characters wide.
 	//<---------------------Maximum width----------------------->
 	return sum;
 }
