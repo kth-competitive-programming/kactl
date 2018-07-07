@@ -27,9 +27,7 @@ ull divsum(ull to, ull c, ull k, ull m) {
 }
 
 ll modsum(ull to, ll c, ll k, ll m) {
-	c %= m;
-	k %= m;
-	if (c < 0) c += m;
-	if (k < 0) k += m;
+	c = ((c % m) + m) % m;
+	k = ((k % m) + m) % m;
 	return to * c + k * sumsq(to) - m * divsum(to, c, k, m);
 }
