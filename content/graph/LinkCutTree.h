@@ -64,7 +64,6 @@ struct LinkCut {
 		make_root(&node[u]);
 		node[u].pp = &node[v];
 	}
-
 	void cut(int u, int v) { // remove an edge (u, v)
 		Node *x = &node[u], *top = &node[v];
 		make_root(top); x->splay();
@@ -75,14 +74,11 @@ struct LinkCut {
 			x->fix();
 		}
 	}
-
 	bool connected(int u, int v) { // are u, v in the same tree?
 		Node* nu = access(&node[u])->first();
 		return nu == access(&node[v])->first();
 	}
-
-	/// Move u to root of represented tree.
-	void make_root(Node* u) {
+	void make_root(Node* u) { /// Move u to root of represented tree.
 		access(u);
 		u->splay();
 		if(u->c[0]) {
@@ -93,9 +89,7 @@ struct LinkCut {
 			u->fix();
 		}
 	}
-
-	/// Move u to root aux tree. Return the root of the root aux tree.
-	Node* access(Node* u) {
+	Node* access(Node* u) { /// Move u to root aux tree. Return the root of the root aux tree.
 		u->splay();
 		while (Node* pp = u->pp) {
 			pp->splay(); u->pp = 0;
