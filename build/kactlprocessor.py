@@ -36,9 +36,9 @@ def ordoescape(input):
 		end = start+1
 		while end+1<len(input) and bracketcount>0:
 			end = end + 1
-			if input[end] is '(':
+			if input[end] == '(':
 				bracketcount = bracketcount + 1
-			elif input[end] is ')':
+			elif input[end] == ')':
 				bracketcount = bracketcount - 1
 		if bracketcount == 0:
 			return input[:start] + "\\bigo{" + input[start+2:end] + "}" + ordoescape(input[end+1:])
