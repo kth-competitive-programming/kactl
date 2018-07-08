@@ -42,12 +42,12 @@ def ordoescape(input):
             elif input[end] == ')':
                 bracketcount = bracketcount - 1
         if bracketcount == 0:
-            return input[:start] + "\\bigo{" + input[start+2:end] + "}" + ordoescape(input[end+1:])
+            return input[:start] + r"\bigo{" + input[start+2:end] + "}" + ordoescape(input[end+1:])
     return input
 
 def addref(caption, outstream):
     caption = pathescape(caption).strip()
-    print("\\kactlref{",caption,"}", file=outstream)
+    print(r"\kactlref{%s}" % caption, file=outstream)
     with open('header.tmp', 'a') as f:
         f.write(caption + "\n")
 
@@ -82,7 +82,7 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
     nsource = ''
     start = source.find("/**")
     end = 0
-    commands = dict()
+    commands = {}
     while start >= 0 and not error:
         nsource = nsource.rstrip() + source[end:start]
         end = source.find("*/", start)
@@ -123,44 +123,43 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
     nsource = nsource.strip()
 
     # Produce output
+    out = []
     if warning:
-        print("\kactlwarning{",caption,":",warning,"}", file=outstream)
+        out.append(r"\kactlwarning{%s: %s}" % (caption, warning))
     if error:
-        print("\kactlerror{",caption,":",error,"}", file=outstream)
+        out.append(r"\kactlerror{%s: %s}" % (caption, error))
     else:
         addref(caption, outstream)
-        if "Description" in commands and len(commands["Description"])>0:
-            print("\\defdescription{",escape(commands["Description"]),"}", file=outstream)
-        if "Usage" in commands and len(commands["Usage"])>0:
-            print("\\defusage{",codeescape(commands["Usage"]),"}", file=outstream)
-        if "Time" in commands and len(commands["Time"])>0:
-            print("\\deftime{",ordoescape(commands["Time"]),"}", file=outstream)
-        if "Memory" in commands and len(commands["Memory"])>0:
-            print("\\defmemory{",ordoescape(commands["Memory"]),"}", file=outstream)
+        if commands.get("Description"):
+            out.append(r"\defdescription{%s}" % escape(commands["Description"]))
+        if commands.get("Usage"):
+            out.append(r"\defusage{%s}" % codeescape(commands["Usage"]))
+        if commands.get("Time"):
+            out.append(r"\deftime{%s}" % ordoescape(commands["Time"]))
+        if commands.get("Memory"):
+            out.append(r"\defmemory{%s}" % ordoescape(commands["Memory"]))
         if includelist:
-            print("\\leftcaption{",pathescape(", ".join(includelist)),"}", file=outstream)
+            out.append(r"\leftcaption{%s}" % pathescape(", ".join(includelist)))
         if nsource:
-            print("\\rightcaption{",str(linecount(nsource))," lines}", file=outstream)
-        print("\\begin{lstlisting}[caption={",pathescape(caption),"}", file=outstream)
-        if listingslang is not None:
-            print(", language="+listingslang, file=outstream)
-        print("]", file=outstream)
-        print(nsource, file=outstream)
-        print("\\end{lstlisting}", file=outstream)
+            out.append(r"\rightcaption{%d lines}" % len(nsource.split("\n")))
+        langstr = ", language="+listingslang if listingslang else ""
+        out.append(r"\begin{lstlisting}[caption={%s}%s]" % (pathescape(caption), langstr))
+        out.append(nsource)
+        out.append(r"\end{lstlisting}")
+
+    for line in out:
+        print(line, file=outstream)
 
 def processraw(caption, instream, outstream, listingslang = 'raw'):
     try:
         source = instream.read().strip()
         addref(caption, outstream)
-        print("\\rightcaption{",str(linecount(source))," lines}", file=outstream)
-        print("\\begin{lstlisting}[language="+listingslang+",caption={",pathescape(caption),"}]", file=outstream)
+        print(r"\rightcaption{%d lines}" % len(source.split("\n")), file=outstream)
+        print(r"\begin{lstlisting}[language=%s,caption={%s}]" % (listingslang, pathescape(caption)), file=outstream)
         print(source, file=outstream)
-        print("\\end{lstlisting}", file=outstream)
+        print(r"\end{lstlisting}", file=outstream)
     except:
         print("\kactlerror{Could not read source.}", file=outstream)
-
-def linecount(source):
-    return source.count("\n")+1
 
 def isinclude(line):
     line = line.strip()
@@ -189,7 +188,8 @@ def print_header(data, outstream):
     ind = lines.index(until) + 1
     def adjust(name):
         return name if name.startswith('.') else name.split('.')[0]
-    print('\\enspace{}'.join(map(adjust, lines[:ind])), file=outstream)
+    output = '\\enspace{}'.join(map(adjust, lines[:ind]))
+    print(output, file=outstream)
     with open('header.tmp', 'w') as f:
         for line in lines[ind:]:
             f.write(line + "\n")
