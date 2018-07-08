@@ -4,6 +4,7 @@
 # Source code preprocessor for KACTL building process.
 # Written by Håkan Terelius, 2008-11-24
 
+from __future__ import print_function
 import sys
 import getopt
 
@@ -46,7 +47,7 @@ def ordoescape(input):
 
 def addref(caption, outstream):
     caption = pathescape(caption).strip()
-    print >> outstream, "\\kactlref{",caption,"}"
+    print("\\kactlref{",caption,"}", file=outstream)
     with open('header.tmp', 'a') as f:
         f.write(caption + "\n")
 
@@ -123,40 +124,40 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 
     # Produce output
     if warning:
-        print >> outstream, "\kactlwarning{",caption,":",warning,"}"
+        print("\kactlwarning{",caption,":",warning,"}", file=outstream)
     if error:
-        print >> outstream, "\kactlerror{",caption,":",error,"}"
+        print("\kactlerror{",caption,":",error,"}", file=outstream)
     else:
         addref(caption, outstream)
         if "Description" in commands and len(commands["Description"])>0:
-            print >> outstream, "\\defdescription{",escape(commands["Description"]),"}"
+            print("\\defdescription{",escape(commands["Description"]),"}", file=outstream)
         if "Usage" in commands and len(commands["Usage"])>0:
-            print >> outstream, "\\defusage{",codeescape(commands["Usage"]),"}"
+            print("\\defusage{",codeescape(commands["Usage"]),"}", file=outstream)
         if "Time" in commands and len(commands["Time"])>0:
-            print >> outstream, "\\deftime{",ordoescape(commands["Time"]),"}"
+            print("\\deftime{",ordoescape(commands["Time"]),"}", file=outstream)
         if "Memory" in commands and len(commands["Memory"])>0:
-            print >> outstream, "\\defmemory{",ordoescape(commands["Memory"]),"}"
+            print("\\defmemory{",ordoescape(commands["Memory"]),"}", file=outstream)
         if includelist:
-            print >> outstream, "\\leftcaption{",pathescape(", ".join(includelist)),"}"
+            print("\\leftcaption{",pathescape(", ".join(includelist)),"}", file=outstream)
         if nsource:
-            print >> outstream, "\\rightcaption{",str(linecount(nsource))," lines}"
-        print >> outstream, "\\begin{lstlisting}[caption={",pathescape(caption),"}",
+            print("\\rightcaption{",str(linecount(nsource))," lines}", file=outstream)
+        print("\\begin{lstlisting}[caption={",pathescape(caption),"}", file=outstream)
         if listingslang is not None:
-            print >> outstream, ", language="+listingslang,
-        print >> outstream, "]"
-        print >> outstream, nsource
-        print >> outstream, "\\end{lstlisting}"
+            print(", language="+listingslang, file=outstream)
+        print("]", file=outstream)
+        print(nsource, file=outstream)
+        print("\\end{lstlisting}", file=outstream)
 
 def processraw(caption, instream, outstream, listingslang = 'raw'):
     try:
         source = instream.read().strip()
         addref(caption, outstream)
-        print >> outstream, "\\rightcaption{",str(linecount(source))," lines}"
-        print >> outstream, "\\begin{lstlisting}[language="+listingslang+",caption={",pathescape(caption),"}]"
-        print >> outstream, source
-        print >> outstream, "\\end{lstlisting}"
+        print("\\rightcaption{",str(linecount(source))," lines}", file=outstream)
+        print("\\begin{lstlisting}[language="+listingslang+",caption={",pathescape(caption),"}]", file=outstream)
+        print(source, file=outstream)
+        print("\\end{lstlisting}", file=outstream)
     except:
-        print >> outstream, "\kactlerror{Could not read source.}"
+        print("\kactlerror{Could not read source.}", file=outstream)
 
 def linecount(source):
     return source.count("\n")+1
@@ -188,7 +189,7 @@ def print_header(data, outstream):
     ind = lines.index(until) + 1
     def adjust(name):
         return name if name.startswith('.') else name.split('.')[0]
-    print >> outstream, '\\enspace{}'.join(map(adjust, lines[:ind]))
+    print('\\enspace{}'.join(map(adjust, lines[:ind])), file=outstream)
     with open('header.tmp', 'w') as f:
         for line in lines[ind:]:
             f.write(line + "\n")
@@ -203,14 +204,14 @@ def main():
         opts, args = getopt.getopt(sys.argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption=", "print-header="])
         for option, value in opts:
             if option in ("-h", "--help"):
-                print "This is the help section for this program"
-                print
-                print "Available commands are:"
-                print "\t -o --output"
-                print "\t -h --help"
-                print "\t -i --input"
-                print "\t -l --language"
-                print "\t --print-header"
+                print("This is the help section for this program")
+                print()
+                print("Available commands are:")
+                print("\t -o --output")
+                print("\t -h --help")
+                print("\t -i --input")
+                print("\t -l --language")
+                print("\t --print-header")
                 return
             if option in ("-o", "--output"):
                 outstream = open(value, "w")
@@ -229,7 +230,7 @@ def main():
         if print_header_value is not None:
             print_header(print_header_value, outstream)
             return
-        print " * \x1b[1m{}\x1b[0m".format(caption)
+        print(" * \x1b[1m{}\x1b[0m".format(caption))
         if language == "cpp" or language == "cc" or language == "c" or language == "h" or language == "hpp":
             processwithcomments(caption, instream, outstream)
         elif language == "java":
@@ -244,11 +245,10 @@ def main():
             processraw(caption, instream, outstream, 'bash')
         else:
             raise ValueError("Unkown language: " + str(language))
-    except (ValueError, getopt.GetoptError, IOError), err:
-        print >> sys.stderr, str(err)
-        print >> sys.stderr, "\t for help use --help"
+    except (ValueError, getopt.GetoptError, IOError) as err:
+        print(str(err), file=sys.stderr)
+        print("\t for help use --help", file=sys.stderr)
         return 2
 
-
 if __name__ == "__main__":
-    sys.exit(main())
+    exit(main())
