@@ -138,7 +138,8 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 			print >> outstream, "\\defmemory{",ordoescape(commands["Memory"]),"}"
 		if includelist:
 			print >> outstream, "\\leftcaption{",pathescape(", ".join(includelist)),"}"
-		print >> outstream, "\\rightcaption{",str(linecount(nsource))," lines}"
+		if nsource:
+			print >> outstream, "\\rightcaption{",str(linecount(nsource))," lines}"
 		print >> outstream, "\\begin{lstlisting}[caption={",pathescape(caption),"}",
 		if listingslang is not None:
 			print >> outstream, ", language="+listingslang,
