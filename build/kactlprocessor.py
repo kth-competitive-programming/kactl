@@ -44,12 +44,11 @@ def ordoescape(input):
 			return input[:start] + "\\bigo{" + input[start+2:end] + "}" + ordoescape(input[end+1:])
 	return input
 
-def print_title(caption, outstream):
-	caption = pathescape(caption)
+def addref(caption, outstream):
+	caption = pathescape(caption).strip()
 	print >> outstream, "\\kactlref{",caption,"}"
-	if not caption.startswith('.'):
-		caption = caption.split('.')[0]
-	print >> outstream, "\\gappto\\thelistings{\\textbf{",caption," }}"
+	with open('header.tmp', 'a') as f:
+		f.write(caption + "\n")
 
 def processwithcomments(caption, instream, outstream, listingslang = None):
 	knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage']
@@ -128,7 +127,7 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 	if error:
 		print >> outstream, "\kactlerror{",caption,":",error,"}"
 	else:
-		print_title(caption, outstream)
+		addref(caption, outstream)
 		if "Description" in commands and len(commands["Description"])>0:
 			print >> outstream, "\\defdescription{",escape(commands["Description"]),"}"
 		if "Usage" in commands and len(commands["Usage"])>0:
@@ -150,7 +149,7 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
 def processraw(caption, instream, outstream, listingslang = 'raw'):
 	try:
 		source = instream.read().strip()
-		print_title(caption, outstream)
+		addref(caption, outstream)
 		print >> outstream, "\\rightcaption{",str(linecount(source))," lines}"
 		print >> outstream, "\\begin{lstlisting}[language="+listingslang+",caption={",pathescape(caption),"}]"
 		print >> outstream, source
@@ -173,15 +172,34 @@ def getlang(input):
 def getfilename(input):
 	return input.rsplit('/',1)[-1]
 
-def main(argv=None):
+def print_header(data, outstream):
+	parts = data.split('|')
+	until = parts[0].strip() or parts[1].strip()
+	if not until:
+		# Nothing on this page, skip it.
+		return
+	with open('header.tmp') as f:
+		lines = [x.strip() for x in f.readlines()]
+	if until not in lines:
+		# Nothing new on the page.
+		return
+
+	ind = lines.index(until) + 1
+	def adjust(name):
+		return name if name.startswith('.') else name.split('.')[0]
+	print >> outstream, '\\enspace{}'.join(map(adjust, lines[:ind]))
+	with open('header.tmp', 'w') as f:
+		for line in lines[ind:]:
+			f.write(line + "\n")
+
+def main():
 	language = None
 	caption = None
 	instream = sys.stdin
 	outstream = sys.stdout
-	if argv is None:
-		argv = sys.argv
+	print_header_value = None
 	try:
-		opts, args = getopt.getopt(argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption="])	
+		opts, args = getopt.getopt(sys.argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption=", "print-header="])
 		for option, value in opts:
 			if option in ("-h", "--help"):
 				print "This is the help section for this program"
@@ -191,6 +209,7 @@ def main(argv=None):
 				print "\t -h --help"
 				print "\t -i --input"
 				print "\t -l --language"
+				print "\t --print-header"
 				return
 			if option in ("-o", "--output"):
 				outstream = open(value, "w")
@@ -204,6 +223,11 @@ def main(argv=None):
 				language = value
 			if option in ("-c", "--caption"):
 				caption = value
+			if option == "--print-header":
+				print_header_value = value
+		if print_header_value is not None:
+			print_header(print_header_value, outstream)
+			return
 		print " * \x1b[1m{}\x1b[0m".format(caption)
 		if language == "cpp" or language == "cc" or language == "c" or language == "h" or language == "hpp":
 			processwithcomments(caption, instream, outstream)

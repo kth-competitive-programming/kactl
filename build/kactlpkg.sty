@@ -18,7 +18,6 @@
 \usepackage{paralist}                   % For compact enumerations
 \usepackage[inline]{enumitem}           % For horizontal lists
 \usepackage[parfill]{parskip}           % For compact enumerations
-\usepackage{etoolbox}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[normalem]{ulem}
 
@@ -54,15 +53,25 @@
 	\end{center}
 }
 
-\AtBeginDocument{}
-\AtEndDocument{}
+% Remove temp files from old failed runs
+\AtBeginDocument{\immediate\write18{rm -f header.tmp}\immediate\write18{rm -f kactl.tmp}}
+\AtEndDocument{\immediate\write18{rm -f header.tmp}\immediate\write18{rm -f kactl.tmp}}
 
-\newcommand{\thelistings}{}
+% Include a list of source files at the top of every page. For the purpose
+% of recording those, we use eTeX marks. (We can't just append data directly to
+% the header, because TeX outputs pages asynchronously, noticably so when
+% multicol is in use.) There is no command for getting all marks set on a page,
+% so we take only the last one and include all non-included files up until that
+% one. Most of the time \splitbotmark will give us the right mark, but in rare
+% cases things fall down and we try to make the best of things by falling back
+% to \botmark. Also, since LaTeX is terrible at string manipulation, we do all
+% actual processing in Python, stashing global state in header.tmp.
+\newmarks\hdrmark
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \headheight 25pt
 \lhead{\@unishort}
-\chead{\hspace{3mm} \thelistings \gdef\thelistings{}}
+\chead{\hspace{3mm}\textbf{\immediate\write18{python2 kactlprocessor.py --print-header "\splitbotmarks\hdrmark|\botmarks\hdrmark" -o kactl.tmp}\immediate\input{kactl.tmp}}}
 \rhead{\thepage}
 %\lhead{}\chead{\thepage}\rhead{}
 \lfoot{}\cfoot{}\rfoot{}
@@ -202,6 +211,7 @@
 			\addcontentsline{ptc}{section}{\texttt{#1}\hspace{0.2em}}
 		\fi
 	}
+	\marks\hdrmark{#1}
 }
 
 \newcommand{\kactlimport}[2][]{ % Using empty default parameter
