@@ -1,6 +1,7 @@
 /**
- * Author: Simon Lindholm (but heavily derived from SegmentIntersection.h, by Ulf)
+ * Author: Ulf Lundstrom, Simon Lindholm
  * Date: 2016-09-24
+ * License: CC0
  * Source: SegmentIntersection.h
  * Description: Like segmentIntersection, but only returns true/false.
  * Products of three coordinates are used in intermediate steps so watch out for overflow if using int or long long.

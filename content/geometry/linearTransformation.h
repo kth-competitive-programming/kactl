@@ -1,6 +1,7 @@
 /**
  * Author: Per Austrin, Ulf Lundstrom
  * Date: 2009-04-09
+ * License: CC0
  * Source:
  * Description:\\
 \begin{minipage}{75mm}
