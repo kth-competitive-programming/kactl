@@ -10,27 +10,28 @@ import getopt
 
 
 def escape(input):
-    input = input.replace('<','\\ensuremath{<}')
-    input = input.replace('>','\\ensuremath{>}')
+    input = input.replace('<', r'\ensuremath{<}')
+    input = input.replace('>', r'\ensuremath{>}')
     return input
 
 def pathescape(input):
-    input = input.replace('\\','\\\\')
-    input = input.replace('_','\_')
+    input = input.replace('\\', r'\\')
+    input = input.replace('_', r'\_')
     input = escape(input)
     return input
 
 def codeescape(input):
-    input = input.replace('_','\\_')
-    input = input.replace('\n','\\\\\n')
-    input = input.replace('{','\\{')
-    input = input.replace('}','\\}')
-    input = input.replace('^','\\ensuremath{\\hat{\\;}}')
+    input = input.replace('_', r'\_')
+    input = input.replace('\n', '\\\\\n')
+    input = input.replace('{', r'\{')
+    input = input.replace('}', r'\}')
+    input = input.replace('^', r'\ensuremath{\hat{\;}}')
     input = escape(input)
     return input
 
-def ordoescape(input):
-    input = escape(input)
+def ordoescape(input, esc=True):
+    if esc:
+        input = escape(input)
     start = input.find("O(")
     if start >= 0:
         bracketcount = 1
@@ -42,7 +43,7 @@ def ordoescape(input):
             elif input[end] == ')':
                 bracketcount = bracketcount - 1
         if bracketcount == 0:
-            return input[:start] + r"\bigo{" + input[start+2:end] + "}" + ordoescape(input[end+1:])
+            return r"%s\bigo{%s}%s" % (input[:start], input[start+2:end], ordoescape(input[end+1:], False))
     return input
 
 def addref(caption, outstream):
@@ -188,7 +189,7 @@ def print_header(data, outstream):
     ind = lines.index(until) + 1
     def adjust(name):
         return name if name.startswith('.') else name.split('.')[0]
-    output = '\\enspace{}'.join(map(adjust, lines[:ind]))
+    output = r"\enspace{}".join(map(adjust, lines[:ind]))
     print(output, file=outstream)
     with open('header.tmp', 'w') as f:
         for line in lines[ind:]:
