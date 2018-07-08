@@ -214,6 +214,17 @@
 	\marks\hdrmark{#1}
 }
 
+% Like \needspace, except with flush bottoms.
+\newcommand{\myneedspace}[1]{%
+  \begingroup
+    \setlength{\dimen@}{#1}%
+    \vskip\dimen@
+    \penalty 9999%
+    \vskip -\dimen@
+    \vskip\z@skip
+  \endgroup
+}
+
 \newcommand{\kactlimport}[2][]{ % Using empty default parameter
 	\leftcaption{}\rightcaption{}
 	\setboolean{hasdescription}{false}
@@ -221,6 +232,8 @@
 	\setboolean{hastime}{false}
 	\setboolean{hasmemory}{false}
 	\setboolean{hasleftcaption}{false}
+	\myneedspace{3\baselineskip}
+	\penalty-100
 	#2
 	\immediate\write18{rm -f kactl.tmp} % Don't include old kactl.tmp on failure.
 	\immediate\write18{python2 kactlprocessor.py -i "\@kactldir/#2" -o kactl.tmp #1}
@@ -314,4 +327,4 @@
 
 \newcommand{\bigo}[1] {\ensuremath{\mathcal{O} \left( #1 \right)}}
 
-\newcommand{\hardcolumnbreak}{\vfill\ \columnbreak}
+\newcommand{\hardcolumnbreak}{\vfill\null\columnbreak}
