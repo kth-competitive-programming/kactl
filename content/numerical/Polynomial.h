@@ -5,7 +5,7 @@
  */
 #pragma once
 
-struct Polynomial {
+struct Poly {
 	vector<double> a;
 	double operator()(double x) const {
 		double val = 0;
