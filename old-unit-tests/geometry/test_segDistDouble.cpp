@@ -26,7 +26,7 @@ public:
 
 
 
-	template <class T>
+	template<class T>
 	void test(T p1, T p2, T p3, double a) {
 		stringstream ss;
 		ss << p1 << " " << p2 << " " << p3;

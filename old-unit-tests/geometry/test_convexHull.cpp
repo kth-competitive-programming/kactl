@@ -4,7 +4,7 @@
 #include <sstream>
 typedef Point<double> P;
 
-template <class T>
+template<class T>
 ostream & operator<<(ostream & os, const vector<T> p) {
 	os << "[ ";
 	trav(it,p) os << it << " ";

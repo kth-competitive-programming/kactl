@@ -12,7 +12,7 @@ typedef vector<int> vi;
 
 #include "../content/geometry/Point.h"
 
-template <>
+template<>
 struct Point<double> {
 	typedef Point P;
 	typedef double T;

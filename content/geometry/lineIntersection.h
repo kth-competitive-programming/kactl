@@ -20,7 +20,7 @@ If a unique intersetion point of the lines going through s1,e1 and s2,e2 exists 
 
 #include "Point.h"
 
-template <class P>
+template<class P>
 int lineIntersection(const P& s1, const P& e1, const P& s2,
 		const P& e2, P& r) {
 	if ((e1-s1).cross(e2-s2)) { //if not parallell

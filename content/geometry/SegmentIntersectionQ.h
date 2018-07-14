@@ -11,7 +11,7 @@
 
 #include "Point.h"
 
-template <class P>
+template<class P>
 bool segmentIntersectionQ(P s1, P e1, P s2, P e2) {
 	if (e1 == s1) {
 		if (e2 == s2) return e1 == e2;

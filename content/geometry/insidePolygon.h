@@ -18,7 +18,7 @@
 #include "onSegment.h"
 #include "SegmentDistance.h"
 
-template <class It, class P>
+template<class It, class P>
 bool insidePolygon(It begin, It end, const P& p,
 		bool strict = true) {
 	int n = 0; //number of isects with line from p to (inf,p.y)

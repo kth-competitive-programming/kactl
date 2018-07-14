@@ -9,7 +9,7 @@
  */
 #pragma once
 
-template <class T>
+template<class T>
 struct Point {
 	typedef Point P;
 	T x, y;

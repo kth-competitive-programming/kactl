@@ -9,7 +9,7 @@
  */
 #pragma once
 
-template <class T> T lcs(const T &X, const T &Y) {
+template<class T> T lcs(const T &X, const T &Y) {
 	int a = sz(X), b = sz(Y);
 	vector<vi> dp(a+1, vi(b+1));
 	rep(i,1,a+1) rep(j,1,b+1)

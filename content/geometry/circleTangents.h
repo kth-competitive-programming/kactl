@@ -19,7 +19,7 @@ Returns a pair of the two points on the circle with radius r centered around c w
 
 #include "Point.h"
 
-template <class P>
+template<class P>
 pair<P,P> circleTangents(const P &p, const P &c, double r) {
 	P a = p-c;
 	double x = r*r/a.dist2(), y = sqrt(x-x*x);

@@ -18,7 +18,7 @@
 const int inf = numeric_limits<int>::max();
 #endif /** exclude-line */
 
-template <class T>
+template<class T>
 struct RMQ {
 	vector<vector<T>> jmp;
 

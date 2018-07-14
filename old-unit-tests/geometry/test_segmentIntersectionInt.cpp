@@ -22,7 +22,7 @@ public:
 
 	virtual ~test_segmentIntersectionInt() { }
 
-	template <class T>
+	template<class T>
 	void oldTest(T s1, T e1, T s2, T e2, vector<T> res) {
 		stringstream ss;
 		ss << s1 << " " << e1 << " " << s2 << " " << e2;
@@ -32,7 +32,7 @@ public:
 			fail(ss.str());
 		//check(v,res,ss.str());
 	}
-	template <class T>
+	template<class T>
 	void test(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
 		stringstream ss;
 		ss << s1 << " " << e1 << " " << s2 << " " << e2;
@@ -47,21 +47,21 @@ public:
 		}
 	}
 
-	template <class T>
+	template<class T>
 	void test1(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
 		T p1(3,9), p2(-12409, 1421);
 		test2(s1,e1,s2,e2,n,r1,r2);
 		test2(s1+p1,e1+p1,s2+p1,e2+p1,n,r1+p1,r2+p1);
 		test2(s1+p2,e1+p2,s2+p2,e2+p2,n,r1+p2,r2+p2);
 	}
-	template <class T>
+	template<class T>
 	void test2(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
 		int p1 = 4, p2 = -3;
 		test3(s1,e1,s2,e2,n,r1,r2);
 		test3(s1*p1,e1*p1,s2*p1,e2*p1,n,r1*p1,r2*p1);
 		test3(s1*p2,e1*p2,s2*p2,e2*p2,n,r1*p2,r2*p2);
 	}
-	template <class T>
+	template<class T>
 	void test3(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
 		T s1p = s1.perp(),e1p = e1.perp(),s2p=s2.perp(),e2p=e2.perp(),
 				r1p=r1.perp(),r2p=r2.perp();
@@ -71,17 +71,17 @@ public:
 		test4(s1-s1p,e1-e1p,s2-s2p,e2-e2p,n,r1-r1p,r2-r2p);
 		test4(s1*3-s1p,e1*3-e1p,s2*3-s2p,e2*3-e2p,n,r1*3-r1p,r2*3-r2p);
 	}
-	template <class T>
+	template<class T>
 	void test4(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
 		test5(s1,e1,s2,e2,n,r1,r2);
 		test5(s2,e2,s1,e1,n,r1,r2);
 	}
-	template <class T>
+	template<class T>
 	void test5(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
 		test6(s1,e1,s2,e2,n,r1,r2);
 		test6(e1,s1,s2,e2,n,r1,r2);
 	}
-	template <class T>
+	template<class T>
 	void test6(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
 		test(s1,e1,s2,e2,n,r1,r2);
 		test(s1,e1,e2,s2,n,r1,r2);

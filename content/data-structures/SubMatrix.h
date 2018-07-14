@@ -12,7 +12,7 @@
  */
 #pragma once
 
-template <class T>
+template<class T>
 struct SubMatrix {
 	vector<vector<T>> p;
 	SubMatrix(vector<vector<T>>& v) {

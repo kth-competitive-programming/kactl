@@ -12,7 +12,7 @@
  */
 #pragma once
 
-template <class T, int N> struct Matrix {
+template<class T, int N> struct Matrix {
 	typedef Matrix M;
 	array<array<T, N>, N> d{};
 	M operator*(const M& m) const {

@@ -10,7 +10,7 @@
  */
 #pragma once
 
-template <class T> struct Point3D {
+template<class T> struct Point3D {
 	typedef Point3D P;
 	typedef const P& R;
 	T x, y, z;

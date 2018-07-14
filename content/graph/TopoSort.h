@@ -10,7 +10,7 @@
  */
 #pragma once
 
-template <class E, class I>
+template<class E, class I>
 bool topo_sort(const E &edges, I &idx, int n) {
 	vi indeg(n);
 	rep(i,0,n)
