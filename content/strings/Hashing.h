@@ -8,15 +8,17 @@
  */
 #pragma once
 
-// Arithmetic mod 2^64-1. 5x slower than mod 2^64 and more
-// code, but works on evil test data (e.g. Thue-Morse).
-// "typedef ull H;" instead if you think test data is random.
+// Arithmetic mod 2^64-1. 2x slower than mod 2^64 and more
+// code, but works on evil test data (e.g. Thue-Morse, where
+// ABBA... and BAAB... of length 2^10 hash the same mod 2^64).
+// "typedef ull H;" instead if you think test data is random,
+// or work mod 10^9+7 if the Birthday paradox is not a problem.
 struct H {
 	typedef uint64_t ull;
-	typedef __uint128_t L;
 	ull x; H(ull x=0) : x(x) {}
-	H operator+(H o) { return x + o.x + ull(((L)x + o.x)>>64); }
-	H operator*(H o) { return H(x*o.x)+ ull(((L)x * o.x)>>64); }
+#define OP(O,A,B) H operator O(H o) { ull r = x; asm \
+	(A "addq %%rdx, %0\n adcq $0,%0" : "+a"(r) : B); return r; }
+	OP(+,,"d"(o.x)) OP(*,"mul %1\n", "r"(o.x) : "rdx")
 	H operator-(H o) { return *this + ~o.x; }
 	ull get() const { return x + !~x; }
 	bool operator==(H o) const { return get() == o.get(); }
