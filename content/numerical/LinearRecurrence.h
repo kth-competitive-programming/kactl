@@ -13,7 +13,7 @@
  */
 #pragma once
 
-const ll mod = 1000000007; /// exclude-line
+const ll mod = 1000000007; /** exclude-line */
 
 typedef vector<ll> Poly;
 ll linearRec(Poly S, Poly tr, ll k) {
