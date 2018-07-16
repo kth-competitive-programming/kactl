@@ -1,5 +1,6 @@
 /**
  * Author: Lucian Bicsi
+ * Date: 2017-10-31
  * License: CC0
  * Source: Wikipedia
  * Description: Recovers any $n$-order linear recurrence relation from the first

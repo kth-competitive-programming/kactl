@@ -1,5 +1,6 @@
 /**
  * Author: Lucian Bicsi
+ * Date: 2018-02-14
  * License: CC0
  * Source: Chinese material
  * Description: Generates the $k$'th term of an $n$-order
