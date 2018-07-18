@@ -6,17 +6,12 @@
  * Status: Tested at Petrozavodsk
  * Description: Range Minimum Queries on an array. Returns
  * min(V[a], V[a + 1], ... V[b - 1]) in constant time. 
- * Set inf to something reasonable before use.
  * Usage:
  *  RMQ rmq(values);
  *  rmq.query(inclusive, exclusive);
  * Time: $O(|V| \log |V| + Q)$
  */
 #pragma once
-
-#ifndef RMQ_HAVE_INF /** exclude-line */
-const int inf = numeric_limits<int>::max();
-#endif /** exclude-line */
 
 template<class T>
 struct RMQ {
@@ -32,7 +27,7 @@ struct RMQ {
 	}
 
 	T query(int a, int b) {
-		if (b <= a) return inf;
+		assert(a < b); // or return inf if a == b
 		int dep = 31 - __builtin_clz(b - a);
 		return min(jmp[dep][a], jmp[dep][b - (1 << dep)]);
 	}
