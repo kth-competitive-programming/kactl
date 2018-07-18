@@ -65,12 +65,15 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
         error = "Could not read source."
     nlines = list()
     for line in lines:
+        had_comment = "///" in line
         # Remove /// comments
         line = line.split("///")[0].rstrip()
         # Remove '#pragma once' and 'using namespace std;' lines
         if line == "#pragma once" or line == "using namespace std;":
             continue
         if line.endswith("/** exclude-line */"):
+            continue
+        if had_comment and not line:
             continue
         # Check includes
         include = isinclude(line)
