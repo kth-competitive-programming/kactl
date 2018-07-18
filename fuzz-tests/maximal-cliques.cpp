@@ -27,7 +27,7 @@ void fastCliques(vector<B>& eds, F f) {
 	}
 }
 
-int main2() {
+int main1() {
 	rep(n,1,11) rep(m,0,200) {
 		vector<B> ed(n);
 		rep(i,0,m) {
@@ -70,7 +70,7 @@ int main2() {
 	return 0;
 }
 
-int main() {
+int main2() {
 	rep(it,0,20) {
 		const int n = 128, m = 4000;
 		vector<B> ed(n);
@@ -86,3 +86,8 @@ int main() {
 	}
 	return 0;
 }
+
+#ifndef target
+#define target main1
+#endif
+int main() { target(); }
