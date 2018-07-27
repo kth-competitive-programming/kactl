@@ -1,41 +1,30 @@
 /**
- * Author: Lukas Polacek, Johan Sannemo
- * Date: 2009-10-26, 2015-02-10
+ * Author: Lucian Bicsi
+ * Date: 2017-10-31
  * License: CC0
  * Source: folklore
  * Description: Zero-indexed max-tree. Bounds are inclusive to the left and exclusive to the right. Can be changed by modifying T, LOW and f.
- * Time: O(\log N).
+ * Time: O(\log N)
+ * Status: fuzz-tested
  */
 #pragma once
 
 struct Tree {
 	typedef int T;
-	const T LOW = -1234567890;
-	T f(T a, T b) { return max(a, b); }
-
-	int n;
-	vi s;
-	Tree() {}
-	Tree(int m, T def=0) { init(m, def); }
-	void init(int m, T def) {
-		n = 1; while (n < m) n *= 2;
-		s.assign(n + m, def);
-		s.resize(2 * n, LOW);
-		for (int i = n; i --> 1; )
-			s[i] = f(s[i * 2], s[i*2 + 1]);
-	}
+	static const T LOW = INT_MIN;
+	T f(T a, T b) { return max(a, b); } // (any associative fn)
+	vector<T> s; int n;
+	Tree(int n = 0, T def = 0) : s(2*n, def), n(n) {}
 	void update(int pos, T val) {
-		pos += n;
-		s[pos] = val;
-		for (pos /= 2; pos >= 1; pos /= 2)
-			s[pos] = f(s[pos * 2], s[pos * 2 + 1]);
+		for (s[pos += n] = val; pos > 1; pos /= 2)
+			s[pos / 2] = f(s[pos & ~1], s[pos | 1]);
 	}
-	T query(int l, int r) { return que(1, l, r, 0, n); }
-	T que(int pos, int l, int r, int lo, int hi) {
-		if (r <= lo || hi <= l) return LOW;
-		if (l <= lo && hi <= r) return s[pos];
-		int m = (lo + hi) / 2;
-		return f(que(2 * pos, l, r, lo, m),
-				que(2 * pos + 1, l, r, m, hi));
+	T query(int b, int e) { // query [b, e)
+		T ra = LOW, rb = LOW;
+		for (b += n, e += n; b < e; b /= 2, e /= 2) {
+			if (b % 2) ra = f(ra, s[b++]);
+			if (e % 2) rb = f(s[--e], rb);
+		}
+		return f(ra, rb);
 	}
 };

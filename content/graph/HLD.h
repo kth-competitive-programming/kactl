@@ -39,8 +39,8 @@ struct HLD {
 
 	HLD(vector<vpi>& g) : V(sz(g)) {
 		dfs(0, -1, g, 0);
-		trav(c, C){
-			c.tree.init(sz(c.nodes), 0);
+		trav(c, C) {
+			c.tree = {sz(c.nodes), 0};
 			for (int ni : c.nodes)
 				c.tree.update(V[ni].pos, V[ni].val);
 		}
