@@ -6,16 +6,16 @@ Algorithm analysis
 	Amortized time complexity
 Greedy algorithm
 	Scheduling
-	Max contigous subvector sum
+	Max contiguous subvector sum
 	Invariants
 	Huffman encoding
-Graph teory
+Graph theory
 	Dynamic graphs (extra book-keeping)
 	Breadth first search
 	Depth first search
 	* Normal trees / DFS trees
-	Dijkstra's algoritm
-	MST: Prim's algoritm
+	Dijkstra's algorithm
+	MST: Prim's algorithm
 	Bellman-Ford
 	Konig's theorem and vertex cover
 	Min-cost max flow
@@ -28,7 +28,7 @@ Graph teory
 	Floyd-Warshall
 	Euler cycles
 	Flow networks
-	* Augumenting paths
+	* Augmenting paths
 	* Edmonds-Karp
 	Bipartite matching
 	Min. path cover
