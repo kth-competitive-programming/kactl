@@ -35,7 +35,7 @@ Graph theory
 	Topological sorting
 	Strongly connected components
 	2-SAT
-	Cut vertices, cut-edges och biconnected components
+	Cut vertices, cut-edges and biconnected components
 	Edge coloring
 	* Trees
 	Vertex coloring
