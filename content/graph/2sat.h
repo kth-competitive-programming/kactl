@@ -31,8 +31,8 @@ struct TwoSat {
 	void either(int f, int j) {
 		f = max(2*f, -1-2*f);
 		j = max(2*j, -1-2*j);
-		gr[f^1].push_back(j);
-		gr[j^1].push_back(f);
+		gr[f].push_back(j^1);
+		gr[j].push_back(f^1);
 	}
 	void set_value(int x) { either(x, x); }
 
@@ -59,7 +59,7 @@ struct TwoSat {
 			x = z.back(); z.pop_back();
 			comp[x] = time;
 			if (values[x>>1] == -1)
-				values[x>>1] = !(x&1);
+				values[x>>1] = x&1;
 		} while (x != i);
 		return val[i] = low;
 	}

@@ -56,7 +56,8 @@ int main2() {
 	ts.either(0,~1);
 	ts.either(~2,~3);
 	cout << ts.solve() << endl;
-	rep(i,0,4) cout << ts.values[i] << ' '; cout << endl;
+	rep(i,0,4) cout << ts.values[i] << ' ';
+	cout << endl;
 	return 0;
 }
 
