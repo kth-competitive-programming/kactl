@@ -1,30 +1,27 @@
 /**
- * Author: Lukas Polacek
- * Date: 2010-01-26
+ * Author: chilli, c1729
+ * Date: 2019-03-28
  * License: CC0
- * Source: TopCoder tutorial
- * Description: Miller-Rabin primality probabilistic test.
- * Probability of failing one iteration is at most 1/4. 15 iterations should be
- * enough for 50-bit numbers.
- * Time: 15 times the complexity of $a^b \mod c$.
+ * Description: Deterministic Miller-Rabin primality test.
+ * Guaranteed to be correct, 2x as probabilistic version for <1e9, 3x as fast
+ * for 1e15
+ * Time: 7 times the complexity of $a^b \mod c$.
  */
 #pragma once
 
 #include "ModMulLL.h"
 
-bool prime(ull p) {
-	if (p == 2) return true;
-	if (p == 1 || p % 2 == 0) return false;
-	ull s = p - 1;
-	while (s % 2 == 0) s /= 2;
-	rep(i,0,15) {
-		ull a = rand() % (p - 1) + 1, tmp = s;
-		ull mod = mod_pow(a, tmp, p);
-		while (tmp != p - 1 && mod != 1 && mod != p - 1) {
-			mod = mod_mul(mod, mod, p);
-			tmp *= 2;
-		}
-		if (mod != p - 1 && tmp % 2 == 0) return false;
-	}
-	return true;
+bool prime(ull n) {
+    vector<ull> ps({2, 3, 5, 13, 19, 73, 193, 407521, 299210837});
+    vector<ull> cs({2, 325, 9375, 28178, 450775, 9780504, 1795265022});
+    if (n <= 1 || any_of(all(ps), [&](ull p) { return n % p == 0; }))
+        return count(all(ps), n) > 0;
+    ull d = n - 1, s = 0;
+    while (!(d & 1)) d >>= 1, s++;
+    return !any_of(all(cs), [&](ull a) {
+        for (ull i = 0, p = mod_pow(a, d, n); i < s; i++, p = mod_mul(p, p, n))
+            if (p == n - 1 || (i == 0 && p == 1))
+                return false;
+        return true;
+    });
 }
