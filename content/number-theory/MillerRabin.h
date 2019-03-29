@@ -2,9 +2,7 @@
  * Author: chilli, c1729
  * Date: 2019-03-28
  * License: CC0
- * Description: Deterministic Miller-Rabin primality test.
- * Guaranteed to be correct, 2x as probabilistic version for <1e9, 3x as fast
- * for 1e15
+ * Description: Deterministic Miller-Rabin primality test. Numbers taken from 
  * Time: 7 times the complexity of $a^b \mod c$.
  */
 #pragma once
@@ -12,10 +10,10 @@
 #include "ModMulLL.h"
 
 bool prime(ull n) {
-    vector<ull> ps({2, 3, 5, 13, 19, 73, 193, 407521, 299210837});
     vector<ull> cs({2, 325, 9375, 28178, 450775, 9780504, 1795265022});
-    if (n <= 1 || any_of(all(ps), [&](ull p) { return n % p == 0; }))
-        return count(all(ps), n) > 0;
+    if (n <= 1) return false;
+    for (ull p : {2, 3, 5, 13, 19, 73, 193, 407521, 299210837})
+        if (n % p == 0) return (n == p);
     ull d = n - 1, s = 0;
     while (!(d & 1)) d >>= 1, s++;
     return !any_of(all(cs), [&](ull a) {
