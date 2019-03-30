@@ -2,6 +2,7 @@
  * Author: chilli, c1729
  * Date: 2019-03-28
  * License: CC0
+ * Source: Bases taken from https://miller-rabin.appspot.com/
  * Description: Deterministic Miller-Rabin primality test. Guaranteed to work for numbers up to 2^64.
  * Can test 15 random numbers for $a$ for probabilistic test on values higher than 2^64.
  * Time: 7 times the complexity of $a^b \mod c$.
