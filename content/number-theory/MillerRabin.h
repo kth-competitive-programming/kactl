@@ -20,7 +20,7 @@ bool isPrime(ull n) {
         ull p = mod_pow(a, d, n), i = d;
         while (p != n - 1 && i != n - 1 && p != 1)
             i <<= 1, p = mod_mul(p, p, n);
-        if (i == n - 1 && i > d) return false;
+        if (p != n-1 && i != d) return false;
     }
     return true;
 }
