@@ -27,7 +27,7 @@ void ntt(ll* x, ll* temp, ll* roots, int N, int skip) {
 	rep(i,0,N) temp[i] = x[i*skip];
 	rep(i,0,n2) {
 		ll s = temp[2*i], t = temp[2*i+1] * roots[skip*i];
-		x[skip*i] = (s + t) % mod; x[skip*(i+n2)] = (s - t) % mod;
+		x[skip*i] = (s + t) % mod; x[skip*(i+n2)] = ((s - t) % mod + mod) % mod;
 	}
 }
 void ntt(vl& x, bool inv = false) {
