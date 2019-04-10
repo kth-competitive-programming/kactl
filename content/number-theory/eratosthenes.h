@@ -9,7 +9,7 @@
  */
 #pragma once
 
-const int MAX_PR = 5000000;
+const int MAX_PR = 5'000'000;
 bitset<MAX_PR> isprime;
 vi eratosthenes_sieve(int lim) {
 	isprime.set(); isprime[0] = isprime[1] = 0;
