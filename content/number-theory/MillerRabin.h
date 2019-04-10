@@ -4,7 +4,7 @@
  * License: CC0
  * Source: Wikipedia, https://miller-rabin.appspot.com/
  * Description: Deterministic Miller-Rabin primality test.
- * Guaranteed to work for numbers up to 2^64; for larger numbers, extend A randomly.
+ * Guaranteed to work for numbers up to $2^{64}$; for larger numbers, extend A randomly.
  * Time: 7 times the complexity of $a^b \mod c$.
  */
 #pragma once
