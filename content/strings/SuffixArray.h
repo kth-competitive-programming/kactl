@@ -1,8 +1,8 @@
 /**
- * Author: Lukas Polacek
+ * Author: chilli
  * Date: 2009-10-27
  * License: CC0
- * Source: folklore and Linear-time longest-common-prefix
+ * Source: MIT Notebook
  * computation in suffix arrays and its applications (2001).
  * Description: Builds suffix array for a string. $a[i]$ is
  * the starting index of the suffix which is $i$-th in the
@@ -10,71 +10,45 @@
  * and $a[0] = n$. The {\tt lcp} function calculates longest
  * common prefixes for neighbouring strings in suffix array.
  * The returned vector is of size $n+1$, and $ret[0] = 0$.
- * Time: $O(N \log^2 N)$ where $N$ is the length of the string
+ * Time: $O(N)$ where $N$ is the length of the string
  * for creation of the SA. $O(N)$ for longest common prefixes.
  * Memory: $O(N)$
  * Status: Tested on UVa Live 4513
  */
 #pragma once
 
-typedef pair<ll, int> pli;
-void count_sort(vector<pli> &b, int bits) { // (optional)
-	//this is just 3 times faster than stl sort for N=10^6
-	int mask = (1 << bits) - 1;
-	rep(it,0,2) {
-		int move = it * bits;
-		vi q(1 << bits), w(sz(q) + 1);
-		rep(i,0,sz(b))
-			q[(b[i].first >> move) & mask]++;
-		partial_sum(q.begin(), q.end(), w.begin() + 1);
-		vector<pli> res(b.size());
-		rep(i,0,sz(b))
-			res[w[(b[i].first >> move) & mask]++] = b[i];
-		swap(b, res);
-	}
-}
 struct SuffixArray {
-	vi a;
-	string s;
-	SuffixArray(const string& _s) : s(_s + '\0') {
-		int N = sz(s);
-		vector<pli> b(N);
-		a.resize(N);
-		rep(i,0,N) {
-			b[i].first = s[i];
-			b[i].second = i;
-		}
-
-		int q = 8;
-		while ((1 << q) < N) q++;
-		for (int moc = 0;; moc++) {
-			count_sort(b, q); // sort(all(b)) can be used as well
-			a[b[0].second] = 0;
-			rep(i,1,N)
-				a[b[i].second] = a[b[i - 1].second] +
-					(b[i - 1].first != b[i].first);
-
-			if ((1 << moc) >= N) break;
-			rep(i,0,N) {
-				b[i].first = (ll)a[i] << q;
-				if (i + (1 << moc) < N)
-					b[i].first += a[i + (1 << moc)];
-				b[i].second = i;
-			}
-		}
-		rep(i,0,sz(a)) a[i] = b[i].second;
-	}
-	vi lcp() {
-		// longest common prefixes: res[i] = lcp(a[i], a[i-1])
-		int n = sz(a), h = 0;
-		vi inv(n), res(n);
-		rep(i,0,n) inv[a[i]] = i;
-		rep(i,0,n) if (inv[i] > 0) {
-			int p0 = a[inv[i] - 1];
-			while (s[i + h] == s[p0 + h]) h++;
-			res[inv[i]] = h;
-			if(h > 0) h--;
-		}
-		return res;
-	}
+    vi sa, lcp;
+    int cmp(int *r, int a, int b, int l) {
+        return r[a] == r[b] && r[a + l] == r[b + l];
+    }
+    SuffixArray(string &s, int lim = 256) {
+        int n = sz(s) + 1;
+        vi wa(n), wb(n), wv(n), ws(max(n, lim));
+        sa.resize(n);
+        int *x = wa.data(), *y = wb.data();
+        rep(i, 0, n) ws[x[i] = s[i]]++;
+        rep(i, 1, lim) ws[i] += ws[i - 1];
+        for (int i = n - 1; i >= 0; i--) sa[--ws[x[i]]] = i;
+        for (int j = 1, p = 0; p < n; j *= 2, lim = p) {
+            p = 0;
+            rep(i, n - j, n) y[p++] = i;
+            rep(i, 0, n) if (sa[i] >= j) y[p++] = sa[i] - j;
+            rep(i, 0, n) wv[i] = x[y[i]];
+            rep(i, 0, lim) { ws[i] = 0; }
+            rep(i, 0, n) ws[wv[i]]++;
+            rep(i, 1, lim) ws[i] += ws[i - 1];
+            for (int i = n - 1; i >= 0; i--) sa[--ws[wv[i]]] = y[i];
+            swap(x, y), p = 1, x[sa[0]] = 0;
+            rep(i, 1, n) x[sa[i]] = cmp(y, sa[i - 1], sa[i], j) ? p - 1 : p++;
+        }
+        // LCP
+        lcp.resize(n - 1);
+        vi rank(n - 1);
+        int j, k = 0;
+        rep(i, 1, n) rank[sa[i]] = i;
+        for (int i = 0; i < n; lcp[rank[i++]] = k)
+            for (k ? k-- : 0, j = sa[rank[i] - 1]; s[i + k] == s[j + k]; k++)
+                ;
+    }
 };
