@@ -12,7 +12,7 @@
 #include "ModMulLL.h"
 
 bool isPrime(ull n) {
-	if (n < 2 || n % 2 == 0 || n % 3 == 0) return n - 2 < 2;
+	if (n < 2 || n % 6 % 4 != 1) return n - 2 < 2;
 	ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022},
 	    s = __builtin_ctzll(n-1), d = n >> s;
 	trav(a, A) {   // ^ count trailing zeroes
