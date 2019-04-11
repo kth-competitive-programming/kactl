@@ -23,7 +23,7 @@ struct SuffixArray {
     }
     SuffixArray(string &s, int lim = 256) {
         int n = sz(s) + 1;
-        vi wa(n), wb(n), wv(n), ws(max(n, lim));
+        vi wa(2 * n), wb(2 * n), wv(n), ws(max(n, lim));
         sa.resize(n);
         int *x = wa.data(), *y = wb.data();
         rep(i, 0, n) ws[x[i] = s[i]]++;
@@ -43,13 +43,12 @@ struct SuffixArray {
             rep(i, 1, n) x[sa[i]] =
                 cmp(y, sa[i - 1], sa[i], j) ? p - 1 : p++;
         }
-        // longest common prefixes: res[i] = lcp(a[i],
-        // a[i-1])
-        lcp.resize(n - 1);
-        vi rank(n - 1);
+        // LCP: res[i] = lcp(a[i], a[i-1])
+        lcp.resize(n);
+        vi rank(n);
         int j, k = 0;
         rep(i, 1, n) rank[sa[i]] = i;
-        for (int i = 0; i < n; lcp[rank[i++]] = k)
+        for (int i = 0; i < n - 1; lcp[rank[i++]] = k)
             for (k ? k-- : 0, j = sa[rank[i] - 1];
                  s[i + k] == s[j + k]; k++)
                 ;
