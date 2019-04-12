@@ -2,7 +2,7 @@
  * Author: chilli
  * Date: 2019-04-11
  * License: Unknown
- * Source: "China"
+ * Source: Chinese folklore
  * Description: Builds suffix array for a string.
  * \texttt{sa[i]} is the starting index of the suffix which is $i$'th in the sorted
  * suffix array.
