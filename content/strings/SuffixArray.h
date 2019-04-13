@@ -11,14 +11,14 @@
  * neighbouring strings in the suffix array:
  * \texttt{lcp[i] = lcp(sa[i], sa[i-1])}, \texttt{lcp[0] = 0}.
  * The input string must not contain any zero bytes.
- * Time: O(n log n)
+ * Time: O(n \log n)
  * Status: fuzz-tested
  */
 #pragma once
 
 struct SuffixArray {
 	vi sa, lcp;
-	SuffixArray(string &s, int lim = 256) {
+	SuffixArray(string& s, int lim=256) { // or basic_string<int>
 		int n = sz(s) + 1, k = 0, a, b;
 		vi x(all(s)+1), y(n), ind(n), ws(max(n, lim)), rank(n);
 		sa = lcp = y, iota(all(sa), 0);
