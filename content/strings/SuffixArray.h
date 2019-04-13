@@ -1,8 +1,9 @@
 /**
- * Author: chilli
+ * Author: 罗穗骞, chilli
  * Date: 2019-04-11
  * License: Unknown
- * Source: Chinese folklore
+ * Source: Suffix array - a powerful tool for dealing with strings
+ * (Chinese IOI National team training paper, 2009)
  * Description: Builds suffix array for a string.
  * \texttt{sa[i]} is the starting index of the suffix which
  * is $i$'th in the sorted suffix array.
