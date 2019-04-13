@@ -11,17 +11,16 @@
  * neighbouring strings in the suffix array:
  * \texttt{lcp[i] = lcp(sa[i], sa[i-1])}, \texttt{lcp[0] = 0}.
  * The input string must not contain any zero bytes.
- * Time: O(n)
+ * Time: O(n log n)
  * Status: fuzz-tested
  */
 #pragma once
 
 struct SuffixArray {
 	vi sa, lcp;
-	SuffixArray(string &str, int lim = 256) {
-		auto s = str.c_str(); // to get a trailing zero
-		int n = sz(str) + 1, k = 0, a, b;
-		vi x(s, s + n), y(n), ind(n), ws(max(n, lim)), rank(n);
+	SuffixArray(string &s, int lim = 256) {
+		int n = sz(s) + 1, k = 0, a, b;
+		vi x(all(s)+1), y(n), ind(n), ws(max(n, lim)), rank(n);
 		sa = lcp = y, iota(all(sa), 0);
 		for (int j = 0, p = 0; p < n; j = max(1, j * 2), lim = p) {
 			p = j, iota(all(y), n - j);
@@ -38,6 +37,6 @@ struct SuffixArray {
 		rep(i,1,n) rank[sa[i]] = i;
 		for (int i = 0, j; i < n - 1; lcp[rank[i++]] = k)
 			for (k && k--, j = sa[rank[i] - 1];
-					s[i + k] == s[j + k]; k++) ;
+					s[i + k] == s[j + k]; k++);
 	}
 };
