@@ -24,27 +24,27 @@ void ntt(vl &a, vl &rt, vl &rev, int n) {
     for (int k = 1; k < n; k *= 2)
         for (int i = 0; i < n; i += 2 * k)
             rep(j,0,k) {
-                ll z = rt[j + k] * a[i + j + k] % mod;
-                a[i + j + k] = z > a[i + j] ? a[i + j] - z + mod : a[i + j] - z;
-                a[i + j] = a[i + j] + z >= mod ? a[i + j] + z - mod : a[i + j] + z;
+                ll z = rt[j + k] * a[i + j + k] % mod, &ai = a[i + j];
+                a[i + j + k] = z > ai ? ai - z + mod : ai - z;
+                ai = ai + z >= mod ? ai + z - mod : ai + z;
             }
 }
 
 vl conv(const vl &a, const vl &b) {
     if (a.empty() || b.empty())
         return {};
-	int s = sz(a)+sz(b)-1, L = 32 - __builtin_clz(s), n = 1 << L;
+    int s = sz(a) + sz(b) - 1, L = 32 - __builtin_clz(s), n = 1 << L;
     vl inl(a), inr(b), out(n), rt(n, 1), rev(n);
-	inl.resize(n), inr.resize(n);
+    inl.resize(n), inr.resize(n);
     rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
-    int curL = (mod - 1) / 2;
+    int curL = mod / 2;
     for (int k = 2; k < n; k *= 2) {
-        ll z[] = {1, modpow(root, curL/=2)};
+        ll z[] = {1, modpow(root, curL /= 2)};
         rep(i,k,2*k) rt[i] = rt[i / 2]* z[i & 1]%mod;
     }
     ntt(inl, rt, rev, n), ntt(inr, rt, rev, n);
     ll invN = modpow(n, mod - 2);
     rep(i,0,n) out[-i&(n-1)] = (inl[i] * inr[i] % mod)* invN%mod;
     ntt(out, rt, rev, n);
-    return {out.begin(), out.begin()+s};
+    return {out.begin(), out.begin() + s};
 }
