@@ -12,7 +12,7 @@
  */
 #pragma once
 
-#include "ModPow.h"
+#include "../number-theory/ModPow.h"
 
 const ll mod = (119 << 23) + 1, root = 3; // = 998244353
 // For p < 2^30 there is also e.g. (5 << 25, 3), (7 << 26, 3),
@@ -54,5 +54,5 @@ vi conv(const vi &a, const vi &b) {
     reverse(out.begin() + 1, out.begin() + n);
     ntt(out, rt, rev, n);
     rep(i, 0, sz(res)) res[i] = out[i];
-    return out;
+    return res;
 }
