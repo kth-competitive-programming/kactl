@@ -18,37 +18,41 @@ const ll mod = (119 << 23) + 1, root = 3; // = 998244353
 // For p < 2^30 there is also e.g. (5 << 25, 3), (7 << 26, 3),
 // (479 << 21, 3) and (483 << 21, 5). The last two are > 10^9.
 
-typedef vector<ll> vl;
-void ntt(ll* x, ll* temp, ll* roots, int N, int skip) {
-	if (N == 1) return;
-	int n2 = N/2;
-	ntt(x     , temp, roots, n2, skip*2);
-	ntt(x+skip, temp, roots, n2, skip*2);
-	rep(i,0,N) temp[i] = x[i*skip];
-	rep(i,0,n2) {
-		ll s = temp[2*i], t = temp[2*i+1] * roots[skip*i];
-		x[skip*i] = (s + t) % mod; x[skip*(i+n2)] = (s - t) % mod;
-	}
+int mul(int a, int b) { return (ll)a * b % mod; }
+int sub(int a, int b) { return b > a ? a - b + mod : a - b; }
+int add(int a, int b) { return a + b >= mod ? a + b - mod : a + b; }
+void ntt(vi &a, vi &rt, vi &rev, int n) {
+    rep(i, 0, n) if (i < rev[i]) swap(a[i], a[rev[i]]);
+    for (int k = 1; k < n; k *= 2)
+        for (int i = 0; i < n; i += 2 * k)
+            rep(j, 0, k) {
+                int z = mul(rt[j + k], a[i + j + k]);
+                a[i + j + k] = sub(a[i + j], z);
+                a[i + j] = add(a[i + j], z);
+            }
 }
-void ntt(vl& x, bool inv = false) {
-	ll e = modpow(root, (mod-1) / sz(x));
-	if (inv) e = modpow(e, mod-2);
-	vl roots(sz(x), 1), temp = roots;
-	rep(i,1,sz(x)) roots[i] = roots[i-1] * e % mod;
-	ntt(&x[0], &temp[0], &roots[0], sz(x), 1);
-}
-vl conv(vl a, vl b) {
-	int s = sz(a) + sz(b) - 1; if (s <= 0) return {};
-	int L = s > 1 ? 32 - __builtin_clz(s - 1) : 0, n = 1 << L;
-	if (s <= 200) { // (factor 10 optimization for |a|,|b| = 10)
-		vl c(s);
-		rep(i,0,sz(a)) rep(j,0,sz(b))
-			c[i + j] = (c[i + j] + a[i] * b[j]) % mod;
-		return c;
-	}
-	a.resize(n); ntt(a);
-	b.resize(n); ntt(b);
-	vl c(n); ll d = modpow(n, mod-2);
-	rep(i,0,n) c[i] = a[i] * b[i] % mod * d % mod;
-	ntt(c, true); c.resize(s); return c;
+
+vi conv(const vi &a, const vi &b) {
+    if (a.empty() || b.empty())
+        return {};
+    vi res(sz(a) + sz(b) - 1);
+    int L = 32 - __builtin_clz(sz(res)), n = 1 << L;
+    vi inl(n), inr(n);
+    vi out(n), rt(n, 1);
+    vi rev(n);
+    rep(i, 0, n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
+    int curL = (mod - 1) >> 2;
+    for (int k = 2; k < n; k *= 2) {
+        int z[] = {1, modpow(root, curL)};
+        curL >>= 1;
+        rep(i, k, 2 * k) rt[i] = mul(rt[i / 2], z[i & 1]);
+    }
+    copy(all(a), begin(inl)), copy(all(b), begin(inr));
+    ntt(inl, rt, rev, n), ntt(inr, rt, rev, n);
+    int invN = modpow(n, mod - 2);
+    rep(i, 0, n) out[i] = mul(mul(inl[i], inr[i]), invN);
+    reverse(out.begin() + 1, out.begin() + n);
+    ntt(out, rt, rev, n);
+    rep(i, 0, sz(res)) res[i] = out[i];
+    return out;
 }
