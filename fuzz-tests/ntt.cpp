@@ -25,7 +25,7 @@ ll modpow(ll a, ll e) {
 }
 
 
-vl simpleConv(vi a, vi b) {
+vl simpleConv(vl a, vl b) {
 	int s = sz(a) + sz(b) - 1;
 	if (a.empty() || b.empty()) return {};
 	vl c(s);
@@ -46,7 +46,7 @@ int ra() {
 int main() {
 	ll res = 0, res2 = 0;
 	int ind = 0, ind2 = 0;
-	vi a, b;
+	vl a, b;
 	rep(it,0,6000) {
 		a.resize(ra() % 10);
 		b.resize(ra() % 10);
