@@ -1,13 +1,18 @@
-/**
- * Author: Per Austrin, Max Bennedich, Gunnar Kreitz
- * Date: 2004-03-15
- * Description: $i1$, $i2$ are the indices to the closest pair of points in the point vector $p$ after the call. The distance is returned.
- * Time: O(n \log n)
- */
-#pragma once
+#include <bits/stdc++.h>
+using namespace std;
 
-#include "Point.h"
+#define rep(i, a, b) for(int i = a; i < int(b); ++i)
+#define trav(a, v) for(auto& a : v)
+#define all(x) x.begin(), x.end()
+#define sz(x) (int)(x).size()
 
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+
+#include "../content/geometry/ClosestPair.h"
+
+namespace old {
 template<class It>
 bool it_less(const It& i, const It& j) { return *i < *j; }
 template<class It>
@@ -65,4 +70,67 @@ double closestpair(It begin, It end, It &i1, It &i2 ) {
 	sort(xa.begin(), xa.end(), it_less<It>);
 	sort(ya.begin(), ya.end(), y_it_less<It>);
 	return cp_sub(ya.begin(), ya.end(), xa.begin(), i1, i2);
+}
+}
+
+int main() {
+	// Compare against the old code
+	ll sum = 0;
+	int mode = 1;
+	if (mode != 0) rep(it,0,100) {
+		clog << it << ' ';
+		int n = 100000;
+		int maxx = rand() % 1000000 + 1;
+		int maxy = rand() % 1000000 + 1;
+		int biasx = -100;
+		int biasy = -100;
+		vector<P> ps;
+		rep(i,0,n) {
+			int x = rand() % maxx + biasx;
+			int y = rand() % maxy + biasy;
+			ps.emplace_back(x, y);
+		}
+		ll foundDist = -1, oldDist = -1, theDist = -1;
+		if (mode == 1 || mode == 3) {
+			auto pa = closest(ps);
+			theDist = foundDist = (pa.first - pa.second).dist2();
+		}
+		if (mode == 2 || mode == 3) {
+			vector<P>::iterator i1, i2;
+			old::closestpair(all(ps), i1, i2);
+			theDist = oldDist = (*i1 - *i2).dist2();
+		}
+		sum += theDist;
+		cerr << theDist << endl;
+		if (mode == 3 && oldDist != foundDist) {
+			cerr << "failed at " << it << endl;
+			return 1;
+		}
+	}
+	cout << sum << endl;
+
+	// Compare against bruteforce
+	rep(it,0,1'000'000) {
+		int n = rand() % 15 + 2;
+		int maxx = rand() % 20 + 1;
+		int maxy = rand() % 20 + 1;
+		int biasx = rand() % 20 - 10;
+		int biasy = rand() % 20 - 10;
+		vector<P> ps;
+		rep(i,0,n) {
+			int x = rand() % maxx + biasx;
+			int y = rand() % maxy + biasy;
+			ps.emplace_back(x, y);
+		}
+		ll minDist = LLONG_MAX;
+		rep(i,0,n) rep(j,i+1,n) {
+			minDist = min(minDist, (ps[i] - ps[j]).dist2());
+		}
+		auto pa = closest(ps);
+		ll foundDist = (pa.first - pa.second).dist2();
+		if (minDist != foundDist) {
+			cerr << "failed at " << it << endl;
+			return 1;
+		}
+	}
 }
