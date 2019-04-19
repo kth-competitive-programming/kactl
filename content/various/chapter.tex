@@ -9,11 +9,11 @@
 	\kactlimport{TernarySearch.h}
 	\kactlimport{Karatsuba.h}
 	\kactlimport{LIS.h}
-	\newpage
 
 \section{Dynamic programming}
-	\kactlimport{DivideAndConquerDP.h}
 	\kactlimport{KnuthDP.h}
+	\newpage
+	\kactlimport{DivideAndConquerDP.h}
 
 \section{Debugging tricks}
 	\begin{itemize}
@@ -37,6 +37,7 @@
 			\item \lstinline{#pragma GCC target ("avx,avx2")} can double performance of vectorized code, but causes crashes on old machines.
 			\item \lstinline{#pragma GCC optimize ("trapv")} kills the program on integer overflows (but is really slow).
 		\end{itemize}
+	\kactlimport{FastMod.h}
 	\kactlimport{BumpAllocator.h}
 	\kactlimport{SmallPtr.h}
 	\kactlimport{BumpAllocatorSTL.h}
