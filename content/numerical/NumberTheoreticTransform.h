@@ -40,7 +40,7 @@ vl conv(const vl &a, const vl &b) {
 	int curL = mod / 2;
 	for (int k = 2; k < n; k *= 2) {
 		ll z[] = {1, modpow(root, curL /= 2)};
-		rep(i,k,2*k) rt[i] = rt[i / 2]* z[i & 1]%mod;
+		rep(i,k,2*k) rt[i] = rt[i / 2] * z[i & 1 ] %mod;
 	}
 	ntt(L, rt, rev, n), ntt(R, rt, rev, n);
 	ll inv = modpow(n, mod - 2);
