@@ -2,7 +2,6 @@
 /**
  * Author: chilli
  * License: CC0
- * Description: pi[x] computes the length of the longest prefix of s that ends at x, other than s[0...x] itself (abacaba -> 0010123).
  * Description: z[x] computes the length of the longest common prefix of s[i:] and s. (abacaba -> 0010301)
  * Time: O(n)
  * Status: fuzz-tested (thanks to Ludo Pulles)
