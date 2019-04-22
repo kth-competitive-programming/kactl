@@ -1,5 +1,5 @@
 /**
- * Author: Ludo Pulles, Horace He, Simon Lindholm
+ * Author: Ludo Pulles, chilli, Simon Lindholm
  * Date: 2019-01-09
  * License: CC0
  * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf (do read, it's excellent)
