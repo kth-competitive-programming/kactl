@@ -33,10 +33,10 @@ void ntt(vl &a, vl &rt, vl &rev, int n) {
 vl conv(const vl &a, const vl &b) {
 	if (a.empty() || b.empty())
 		return {};
-	int s = sz(a) + sz(b) - 1, L = 32 - __builtin_clz(s), n = 1 << L;
+	int s = sz(a) + sz(b) - 1, B = 32 - __builtin_clz(s), n = 1 << B;
 	vl L(a), R(b), out(n), rt(n, 1), rev(n);
 	L.resize(n), R.resize(n);
-	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
+	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << B) / 2;
 	int curL = mod / 2;
 	for (int k = 2; k < n; k *= 2) {
 		ll z[] = {1, modpow(root, curL /= 2)};
