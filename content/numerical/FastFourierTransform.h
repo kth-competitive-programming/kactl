@@ -69,8 +69,8 @@ template<int MOD> vector<ll> convMod(const vi &a, const vi &b) {
         int j = (n - i) & (n - 1);
         C fl = (inl[i] + conj(inl[j])) * C{0.5, 0}, fs = (inl[i] - conj(inl[j])) * C{0, -0.5},
           gl = (inr[i] + conj(inr[j])) * C{0.5, 0}, gs = (inr[i] - conj(inr[j])) * C{0, -0.5};
-        outl[-i & (n - i)] = (fl * gl) + (fl * gs) * C{0, 1};
-        outs[-i & (n - i)] = (fs * gl) + (fs * gs) * C{0, 1};
+        outl[-i & (n - i)] = fl*(gl + gs) * C{0, 1};
+        outs[-i & (n - i)] = fs*(gl + gs) * C{0, 1};
     }
     fft(outl, rt, rev, n), fft(outs, rt, rev, n);
 	rep(i,0,sz(res)){
