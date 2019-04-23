@@ -49,3 +49,37 @@ vd conv(const vd& a, const vd& b) {
 	rep(i,0,sz(res)) res[i] = imag(out[i]) / (4*n);
 	return res;
 }
+
+template<int MOD> vector<ll> convMod(const vi &a, const vi &b) {
+    if (a.empty() || b.empty())
+        return {};
+    vector<ll> res(sz(a) + sz(b) - 1);
+    int L = 32 - __builtin_clz(sz(res)), n = 1 << L, cut = sqrt(MOD);
+    vector<C> inl(n), inr(n), outs(n), outl(n), rt(n, 1);
+    vi rev(n);
+    rep(i, 0, n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
+    for (int k = 2; k < n; k *= 2) {
+        C z[] = {1, polar(1.0, M_PI / k)};
+        rep(i, k, 2 * k) rt[i] = rt[i / 2] * z[i & 1];
+    }
+	rep(i,0,a.size()) inl[i] = {a[i] / cut, a[i] % cut};
+	rep(i,0,b.size()) inr[i] = {b[i] / cut, b[i] % cut};
+    fft(inl, rt, rev, n), fft(inr, rt, rev, n);
+	rep(i,0,n){
+        int j = (n - i) & (n - 1);
+        C fl = (inl[i] + conj(inl[j])) * C{0.5, 0}, fs = (inl[i] - conj(inl[j])) * C{0, -0.5},
+          gl = (inr[i] + conj(inr[j])) * C{0.5, 0}, gs = (inr[i] - conj(inr[j])) * C{0, -0.5};
+        outl[-i & (n - i)] = (fl * gl) + (fl * gs) * C{0, 1};
+        outs[-i & (n - i)] = (fs * gl) + (fs * gs) * C{0, 1};
+    }
+    fft(outl, rt, rev, n), fft(outs, rt, rev, n);
+	rep(i,0,sz(res)){
+        outl[i] /= n, outs[i] /= n;
+        ll av = round(outl[i].real());
+        ll bv = round(outl[i].imag()) + round(outs[i].real());
+        ll cv = round(outs[i].imag());
+        av %= MOD, bv %= MOD, cv %= MOD;
+        res[i] = (av * cut * cut + bv * cut + cv) % MOD;
+    }
+    return res;
+}
