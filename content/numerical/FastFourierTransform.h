@@ -44,7 +44,7 @@ vd conv(const vd& a, const vd& b) {
 	rep(i,0,sz(b)) in[i].imag(b[i]);
 	fft(in, rt, rev, n);
 	trav(x, in) x *= x;
-	rep(i,0,n) out[i] = in[(n - i) & (n - 1)] - conj(in[i]);
+	rep(i,0,n) out[i] = in[-i & (n - 1)] - conj(in[i]);
 	fft(out, rt, rev, n);
 	rep(i,0,sz(res)) res[i] = imag(out[i]) / (4*n);
 	return res;
