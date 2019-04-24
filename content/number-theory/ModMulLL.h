@@ -1,8 +1,8 @@
 /**
- * Author: Lukas Polacek
- * Date: 2010-01-26
- * License: CC0
- * Source: TopCoder tutorial
+ * Author: chilli, Ramchandra Apte
+ * Date: 2019-04-24
+ * License: MIT
+ * Source: https://github.com/RamchandraApte/OmniTemplate/blob/master/modulo.h
  * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for large $c$.
  * Time: O(1) for mod_mul, O(log b) for mod_pow
  */
