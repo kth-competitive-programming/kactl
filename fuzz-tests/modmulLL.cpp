@@ -14,7 +14,7 @@ typedef vector<int> vi;
 
 ull int128_mod_mul(ull a, ull b, ull m) { return (__int128_t)a * b % m; }
 mt19937_64 rng(time(0));
-uniform_int_distribution<ull> uni(1, 1ull << 60);
+uniform_int_distribution<ull> uni(1, 1ull << 63);
 const int ITERS = 1e7;
 int main() {
     for (int i = 0; i < ITERS; i++) {

@@ -3,6 +3,7 @@
  * Date: 2019-04-24
  * License: MIT
  * Source: https://github.com/RamchandraApte/OmniTemplate/blob/master/modulo.h
+ * Works for numbers < 2^63.
  * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for large $c$.
  * Time: O(1) for mod_mul, O(log b) for mod_pow
  */
