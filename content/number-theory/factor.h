@@ -1,12 +1,10 @@
 /**
- * Author: Lukas Polacek
- * Date: 2010-01-28
+ * Author: chilli, Haobin Ni
+ * Date: 2019-04-24
  * License: CC0
- * Source: Wikipedia
+ * Source: https://github.com/FTRobbin/Dreadnought-Standard-Code-Library
  * Description: Pollard's rho algorithm. It is a probabilistic factorisation
- * algorithm, whose expected time complexity is good. Before you start using it,
- * run {\tt init(bits)}, where bits is the length of the numbers you use.
- * Returns factors of the input without duplicates.
+ * algorithm, whose expected time complexity is good.
  * Time: Expected running time should be good enough for 50-bit numbers.
  */
 #pragma once
@@ -30,8 +28,7 @@ ull Pollard(ull n) {
 vector<ull> factor(ull n) {
 	if (n==1) return {};
     ull x = Pollard(n);
-    if (x == n)
-        return {x};
+    if (x == n) return {x};
     auto l = factor(x), r = factor(n / x);
     l.insert(l.end(), all(r));
     return l;

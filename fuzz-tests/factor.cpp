@@ -29,6 +29,7 @@ void isValid(int N, vector<ull> prFac){
 }
 int main() {
     assert(factor(1).empty());
+    assert(factor(2).size()==1 && factor(2)[0]==2);
     rep(n,2,1e5) {
         auto res = factor(n);
         isValid(n, res);
