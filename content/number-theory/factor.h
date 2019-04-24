@@ -12,20 +12,20 @@
 #include "ModMulLL.h"
 #include "MillerRabin.h"
 
-ull Pollard(ull n) {
+ull pollard(ull n) {
 	auto f = [n](ull x) { return (mod_mul(x, x, n) + 1) % n; };
 	if (!(n & 1)) return 2;
 	for (ull i = 2;; i++) {
-		ull x = i, y = f(x), p = __gcd(n + y - x, n);
-		while (p == 1)
-			x = f(x), y = f(f(y)), p = __gcd(n + y - x, n);
+		ull x = i, y = f(x), p;
+		while ((p = __gcd(n + y - x, n)) == 1)
+			x = f(x), y = f(f(y));
 		if (p != n) return p;
 	}
 }
 vector<ull> factor(ull n) {
-	if (n==1) return {};
+	if (n == 1) return {};
 	if (isPrime(n)) return {n};
-	ull x = Pollard(n);
+	ull x = pollard(n);
 	auto l = factor(x), r = factor(n / x);
 	l.insert(l.end(), all(r));
 	return l;
