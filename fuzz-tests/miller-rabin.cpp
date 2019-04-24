@@ -66,4 +66,5 @@ int main() {
 			cout << "differs from old for " << n << endl;
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 }
