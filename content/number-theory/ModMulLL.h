@@ -4,8 +4,7 @@
  * License: CC0
  * Source: TopCoder tutorial
  * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for large $c$.
- * Time: O(64/bits \cdot \log b), where $bits = 64-k$, if we want to deal with
- * $k$-bit numbers.
+ * Time: O(1) for mod_mul, O(log b) for mod_pow
  */
 #pragma once
 
