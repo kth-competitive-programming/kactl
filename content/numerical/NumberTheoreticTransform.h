@@ -36,13 +36,12 @@ vl conv(const vl& a, const vl& b) {
 	vl L(a), R(b), out(n), rt(n, 1), rev(n);
 	L.resize(n), R.resize(n);
 	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << B) / 2;
-	int curL = mod / 2;
+	ll curL = mod / 2, inv = modpow(n, mod - 2);
 	for (int k = 2; k < n; k *= 2) {
 		ll z[] = {1, modpow(root, curL /= 2)};
 		rep(i,k,2*k) rt[i] = rt[i / 2] * z[i & 1] % mod;
 	}
-	ntt(L, rt, rev, n), ntt(R, rt, rev, n);
-	ll inv = modpow(n, mod - 2);
+	ntt(L, rt, rev, n); ntt(R, rt, rev, n);
 	rep(i,0,n) out[-i & (n-1)] = L[i] * R[i] % mod * inv % mod;
 	ntt(out, rt, rev, n);
 	return {out.begin(), out.begin() + s};
