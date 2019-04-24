@@ -5,7 +5,7 @@
  * Source: https://github.com/FTRobbin/Dreadnought-Standard-Code-Library
  * Description: Pollard's rho algorithm. It is a probabilistic factorisation
  * algorithm, whose expected time complexity is good.
- * Time: Expected running time should be good enough for 50-bit numbers.
+ * Time: On worst case numbers, $O(n^{1/4})$. Faster than that for most numbers.
  */
 #pragma once
 
@@ -17,7 +17,7 @@ ull Pollard(ull n) {
 	auto f = [&n](ull x) { return (mod_mul(x, x, n) + 1) % n; };
 	if (isPrime(n)) return n;
 	if (!(n & 1)) return 2;
-	for (ull i=2;;i++){
+	for (ull i = 2;; i++) {
 		ull x = i, y = f(x), p = __gcd(n + y - x, n);
 		while (p == 1)
 			x = f(x), y = f(f(y)), p = __gcd(n + y - x, n);
