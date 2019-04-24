@@ -1,5 +1,5 @@
 /**
- * Author: chilli, Haobin Ni
+ * Author: chilli, SJTU
  * Date: 2019-04-24
  * License: CC0
  * Source: https://github.com/FTRobbin/Dreadnought-Standard-Code-Library
