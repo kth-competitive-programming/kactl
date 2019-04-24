@@ -15,7 +15,7 @@ typedef vector<int> vi;
 
 mt19937_64 uni(time(0));
 const int ITERS=1e4;
-void isValid(int N, vector<ull> prFac){
+void isValid(ull N, vector<ull> prFac){
     ull cur=1;
     for (auto i: prFac){
         if (!isPrime(i)){
@@ -25,18 +25,21 @@ void isValid(int N, vector<ull> prFac){
         }
         cur *= i;
     }
+    if (cur!= N)
+        cout<<cur<<' '<<N<<endl;
     assert(cur == N);
 }
 int main() {
     assert(factor(1).empty());
-    assert(factor(2).size()==1 && factor(2)[0]==2);
+    assert(factor(2) == vector<ull>{2});
     rep(n,2,1e5) {
         auto res = factor(n);
         isValid(n, res);
     }
     rep(i,2,ITERS) {
-        auto res = factor(1 + (uni()%(1ul<<52)));
-        ull cur=1;
+        ull n = 1 + (uni()%(1ul<<50));
+        auto res = factor(n);
+        isValid(n, res);
     }
     cout<<"Prime Factoring tests passed!"<<endl;
 }
