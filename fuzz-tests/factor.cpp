@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/number-theory/factor.h"
+#include "../content/number-theory/Factor.h"
 
 mt19937_64 uni(time(0));
 const int ITERS=1e4;
