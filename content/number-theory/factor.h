@@ -13,40 +13,26 @@
 
 #include "ModMulLL.h"
 #include "MillerRabin.h"
-#include "eratosthenes.h"
 
-vector<ull> pr;
-ull f(ull a, ull n, ull &has) {
-	return (mod_mul(a, a, n) + has) % n;
-}
-vector<ull> factor(ull d) {
-	vector<ull> res;
-	for (int i = 0; i < sz(pr) && pr[i]*pr[i] <= d; i++)
-		if (d % pr[i] == 0) {
-			while (d % pr[i] == 0) d /= pr[i];
-			res.push_back(pr[i]);
-		}
-	//d is now a product of at most 2 primes.
-	if (d > 1) {
-		if (isPrime(d))
-			res.push_back(d);
-		else while (true) {
-			ull has = rand() % 2321 + 47;
-			ull x = 2, y = 2, c = 1;
-			for (; c==1; c = __gcd((y > x ? y - x : x - y), d)) {
-				x = f(x, d, has);
-				y = f(f(y, d, has), d, has);
-			}
-			if (c != d) {
-				res.push_back(c); d /= c;
-				if (d != c) res.push_back(d);
-				break;
-			}
-		}
+ull f(ull x, ull n) { return (mod_mul(x, x, n) + 1) % n; }
+ull Pollard(ull n) {
+	if (isPrime(n)) return n;
+	if (!(n & 1)) return 2;
+	rep(i,2,50) {
+		ull x = i, y = f(x, n), p = __gcd(n + y - x, n);
+		while (p == 1)
+			x = f(x, n), y = f(f(y, n), n), p = __gcd(n + y - x, n);
+		if (p == n) continue;
+		return p;
 	}
-	return res;
+	return 0;
 }
-void init(int bits) {//how many bits do we use?
-	vi p = eratosthenes_sieve(1 << ((bits + 2) / 3));
-	pr.assign(all(p));
+vector<ull> factor(ull n) {
+	if (n==1) return {};
+    ull x = Pollard(n);
+    if (x == n)
+        return {x};
+    auto l = factor(x), r = factor(n / x);
+    l.insert(l.end(), all(r));
+    return l;
 }
