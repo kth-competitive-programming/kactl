@@ -14,9 +14,9 @@
 
 #include "../number-theory/ModPow.h"
 
-const ll mod = (119 << 23) + 1, root = 3; // = 998244353
-// For p < 2^30 there is also e.g. (5 << 25, 3), (7 << 26, 3),
-// (479 << 21, 3) and (483 << 21, 5). The last two are > 10^9.
+const ll mod = (119 << 23) + 1, root = 62; // = 998244353
+// For p < 2^30 there is also e.g. 5 << 25, 7 << 26, 479 << 21
+// and 483 << 21 (same root). The last two are > 10^9.
 
 typedef vector<ll> vl;
 void ntt(vl &a, vl &rt, vl &rev, int n) {
