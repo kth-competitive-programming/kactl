@@ -6,12 +6,10 @@
  * Description: Fast integration using an adaptive Simpson's rule.
  * Status: mostly untested
  * Usage:
-	double sphereVol =
-	quad(-1, 1, [](double x) {
-	return quad(-1, 1, [x](double y) {
-	return quad(-1, 1, [x, y](double z) {
-	return x * x + y * y + z * z <= 1; });});});
-	double pi = sphereVol * 3 / 4;
+	double sphereVolume = quad(-1, 1, [](double x) {
+	return quad(-1, 1, [\&](double y) {
+	return quad(-1, 1, [\&](double z) {
+	return x*x + y*y + z*z < 1; });});});
  */
 #pragma once
 
