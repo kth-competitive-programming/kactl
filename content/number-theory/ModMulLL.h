@@ -3,9 +3,8 @@
  * Date: 2019-04-24
  * License: MIT
  * Source: https://github.com/RamchandraApte/OmniTemplate/blob/master/modulo.h
- * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for $c < 2^63$.
- * a and b must lie in the range [0, mod) before input.
- * Time: O(1) for mod_mul, O(log b) for mod_pow
+ * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for $0 \le a, b < c < 2^{63}$.
+ * Time: O(1) for \texttt{mod\_mul}, O(\log b) for \texttt{mod\_pow}
  */
 #pragma once
 
