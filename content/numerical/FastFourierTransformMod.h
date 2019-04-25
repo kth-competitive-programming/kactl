@@ -1,16 +1,12 @@
 /**
- * Author: Ludo Pulles, chilli, Simon Lindholm
- * Date: 2019-01-09
+ * Author: chilli
+ * Date: 2019-04-25
  * License: CC0
- * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf (do read, it's excellent)
-   Papers about accuracy: http://www.daemonology.net/papers/fft.pdf, http://www.cs.berkeley.edu/~fateman/papers/fftvsothers.pdf
-   For integers rounding works if $(|a| + |b|)\max(a, b) < \mathtt{\sim} 10^9$, or in theory maybe $10^6$.
- * Description: fft(a, ...) computes $\hat f(k) = \sum_x a[x] \exp(2\pi i \cdot k x / N)$ for all $k$. Useful for convolution:
-   \texttt{conv(a, b) = c}, where $c[x] = \sum a[i]b[x-i]$.
-   For convolution of complex numbers or more than two vectors: FFT, multiply
-   pointwise, divide by n, reverse(start+1, end), FFT back.
-   For integers, consider using a number-theoretic transform instead, to avoid rounding issues.
- * Time: O(N \log N), where $N = |A|+|B|-1$ ($\tilde 1s$ for $N=2^{22}$)
+ * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf
+ * Description: Can be used for convolutions modulo arbitrary integers.
+ * Is essentially a higher precision FFT.
+ * Is safe in practice as long as $(|a|+|b|)\sqrt{\max(a,b)} < \mathtt{\sim} 10^{15}$.
+ * Time: O(N \log N), where $N = |A|+|B|-1$ (twice as slow as NTT or FFT)
  * Status: somewhat tested
  */
 #pragma once
