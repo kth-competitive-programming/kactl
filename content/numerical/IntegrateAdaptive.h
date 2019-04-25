@@ -15,11 +15,13 @@
 #pragma once
 
 typedef double d;
-d simpson(d (*f)(d), d a, d b) {
+template<class F>
+d simpson(F f, d a, d b) {
 	d c = (a+b) / 2;
 	return (f(a) + 4*f(c) + f(b)) * (b-a) / 6;
 }
-d rec(d (*f)(d), d a, d b, d eps, d S) {
+template<class F>
+d rec(F f, d a, d b, d eps, d S) {
 	d c = (a+b) / 2;
 	d S1 = simpson(f, a, c);
 	d S2 = simpson(f, c, b), T = S1 + S2;
@@ -27,6 +29,7 @@ d rec(d (*f)(d), d a, d b, d eps, d S) {
 		return T + (T - S) / 15;
 	return rec(f, a, c, eps/2, S1) + rec(f, c, b, eps/2, S2);
 }
-d quad(d (*f)(d), d a, d b, d eps = 1e-8) {
+template<class F>
+d quad(F f, d a, d b, d eps = 1e-8) {
 	return rec(f, a, b, eps, simpson(f, a, b));
 }

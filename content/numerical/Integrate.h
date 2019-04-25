@@ -11,7 +11,8 @@
  */
 #pragma once
 
-double quad(double (*f)(double), double a, double b) {
+template<class F>
+double quad(F f, double a, double b) {
 	const int n = 1000;
 	double h = (b - a) / 2 / n;
 	double v = f(a) + f(b);
