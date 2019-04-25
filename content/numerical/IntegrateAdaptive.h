@@ -29,5 +29,5 @@ d rec(F f, d a, d b, d eps, d S) {
 }
 template<class F>
 d quad(d a, d b, F f, d eps = 1e-8) {
-	return rec(f, a, b, eps, simpson(f, a, b));
+	return rec(f, a, b, eps, S(a, b));
 }
