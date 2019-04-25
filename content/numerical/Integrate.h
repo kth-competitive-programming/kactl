@@ -12,7 +12,7 @@
 #pragma once
 
 template<class F>
-double quad(F f, double a, double b) {
+double quad(double a, double b, F f) {
 	const int n = 1000;
 	double h = (b - a) / 2 / n;
 	double v = f(a) + f(b);
