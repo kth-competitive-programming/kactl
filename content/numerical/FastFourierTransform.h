@@ -4,7 +4,7 @@
  * License: CC0
  * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf (do read, it's excellent)
    Papers about accuracy: http://www.daemonology.net/papers/fft.pdf, http://www.cs.berkeley.edu/~fateman/papers/fftvsothers.pdf
-   For integers rounding works if $(|a| + |b|)\max(a, b) < \mathtt{\sim} 10^{15}$, or in theory maybe $10^6$.
+   For integers rounding works if $(|a| + |b|)\max(a, b) < \mathtt{\sim} 10^{15}$, or in theory maybe $3\cdot 10^13$.
  * Description: fft(a, ...) computes $\hat f(k) = \sum_x a[x] \exp(2\pi i \cdot k x / N)$ for all $k$. Useful for convolution:
    \texttt{conv(a, b) = c}, where $c[x] = \sum a[i]b[x-i]$.
    For convolution of complex numbers or more than two vectors: FFT, multiply
@@ -45,7 +45,7 @@ vd conv(const vd &a, const vd &b) {
 	rep(i, 0, sz(b)) in[i].imag(b[i]);
 	fft(in, n, L);
 	trav(x, in) x *= x;
-	rep(i, 0, n) out[i] = in[(n - i) & (n - 1)] - conj(in[i]);
+	rep(i, 0, n) out[i] = in[-i & (n - 1)] - conj(in[i]);
 	fft(out, n, L);
 	rep(i, 0, sz(res)) res[i] = imag(out[i]) / (4 * n);
 	return res;
