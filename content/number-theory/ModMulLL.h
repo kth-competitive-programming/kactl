@@ -18,6 +18,5 @@ ull mod_pow(ull a, ull b, ull mod) {
 	if (b == 0) return 1;
 	ull res = mod_pow(a, b / 2, mod);
 	res = mod_mul(res, res, mod);
-	if (b & 1) return mod_mul(res, a, mod);
-	return res;
+	return b & 1? mod_mul(res, a, mod) : res;
 }
