@@ -1,6 +1,6 @@
 /**
- * Author: Simon Lindholm
- * Date: 2016-09-10
+ * Author: Noam527
+ * Date: 2019-04-24
  * License: CC0
  * Source: folklore
  * Description:
