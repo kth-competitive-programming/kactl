@@ -3,9 +3,9 @@
  * Date: 2019-04-24
  * License: CC0
  * Source: https://github.com/FTRobbin/Dreadnought-Standard-Code-Library
- * Description: Pollard's rho algorithm. A probabilistic factorisation
- * algorithm whose expected time complexity is good.
- * Time: On worst case numbers, $O(n^{1/4})$. Faster than that for most numbers.
+ * Description: Pollard-rho randomized factorization algorithm. Returns prime
+ * factors of a number, in arbitrary order (e.g. 2299 -> \{11, 19, 11\}).
+ * Time: $O(n^{1/4})$ gcd calls, less for numbers with small factors.
  */
 #pragma once
 
