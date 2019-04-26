@@ -39,6 +39,12 @@
 	\def\@unilogo{#3}
 }
 
+\newcommand{\enablecolors}{
+	\lstset{commentstyle=\color{darkgray}\normalfont\itshape}
+	\lstset{keywordstyle=\color{myblue}}
+	\lstset{identifierstyle=\color{black}}
+}
+
 % Some default config
 \subtitle{{\tiny new}KACTL}
 \title{KTH ACM Contest Template Library}
@@ -170,13 +176,7 @@
 \lstset{showstringspaces=false}
 \lstset{breaklines=true}
 \lstset{basicstyle=\scriptsize\ttfamily}
-\if\PDFColor1
-    \lstset{commentstyle=\color{darkgray}\normalfont\itshape}
-    \lstset{keywordstyle=\color{myblue}}
-    \lstset{identifierstyle=\color{black}}
-\else
-    \lstset{commentstyle=\normalfont\itshape}
-\fi
+\lstset{commentstyle=\normalfont\itshape}
 \lstset{literate={^}{\caret}{1}}
 \lstset{literate={~}{\tilde}{1}}
 \lstset{emptylines=*1}
