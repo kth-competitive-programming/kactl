@@ -9,6 +9,8 @@
  */
 #pragma once
 
+const double EPS=1e-8;
+template <typename T> int sgn(T x) { return x < -EPS ? -1 : x > EPS; }
 template<class T>
 struct Point {
 	typedef Point P;
