@@ -26,4 +26,5 @@ int main() {
 		cur = (cur * 2) % mod;
 		// cout << i << ": " << (a ^ i).x << endl;
 	}
+	cout<<"Tests passed!"<<endl;
 }

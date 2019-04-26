@@ -39,12 +39,3 @@ int main() {
 	cout<<"Tests passed!"<<endl;
 	return 0;
 }
-
-int main2() {
-	double x;
-	ll N = 1000000;
-	cin >> x >> N;
-	auto pa = approximate(x, N);
-	cout << pa.first << '/' << pa.second << endl;
-	return 0;
-}
