@@ -3,8 +3,7 @@
  * Date: 2019-04-25
  * License: CC0
  * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf
- * Description: Can be used for convolutions modulo arbitrary integers.
- * Is essentially a higher precision FFT.
+ * Description: Higher precision FFT, can be used for convolutions modulo arbitrary integers.
  * Is safe in practice as long as $(|a|+|b|)\sqrt{\max(a)\max(b)} < \mathtt{\sim} 10^{15}$.
  * Time: O(N \log N), where $N = |A|+|B|-1$ (twice as slow as NTT or FFT)
  * Status: somewhat tested
