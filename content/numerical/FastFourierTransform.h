@@ -3,7 +3,7 @@
  * Date: 2019-01-09
  * License: CC0
  * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf (do read, it's excellent)
-   Papers about accuracy: http://www.daemonology.net/papers/fft.pdf, http://www.cs.berkeley.edu/~fateman/papers/fftvsothers.pdf
+   Accuracy bound from http://www.daemonology.net/papers/fft.pdf
  * Description: fft(a, ...) computes $\hat f(k) = \sum_x a[x] \exp(2\pi i \cdot k x / N)$ for all $k$. Useful for convolution:
    \texttt{conv(a, b) = c}, where $c[x] = \sum a[i]b[x-i]$.
    For convolution of complex numbers or more than two vectors: FFT, multiply
