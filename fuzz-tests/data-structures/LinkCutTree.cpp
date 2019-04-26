@@ -14,10 +14,8 @@ typedef vector<int> vi;
 #include "../../content/data-structures/UnionFind.h"
 
 int main() {
-	int s = (int)time(0);
-	cout << s << endl;
-	srand(s);
-	for (;;) {
+	srand(2);
+	for (int i=0;i<10;i++) {
 		int N = rand() % 20 + 1;
 		rep(it,0,1000) {
 			LinkCut lc(N);
@@ -51,4 +49,5 @@ int main() {
 		}
 		clog << '.';
 	}
+	cout<<"Tests passed!"<<endl;
 }

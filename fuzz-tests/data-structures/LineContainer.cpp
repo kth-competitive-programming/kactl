@@ -102,4 +102,5 @@ int main() {
 			assert(mh.query(x) == mh2.query(x));
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 }
