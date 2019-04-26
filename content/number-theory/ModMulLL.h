@@ -13,7 +13,7 @@ typedef unsigned long long ull;
 const int bits = 10;
 // if all numbers are less than 2^k, set bits = 64-k
 const ull po = 1 << bits;
-ull mod_mul(ull a, ull b, ull &c) {
+ull mod_mul(ull a, ull b, ull c) {
 	ull x = a * (b & (po - 1)) % c;
 	while ((b >>= bits) > 0) {
 		a = (a << bits) % c;
