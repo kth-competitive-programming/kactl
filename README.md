@@ -37,7 +37,8 @@ To build KACTL, type `make kactl` (or `make fast`) on a \*NIX machine -- this wi
 kactl.pdf is to be kept to 25 pages + cover page.
 Occasionally the generated kactl.pdf is committed to the repo for convenience, but not too often because it makes git operations slower.
 
-Before printing KACTL for an official contest, you may want to locally change the arguments to `\team`, `\contest`, etc. in build/kactl.tex to something more fitting.
+Before printing KACTL for an official contest, you may want to locally change the arguments to `\team`, `\contest`, etc. in build/kactl.tex to something more fitting,
+You may also enable colored syntax highlighting in the same file.
 
 To upstream your changes, [send a pull request](https://help.github.com/articles/fork-a-repo/).
 
