@@ -31,7 +31,7 @@ vi convMod(const vi &a, const vi &b) {
 	rep(i, 0, sz(res)) {
 		ll av = round(outl[i].real()), cv = round(outs[i].imag());
 		ll bv = round(outl[i].imag()) + round(outs[i].real());
-		res[i] = vi(((av % M * cut + bv % M) * cut + cv % M) % M);
+		res[i] = int(((av % M * cut + bv % M) * cut + cv % M) % M);
 	}
 	return res;
 }
