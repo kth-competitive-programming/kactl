@@ -10,11 +10,19 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
+<<<<<<< HEAD:fuzz-tests/geometry/PolygonCut.cpp
 #include "../../content/geometry/PolygonArea.h"
 #include "../../content/geometry/PolygonCut.h"
 #include "../../content/geometry/sideOf.h"
 #include "../../content/geometry/insidePolygon.h"
 #include "../../content/geometry/SegmentIntersection.h"
+=======
+#include "../content/geometry/PolygonArea.h"
+#include "../content/geometry/PolygonCut.h"
+#include "../content/geometry/sideOf.h"
+#include "../content/geometry/insidePolygon.h"
+#include "../content/geometry/SegmentIntersection.h"
+>>>>>>> Fixed broken dependency:fuzz-tests/polygon-cut.cpp
 
 typedef Point<double> P;
 int main() {
@@ -27,9 +35,9 @@ int main() {
 			P a = ps[i], b = ps[(i+1)%N];
 			P c = ps[j], d = ps[(j+1)%N];
 			P r1, r2;
-			int r = segmentIntersection(a, b, c, d, r1, r2);
-			if (r == 2) goto fail;
-			if (r == 1) {
+			auto r = segInter(a, b, c, d);
+			if (sz(r) == 2) goto fail;
+			if (sz(r) == 1) {
 				if (i+1 == j || (j+1) % N == i) ;
 				else goto fail;
 			}
