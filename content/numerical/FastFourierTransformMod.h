@@ -18,8 +18,8 @@ template <int M> vi convMod(const vi &a, const vi &b) {
 	vi res(sz(a) + sz(b) - 1);
 	int B = 32 - __builtin_clz(sz(res)), n = 1<<B, cut = sqrt(M);
 	vector<C> L(n), R(n), outs(n), outl(n);
-	rep(i,0,sz(a)) L[i] = {a[i] / cut, a[i] % cut};
-	rep(i,0,sz(b)) R[i] = {b[i] / cut, b[i] % cut};
+	rep(i,0,sz(a)) L[i] = C(a[i] / cut, a[i] % cut);
+	rep(i,0,sz(b)) R[i] = C(b[i] / cut, b[i] % cut);
 	fft(L, n, B), fft(R, n, B);
 	rep(i,0,n) {
 		int j = -i & (n - 1);
@@ -28,8 +28,8 @@ template <int M> vi convMod(const vi &a, const vi &b) {
 	}
 	fft(outl, n, B), fft(outs, n, B);
 	rep(i,0,sz(res)) {
-		ll av = round(outl[i].real()), cv = round(outs[i].imag());
-		ll bv = round(outl[i].imag()) + round(outs[i].real());
+		ll av = ll(outl[i].real()+.5), cv = ll(outs[i].imag()+.5);
+		ll bv = ll(outl[i].imag()+.5) + ll(outs[i].real()+.5);
 		res[i] = int(((av % M * cut + bv % M) * cut + cv % M) % M);
 	}
 	return res;
