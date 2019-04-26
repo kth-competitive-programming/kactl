@@ -14,7 +14,7 @@ typedef vector<int> vi;
 // #include "mcmf4.h"
 // #include "mcmfold.h"
 // #include "mcmfnew.h"
-#define setpi dummy(){} void setpi
+#define setpi dummy(){} bool setpi
 #undef assert
 #define assert(x) return x
 #include "../../content/graph/MinCostMaxFlow.h"
