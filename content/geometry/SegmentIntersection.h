@@ -5,7 +5,7 @@
  * Source: https://vlecomte.github.io/cp-geo.pdf
  * Description:\\
 \begin{minipage}{75mm}
-If a unique intersetion point between the line segments going from s1 to e1 and from s2 to e2 exists then it is returned.
+If a unique intersection point between the line segments going from s1 to e1 and from s2 to e2 exists then it is returned.
 If no intersection point exists an empty vector is returned. If infinitely many exist a vector with 2 elements is returned.
 The wrong position will be returned if P is Point<int> and the intersection point does not have integer coordinates.
 Products of three coordinates are used in intermediate steps so watch out for overflow if using int or long long.
@@ -24,7 +24,8 @@ Products of three coordinates are used in intermediate steps so watch out for ov
 #include "Point.h"
 #include "onSegment.h"
 
-template <class P> bool segInterProper(P a, P b, P c, P d, P &out) {
+template <class P> bool segInterProper(P a, P b, P c, P d,
+										P &out) {
 	double oa = c.cross(d, a), ob = c.cross(d, b),
 		   oc = a.cross(b, c), od = a.cross(b, d);
 	if (sgn(oa) * sgn(ob) < 0 && sgn(oc) * sgn(od) < 0) {
