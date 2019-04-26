@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/geometry/MinimumEnclosingCircle.h"
+#include "../../content/geometry/MinimumEnclosingCircle.h"
 
 int main() {
 	srand(2);

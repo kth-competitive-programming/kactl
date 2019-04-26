@@ -10,19 +10,19 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/data-structures/Treap.h"
+#include "../../content/data-structures/Treap.h"
 
 pair<Node*, Node*> split2(Node* n, int v) {
 	if (!n) return {};
 	if (n->val >= v) {
 		auto pa = split2(n->l, v);
 		n->l = pa.second;
-		recalc(n);
+		n->recalc();
 		return {pa.first, n};
 	} else {
 		auto pa = split2(n->r, v);
 		n->r = pa.first;
-		recalc(n);
+		n->recalc();
 		return {n, pa.second};
 	}
 }

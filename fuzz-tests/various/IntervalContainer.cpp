@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/various/IntervalContainer.h"
+#include "../../content/various/IntervalContainer.h"
 
 int main2() {
 	const int its = 4000000;

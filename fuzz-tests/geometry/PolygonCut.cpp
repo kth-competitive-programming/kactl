@@ -10,11 +10,11 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/geometry/PolygonArea.h"
-#include "../content/geometry/PolygonCut.h"
-#include "../content/geometry/sideOf.h"
-#include "../content/geometry/insidePolygon.h"
-#include "../content/geometry/SegmentIntersection.h"
+#include "../../content/geometry/PolygonArea.h"
+#include "../../content/geometry/PolygonCut.h"
+#include "../../content/geometry/sideOf.h"
+#include "../../content/geometry/insidePolygon.h"
+#include "../../content/geometry/SegmentIntersection.h"
 
 typedef Point<double> P;
 int main() {

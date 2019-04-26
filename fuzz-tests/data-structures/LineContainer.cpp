@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/data-structures/LineContainer.h"
+#include "../../content/data-structures/LineContainer.h"
 
 namespace other {
 // source: https://github.com/niklasb/contest-algos/blob/master/convex_hull/dynamic.cpp

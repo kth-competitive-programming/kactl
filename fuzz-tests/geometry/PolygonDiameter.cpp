@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/geometry/PolygonDiameter.h"
+#include "../../content/geometry/PolygonDiameter.h"
 
 int main() {
 	srand(2);

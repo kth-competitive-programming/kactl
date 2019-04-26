@@ -12,11 +12,11 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/geometry/ConvexHull.h"
-#include "../content/geometry/PolygonArea.h"
+#include "../../content/geometry/ConvexHull.h"
+#include "../../content/geometry/PolygonArea.h"
 
 #define P P2
-#include "../content/geometry/circumcircle.h"
+#include "../../content/geometry/circumcircle.h"
 #undef P
 
 P2 top(P x) { return P2((double)x.x, (double)x.y); }
@@ -42,7 +42,7 @@ struct Bumpalloc {
 #ifndef TEST_PERF
 #define new bumpalloc =
 #endif
-#include "../content/geometry/FastDelaunay.h"
+#include "../../content/geometry/FastDelaunay.h"
 #ifndef TEST_PERF
 #undef new
 #endif

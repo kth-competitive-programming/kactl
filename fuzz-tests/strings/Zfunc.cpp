@@ -11,7 +11,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/strings/Zfunc.h"
+#include "../../content/strings/Zfunc.h"
 
 template <class F> void gen(string &s, int at, int alpha, F f) {
     if (at == sz(s))

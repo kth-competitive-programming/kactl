@@ -5,7 +5,7 @@ using namespace std;
 #define rep(i,f,t) for (int i = (f); i < (t); ++i)
 typedef long long ll;
 
-#include "../content/various/FastMod.h"
+#include "../../content/various/FastMod.h"
 
 // #define EIGHT
 

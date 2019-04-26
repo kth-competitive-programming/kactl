@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/data-structures/FenwickTree2d.h"
+#include "../../content/data-structures/FenwickTree2d.h"
 
 int main() {
 	rep(it,0,1000000) {

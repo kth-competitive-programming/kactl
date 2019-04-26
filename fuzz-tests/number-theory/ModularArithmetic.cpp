@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/number-theory/ModularArithmetic.h"
+#include "../../content/number-theory/ModularArithmetic.h"
 
 int main() {
 	rep(a,0,mod) rep(b,1,mod) {

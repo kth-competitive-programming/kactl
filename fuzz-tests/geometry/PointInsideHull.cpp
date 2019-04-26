@@ -10,9 +10,9 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/geometry/ConvexHull.h"
-#include "../content/geometry/PointInsideHull.h"
-#include "../content/geometry/insidePolygon.h"
+#include "../../content/geometry/ConvexHull.h"
+#include "../../content/geometry/PointInsideHull.h"
+#include "../../content/geometry/insidePolygon.h"
 
 int main() {
 	rep(it,0,100000) {

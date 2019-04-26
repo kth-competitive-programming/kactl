@@ -10,8 +10,8 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/number-theory/MillerRabin.h"
-#include "../content/number-theory/eratosthenes.h"
+#include "../../content/number-theory/MillerRabin.h"
+#include "../../content/number-theory/eratosthenes.h"
 
 ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 int afactors[] = {2, 3, 5, 13, 19, 73, 193, 407521, 299210837};

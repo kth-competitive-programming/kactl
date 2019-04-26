@@ -14,10 +14,10 @@ typedef vector<int> vi;
 
 typedef vector<ll> vl;
 namespace ignore {
-#include "../content/number-theory/ModPow.h"
+#include "../../content/number-theory/ModPow.h"
 }
 ll modpow(ll a, ll e);
-#include "../content/numerical/NumberTheoreticTransform.h"
+#include "../../content/numerical/NumberTheoreticTransform.h"
 ll modpow(ll a, ll e) {
 	if (e == 0) return 1;
 	ll x = modpow(a * a % mod, e >> 1);

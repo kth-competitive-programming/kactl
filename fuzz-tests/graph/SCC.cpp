@@ -13,7 +13,7 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 int cin;
 
-#include "../content/graph/SCC.h"
+#include "../../content/graph/SCC.h"
 
 namespace old {
 vi orig, low, comp, z;

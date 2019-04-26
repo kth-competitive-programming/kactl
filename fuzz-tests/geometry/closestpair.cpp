@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/geometry/ClosestPair.h"
+#include "../../content/geometry/ClosestPair.h"
 
 namespace old {
 template<class It>

@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/strings/SuffixArray.h"
+#include "../../content/strings/SuffixArray.h"
 
 struct VecSuffixArray {
     vi sa, lcp;

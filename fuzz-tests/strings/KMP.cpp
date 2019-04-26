@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/strings/KMP.h"
+#include "../../content/strings/KMP.h"
 
 template<class F>
 void gen(string& s, int at, int alpha, F f) {
