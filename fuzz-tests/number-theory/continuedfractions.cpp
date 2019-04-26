@@ -36,6 +36,7 @@ int main() {
 			assert(best.second == pa.second);
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }
 

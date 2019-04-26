@@ -36,6 +36,7 @@ int main() {
 			assert(works == relp);
 		}
 	}
+	cout<<"Tests pass!"<<endl;
 }
 
 ll inv[LIM] = {-10000, 1};
