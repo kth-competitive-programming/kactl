@@ -1,16 +1,16 @@
 /**
- * Author: Ulf Lundstrom
- * Date: 2009-03-22
+ * Author: Victor Lecomte, chilli
+ * Date: 2019-04-26
  * License: CC0
- * Source: Basic geometry
- * Description: Returns true if p lies within the polygon described by the points between iterators begin and end. If strict false is returned when p is on the edge of the polygon. Answer is calculated by counting the number of intersections between the polygon and a line going from p to infinity in the positive x-direction. The algorithm uses products in intermediate steps so watch out for overflow. If points within epsilon from an edge should be considered as on the edge replace the line "if (onSegment..." with the comment bellow it (this will cause overflow for int and long long).
+ * Source: https://vlecomte.github.io/cp-geo.pdf
+ * Description: Returns true if p lies within the polygon. If p is on the edge of the polygon, it returns false when strict is true. Answer is calculated by counting the number of intersections between the polygon and a line going from p to infinity in the positive x-direction. The algorithm uses products in intermediate steps so watch out for overflow.
  * Time: O(n)
- * Status: tested with unitTest and Kattis problems copsrobbers, pointinpolygon and intersection
+ * Status: fuzz-tested
  * Usage:
- * 	typedef Point<int> pi;
- * 	vector<pi> v; v.push_back(pi(4,4));
- * 	v.push_back(pi(1,2)); v.push_back(pi(2,1));
- * 	bool in = insidePolygon(v.begin(),v.end(), pi(3,4), false);
+ * 	typedef Point<int> P;
+ * 	vector<P> v; v.push_back(P(4,4));
+ * 	v.push_back(P(1,2)); v.push_back(P(2,1));
+ * 	bool in = insidePolygon(v, P(3,4), false);
  */
 #pragma once
 
