@@ -27,9 +27,9 @@ int main() {
 			P a = ps[i], b = ps[(i+1)%N];
 			P c = ps[j], d = ps[(j+1)%N];
 			P r1, r2;
-			int r = segmentIntersection(a, b, c, d, r1, r2);
-			if (r == 2) goto fail;
-			if (r == 1) {
+			auto r = segInter(a, b, c, d);
+			if (sz(r) == 2) goto fail;
+			if (sz(r) == 1) {
 				if (i+1 == j || (j+1) % N == i) ;
 				else goto fail;
 			}
