@@ -10,8 +10,6 @@
 
 #include "Point.h"
 
-template<class P>
-bool onSegment(const P& s, const P& e, const P& p) {
-	P ds = p-s, de = p-e;
-	return ds.cross(de) == 0 && ds.dot(de) <= 0;
+template <class P> bool onSegment(P s, P e, P p) {
+	return sgn(s.cross(e, p)) == 0 && sgn((s - p).dot(e - p)) <= 0;
 }
