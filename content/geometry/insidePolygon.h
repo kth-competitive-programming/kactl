@@ -16,19 +16,15 @@
 
 #include "Point.h"
 #include "onSegment.h"
-#include "SegmentDistance.h"
 
-template<class It, class P>
-bool insidePolygon(It begin, It end, const P& p,
-		bool strict = true) {
-	int n = 0; //number of isects with line from p to (inf,p.y)
-	for (It i = begin, j = end-1; i != end; j = i++) {
-		//if p is on edge of polygon
-		if (onSegment(*i, *j, p)) return !strict;
-		//or: if (segDist(*i, *j, p) <= epsilon) return !strict;
-		//increment n if segment intersects line from p
-		n += (max(i->y,j->y) > p.y && min(i->y,j->y) <= p.y &&
-				((*j-*i).cross(p-*i) > 0) == (i->y <= p.y));
-	}
-	return n&1; //inside if odd number of intersections
+bool crossesRay(P a, P p, P q) {
+	return sgn(((a.y >= q.y) - (a.y >= p.y)) * a.cross(p, q)) > 0;
+}
+bool inPolygon(vector<P> &p, P a, bool strict = true) {
+    int nCross = 0, n = sz(p);
+    rep(i, 0, n) {
+        if (onSegment(p[i], p[(i + 1) % n], a)) return !strict;
+        nCross += crossesRay(a, p[i], p[(i + 1) % n]);
+    }
+    return nCross & 1;
 }
