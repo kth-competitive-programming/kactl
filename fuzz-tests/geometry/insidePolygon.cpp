@@ -57,7 +57,7 @@ void test(int numPts, int range) {
 int main() {
     srand(time(0));
     test(20,5);
-    test(100,100);
-    test(1000,100);
+    test(1001,100);
+    test(1000,1000);
     cout<<"Tests passed!"<<endl;
 }

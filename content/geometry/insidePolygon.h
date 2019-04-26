@@ -17,15 +17,13 @@
 #include "Point.h"
 #include "onSegment.h"
 
-template<class P> bool crossesRay(P a, P p, P q) {
-	return sgn(((a.y>=q.y) - (a.y>=p.y)) * a.cross(p, q)) > 0;
-}
 template<class P>
 bool inPolygon(vector<P> &p, P a, bool strict = true) {
 		int nCross = 0, n = sz(p);
 		rep(i, 0, n) {
-				if (onSegment(p[i], p[(i + 1) % n], a)) return !strict;
-				nCross += crossesRay(a, p[i], p[(i + 1) % n]);
+			if (onSegment(p[i], p[(i + 1) % n], a)) return !strict;
+			nCross += (sgn(a.y >= p[(i + 1) % n].y) -
+			    (a.y >= p[i].y)) * a.cross(p[i], p[(i + 1) % n]) > 0;
 		}
 		return nCross & 1;
 }
