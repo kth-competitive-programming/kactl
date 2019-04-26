@@ -42,6 +42,10 @@ template<class P> pair<bool, vector<P>> conquer(vector<P> pts, int depth) {
     return pa;
 }
 template<class P> vector<P> genPolygon(vector<P> pts) {
+    set<P> spoly;
+    trav(i, pts)
+        spoly.insert(i);
+    pts = vector<P>(all(spoly));
     random_shuffle(all(pts));
     if (sz(pts) <=3) return pts;
     vector<double> line ={pts[1].y-pts[0].y, pts[0].x - pts[1].x, -pts[0].x*pts[1].y + pts[0].y*pts[1].x};

@@ -42,10 +42,9 @@ const int NUMPOLY=100;
 const int PTPERPOLY=100;
 void test(int numPts, int range) {
     rep(i,0,NUMPOLY) {
-        set<P> spoly;
+        vector<P> poly;
         rep(j,0, numPts)
-            spoly.insert(P(rand()%range, rand()%range));
-        vector<P> poly(all(spoly));
+            poly.push_back(P(rand()%range, rand()%range));
         poly = genPolygon(poly);
         rep(i,0,PTPERPOLY){
             P p(rand()%range, rand()%range);
