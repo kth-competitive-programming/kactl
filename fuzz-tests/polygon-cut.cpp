@@ -41,7 +41,7 @@ int main() {
 		rep(it,0,ITS) {
 			double x = rand() / (RAND_MAX + 1.0) * 10 - 5;
 			double y = rand() / (RAND_MAX + 1.0) * 10 - 5;
-			if (!insidePolygon(all(ps), P{x,y}, true)) continue;
+			if (!inPolygon(ps, P{x,y}, true)) continue;
 			if (sideOf(p, q, P{x,y}) > 0) continue;
 			count++;
 		}

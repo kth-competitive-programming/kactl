@@ -25,7 +25,7 @@ int main() {
 		double y = rand() / (RAND_MAX + 1.0);
 		x *= 10;
 		y *= 10;
-		if (!insidePolygon(all(ps), P{x,y}, true)) continue;
+		if (!inPolygon(ps, P{x,y}, true)) continue;
 		count++;
 		su = su + P{x,y};
 	}
