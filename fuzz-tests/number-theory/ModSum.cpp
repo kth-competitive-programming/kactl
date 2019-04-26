@@ -9,7 +9,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/number-theory/ModSum.h"
+#include "../../content/number-theory/ModSum.h"
 
 ll rmod(ll x, ll m) {
 	x %= m;

@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/strings/MinRotation.h"
+#include "../../content/strings/MinRotation.h"
 
 int min_rotation2(string& v) {
 	int n = sz(v);

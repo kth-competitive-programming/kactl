@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/numerical/LinearRecurrence.h"
+#include "../../content/numerical/LinearRecurrence.h"
 
 template<class F>
 void gen(vector<ll>& v, int at, F f) {

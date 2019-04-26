@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/graph/MaximalCliques.h"
+#include "../../content/graph/MaximalCliques.h"
 
 template<class F>
 void fastCliques(vector<B>& eds, F f) {

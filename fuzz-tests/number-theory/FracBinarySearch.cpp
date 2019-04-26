@@ -10,8 +10,8 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/number-theory/ContinuedFractions.h"
-#include "../content/number-theory/FracBinarySearch.h"
+#include "../../content/number-theory/ContinuedFractions.h"
+#include "../../content/number-theory/FracBinarySearch.h"
 
 int main() {
 	rep(n,1,300) {

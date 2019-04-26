@@ -10,8 +10,8 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/graph/LinkCutTree.h"
-#include "../content/data-structures/UnionFind.h"
+#include "../../content/graph/LinkCutTree.h"
+#include "../../content/data-structures/UnionFind.h"
 
 int main() {
 	int s = (int)time(0);

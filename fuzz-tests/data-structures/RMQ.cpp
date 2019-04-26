@@ -9,7 +9,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/data-structures/RMQ.h"
+#include "../../content/data-structures/RMQ.h"
 
 int main() {
 	srand(2);

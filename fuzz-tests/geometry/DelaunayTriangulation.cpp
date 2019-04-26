@@ -10,12 +10,12 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/geometry/DelaunayTriangulation.h"
+#include "../../content/geometry/DelaunayTriangulation.h"
 #define ll double
-#include "../content/geometry/ConvexHull.h"
+#include "../../content/geometry/ConvexHull.h"
 #undef ll
-#include "../content/geometry/PolygonArea.h"
-#include "../content/geometry/circumcircle.h"
+#include "../../content/geometry/PolygonArea.h"
+#include "../../content/geometry/circumcircle.h"
 
 typedef Point<double> P;
 int main() {

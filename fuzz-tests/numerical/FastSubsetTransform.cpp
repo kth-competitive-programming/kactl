@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/numerical/FastSubsetTransform.h"
+#include "../../content/numerical/FastSubsetTransform.h"
 
 int main() {
 	rep(k,0,10) {

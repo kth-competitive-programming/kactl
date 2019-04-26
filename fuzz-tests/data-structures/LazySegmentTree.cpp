@@ -10,8 +10,8 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/data-structures/LazySegmentTree.h"
-// #include "../content/data-structures/old.h"
+#include "../../content/data-structures/LazySegmentTree.h"
+// #include "../../content/data-structures/old.h"
 
 static unsigned R;
 int ra() {

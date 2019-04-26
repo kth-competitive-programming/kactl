@@ -10,7 +10,7 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/graph/2sat.h"
+#include "../../content/graph/2sat.h"
 
 int main1() {
 	const int N = 100000, M = 10000000;

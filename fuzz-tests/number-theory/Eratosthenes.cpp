@@ -53,7 +53,7 @@ struct prime_sieve {
 
 #if 1
 
-#include "../content/number-theory/eratosthenes.h"
+#include "../../content/number-theory/eratosthenes.h"
 
 #else
 
