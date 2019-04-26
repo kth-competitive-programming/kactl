@@ -4,7 +4,7 @@
  * License: CC0
  * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf
  * Description: Higher precision FFT, can be used for convolutions modulo arbitrary integers.
- * Is safe in practice as long as $(|a|+|b|)\sqrt{\max(a)\max(b)} < \mathtt{\sim} 10^{15}$.
+ * Let N be $\max(|a|,|b|)$. Is guaranteed safe as long as $N\log_2{N}\sqrt{\max(a)\max(b)} < \mathtt{\sim} 10^{16}$ .
  * Time: O(N \log N), where $N = |A|+|B|-1$ (twice as slow as NTT or FFT)
  * Status: somewhat tested
  */

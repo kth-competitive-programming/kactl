@@ -8,7 +8,7 @@
    \texttt{conv(a, b) = c}, where $c[x] = \sum a[i]b[x-i]$.
    For convolution of complex numbers or more than two vectors: FFT, multiply
    pointwise, divide by n, reverse(start+1, end), FFT back.
-   For integers rounding works if $(|a| + |b|)\max(a)\max(b) < \mathtt{\sim} 10^{15}$.
+   Let N be $\max(|a|,|b|)$. Is guaranteed safe as long as $N\log_2{N}\max(a)\max(b) < \mathtt{\sim} 10^{16}$ .
    Consider using number-theoretic transform or FFTMod instead if precision is an issue.
  * Time: O(N \log N), where $N = |A|+|B|-1$ ($\tilde 1s$ for $N=2^{22}$)
  * Status: somewhat tested
