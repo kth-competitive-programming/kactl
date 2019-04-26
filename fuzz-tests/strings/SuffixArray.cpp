@@ -72,7 +72,7 @@ void test(const string& s, int alpha) {
 
 	if (suffixes != sa.sa) {
 		cout << "sa fails for " << display(s) << ' ' << alpha << endl;
-		exit(1);
+		assert(suffixes == sa.sa);
 	}
 
 	rep(i,0,sz(s)) {
@@ -85,7 +85,7 @@ void test(const string& s, int alpha) {
 
 	if (lcp != sa.lcp) {
 		cout << "lcp fails for " << display(s) << ' ' << alpha << endl;
-		exit(1);
+		assert(lcp == sa.lcp);
 	}
 }
 
@@ -214,14 +214,11 @@ void fuzz(bool onlySmall = false) {
 		rep(alpha,1,27) {
 			rep(n,0,100) {
 				if (n * n * pow(alpha, n) > work) break;
-				cout << alpha << ' ' << n << ": " << flush;
+				// cout << alpha << ' ' << n << ": " << flush;
 				string s(n, 'x');
-				int cnt = 0;
 				gen(s, 0, alpha, [&]() {
 					test(s, alpha);
-					cnt++;
 				});
-				cout << cnt << endl;
 			}
 		}
 	}
@@ -255,6 +252,7 @@ void perf2() {
 int main() {
 	// compare();
 	fuzz(0);
+	cout<<"Tests passed!"<<endl;
 	// perf();
 	// perf2();
 }

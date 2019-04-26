@@ -23,7 +23,7 @@ int min_rotation2(string& v) {
 	return j;
 }
 
-int main2() {
+int main() {
 	rep(it,0,10000) {
 		int n = rand() % 10;
 		string v;
@@ -35,12 +35,5 @@ int main2() {
 		assert(min_rotation(v) == 0);
 		assert(min_rotation2(v) == 0);
 	}
-	return 0;
-}
-
-int main() {
-	string s;
-	rep(i,0,10000000)
-		s += (char)(rand()%400000 < 2);
-	cout << min_rotation(s) << endl;
+	cout<<"Tests passed!"<<endl;
 }
