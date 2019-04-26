@@ -16,16 +16,16 @@ template <int M> vi convMod(const vi &a, const vi &b) {
 	if (a.empty() || b.empty()) return {};
 	vi res(sz(a) + sz(b) - 1);
 	int B = 32 - __builtin_clz(sz(res)), n = 1<<B, cut = sqrt(M);
-	vector<C> L(n), R(n), outs(n), outl(n);
+	vector<C> L(n), R(n), outs(n), outl(n), rt;
 	rep(i,0,sz(a)) L[i] = C(a[i] / cut, a[i] % cut);
 	rep(i,0,sz(b)) R[i] = C(b[i] / cut, b[i] % cut);
-	fft(L, n, B), fft(R, n, B);
+	fft(L, n, B, rt), fft(R, n, B, rt);
 	rep(i,0,n) {
 		int j = -i & (n - 1);
 		outl[j] = (L[i] + conj(L[j])) * R[i] / (2.0 * n);
 		outs[j] = (L[i] - conj(L[j])) * R[i] / (2.0 * n) / 1i;
 	}
-	fft(outl, n, B), fft(outs, n, B);
+	fft(outl, n, B, rt), fft(outs, n, B, rt);
 	rep(i,0,sz(res)) {
 		ll av = ll(outl[i].real()+.5), cv = ll(outs[i].imag()+.5);
 		ll bv = ll(outl[i].imag()+.5) + ll(outs[i].real()+.5);
