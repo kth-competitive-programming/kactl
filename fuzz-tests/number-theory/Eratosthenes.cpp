@@ -49,26 +49,8 @@ struct prime_sieve {
 						isprime[ii] &= (uchar)~(1<<ss);
 }	}		}	}	};
 
-// const int MAX_PR = 100000000;
-
-#if 1
 
 #include "../../content/number-theory/eratosthenes.h"
-
-#else
-
-bitset<MAX_PR> isprime;
-vi eratosthenes_sieve(int lim) {
-	isprime.set(); isprime[0] = isprime[1] = 0;
-	for (int i = 4; i < lim; i += 2) isprime[i] = 0;
-	for (int i = 3; i*i < lim; i += 2) if (isprime[i])
-		for (int j = i*i; j < lim; j += i*2) isprime[j] = 0;
-	vi pr;
-	rep(i,2,lim) if (isprime[i]) pr.push_back(i);
-	return pr;
-}
-
-#endif
 
 int main(int argc, char** argv) {
 	ll s = 0, s2 = 0;

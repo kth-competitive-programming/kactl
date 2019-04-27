@@ -64,6 +64,8 @@ int main() {
 		n *= 1237618231ULL;
 		if (oldIsPrime(n) != isPrime(n)) {
 			cout << "differs from old for " << n << endl;
+			assert(false);
 		}
 	}
+	cout<<"Tests passed"<<endl;
 }

@@ -64,6 +64,7 @@ int main() {
 		});
 		});
 	}
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }
 

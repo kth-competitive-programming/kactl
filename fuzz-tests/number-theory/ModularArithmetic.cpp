@@ -20,7 +20,11 @@ int main() {
 		assert((mc * mb).x == a);
 	}
 	Mod a = 2;
-	rep(i,0,17) {
-		cout << i << ": " << (a ^ i).x << endl;
+	ll cur=1;
+	rep(i, 0, 17) {
+		assert((a ^ i).x == cur);
+		cur = (cur * 2) % mod;
+		// cout << i << ": " << (a ^ i).x << endl;
 	}
+	cout<<"Tests passed!"<<endl;
 }
