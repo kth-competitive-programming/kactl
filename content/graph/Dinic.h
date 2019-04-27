@@ -4,7 +4,8 @@
  * License: CC0
  * Source: https://cp-algorithms.com/graph/dinic.html
  * Description: Flow algorithm with guaranteed complexity $O(V^2E)$.
- * On bipartite graphs the complexity is $O(\sqrt{V}E)$, and on unit graphs $O(\min(V^{1/2}, E^{2/3})E)).
+ * $O(\sqrt{V}E)$ for bipartite graphs, $O(\min(V^{1/2}, E^{2/3})E))$ for unit graphs.
+ * To obtain the actual flow, look at positive values only.
  * Status: Tested on SPOJ FASTFLOW and SPOJ MATCHING
  */
 struct Dinic {
