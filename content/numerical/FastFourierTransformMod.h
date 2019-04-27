@@ -15,7 +15,7 @@
 template <int M> vi convMod(const vi &a, const vi &b) {
 	if (a.empty() || b.empty()) return {};
 	vi res(sz(a) + sz(b) - 1);
-	int B = 32 - __builtin_clz(sz(res)), n = 1<<B, cut = sqrt(M);
+	int B=32-__builtin_clz(sz(res)), n = 1<<B, cut=int(sqrt(M));
 	vector<C> L(n), R(n), outs(n), outl(n), rt;
 	rep(i,0,sz(a)) L[i] = C(a[i] / cut, a[i] % cut);
 	rep(i,0,sz(b)) R[i] = C(b[i] / cut, b[i] % cut);
