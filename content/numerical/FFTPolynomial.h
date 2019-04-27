@@ -45,7 +45,7 @@ poly &operator/=(poly &a, poly &b) {
     int s = sz(a) - sz(b) + 1;
     reverse(all(a)), reverse(all(b));
     a.resize(s), b.resize(s);
-    a = a * inverse(b);
+    a *= inverse(b);
     a.resize(s), reverse(all(a));
     return a;
 }
