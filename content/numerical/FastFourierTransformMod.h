@@ -18,8 +18,8 @@ template <int M> vl convMod(const vl &a, const vl &b) {
 	vl res(sz(a) + sz(b) - 1);
 	int B=32-__builtin_clz(sz(res)), n = 1<<B, cut=int(sqrt(M));
 	vector<C> L(n), R(n), outs(n), outl(n), rt;
-	rep(i,0,sz(a)) L[i] = C(a[i] / cut, a[i] % cut);
-	rep(i,0,sz(b)) R[i] = C(b[i] / cut, b[i] % cut);
+	rep(i,0,sz(a)) L[i] = Cd(a[i] / cut, a[i] % cut);
+	rep(i,0,sz(b)) R[i] = Cd(b[i] / cut, b[i] % cut);
 	fft(L, n, B, rt), fft(R, n, B, rt);
 	rep(i,0,n) {
 		int j = -i & (n - 1);

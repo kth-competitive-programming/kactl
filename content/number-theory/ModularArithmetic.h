@@ -13,6 +13,7 @@
 const ll mod = 17; // change to something else
 struct Mod {
 	ll x;
+	Mod():x(0) {}
 	Mod(ll xx) : x(xx) {}
 	Mod operator+(Mod b) { return Mod((x + b.x) % mod); }
 	Mod operator-(Mod b) { return Mod((x - b.x + mod) % mod); }
@@ -27,4 +28,5 @@ struct Mod {
 		Mod r = *this ^ (e / 2); r = r * r;
 		return e&1 ? *this * r : r;
 	}
+	operator ll(){ return x; }
 };
