@@ -22,15 +22,17 @@ struct Dinic {
 	}
 	ll dfs(int v, int t, ll f) {
 		if (v == t || !f) return f;
+		ll res = 0;
 		for (int& i = ptr[v]; i < sz(adj[v]); i++) {
 			Edge& e = adj[v][i];
 			if (lvl[e.to] == lvl[v] + 1)
 				if (ll p = dfs(e.to, t, min(f, e.c - e.f))) {
 					e.f += p, adj[e.to][e.rev].f -= p;
-					return p;
+					res += p, f -= p;
+					if (!f) break;
 				}
 		}
-		return 0;
+		return res;
 	}
 	ll calc(int s, int t) {
 		ll flow = 0; q[0] = s;
