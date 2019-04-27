@@ -11,12 +11,12 @@ typedef double num;
 typedef vector<num> poly;
 poly &operator+=(poly &a, poly &b) {
     a.resize(max(sz(a), sz(b)));
-    rep(i, 0, sz(b)) a[i] += b[i];
+    rep(i,0,sz(b)) a[i] += b[i];
     return a;
 }
 poly &operator-=(poly &a, poly b) {
     a.resize(max(sz(a), sz(b)));
-    rep(i, 0, sz(b)) a[i] -= b[i];
+    rep(i,0,sz(b)) a[i] -= b[i];
     return a;
 }
 poly &operator*=(poly &a, poly &b) { return a = conv(a, b); }
