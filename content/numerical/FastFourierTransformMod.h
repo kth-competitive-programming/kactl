@@ -12,9 +12,10 @@
 
 #include "FastFourierTransform.h"
 
-template <int M> vi convMod(const vi &a, const vi &b) {
+typedef vector<ll> vl;
+template <int M> vl convMod(const vl &a, const vl &b) {
 	if (a.empty() || b.empty()) return {};
-	vi res(sz(a) + sz(b) - 1);
+	vl res(sz(a) + sz(b) - 1);
 	int B=32-__builtin_clz(sz(res)), n = 1<<B, cut=int(sqrt(M));
 	vector<C> L(n), R(n), outs(n), outl(n), rt;
 	rep(i,0,sz(a)) L[i] = C(a[i] / cut, a[i] % cut);
@@ -29,7 +30,7 @@ template <int M> vi convMod(const vi &a, const vi &b) {
 	rep(i,0,sz(res)) {
 		ll av = ll(outl[i].real()+.5), cv = ll(outs[i].imag()+.5);
 		ll bv = ll(outl[i].imag()+.5) + ll(outs[i].real()+.5);
-		res[i] = int(((av % M * cut + bv % M) * cut + cv % M) % M);
+		res[i] = ((av % M * cut + bv % M) * cut + cv % M) % M;
 	}
 	return res;
 }
