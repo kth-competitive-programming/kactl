@@ -10,11 +10,11 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../content/number-theory/ModMulLL.h"
+#include "../../content/number-theory/ModMulLL.h"
 
-ull int128_mod_mul(ull a, ull b, ull m) { return (__int128_t)a * b % m; }
-mt19937_64 rng(time(0));
-uniform_int_distribution<ull> uni(1, 1ull << 63);
+ull int128_mod_mul(ull a, ull b, ull m) { return (ull)((__uint128_t)a * b % m); }
+mt19937_64 rng(1);
+uniform_int_distribution<ull> uni(1, (1ull << 63) - 1);
 const int ITERS = 1e7;
 int main() {
     for (int i = 0; i < ITERS; i++) {
