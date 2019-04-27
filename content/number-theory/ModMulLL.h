@@ -12,7 +12,7 @@ typedef unsigned long long ull;
 typedef long double ld;
 ull mod_mul(ull a, ull b, ull M) {
 	ll ret = a * b - M * ull(ld(a) * ld(b) / ld(M));
-	return ret + M * ((ret < 0) - (ret >= (ll)M));
+	return ret + M * (ret < 0) - M * (ret >= (ll)M);
 }
 ull mod_pow(ull b, ull e, ull mod) {
 	ull ans = 1;
