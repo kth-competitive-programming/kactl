@@ -7,6 +7,7 @@
 from __future__ import print_function
 import sys
 import getopt
+import subprocess
 
 
 def escape(input):
@@ -128,6 +129,10 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
         nsource = nsource.rstrip() + source[end:]
     nsource = nsource.strip()
 
+    hash_script = 'hash'
+    p = subprocess.Popen(['sh', '../content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    hsh, _ = p.communicate(nsource)
+    hsh = hsh.split(None, 1)[0]
     # Produce output
     out = []
     if warning:
@@ -147,7 +152,7 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
         if includelist:
             out.append(r"\leftcaption{%s}" % pathescape(", ".join(includelist)))
         if nsource:
-            out.append(r"\rightcaption{%d lines}" % len(nsource.split("\n")))
+            out.append(r"\rightcaption{%s, %d lines}" % (hsh, len(nsource.split("\n"))))
         langstr = ", language="+listingslang if listingslang else ""
         out.append(r"\begin{lstlisting}[caption={%s}%s]" % (pathescape(caption), langstr))
         out.append(nsource)

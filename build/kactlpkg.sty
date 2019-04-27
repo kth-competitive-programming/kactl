@@ -39,9 +39,16 @@
 	\def\@unilogo{#3}
 }
 
+\newcommand{\enablecolors}{
+	\lstset{commentstyle=\color{darkgray}\normalfont\itshape}
+	\lstset{keywordstyle=\color{myblue}}
+	\lstset{identifierstyle=\color{black}}
+}
+
 % Some default config
 \subtitle{{\tiny new}KACTL}
 \title{KTH ACM Contest Template Library}
+\newcommand{\PDFColor}{0}
 
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
@@ -157,6 +164,9 @@
   \endgroup
 }
 \renewcommand*{\tilde}{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}
+
+\definecolor{mygreen}{HTML}{007000}
+\definecolor{myblue}{HTML}{0000dd}
 
 % Configure source code listings
 \lstset{language=C++}

@@ -6,14 +6,18 @@
 \team{Omogen Heap}{Simon Lindholm, Johan Sannemo, Mårten Wiman}
 % \contest{ACM-ICPC World Finals 2017}{May 24, 2017}
 \contest{\ }{\today}
+% \enablecolors
 
 \begin{document}
 	\maketeampage
 	% Small KACTL header on the first page:
 	% \maketitle{``One Last Time'' Edition}{\today}
 	\begin{multicols*}{3}
-	\setcounter{tocdepth}{0}
 	\thispagestyle{fancy}
+	% Table of contents, without subsections:
+	\setcounter{tocdepth}{0}
+	\tableofcontents
+
 	\kactlchapter{contest}
 	\kactlchapter{math}
 	\kactlchapter{data-structures}
