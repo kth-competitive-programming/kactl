@@ -1,9 +1,11 @@
 /**
  * Author: chilli
  * Date: 2019-04-27
- * Description: A FFT based Polynomial class
+ * Description: A FFT based Polynomial class.
  */
 #pragma once
+
+#include "FastFourierTransform.h"
 
 typedef double num;
 typedef vector<num> poly;
