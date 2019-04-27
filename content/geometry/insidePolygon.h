@@ -23,7 +23,7 @@ bool inPolygon(vector<P> &p, P a, bool strict = true) {
 		rep(i, 0, n) {
 			if (onSegment(p[i], p[(i + 1) % n], a)) return !strict;
 			nCross += (sgn(a.y >= p[(i + 1) % n].y) -
-			    (a.y >= p[i].y)) * a.cross(p[i], p[(i + 1) % n]) > 0;
+				sgn(a.y>=p[i].y)) * sgn(a.cross(p[i], p[(i+1)%n])) > 0;
 		}
 		return nCross & 1;
 }
