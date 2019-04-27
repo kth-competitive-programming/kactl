@@ -10,7 +10,8 @@
 #pragma once
 
 const double EPS=1e-8;
-template <typename T> int sgn(T x) { return x < -EPS ? -1 : x > EPS; }
+template <typename T> int sgn(T x) { return (x>-T(EPS)) - (x<T(EPS));}
+// template <typename T> int sgn(T x) { return (x>0) - (x<0)};
 template<class T>
 struct Point {
 	typedef Point P;
