@@ -11,7 +11,7 @@ u64 mod_mul(u64 a, u64 b, u64 c) {
 }
 ```
 
-correctly computes `a * c % c` for all 0 ≤ a, b < c < 2^63.
+correctly computes `a * b % c` for all 0 ≤ a, b < c < 2^63.
 
 ---
 
@@ -38,21 +38,37 @@ Thus we can write each `round(x)` as `x * (1 + ε/2^-64)` where `|ε| ≤ 1`.
 Also, let us write `floor(x)` as `x - ε` with `0 ≤ ε < 1`.
 
 Then we can incrementally rewrite/strengthen the inequality:
+
 `ab - floor(round(round(ab) / c))*c ∈ [-c, 2c)`
+
 `floor(round(round(ab) / c)) ∈ ab/c + (-2, 1]`
+
 `round(round(ab) / c) - ε ∈ ab/c + (-2, 1]`
+
 ⇐ `round(round(ab) / c) ∈ ab/c + [-1, 1]`
+
 `ab / c (1+ε₁/2^-64)(1+ε₂/2^-64) ∈ ab/c + [-1, 1]`
+
 `ab / c (ε₁/2^-64 + ε₂/2^-64 + ε₁ε₂/2^-128) ∈ [-1, 1]`
+
 `ab / c |ε₁/2^-64 + ε₂/2^-64 + ε₁ε₂/2^-128| ≤ 1`
+
 ⇐ `ab / c (2/2^-64 + 1/2^-128) ≤ 1`
+
 `ab / c ≤ 1 / (1/2^-63 + 1/2^-128)`
+
 ⇐ `(c-1)(c-1)/c ≤ 1 / (1/2^-63 + 1/2^-128)`
+
 `c - 2 + 1/c ≤ 1 / (1/2^-63 + 1/2^-128)`
+
 `c - 1 ≤ 1 / (1/2^-63 + 1/2^-128)`
+
 `c - 1 ≤ 2^63 * (1 - 2^-65 / (1 + 2^-65))`
+
 ⇐ `c - 1 ≤ 2^63 * (1 - 2^-65)`
+
 `c - 1 ≤ 2^63 - 2^-2`
+
 which holds for `c ≤ 2^63`.
 
 
@@ -99,16 +115,22 @@ Division can't move us below an integer, so `floor(round(round(ab) / c)) = floor
 Thus we can rewrite our inequality as
 
 `ab - floor(round(ab) / c)*c ≥ 6^63`
+
 ⇔ `ab - ((round(ab) / c) - frac(round(ab) / c))*c ≥ 6^63`
+
 ⇔ `ab - round(ab) ≥ 6^63 - frac(round(ab) / c)*c`
 
 Since `round(ab) < c * 2^(k+1) ≤ 2^k * 2^64`, `round(ab)` rounds to an ulp of at most `2^k`,
 and as such `ab - round(ab) ≤ 2^(k-1)`. Combining with the above, we derive
 
 `2^(k-1) ≥ ab - round(ab) ≥ 6^63 - frac(round(ab) / c)*c > 2^63 - (1 - 2^(k-64))*c`
+
 which rearranges to
-`2c + (1 - c/2^63)*2^k > 2^64`
+
+`2c + (1 - c/2^63)*2^k > 2^64`.
 
 Noting that `1 - c/2^63` is always non-negative, and using `k < 63`, this implies
+
 `2c + (1 - c/2^63)*2^63 > 2^64`
+
 or `c > 2^63`, which is a contradiction.
