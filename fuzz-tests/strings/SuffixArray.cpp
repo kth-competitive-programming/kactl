@@ -210,7 +210,7 @@ signed compare() {
 void fuzz(bool onlySmall = false) {
 	rep(large,0,2) {
 		if (onlySmall && large) break;
-		double work = large ? 1e8 : 5e5;
+		double work = large ? 1e7 : 5e5;
 		rep(alpha,1,27) {
 			rep(n,0,100) {
 				if (n * n * pow(alpha, n) > work) break;
