@@ -31,7 +31,7 @@ void testPerf() {
 }
 
 int main() {
-	rep(it,0,10000) {
+	rep(it,0,1000000) {
 		int n = rand() % 10;
 		string v;
 		rep(i,0,n) v += (char)(rand() % 3);
