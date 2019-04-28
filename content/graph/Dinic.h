@@ -3,8 +3,8 @@
  * Date: 2019-04-26
  * License: CC0
  * Source: https://cp-algorithms.com/graph/dinic.html
- * Description: Flow algorithm with guaranteed complexity $O(V^2E)$.
- * $O(\sqrt{V}E)$ for bipartite graphs, $O(\min(V^{1/2}, E^{2/3})E))$ for unit graphs.
+ * Description: Flow algorithm with complexity $O(VE\log U)$ where $U = \max |\text{cap}|$.
+ * $O(\min(E^{1/2}, V^{2/3})E)$ if $U = 1$; $O(\sqrt{V}E)$ for bipartite matching.
  * To obtain the actual flow, look at positive values only.
  * Status: Tested on SPOJ FASTFLOW and SPOJ MATCHING
  */
@@ -34,13 +34,13 @@ struct Dinic {
 	}
 	ll calc(int s, int t) {
 		ll flow = 0; q[0] = s;
-		do {
+		rep(L,0,31) do { // 'int L=30' maybe faster for random data
 			lvl = ptr = vi(sz(q));
 			int qi = 0, qe = lvl[s] = 1;
 			while (qi < qe && !lvl[t]) {
 				int v = q[qi++];
 				trav(e, adj[v])
-					if (!lvl[e.to] && e.f < e.c)
+					if (!lvl[e.to] && (e.c - e.f) >> (30 - L))
 						q[qe++] = e.to, lvl[e.to] = lvl[v] + 1;
 			}
 			while (ll p = dfs(s, t, LLONG_MAX)) flow += p;
