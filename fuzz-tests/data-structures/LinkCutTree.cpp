@@ -15,6 +15,7 @@ typedef vector<int> vi;
 
 int main() {
 	srand(2);
+	LinkCut lczero(0);
 	rep(it,0,10000) {
 		int N = rand() % 20 + 1;
 		LinkCut lc(N);
