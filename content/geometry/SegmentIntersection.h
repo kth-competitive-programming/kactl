@@ -24,8 +24,8 @@ Products of three coordinates are used in intermediate steps so watch out for ov
 #include "Point.h"
 #include "onSegment.h"
 
-template <class P> bool segInterProper(P a, P b, P c, P d,
-										P &out) {
+template <class P>
+bool segInterProper(P a, P b, P c, P d, P &out) {
 	double oa = c.cross(d, a), ob = c.cross(d, b),
 		   oc = a.cross(b, c), od = a.cross(b, d);
 	if (sgn(oa) * sgn(ob) < 0 && sgn(oc) * sgn(od) < 0) {
