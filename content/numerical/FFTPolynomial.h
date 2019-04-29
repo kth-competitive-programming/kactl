@@ -107,9 +107,10 @@ poly exp(poly a) {
     return modK(b, sz(a));
 }
 poly pow(poly a, ll m) {
-    int p = 0; int n = sz(a);
+    int p = 0, n = sz(a);
     while (p < sz(a) && a[p].x == 0)
         ++p;
+    if (ll(m)*p >= sz(a)) return poly(sz(a));
     num j = a[p];
     a = {a.begin() + p, a.end()};
     a = a * (num(1) / j);
