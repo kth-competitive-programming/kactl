@@ -3,38 +3,32 @@
  * Date: 2015-02-23
  * License: CC0
  * Source: http://en.wikipedia.org/wiki/Bellman-Ford_algorithm
- * Description: Calculates shortest path in a graph that might have negative edge distances.
- * Propagates negative infinity distances (sets dist = -inf), and returns true
- * if there is some negative cycle. Unreachable nodes get dist = inf.
+ * Description: Calculates shortest paths from $s$ in a graph that might have negative edge weights.
+ * Unreachable nodes get dist = inf; nodes reachable through negative-weight cycles get dist = -inf.
+ * Assumes $VE \cdot \max |w_i| < 2^{63}$.
  * Time: O(EV)
- * Status: Untested
+ * Status: Tested on kattis:shortestpath3
  */
 #pragma once
 
-typedef ll T; // or whatever
-struct Edge { int src, dest; T weight; };
-struct Node { T dist; int prev; };
-struct Graph { vector<Node> nodes; vector<Edge> edges; };
+const ll inf = LLONG_MAX;
+struct Ed { int src, dest, w; };
+struct Node { ll dist = inf; int prev = -1; };
 
-const T inf = numeric_limits<T>::max();
-bool bellmanFord2(Graph& g, int start_node) {
-	trav(n, g.nodes) { n.dist = inf; n.prev = -1; }
-	g.nodes[start_node].dist = 0;
+void bellmanFord(vector<Node>& nodes, vector<Ed>& eds, int s) {
+	nodes[s].dist = 0;
 
-	rep(i,0,sz(g.nodes)) trav(e, g.edges) {
-		Node& cur = g.nodes[e.src];
-		Node& dest = g.nodes[e.dest];
-		if (cur.dist == inf) continue;
-		T ndist = cur.dist + (cur.dist == -inf ? 0 : e.weight);
-		if (ndist < dest.dist) {
+	rep(i,0,sz(nodes)) trav(e, eds) {
+		Node cur = nodes[e.src], &dest = nodes[e.dest];
+		if (abs(cur.dist) == inf) continue;
+		ll d = cur.dist + e.w;
+		if (d < dest.dist) {
 			dest.prev = e.src;
-			dest.dist = (i >= sz(g.nodes)-1 ? -inf : ndist);
+			dest.dist = (i < sz(nodes)-1 ? d : -inf);
 		}
 	}
-	bool ret = 0;
-	rep(i,0,sz(g.nodes)) trav(e, g.edges) {
-		if (g.nodes[e.src].dist == -inf)
-			g.nodes[e.dest].dist = -inf, ret = 1;
+	rep(i,0,sz(nodes)) trav(e, eds) {
+		if (nodes[e.src].dist == -inf)
+			nodes[e.dest].dist = -inf;
 	}
-	return ret;
 }
