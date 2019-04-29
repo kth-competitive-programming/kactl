@@ -18,8 +18,8 @@
 typedef complex<double> C;
 typedef complex<long double> Cd;
 typedef vector<double> vd;
-void fft(vector<C> &a, int n, vector<C> &rt) {
-	vi rev(n); int L= 32 - __builtin_clz(n);
+void fft(vector<C> &a, vector<C> &rt) {
+	int n = sz(a), L= 32 - __builtin_clz(n); vi rev(n);
 	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
 	if (rt.empty()) {
 		rt.assign(n, 1);
@@ -45,10 +45,10 @@ vd conv(const vd &a, const vd &b) {
 	vector<C> in(n), out(n), rt;
 	copy(all(a), begin(in));
 	rep(i,0,sz(b)) in[i].imag(b[i]);
-	fft(in, n, rt);
+	fft(in, rt);
 	trav(x, in) x *= x;
 	rep(i,0,n) out[i] = in[-i & (n - 1)] - conj(in[i]);
-	fft(out, n, rt);
+	fft(out, rt);
 	rep(i,0,sz(res)) res[i] = imag(out[i]) / (4 * n);
 	return res;
 }
