@@ -385,7 +385,7 @@ struct Mod {
 		Mod r = *this ^ (e / 2); r = r * r;
 		return e&1 ? *this * r : r;
 	}
-    operator ll() { return x; }
+    explicit operator ll() { return x; }
 };
 
 typedef Mod num;
@@ -583,9 +583,10 @@ poly exp(poly a) {
     return modK(b, sz(a));
 }
 poly pow(poly a, ll m) {
-    int p = 0; int n = sz(a);
+    int p = 0, n = sz(a);
     while (p < sz(a) && a[p].x == 0)
         ++p;
+    if (ll(m)*p >= sz(a)) return poly(sz(a));
     num j = a[p];
     a = {a.begin() + p, a.end()};
     a = a * (num(1) / j);
@@ -612,14 +613,13 @@ vector<num> eval(const poly &a, const vector<num> &x) {
 
 poly interp(vector<num> x, vector<num> y) {
 	int n=sz(x);
-	assert(n);
 	vector<poly> up(n*2);
 	rep(i,0,n) up[i+n] = poly({num(0)-x[i], num(1)});
-	per(i,1,n) up[i] = up[2*i]*up[2*i+1];
+	for(int i=n-1; i>0;i--) up[i] = up[2*i]*up[2*i+1];
 	vector<num> a = eval(deriv(up[1]), x);
 	vector<poly> down(2*n);
 	rep(i,0,n) down[i+n] = poly({y[i]*(num(1)/a[i])});
-	per(i,1,n) down[i] = down[i*2] * up[i*2+1] + down[i*2+1] * up[i*2];
+	for(int i=n-1;i>0;i--) down[i] = down[i*2] * up[i*2+1] + down[i*2+1] * up[i*2];
 	return down[1];
 }
 
@@ -729,10 +729,10 @@ template <class A, class B> void testUnary(string name, A f1, B f2, int mxSz = 5
     }
     cout<<endl;
 }
-template <class A, class B> void testPow(string name, A f1, B f2, int mxSz = 5) {
+template <class A, class B> void testPow(string name, A f1, B f2, int mxSz = 5, int mxPref=5) {
     for (int it = 0; it < NUMITERS; it++) {
         auto a = genVec((rand() % mxSz) + 1);
-        int pref = rand()%5;
+        int pref = rand()%mxSz;
         for (int j=0; j<pref; j++) {
             a.first.insert(a.first.begin(), mine::num(0));
             a.second.insert(a.second.begin(), MIT::num(0));
@@ -745,6 +745,29 @@ template <class A, class B> void testPow(string name, A f1, B f2, int mxSz = 5) 
         assert(checkEqual(res, t));
     }
     cout << name + " tests passed!" << endl;
+    {
+        timeit x("mine");
+        for (int it = 0; it < NUMITERS; it++) {
+            auto a = genVec((rand() % mxSz) + 1);
+            int pref = rand()%mxPref;
+            for (int j=0; j<pref; j++)
+                a.first.insert(a.first.begin(), mine::num(0));
+            int p = rand() % mxSz;
+            f1(a.first, p);
+        }
+    }
+    {
+        timeit x("mit");
+        for (int it = 0; it < NUMITERS; it++) {
+             auto a = genVec((rand() % mxSz) + 1);
+            int pref = rand()%mxPref;
+            for (int j=0; j<pref; j++)
+                a.second.insert(a.second.begin(), MIT::num(0));
+            int p = rand() % mxSz;
+            f2(a.second, p);
+        }
+    }
+    cout<<endl;
 }
 template <class A, class B> void testEval(string name, A f1, B f2, int mxSz = 5) {
     for (int it = 0; it < NUMITERS; it++) {
@@ -757,6 +780,23 @@ template <class A, class B> void testEval(string name, A f1, B f2, int mxSz = 5)
         assert(checkEqual(res, t));
     }
     cout << name + " tests passed!" << endl;
+    {
+        timeit x("mine");
+        for (int it = 0; it < NUMITERS; it++) {
+            auto a = genVec((rand() % mxSz) + 1);
+            auto b = genVec((rand() % mxSz)+1);
+            f1(a.first, b.first);
+        }
+    }
+    {
+        timeit x("MIT");
+        for (int it = 0; it < NUMITERS; it++) {
+            auto a = genVec((rand() % mxSz) + 1);
+            auto b = genVec((rand() % mxSz)+1);
+            f2(a.second, b.second);
+        }
+    }
+    cout<<endl;
 }
 template <class A, class B> void testInterp(string name, A f1, B f2, int mxSz = 5) {
     for (int it = 0; it < NUMITERS; it++) {
@@ -770,6 +810,23 @@ template <class A, class B> void testInterp(string name, A f1, B f2, int mxSz = 
         assert(checkEqual(res, t));
     }
     cout << name + " tests passed!" << endl;
+    {
+        timeit x("mine");
+        for (int it = 0; it < NUMITERS; it++) {
+            auto a = genVec((rand() % mxSz) + 1);
+            auto b = genVec((rand() % mxSz)+1);
+            f1(a.first, b.first);
+        }
+    }
+    {
+        timeit x("MIT");
+        for (int it = 0; it < NUMITERS; it++) {
+            auto a = genVec((rand() % mxSz) + 1);
+            auto b = genVec((rand() % mxSz)+1);
+            f2(a.second, b.second);
+        }
+    }
+    cout<<endl;
 }
 signed main() {
     ios::sync_with_stdio(0);
@@ -785,7 +842,7 @@ signed main() {
     testUnary("log", mine::log, MIT::log, SZ);
     testUnary("exp", mine::exp, MIT::exp, SZ);
     SZ = 1000;
-    testPow("pow", mine::pow, MIT::pow, SZ);
+    testPow("pow", mine::pow, MIT::pow, SZ, 5);
     testEval("eval", mine::eval, MIT::eval, SZ);
     testInterp("interp", mine::interp, MIT::interp, SZ);
     return 0;
