@@ -18,15 +18,14 @@
 typedef complex<double> C;
 typedef complex<long double> Cd;
 typedef vector<double> vd;
-void fft(vector<C>& a, vector<C>& rt) {
-	int n = sz(a), L= 32 - __builtin_clz(n); vi rev(n);
+void fft(vector<C>& a) {
+	int n = sz(a), L = 31 - __builtin_clz(n);
+	vi rev(n); static vector<C> rt(2, 1);
 	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
-	if (rt.empty()) {
-		rt.assign(n, 1);
-		for (int k = 2; k < n; k *= 2) {
-			Cd z[] = {1, polar(1.0, M_PI / k)};
-			rep(i, k, 2 * k) rt[i] = Cd(rt[i / 2]) * z[i & 1];
-		}
+	for (static int k = 2; k < n; k *= 2) {
+		rt.resize(n);
+		Cd z[] = {1, polar(1.0L, M_PIl / k)};
+		rep(i, k, 2 * k) rt[i] = Cd(rt[i / 2]) * z[i & 1];
 	}
 	rep(i,0,n) if (i < rev[i]) swap(a[i], a[rev[i]]);
 	for (int k = 1; k < n; k *= 2)
@@ -45,10 +44,10 @@ vd conv(const vd& a, const vd& b) {
 	vector<C> in(n), out(n), rt;
 	copy(all(a), begin(in));
 	rep(i,0,sz(b)) in[i].imag(b[i]);
-	fft(in, rt);
+	fft(in);
 	trav(x, in) x *= x;
 	rep(i,0,n) out[i] = in[-i & (n - 1)] - conj(in[i]);
-	fft(out, rt);
+	fft(out);
 	rep(i,0,sz(res)) res[i] = imag(out[i]) / (4 * n);
 	return res;
 }
