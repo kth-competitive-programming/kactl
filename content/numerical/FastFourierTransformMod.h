@@ -13,7 +13,7 @@
 #include "FastFourierTransform.h"
 
 typedef vector<ll> vl;
-template<int M> vl convMod(const vl &a, const vl &b) {
+template<int M> vl convMod(const vl& a, const vl& b) {
 	if (a.empty() || b.empty()) return {};
 	vl res(sz(a) + sz(b) - 1);
 	int B=32-__builtin_clz(sz(res)), n = 1<<B, cut=int(sqrt(M));

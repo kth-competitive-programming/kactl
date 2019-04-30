@@ -18,7 +18,7 @@
 typedef complex<double> C;
 typedef complex<long double> Cd;
 typedef vector<double> vd;
-void fft(vector<C> &a, vector<C> &rt) {
+void fft(vector<C>& a, vector<C>& rt) {
 	int n = sz(a), L= 32 - __builtin_clz(n); vi rev(n);
 	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
 	if (rt.empty()) {
@@ -38,7 +38,7 @@ void fft(vector<C> &a, vector<C> &rt) {
 			a[i + j] += z;
 		}
 }
-vd conv(const vd &a, const vd &b) {
+vd conv(const vd& a, const vd& b) {
 	if (a.empty() || b.empty()) return {};
 	vd res(sz(a) + sz(b) - 1);
 	int L = 32 - __builtin_clz(sz(res)), n = 1 << L;
