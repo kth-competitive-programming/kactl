@@ -9,7 +9,7 @@ The circumcirle of a triangle is the circle intersecting all three vertices. ccR
 \end{minipage}
 \begin{minipage}{15mm}
 \vspace{-2mm}
-\includegraphics[width=\textwidth]{../content/geometry/circumcircle}
+\includegraphics[width=\textwidth]{content/geometry/circumcircle}
 \end{minipage}
  * Status: tested
  */

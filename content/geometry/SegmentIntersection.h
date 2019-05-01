@@ -12,7 +12,7 @@ Products of three coordinates are used in intermediate steps so watch out for ov
 Use segmentIntersectionQ to get just a true/false answer.
 \end{minipage}
 \begin{minipage}{15mm}
-\includegraphics[width=\textwidth]{../content/geometry/SegmentIntersection}
+\includegraphics[width=\textwidth]{content/geometry/SegmentIntersection}
 \end{minipage}
  * Status: Well tested with unitTest and with Kattis problem intersection.
  * Usage:

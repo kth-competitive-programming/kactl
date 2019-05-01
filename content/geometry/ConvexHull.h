@@ -10,7 +10,7 @@ Points on the edge of the hull between two other points are not considered part 
 \end{minipage}
 \begin{minipage}{15mm}
 \vspace{-6mm}
-\includegraphics[width=\textwidth]{../content/geometry/ConvexHull}
+\includegraphics[width=\textwidth]{content/geometry/ConvexHull}
 \vspace{-6mm}
 \end{minipage}
  * Status: tested with Kattis problems convexhull
