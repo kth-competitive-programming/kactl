@@ -1,5 +1,5 @@
 /**
- * Author: Simon Lindholm
+ * Author: Simon Lindholm, chilli
  * Date: 2018-07-23
  * License: CC0
  * Source: http://codeforces.com/blog/entry/60737
@@ -9,21 +9,16 @@
 #pragma once
 
 #include <bits/extc++.h> /** keep-include */
-typedef unsigned long long ull;
-struct chash {
-    ull hash_f(ull x) {
-        x += 0x9e3779b97f4a7c15;
-        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
-        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
-        return x ^ (x >> 31);
-    }
+struct chash { // To use most bits rather than just the lowest ones:
+    const uint64_t C = ll(2e18 * M_PI) + 71; // large odd number
+    ll operator()(ll x) const { return __builtin_bswap64(x*C); }
 };
 __gnu_pbds::gp_hash_table<ll, int, chash> h({},{},{},{}, {1 << 16});
 
 /** For CodeForces, or other places where hacking might be a problem:
 const int RANDOM = chrono::high_resolution_clock::now().time_since_epoch().count();
 struct chash {
-    int operator()(ll x) const { return x ^ RANDOM; }
+    int operator()(ll x) const { return x + RANDOM; }
 };
 __gnu_pbds::gp_hash_table<ll, int, chash> h({},{},{},{}, {1 << 16});
 */
