@@ -3,7 +3,7 @@ export TEXINPUTS=.:content/tex/:
 export max_print_line = 1048576
 
 help:
-	@echo "This makefile builds KACTL (KTH ACM Contest Template Library)"
+	@echo "This makefile builds KACTL (KTH Algorithm Competition Template Library)"
 	@echo ""
 	@echo "Available commands are:"
 	@echo "	make fast	- to build KACTL, quickly (only runs LaTeX once)"
