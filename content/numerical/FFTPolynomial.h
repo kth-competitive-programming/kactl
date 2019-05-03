@@ -13,8 +13,8 @@
 typedef Mod num;
 typedef vector<num> poly;
 vector<Mod> conv(vector<Mod> a, vector<Mod> b) {
-    auto res = convMod<mod>(vl(all(a)), vl(all(b)));
-    // auto res = conv(vl(all(a)), vl(all(b)));
+    // auto res = convMod<mod>(vl(all(a)), vl(all(b)));
+    auto res = conv(vl(all(a)), vl(all(b)));
     return vector<Mod>(all(res));
 }
 poly &operator+=(poly &a, const poly &b) {
@@ -27,7 +27,16 @@ poly &operator-=(poly &a, const poly &b) {
     rep(i, 0, sz(b)) a[i] = a[i] - b[i];
     return a;
 }
-poly &operator*=(poly &a, const poly &b) { return a = conv(a, b); }
+
+poly &operator*=(poly &a, const poly &b) {
+    if (sz(a) + sz(b) < 100){
+        poly res(sz(a) + sz(b) - 1);
+		rep(i,0,sz(a)) rep(j,0,sz(b))
+			res[i + j] = (res[i + j] + a[i] * b[j]);
+        return (a = res);
+    }
+    return a = conv(a, b);
+}
 poly operator*(poly a, const num b) {
     poly c = a;
     trav(i, c) i = i * b;
@@ -40,25 +49,12 @@ poly operator*(poly a, const num b) {
     }
 OP(*, *=) OP(+, +=) OP(-, -=);
 poly modK(poly a, int k) { return {a.begin(), a.begin() + min(k, sz(a))}; }
-// Currently there's two of them - the second is the original one (simply following the formula), the first one is a version Adamant says is faster.
-// I haven't been able to replicate the difference in performance, however.
 poly inverse(poly A) {
     poly B = poly({num(1) / A[0]});
-    while (sz(B) < sz(A)){
-        poly C = B*modK(A, 2*sz(B));
-        C = poly(C.begin()+sz(B), C.end());
-        C = modK(B*C, sz(B));
-        C.insert(C.begin(), sz(B), 0);
-        B -= C;
-    }
+    while (sz(B) < sz(A))
+        B = modK(B * (poly({num(2)}) - modK(A, 2*sz(B)) * B), 2 * sz(B));
     return modK(B, sz(A));
 }
-// poly inverse(poly A) {
-//     poly B = poly({num(1) / A[0]});
-//     while (sz(B) < sz(A))
-//         B = modK(B * (poly({num(2)}) - modK(A, 2*sz(B)) * B), 2 * sz(B));
-//     return modK(B, sz(A));
-// }
 poly &operator/=(poly &a, poly b) {
     if (sz(a) < sz(b))
         return a = {};
@@ -136,15 +132,13 @@ vector<num> eval(const poly &a, const vector<num> &x) {
 }
 
 poly interp(vector<num> x, vector<num> y) {
-    int n = sz(x);
-    vector<poly> up(n * 2);
-    rep(i, 0, n) up[i + n] = poly({num(0) - x[i], num(1)});
-    for (int i = n - 1; i > 0; i--)
-        up[i] = up[2 * i] * up[2 * i + 1];
-    vector<num> a = eval(deriv(up[1]), x);
-    vector<poly> down(2 * n);
-    rep(i, 0, n) down[i + n] = poly({y[i] * (num(1) / a[i])});
-    for (int i = n - 1; i > 0; i--)
-        down[i] = down[i * 2] * up[i * 2 + 1] + down[i * 2 + 1] * up[i * 2];
-    return down[1];
+	int n=sz(x);
+	vector<poly> up(n*2);
+	rep(i,0,n) up[i+n] = poly({num(0)-x[i], num(1)});
+	for(int i=n-1; i>0;i--) up[i] = up[2*i]*up[2*i+1];
+	vector<num> a = eval(deriv(up[1]), x);
+	vector<poly> down(2*n);
+	rep(i,0,n) down[i+n] = poly({y[i]*(num(1)/a[i])});
+	for(int i=n-1;i>0;i--) down[i] = down[i*2] * up[i*2+1] + down[i*2+1] * up[i*2];
+	return down[1];
 }

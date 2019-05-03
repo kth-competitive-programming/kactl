@@ -12,6 +12,16 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
+struct timeit {
+    decltype(chrono::high_resolution_clock::now()) begin;
+    const string label;
+    timeit(string label = "???") : label(label) { begin = chrono::high_resolution_clock::now(); }
+    ~timeit() {
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::milliseconds>(end - begin).count();
+        cerr << duration << "ms elapsed [" << label << "]" << endl;
+    }
+};
 namespace MIT {
 namespace fft {
 #if FFT
@@ -349,7 +359,11 @@ vector<num> eval(const poly &a, const vector<num> &x) {
     per(i, 1, n) up[i] = up[2 * i] * up[2 * i + 1];
     vector<poly> down(2 * n);
     down[1] = a % up[1];
-    rep(i, 2, 2 * n) down[i] = down[i / 2] % up[i];
+    {
+        rep(i, 2, 2 * n) {
+            down[i] = down[i / 2] % up[i];
+        }
+    }
     vector<num> y(n);
     rep(i, 0, n) y[i] = down[i + n][0];
     return y;
@@ -505,7 +519,16 @@ poly &operator-=(poly &a, const poly &b) {
     rep(i, 0, sz(b)) a[i] = a[i] - b[i];
     return a;
 }
-poly &operator*=(poly &a, const poly &b) { return a = conv(a, b); }
+
+poly &operator*=(poly &a, const poly &b) {
+    if (sz(a) + sz(b) < 100){
+        poly res(sz(a) + sz(b) - 1);
+		rep(i,0,sz(a)) rep(j,0,sz(b))
+			res[i + j] = (res[i + j] + a[i] * b[j]);
+        return (a = res);
+    }
+    return a = conv(a, b);
+}
 poly operator*(poly a, const num b) {
     poly c = a;
     trav(i, c) i = i * b;
@@ -518,17 +541,6 @@ poly operator*(poly a, const num b) {
     }
 OP(*, *=) OP(+, +=) OP(-, -=);
 poly modK(poly a, int k) { return {a.begin(), a.begin() + min(k, sz(a))}; }
-// poly inverse(poly A) {
-//     poly B = poly({num(1) / A[0]});
-//     while (sz(B) < sz(A)){
-//         poly C = B*modK(A, 2*sz(B));
-//         C = poly(C.begin()+sz(B), C.end());
-//         C = modK(B*C, sz(B));
-//         C.insert(C.begin(), sz(B), 0);
-//         B -= C;
-//     }
-//     return modK(B, sz(A));
-// }
 poly inverse(poly A) {
     poly B = poly({num(1) / A[0]});
     while (sz(B) < sz(A))
@@ -603,9 +615,10 @@ vector<num> eval(const poly &a, const vector<num> &x) {
     rep(i, 0, n) up[i + n] = poly({num(0) - x[i], 1});
     for (int i = n - 1; i > 0; i--)
         up[i] = up[2 * i] * up[2 * i + 1];
-    vector<poly> down(2 * n);
+    vector<poly> down(2 * n, poly(1,0));
     down[1] = a % up[1];
-    rep(i, 2, 2 * n) down[i] = down[i / 2] % up[i];
+    rep(i, 2, 2 * n)
+        down[i] = down[i / 2] % up[i];
     vector<num> y(n);
     rep(i, 0, n) y[i] = down[i + n][0];
     return y;
@@ -624,16 +637,6 @@ poly interp(vector<num> x, vector<num> y) {
 }
 
 } // namespace mine
-struct timeit {
-    decltype(chrono::high_resolution_clock::now()) begin;
-    const string label;
-    timeit(string label = "???") : label(label) { begin = chrono::high_resolution_clock::now(); }
-    ~timeit() {
-        auto end = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::milliseconds>(end - begin).count();
-        cerr << duration << "ms elapsed [" << label << "]" << endl;
-    }
-};
 pair<mine::poly, MIT::poly> genVec(int sz) {
     mine::poly a;
     MIT::poly am;
@@ -671,7 +674,8 @@ template <class A, class B> void fail(A mine, B mit) {
     cout << endl;
 
 }
-const int NUMITERS=100;
+
+const int NUMITERS=10;
 template <class A, class B> void testBinary(string name, A f1, B f2, int mxSz = 5) {
     for (int it = 0; it < NUMITERS; it++) {
         auto a = genVec((rand() % mxSz) + 1);
@@ -760,6 +764,7 @@ template <class A, class B> void testPow(string name, A f1, B f2, int mxSz = 5, 
 }
 template <class A, class B> void testEval(string name, A f1, B f2, int mxSz = 5) {
     for (int it = 0; it < NUMITERS; it++) {
+        break;
         auto a = genVec((rand() % mxSz) + 1);
         auto b = genVec((rand() % mxSz)+1);
         auto res = f1(a.first, b.first);
@@ -816,7 +821,7 @@ template <class A, class B> void testInterp(string name, A f1, B f2, int mxSz = 
 signed main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int SZ = 10000;
+    int SZ = 100000;
     testBinary("sub", mine::operator-, MIT::operator-, SZ);
     testBinary("add", mine::operator+, MIT::operator+, SZ);
     testBinary("div", mine::operator/, MIT::operator/, SZ);
@@ -826,7 +831,7 @@ signed main() {
     testUnary("integral", mine::integr, MIT::integ, SZ);
     testUnary("log", mine::log, MIT::log, SZ);
     testUnary("exp", mine::exp, MIT::exp, SZ);
-    SZ = 1000;
+    SZ = 10000;
     testPow("pow", mine::pow, MIT::pow, SZ, 5);
     testEval("eval", mine::eval, MIT::eval, SZ);
     testInterp("interp", mine::interp, MIT::interp, SZ);
