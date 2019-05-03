@@ -384,7 +384,20 @@ poly interp(const vector<num> &x, const vector<num> &y) {
 } // namespace MIT
 
 namespace mine {
-const ll mod = 998244353, root = 62;
+namespace ignore1 {
+#include "../../content/number-theory/ModPow.h"
+}
+namespace ignore2 {
+#include "../../content/number-theory/ModularArithmetic.h"
+}
+ll modpow(ll a, ll e);
+#include "../../content/numerical/NumberTheoreticTransform.h"
+ll modpow(ll a, ll e) {
+	if (e == 0) return 1;
+	ll x = modpow(a * a % mod, e >> 1);
+	return e & 1 ? x * a % mod : x;
+}
+#include "../../content/numerical/FastFourierTransformMod.h"
 struct Mod {
     ll x;
     Mod() : x(0) {}
@@ -405,238 +418,9 @@ struct Mod {
 typedef Mod num;
 typedef vector<num> poly;
 
-typedef complex<double> C;
-typedef complex<long double> Cd;
-typedef vector<double> vd;
-void fft(vector<C> &a, int n, int L, vector<C> &rt) {
-    vi rev(n);
-    rep(i, 0, n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
-    if (rt.empty()) {
-        rt.assign(n, 1);
-        for (int k = 2; k < n; k *= 2) {
-            Cd z[] = {1, polar(1.0, M_PI / k)};
-            rep(i, k, 2 * k) rt[i] = Cd(rt[i / 2]) * z[i & 1];
-        }
-    }
-    rep(i, 0, n) if (i < rev[i]) swap(a[i], a[rev[i]]);
-    for (int k = 1; k < n; k *= 2)
-        for (int i = 0; i < n; i += 2 * k)
-            rep(j, 0, k) {
-                // C z = rt[j+k] * a[i+j+k]; // (25% faster if hand-rolled)  /// include-line
-                auto x = (double *)&rt[j + k], y = (double *)&a[i + j + k]; /// exclude-line
-                C z(x[0] * y[0] - x[1] * y[1], x[0] * y[1] + x[1] * y[0]);  /// exclude-line
-                a[i + j + k] = a[i + j] - z;
-                a[i + j] += z;
-            }
-}
-vd conv(const vd &a, const vd &b) {
-    if (a.empty() || b.empty())
-        return {};
-    vd res(sz(a) + sz(b) - 1);
-    int L = 32 - __builtin_clz(sz(res)), n = 1 << L;
-    vector<C> in(n), out(n), rt;
-    copy(all(a), begin(in));
-    rep(i, 0, sz(b)) in[i].imag(b[i]);
-    fft(in, n, L, rt);
-    trav(x, in) x *= x;
-    rep(i, 0, n) out[i] = in[-i & (n - 1)] - conj(in[i]);
-    fft(out, n, L, rt);
-    rep(i, 0, sz(res)) res[i] = imag(out[i]) / (4 * n);
-    return res;
-}
-
-typedef vector<ll> vl;
-void ntt(vl &a, vl &rt, vl &rev, int n) {
-    rep(i, 0, n) if (i < rev[i]) swap(a[i], a[rev[i]]);
-    for (int k = 1; k < n; k *= 2)
-        for (int i = 0; i < n; i += 2 * k)
-            rep(j, 0, k) {
-                ll z = rt[j + k] * a[i + j + k] % mod, &ai = a[i + j];
-                a[i + j + k] = (z > ai ? ai - z + mod : ai - z);
-                ai += (ai + z >= mod ? z - mod : z);
-            }
-}
-
-ll modpow(ll a, ll e) {
-    if (e == 0)
-        return 1;
-    ll x = modpow(a * a % mod, e >> 1);
-    return e & 1 ? x * a % mod : x;
-}
-
-vl conv(const vl &a, const vl &b) {
-    if (a.empty() || b.empty())
-        return {};
-    int s = sz(a) + sz(b) - 1, B = 32 - __builtin_clz(s), n = 1 << B;
-    vl L(a), R(b), out(n), rt(n, 1), rev(n);
-    L.resize(n), R.resize(n);
-    rep(i, 0, n) rev[i] = (rev[i / 2] | (i & 1) << B) / 2;
-    ll curL = mod / 2, inv = modpow(n, mod - 2);
-    for (int k = 2; k < n; k *= 2) {
-        ll z[] = {1, modpow(root, curL /= 2)};
-        rep(i, k, 2 * k) rt[i] = rt[i / 2] * z[i & 1] % mod;
-    }
-    ntt(L, rt, rev, n);
-    ntt(R, rt, rev, n);
-    rep(i, 0, n) out[-i & (n - 1)] = L[i] * R[i] % mod * inv % mod;
-    ntt(out, rt, rev, n);
-    return {out.begin(), out.begin() + s};
-}
-
-template <int M> vl convMod(const vl &a, const vl &b) {
-	if (a.empty() || b.empty()) return {};
-	vl res(sz(a) + sz(b) - 1);
-	int B=32-__builtin_clz(sz(res)), n = 1<<B, cut=int(sqrt(M));
-	vector<C> L(n), R(n), outs(n), outl(n), rt;
-	rep(i,0,sz(a)) L[i] = Cd(a[i] / cut, a[i] % cut);
-	rep(i,0,sz(b)) R[i] = Cd(b[i] / cut, b[i] % cut);
-	fft(L, n, B, rt), fft(R, n, B, rt);
-	rep(i,0,n) {
-		int j = -i & (n - 1);
-		outl[j] = (L[i] + conj(L[j])) * R[i] / (2.0 * n);
-		outs[j] = (L[i] - conj(L[j])) * R[i] / (2.0 * n) / 1i;
-	}
-	fft(outl, n, B, rt), fft(outs, n, B, rt);
-	rep(i,0,sz(res)) {
-		ll av = ll(outl[i].real()+.5), cv = ll(outs[i].imag()+.5);
-		ll bv = ll(outl[i].imag()+.5) + ll(outs[i].real()+.5);
-		res[i] = ((av % M * cut + bv % M) * cut + cv % M) % M;
-	}
-	return res;
-}
-vector<Mod> conv(vector<Mod> a, vector<Mod> b) {
-    // auto res = convMod<mod>(vl(all(a)), vl(all(b)));
-    auto res = conv(vl(all(a)), vl(all(b)));
-    return vector<Mod>(all(res));
-}
-poly &operator+=(poly &a, const poly &b) {
-    a.resize(max(sz(a), sz(b)));
-    rep(i, 0, sz(b)) a[i] = a[i] + b[i];
-    return a;
-}
-poly &operator-=(poly &a, const poly &b) {
-    a.resize(max(sz(a), sz(b)));
-    rep(i, 0, sz(b)) a[i] = a[i] - b[i];
-    return a;
-}
-
-poly &operator*=(poly &a, const poly &b) {
-    if (sz(a) + sz(b) < 100){
-        poly res(sz(a) + sz(b) - 1);
-		rep(i,0,sz(a)) rep(j,0,sz(b))
-			res[i + j] = (res[i + j] + a[i] * b[j]);
-        return (a = res);
-    }
-    return a = conv(a, b);
-}
-poly operator*(poly a, const num b) {
-    poly c = a;
-    trav(i, c) i = i * b;
-    return c;
-}
-#define OP(o, oe) \
-    poly operator o(poly a, poly b) { \
-        poly c = a; \
-        return c oe b; \
-    }
-OP(*, *=) OP(+, +=) OP(-, -=);
-poly modK(poly a, int k) { return {a.begin(), a.begin() + min(k, sz(a))}; }
-poly inverse(poly A) {
-    poly B = poly({num(1) / A[0]});
-    while (sz(B) < sz(A))
-        B = modK(B * (poly({num(2)}) - modK(A, 2*sz(B)) * B), 2 * sz(B));
-    return modK(B, sz(A));
-}
-poly &operator/=(poly &a, poly b) {
-    if (sz(a) < sz(b))
-        return a = {};
-    int s = sz(a) - sz(b) + 1;
-    reverse(all(a)), reverse(all(b));
-    a.resize(s), b.resize(s);
-    a = a * inverse(b);
-    a.resize(s), reverse(all(a));
-    return a;
-}
-OP(/, /=)
-poly &operator%=(poly &a, poly &b) {
-    if (sz(a) < sz(b))
-        return a;
-    poly c = (a / b) * b;
-    a.resize(sz(b) - 1);
-    rep(i, 0, sz(a)) a[i] = a[i] - c[i];
-    return a;
-}
-OP(%, %=)
-poly deriv(poly a) {
-    if (a.empty())
-        return {};
-    poly b(sz(a) - 1);
-    rep(i, 1, sz(a)) b[i - 1] = a[i] * num(i);
-    return b;
-}
-poly integr(poly a) {
-    if (a.empty()) return {0};
-    poly b(sz(a) + 1);
-    b[1] = num(1);
-    rep(i, 2, sz(b)) b[i] = b[mod%i]*Mod(-mod/i+mod);
-    rep(i, 1 ,sz(b)) b[i] = a[i-1] * b[i];
-    return b;
-}
-poly log(poly a) { return modK(integr(deriv(a) * inverse(a)), sz(a)); }
-poly exp(poly a) {
-    poly b(1, num(1));
-    if (a.empty())
-        return b;
-    while (sz(b) < sz(a)) {
-        b.resize(sz(b) * 2);
-        b *= (poly({num(1)}) + modK(a, sz(b)) - log(b));
-        b.resize(sz(b) / 2 + 1);
-    }
-    return modK(b, sz(a));
-}
-poly pow(poly a, ll m) {
-    int p = 0, n = sz(a);
-    while (p < sz(a) && a[p].x == 0)
-        ++p;
-    if (ll(m)*p >= sz(a)) return poly(sz(a));
-    num j = a[p];
-    a = {a.begin() + p, a.end()};
-    a = a * (num(1) / j);
-    a.resize(n);
-    auto res =  exp(log(a) * num(m)) * (j ^ m);
-    res.insert(res.begin(), p*m, 0);
-    return modK(res, n);
-}
-
-vector<num> eval(const poly &a, const vector<num> &x) {
-    int n = sz(x);
-    if (!n) return {};
-    vector<poly> up(2 * n);
-    rep(i, 0, n) up[i + n] = poly({num(0) - x[i], 1});
-    for (int i = n - 1; i > 0; i--)
-        up[i] = up[2 * i] * up[2 * i + 1];
-    vector<poly> down(2 * n, poly(1,0));
-    down[1] = a % up[1];
-    rep(i, 2, 2 * n)
-        down[i] = down[i / 2] % up[i];
-    vector<num> y(n);
-    rep(i, 0, n) y[i] = down[i + n][0];
-    return y;
-}
-
-poly interp(vector<num> x, vector<num> y) {
-	int n=sz(x);
-	vector<poly> up(n*2);
-	rep(i,0,n) up[i+n] = poly({num(0)-x[i], num(1)});
-	for(int i=n-1; i>0;i--) up[i] = up[2*i]*up[2*i+1];
-	vector<num> a = eval(deriv(up[1]), x);
-	vector<poly> down(2*n);
-	rep(i,0,n) down[i+n] = poly({y[i]*(num(1)/a[i])});
-	for(int i=n-1;i>0;i--) down[i] = down[i*2] * up[i*2+1] + down[i*2+1] * up[i*2];
-	return down[1];
-}
-
+#include "../../content/numerical/FFTPolynomial.h"
 } // namespace mine
+
 pair<mine::poly, MIT::poly> genVec(int sz) {
     mine::poly a;
     MIT::poly am;
