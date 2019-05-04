@@ -6,6 +6,7 @@
 #pragma once
 
 #include "PolyBase.h"
+#include "PolyInverse.h"
 
 poly &operator/=(poly &a, poly b) {
 	if (sz(a) < sz(b))
