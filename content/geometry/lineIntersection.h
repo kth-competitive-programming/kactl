@@ -24,8 +24,8 @@ template<class P>
 int lineIntersection(const P& s1, const P& e1, const P& s2,
 		const P& e2, P& r) {
 	if ((e1-s1).cross(e2-s2)) { // if not parallel
-		r = s2-(e2-s2)*(e1-s1).cross(s2-s1)/(e1-s1).cross(e2-s2);
+		r = s2-(e2-s2)*s1.cross(e1, s2)/(e1-s1).cross(e2-s2);
 		return 1;
 	} else
-		return -((e1-s1).cross(s2-s1)==0 || s2==e2);
+		return -(s1.cross(e1, s2)==0 || s2==e2);
 }
