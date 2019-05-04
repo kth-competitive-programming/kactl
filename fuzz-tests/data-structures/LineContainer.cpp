@@ -51,7 +51,7 @@ struct HullDynamic : public multiset<Line> { // will maintain upper hull for max
 };
 }
 
-int main2() {
+int test2() {
 	LineContainer mh;
 	const int K = 10;
 	ll x[K], v[K];
@@ -102,4 +102,6 @@ int main() {
 			assert(mh.query(x) == mh2.query(x));
 		}
 	}
+	test2();
+	cout<<"Tests passed!"<<endl;
 }

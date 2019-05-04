@@ -1,6 +1,6 @@
 /**
- * Author: Simon Lindholm
- * Date: 2016-09-10
+ * Author: Noam527
+ * Date: 2019-04-24
  * License: CC0
  * Source: folklore
  * Description:
@@ -9,8 +9,10 @@
 #pragma once
 
 const ll mod = 1000000007; // faster if const
-ll modpow(ll a, ll e) {
-	if (e == 0) return 1;
-	ll x = modpow(a * a % mod, e >> 1);
-	return e & 1 ? x * a % mod : x;
+
+ll modpow(ll b, ll e) {
+	ll ans = 1;
+	for (; e; b = b * b % mod, e /= 2)
+		if (e & 1) ans = ans * b % mod;
+	return ans;
 }

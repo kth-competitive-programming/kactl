@@ -36,14 +36,6 @@ int main() {
 			assert(best.second == pa.second);
 		}
 	}
-	return 0;
-}
-
-int main2() {
-	double x;
-	ll N = 1000000;
-	cin >> x >> N;
-	auto pa = approximate(x, N);
-	cout << pa.first << '/' << pa.second << endl;
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }

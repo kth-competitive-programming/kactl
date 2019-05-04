@@ -29,4 +29,5 @@ int main() {
 		}
 next:;
 	}
+	cout<<"Tests passed!"<<endl;
 }

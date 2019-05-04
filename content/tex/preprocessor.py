@@ -130,7 +130,7 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
     nsource = nsource.strip()
 
     hash_script = 'hash'
-    p = subprocess.Popen(['sh', '../content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    p = subprocess.Popen(['sh', 'content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     hsh, _ = p.communicate(nsource)
     hsh = hsh.split(None, 1)[0]
     # Produce output

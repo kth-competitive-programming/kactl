@@ -49,6 +49,7 @@ struct prime_sieve {
 						isprime[ii] &= (uchar)~(1<<ss);
 }	}		}	}	};
 
+<<<<<<< HEAD:fuzz-tests/number-theory/Eratosthenes.cpp
 // const int MAX_PR = 100000000;
 
 #if 1
@@ -69,6 +70,10 @@ vi eratosthenes_sieve(int lim) {
 }
 
 #endif
+=======
+
+#include "../../content/number-theory/eratosthenes.h"
+>>>>>>> true/master:fuzz-tests/number-theory/Eratosthenes.cpp
 
 int main(int argc, char** argv) {
 	ll s = 0, s2 = 0;

@@ -44,7 +44,7 @@ void compare() {
 					ll b = modsum_naive(to, c, k, m);
 					if (a != b) {
 						cout << "differ! " << to << ' ' << c << ' ' << k << ' ' << m << ": " << a << " vs " << b << endl;
-						return;
+						assert(false);
 					}
 				}
 			}
@@ -61,7 +61,7 @@ void compare2() {
 					ll b = divsum_naive(to, c, k, m);
 					if (a != b) {
 						cout << "differ! " << to << ' ' << c << ' ' << k << ' ' << m << ": " << a << " vs " << b << endl;
-						return;
+						assert(false);
 					}
 				}
 			}
@@ -71,18 +71,14 @@ void compare2() {
 
 int main() {
 	compare(); compare2();
-	cout << modsum((ll)1e18, 1, 2, 3) << endl;
-	cout << (ll)1e18 << endl;
+	assert(modsum((ll)1e18, 1, 2, 3) == (ll)1e18);
 	rep(i,0,50) {
 		ll t = (ll)rand() << 3;
 		ll c = (ll)rand() << 2;
 		ll k = (ll)rand() << 2;
 		ll m = (ll)rand() >> 2;
-		cout << modsum(t, c, k, m) / (long double)(m/2 * t) << endl;
+		assert(abs(modsum(t, c, k, m) / ((long double)m/2 * t) - 1)<1e-5);
 	}
-	cout << modsum(1000000000000000000LL, 11231, 102917231231LL, 1236712312LL) << endl;
-	// rep(i,0,1000000) {
-		// modsum(1000000000000000000LL, 11231, 102917231231LL, 1236712312LL);
-	// }
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }

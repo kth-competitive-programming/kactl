@@ -83,4 +83,5 @@ int main() {
 		});
 		// cerr << endl;
 	}
+	cout<<"Tests passed!"<<endl;
 }

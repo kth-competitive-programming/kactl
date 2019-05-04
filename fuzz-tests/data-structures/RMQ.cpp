@@ -25,4 +25,5 @@ int main() {
 			assert(n == m);
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 }
