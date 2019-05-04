@@ -420,6 +420,8 @@ typedef vector<num> poly;
 
 #include "../../content/numerical/PolyBase.h"
 #include "../../content/numerical/PolyMod.h"
+#include "../../content/numerical/PolyIntegDeriv.h"
+#include "../../content/numerical/PolyLogExp.h"
 #include "../../content/numerical/PolyPow.h"
 #include "../../content/numerical/PolyEvaluate.h"
 #include "../../content/numerical/PolyInterpolate.h"
