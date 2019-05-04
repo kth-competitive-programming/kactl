@@ -6,6 +6,7 @@
  */
 #pragma once
 
+#include "PolyBase.h"
 #include "PolyMod.h"
 
 vector<num> eval(const poly &a, const vector<num> &x) {

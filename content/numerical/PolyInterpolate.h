@@ -7,8 +7,8 @@
  */
 #pragma once
 
-#include "PolyMod.h"
-#include "PolyPow.h"
+#include "PolyBase.h"
+#include "PolyIntegDeriv.h"
 #include "PolyEvaluate.h"
 
 poly interp(vector<num> x, vector<num> y) {
