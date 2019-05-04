@@ -47,17 +47,17 @@ bool eq(P a, P b) {
     return (a-b).dist()<1e-8;
 }
 int main() {
-    rep(t,0,100000) {
-        const int GRID=5;
+    rep(t,0,1000000) {
+        const int GRID=6;
         P a(rand()%GRID, rand()%GRID), b(rand()%GRID, rand()%GRID), c(rand()%GRID, rand()%GRID), d(rand()%GRID, rand()%GRID);
         P tmp1, tmp2;
         auto res = oldImpl::segmentIntersection(a,b,c,d, tmp1, tmp2);
         auto res2 = segInter(a,b,c,d);
-        if (res != res2.size()) {
+        if (res != sz(res2)) {
             cout<<a<<' '<<b<<' '<<c<<' '<<d<<endl;
-            cout<<"old: "<<res<<" new: "<<res2.size()<<endl;
+            cout<<"old: "<<res<<" new: "<<sz(res2)<<endl;
         }
-        assert(res==res2.size());
+        assert(res==sz(res2));
         if (res==1) {
             assert(eq(*res2.begin(), tmp1));
         } else if (res==2) {
