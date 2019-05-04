@@ -1,6 +1,11 @@
+/**
+ * Author: chilli, Andrew He, Adamant
+ * Date: 2019-04-27
+ * Description: A FFT based Polynomial class.
+ */
 #pragma once
 
-#include "PolynomialBase.h"
+#include "PolyBase.h"
 
 poly &operator/=(poly &a, poly b) {
 	if (sz(a) < sz(b))

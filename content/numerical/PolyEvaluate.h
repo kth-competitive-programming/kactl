@@ -1,6 +1,12 @@
+/**
+ * Author: chilli, Andrew He, Adamant
+ * Date: 2019-04-27
+ * Description: Multi-point evaluation. Evaluates a given polynomial A at $A(x_0), ... A(x_n)$.
+ * Time: O(n \log^2 n)
+ */
 #pragma once
 
-#include "PolynomialMod.h"
+#include "PolyMod.h"
 
 vector<num> eval(const poly &a, const vector<num> &x) {
 	int n = sz(x);

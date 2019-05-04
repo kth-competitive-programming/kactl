@@ -12,11 +12,6 @@
 
 typedef Mod num;
 typedef vector<num> poly;
-vector<Mod> conv(vector<Mod> a, vector<Mod> b) {
-	auto res = convMod<mod>(vl(all(a)), vl(all(b)));
-	// auto res = conv(vl(all(a)), vl(all(b)));
-	return vector<Mod>(all(res));
-}
 poly &operator+=(poly &a, const poly &b) {
 	a.resize(max(sz(a), sz(b)));
 	rep(i, 0, sz(b)) a[i] = a[i] + b[i];
@@ -35,7 +30,9 @@ poly &operator*=(poly &a, const poly &b) {
 			res[i + j] = (res[i + j] + a[i] * b[j]);
 		return (a = res);
 	}
-	return a = conv(a, b);
+	auto res = convMod<mod>(vl(all(a)), vl(all(b)));
+	// auto res = conv(vl(all(a)), vl(all(b)));
+	return (a = poly(all(res)));
 }
 poly operator*(poly a, const num b) {
 	poly c = a;
@@ -45,7 +42,7 @@ poly operator*(poly a, const num b) {
 #define OP(o, oe) \
 	poly operator o(poly a, poly b) { \
 		poly c = a; \
-		return c oe b; \
+		return c o##= b; \
 	}
 OP(*, *=) OP(+, +=) OP(-, -=);
 poly modK(poly a, int k) { return {a.begin(), a.begin() + min(k, sz(a))}; }

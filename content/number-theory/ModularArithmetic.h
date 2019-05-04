@@ -28,5 +28,5 @@ struct Mod {
 		Mod r = *this ^ (e / 2); r = r * r;
 		return e&1 ? *this * r : r;
 	}
-	explicit operator ll(){ return x; }
+	explicit operator ll() const { return x; }
 };

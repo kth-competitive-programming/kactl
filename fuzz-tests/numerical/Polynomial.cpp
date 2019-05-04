@@ -412,13 +412,17 @@ struct Mod {
 		Mod r = *this ^ (e / 2); r = r * r;
 		return e&1 ? *this * r : r;
 	}
-    explicit operator ll() { return x; }
+    explicit operator ll() const { return x; }
 };
 
 typedef Mod num;
 typedef vector<num> poly;
 
-#include "../../content/numerical/FFTPolynomial.h"
+#include "../../content/numerical/PolyBase.h"
+#include "../../content/numerical/PolyMod.h"
+#include "../../content/numerical/PolyPow.h"
+#include "../../content/numerical/PolyEvaluate.h"
+#include "../../content/numerical/PolyInterpolate.h"
 } // namespace mine
 
 pair<mine::poly, MIT::poly> genVec(int sz) {
