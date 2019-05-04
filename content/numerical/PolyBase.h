@@ -8,7 +8,7 @@
 #include "../number-theory/ModularArithmetic.h"
 #include "FastFourierTransform.h"
 #include "FastFourierTransformMod.h"
-// #include "NumberTheoreticTransform.h"
+#include "NumberTheoreticTransform.h"
 
 typedef Mod num;
 typedef vector<num> poly;
@@ -30,8 +30,8 @@ poly &operator*=(poly &a, const poly &b) {
 			res[i + j] = (res[i + j] + a[i] * b[j]);
 		return (a = res);
 	}
-	auto res = convMod<mod>(vl(all(a)), vl(all(b)));
-	// auto res = conv(vl(all(a)), vl(all(b)));
+	// auto res = convMod<mod>(vl(all(a)), vl(all(b)));
+	auto res = conv(vl(all(a)), vl(all(b)));
 	return (a = poly(all(res)));
 }
 poly operator*(poly a, const num b) {

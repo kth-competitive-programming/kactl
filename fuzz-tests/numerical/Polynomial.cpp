@@ -399,20 +399,21 @@ ll modpow(ll a, ll e) {
 }
 #include "../../content/numerical/FastFourierTransformMod.h"
 struct Mod {
-    ll x;
-    Mod() : x(0) {}
-    Mod(ll xx) : x(xx % mod) {}
-    Mod operator+(Mod b) { return Mod((x + b.x) % mod); }
-    Mod operator-(Mod b) { return Mod(x < b.x ? x - b.x + mod : x - b.x); }
-    Mod operator*(Mod b) { return Mod(x * b.x); }
+    ll v;
+    Mod() : v(0) {}
+    Mod(ll vv) : v(vv % mod) {}
+    Mod operator+(Mod b) { return Mod((v + b.v) % mod); }
+    Mod operator-(Mod b) { return Mod(v < b.v ? v - b.v + mod : v - b.v); }
+    Mod operator*(Mod b) { return Mod(v * b.v); }
     Mod operator/(Mod b) { return *this * invert(b); }
 	Mod invert(Mod a) { return a^(mod-2); }
 	Mod operator^(ll e) {
-		if (!e) return Mod(1);
-		Mod r = *this ^ (e / 2); r = r * r;
-		return e&1 ? *this * r : r;
+        ll ans = 1, b = (*this).v;
+        for (; e; b = b * b % mod, e /= 2)
+            if (e & 1) ans = ans * b % mod;
+        return ans;
 	}
-    explicit operator ll() const { return x; }
+    explicit operator ll() const { return v; }
 };
 
 typedef Mod num;
@@ -442,10 +443,10 @@ bool checkEqual(mine::poly a, MIT::poly b) {
         return false;
     int ml = min(sz(a), sz(b));
     for (int i = 0; i < ml; i++)
-        if (a[i].x != b[i].v)
+        if (a[i].v != b[i].v)
             return false;
     // for (int i = ml; i < sz(a); i++)
-    //     if (a[i].x != 0)
+    //     if (a[i].v != 0)
     //         return false;
     // for (int i = ml; i < sz(b); i++)
     //     if (b[i].v != 0)
@@ -456,7 +457,7 @@ bool checkEqual(mine::poly a, MIT::poly b) {
 template <class A, class B> void fail(A mine, B mit) {
     cout<<"mine: ";
     for (auto i : mine)
-        cout << i.x << ' ';
+        cout << i.v << ' ';
     cout << endl;
     cout<<"MIT:  ";
     for (auto i : mit)

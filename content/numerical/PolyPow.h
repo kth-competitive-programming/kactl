@@ -10,7 +10,7 @@
 
 poly pow(poly a, ll m) {
 	int p = 0, n = sz(a);
-	while (p < sz(a) && a[p].x == 0)
+	while (p < sz(a) && a[p].v == 0)
 		++p;
 	if (ll(m)*p >= sz(a)) return poly(sz(a));
 	num j = a[p];
