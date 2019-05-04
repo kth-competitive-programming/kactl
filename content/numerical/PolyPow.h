@@ -19,5 +19,5 @@ poly pow(poly a, ll m) {
 	a.resize(n);
 	auto res =  exp(log(a) * num(m)) * (j ^ m);
 	res.insert(res.begin(), p*m, 0);
-	return modK(res, n);
+	return {res.begin(), res.begin()+n};
 }

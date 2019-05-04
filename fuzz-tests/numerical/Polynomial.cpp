@@ -537,7 +537,7 @@ template <class A, class B> void testPow(string name, A f1, B f2, int mxSz = 5, 
     }
     cout << name + " tests passed!" << endl;
     auto a = genVec((rand() % mxSz) + 1);
-    int p = mxSz;
+    int p = mxSz/2;
     {
         timeit x("mine");
         for (int it = 0; it < NUMITERS; it++) {
@@ -612,18 +612,18 @@ signed main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     int SZ = 100000;
-    testBinary("sub", mine::operator-, MIT::operator-, SZ);
-    testBinary("add", mine::operator+, MIT::operator+, SZ);
-    testBinary("div", mine::operator/, MIT::operator/, SZ);
-    testBinary("mod", mine::operator%, MIT::operator%, SZ);
-    testUnary("inv", mine::inverse, MIT::inverse, SZ);
-    testUnary("derivative", mine::deriv, MIT::deriv, SZ);
-    testUnary("integral", mine::integr, MIT::integ, SZ);
-    testUnary("log", mine::log, MIT::log, SZ);
-    testUnary("exp", mine::exp, MIT::exp, SZ);
+    // testBinary("sub", mine::operator-, MIT::operator-, SZ);
+    // testBinary("add", mine::operator+, MIT::operator+, SZ);
+    // testBinary("div", mine::operator/, MIT::operator/, SZ);
+    // testBinary("mod", mine::operator%, MIT::operator%, SZ);
+    // testUnary("inv", mine::inverse, MIT::inverse, SZ);
+    // testUnary("derivative", mine::deriv, MIT::deriv, SZ);
+    // testUnary("integral", mine::integr, MIT::integ, SZ);
+    // testUnary("log", mine::log, MIT::log, SZ);
+    // testUnary("exp", mine::exp, MIT::exp, SZ);
     SZ = 10000;
     testPow("pow", mine::pow, MIT::pow, SZ, 5);
-    testEval("eval", mine::eval, MIT::eval, SZ);
-    testInterp("interp", mine::interp, MIT::interp, SZ);
+    // testEval("eval", mine::eval, MIT::eval, SZ);
+    // testInterp("interp", mine::interp, MIT::interp, SZ);
     return 0;
 }

@@ -6,6 +6,7 @@
 #pragma once
 
 #include "PolyBase.h"
+#include "PolyInverse.h"
 #include "PolyIntegDeriv.h"
 
 poly log(poly a) {
