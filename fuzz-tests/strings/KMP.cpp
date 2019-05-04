@@ -54,4 +54,5 @@ int main() {
 			test(s);
 		});
 	}
+	cout<<"Tests passed!"<<endl;
 }

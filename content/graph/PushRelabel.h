@@ -25,10 +25,8 @@ struct PushRelabel {
 
 	void add_edge(int s, int t, Flow cap, Flow rcap=0) {
 		if (s == t) return;
-		Edge a = {t, sz(g[t]), 0, cap};
-		Edge b = {s, sz(g[s]), 0, rcap};
-		g[s].push_back(a);
-		g[t].push_back(b);
+		g[s].push_back({t, sz(g[t]), 0, cap});
+		g[t].push_back({s, sz(g[s])-1, 0, rcap});
 	}
 
 	void add_flow(Edge& e, Flow f) {

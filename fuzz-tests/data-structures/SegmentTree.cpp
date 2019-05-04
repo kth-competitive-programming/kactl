@@ -120,6 +120,5 @@ int main() {
 			}
 		}
 	}
-
-	exit(0);
+	cout<<"Tests passed!"<<endl;
 }

@@ -1,5 +1,4 @@
-% This is file contains LaTeX macros for KACTL (KTH ACM Contest Template Library)
-% Written by Håkan Terelius, 2008-11-24
+% This file contains LaTeX macros for KACTL
 \ProvidesPackage{kactlpkg}
 
 \usepackage[utf8]{inputenc}             % Encoding UTF-8
@@ -40,6 +39,7 @@
 }
 
 \newcommand{\enablecolors}{
+	\lstset{basicstyle=\scriptsize\ttfamily\color{mygreen}}
 	\lstset{commentstyle=\color{darkgray}\normalfont\itshape}
 	\lstset{keywordstyle=\color{myblue}}
 	\lstset{identifierstyle=\color{black}}
@@ -47,8 +47,9 @@
 
 % Some default config
 \subtitle{{\tiny new}KACTL}
-\title{KTH ACM Contest Template Library}
+\title{KTH Algorithm Competition Template Library}
 \newcommand{\PDFColor}{0}
+\def\@builddir{build}
 
 \def\today{\number\year-\ifthenelse{\number\month<10}{0}{}\number\month-\ifthenelse{\number\day<10}{0}{}\number\day} % Defines \today as YYYY-MM-DD
 
@@ -61,8 +62,8 @@
 }
 
 % Remove temp files from old failed runs
-\AtBeginDocument{\immediate\write18{rm -f header.tmp}}
-\AtEndDocument{\immediate\write18{rm -f header.tmp}\immediate\write18{rm -f header2.tmp}\immediate\write18{rm -f kactl.tmp}}
+\AtBeginDocument{\immediate\write18{rm -f \@builddir/header.tmp}}
+\AtEndDocument{\immediate\write18{rm -f \@builddir/header.tmp}\immediate\write18{rm -f \@builddir/header2.tmp}\immediate\write18{rm -f \@builddir/kactl.tmp}}
 
 % Include a list of source files at the top of every page. For the purpose
 % of recording those, we use eTeX marks. (We can't just append data directly to
@@ -78,7 +79,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \headheight 25pt
 \lhead{\@unishort}
-\chead{\hspace{3mm}\textbf{\immediate\write18{python2 kactlprocessor.py --print-header "\splitbotmarks\hdrmark|\botmarks\hdrmark" -o header2.tmp}\immediate\input{header2.tmp}}}
+\chead{\hspace{3mm}\textbf{\immediate\write18{python2 content/tex/preprocessor.py --print-header "\splitbotmarks\hdrmark|\botmarks\hdrmark" -o \@builddir/header2.tmp}\immediate\input{\@builddir/header2.tmp}}}
 \rhead{\thepage}
 %\lhead{}\chead{\thepage}\rhead{}
 \lfoot{}\cfoot{}\rfoot{}
@@ -245,9 +246,9 @@
 	\myneedspace{3\baselineskip}
 	\penalty-100
 	#2
-	\immediate\write18{rm -f kactl.tmp} % Don't include old kactl.tmp on failure.
-	\immediate\write18{python2 kactlprocessor.py -i "\@kactldir/#2" -o kactl.tmp #1}
-	\immediate\input{kactl.tmp}
+	\immediate\write18{rm -f \@builddir/kactl.tmp} % Don't include old kactl.tmp on failure.
+	\immediate\write18{python2 content/tex/preprocessor.py -i "\@kactldir/#2" -o \@builddir/kactl.tmp #1}
+	\immediate\input{\@builddir/kactl.tmp}
 }
 
 \newcommand{\import}[1]{

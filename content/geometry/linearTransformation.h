@@ -9,7 +9,7 @@
 \end{minipage}
 \begin{minipage}{15mm}
 \vspace{-8mm}
-\includegraphics[width=\textwidth]{../content/geometry/linearTransformation}
+\includegraphics[width=\textwidth]{content/geometry/linearTransformation}
 \vspace{-2mm}
 \end{minipage}
  * Status: not tested

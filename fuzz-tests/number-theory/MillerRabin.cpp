@@ -67,5 +67,5 @@ int main() {
 			assert(false);
 		}
 	}
-	cout<<"Tests passed"<<endl;
+	cout << "Tests passed!" << endl;
 }
