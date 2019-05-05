@@ -18,10 +18,12 @@ typedef Point<double> P;
 typedef array<P, 2> Line;
 #define sp(a) a[0], a[1]
 #define ang(a) atan2((a[1] - a[0]).y, (a[1] - a[0]).x)
-
+bool cmp(Line a, Line b) {
+    auto s = ang(a) - ang(b);
+    return s == 0 ? sideOf(sp(b), a[0]) >=0 : s < 0;
+}
 vector<P> halfPlaneIntersection(vector<Line> vs) {
-    sort(all(vs), [](auto a, auto b) { return ang(a) < ang(b);});
-    vs.resize(unique(all(vs), [](auto a, auto b){ return ang(a) == ang(b);}) - vs.begin());
+    sort(all(vs), cmp);
     vector<Line> deq(sz(vs)+5);
     vector<P> ans(sz(vs)+5);
     int dh = 0, dt = 1, ah=0, at=0;
@@ -37,5 +39,7 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
     while (ah < at && sideOf(sp(deq[dt]), ans[ah]) < 0) ah++, dh++;
     if (dt-dh <= 2) return {};
     ans[at++] = lineInter(sp(deq[dh]), sp(deq[dt-1])).second;
-    return {ans.begin()+ah, ans.begin()+at};
+    vector<P> res = {ans.begin()+ah, ans.begin()+at};
+    res.erase(unique(all(res)), res.end());
+    return res;
 }
