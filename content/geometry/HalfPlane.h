@@ -13,6 +13,7 @@
 
 #include "Point.h"
 #include "sideOf.h"
+#include "lineIntersection.h"
 
 typedef Point<double> P;
 typedef array<P, 2> Line;
@@ -39,7 +40,5 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
     while (ah < at && sideOf(sp(deq[dt]), ans[ah]) < 0) ah++, dh++;
     if (dt-dh <= 2) return {};
     ans[at++] = lineInter(sp(deq[dh]), sp(deq[dt-1])).second;
-    vector<P> res = {ans.begin()+ah, ans.begin()+at};
-    res.erase(unique(all(res)), res.end());
-    return res;
+    return {ans.begin()+ah, ans.begin()+at};
 }
