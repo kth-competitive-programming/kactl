@@ -1,12 +1,12 @@
 
 /**
- * Author:
- * Date:
- * License:
- * Source:
- * Description:
- * Time:
- * Status:
+ * Author: chilli
+ * Date: 2019-05-05
+ * License: CC0
+ * Source: https://github.com/zimpha/algorithmic-library/blob/master/computational-geometry/polygon.cc
+ * Description: Computes the intersection of a set of half-planes.
+ * Time: O(n \log n)
+ * Status: fuzz-tested, submitted on https://maps19.kattis.com/problems/marshlandrescues
  * Usage:
  */
 #pragma once
