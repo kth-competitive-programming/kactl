@@ -11,6 +11,7 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 
+const double EPS =1e-8;
 #include "../utilities/genPolygon.h"
 #include "../../content/geometry/insidePolygon.h"
 namespace old {

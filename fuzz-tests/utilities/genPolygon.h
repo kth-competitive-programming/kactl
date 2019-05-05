@@ -1,5 +1,6 @@
 #pragma once
 
+// Translated from Python code posted here: https://codeforces.com/blog/entry/63058?#comment-472788
 #include "../../content/geometry/Point.h"
 
 mt19937_64 rng(time(0));
