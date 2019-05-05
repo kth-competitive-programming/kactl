@@ -13,6 +13,7 @@
 #pragma once
 
 #include "Point.h"
+#include "sideOf.h"
 #include "onSegment.h"
 
 typedef Point<ll> P;
@@ -20,12 +21,11 @@ typedef Point<ll> P;
 bool inHull(const vector<P> &l, P p, bool strict = true) {
     int a = 1, b = l.size() - 1, r = !strict;
 	if (sz(l) < 3) return r && onSegment(l[0], l.back(), p);
-    if (l[0].cross(l[a], l[b]) > 0) swap(a, b);
-    if (sgn(l[0].cross(l[a], p)) >= r ||
-        sgn(l[0].cross(l[b], p)) <= -r) return false;
+    if (sideOf(l[0], l[a], l[b]) > 0) swap(a, b);
+    if (sideOf(l[0], l[a], p) >= r || sideOf(l[0], l[b], p) <= -r) return false;
     while (abs(a - b) > 1) {
         int c = (a + b) / 2;
-        (l[0].cross(l[c], p) > 0 ? b : a)  = c;
+        (sideOf(l[0], l[c], p) > 0 ? b : a) = c;
     }
     return !(sgn(l[a].cross(l[b], p)) >= r);
 }
