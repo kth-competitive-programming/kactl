@@ -11,8 +11,16 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 #include "../../content/geometry/ConvexHull.h"
+namespace ignore {
+	#include "../../content/geometry/onSegment.h"
+	#include "../../content/geometry/SegmentDistance.h"
+}
+template<class P> bool onSegment(P s, P e, P p) {
+	return p.cross(s, e) == 0 && (s - p).dot(e - p) <= 0;
+}
 #include "../../content/geometry/PointInsideHull.h"
 #include "../../content/geometry/insidePolygon.h"
+ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
 
 int main() {
 	rep(it,0,100000) {
@@ -20,13 +28,14 @@ int main() {
 		vector<P> ps, ps2;
 		rep(i,0,N) ps.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
 		trav(i, convexHull(ps)) ps2.push_back(ps[i]);
-		if (ps2.empty()) continue;
+		if (sz(ps2) <= 0) continue;
 		rep(it2,0,20) {
 			int x = rand() % 22 - 11;
 			int y = rand() % 22 - 11;
 			P p{x,y};
-			assert(insidePolygon(all(ps2), p, true) == (insideHull(ps2, p) == 2));
-			assert(insidePolygon(all(ps2), p, false) == (insideHull(ps2, p) >= 1));
+			assert(insidePolygon(all(ps2), p, true) == (inHull(ps2, p, true)));
+			assert(insidePolygon(all(ps2), p, false) == (inHull(ps2, p, false)));
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 }
