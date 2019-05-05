@@ -17,56 +17,57 @@ typedef Point<double> P;
 ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
 
 namespace sjtu {
-const double EPS = 1e-8;
-inline int sign(double a) { return a < -EPS ? -1 : a > EPS; }
+typedef double T;
+const T EPS = 1e-8;
+inline int sign(T a) { return a < -EPS ? -1 : a > EPS; }
 struct Point {
-    double x, y;
+    T x, y;
     Point() {}
-    Point(double _x, double _y) : x(_x), y(_y) {}
+    Point(T _x, T _y) : x(_x), y(_y) {}
     Point operator+(const Point &p) const { return Point(x + p.x, y + p.y); }
     Point operator-(const Point &p) const { return Point(x - p.x, y - p.y); }
-    Point operator*(double d) const { return Point(x * d, y * d); }
-    Point operator/(double d) const { return Point(x / d, y / d); }
+    Point operator*(T d) const { return Point(x * d, y * d); }
+    Point operator/(T d) const { return Point(x / d, y / d); }
     bool operator<(const Point &p) const {
         int c = sign(x - p.x);
         if (c)
             return c == -1;
         return sign(y - p.y) == -1;
     }
-    double dot(const Point &p) const { return x * p.x + y * p.y; }
-    double det(const Point &p) const { return x * p.y - y * p.x; }
-    double alpha() const { return atan2(y, x); }
-    double distTo(const Point &p) const {
-        double dx = x - p.x, dy = y - p.y;
+    T dot(const Point &p) const { return x * p.x + y * p.y; }
+    T det(const Point &p) const { return x * p.y - y * p.x; }
+    T alpha() const { return atan2(y, x); }
+    T distTo(const Point &p) const {
+        T dx = x - p.x, dy = y - p.y;
         return hypot(dx, dy);
     }
-    double alphaTo(const Point &p) const {
-        double dx = x - p.x, dy = y - p.y;
+    T alphaTo(const Point &p) const {
+        T dx = x - p.x, dy = y - p.y;
         return atan2(dy, dx);
     }
     // clockwise
-    Point rotAlpha(const double &alpha, const Point &o = Point(0, 0)) const {
-        double nx = cos(alpha) * (x - o.x) + sin(alpha) * (y - o.y);
-        double ny = -sin(alpha) * (x - o.x) + cos(alpha) * (y - o.y);
+    Point rotAlpha(const T &alpha, const Point &o = Point(0, 0)) const {
+        T nx = cos(alpha) * (x - o.x) + sin(alpha) * (y - o.y);
+        T ny = -sin(alpha) * (x - o.x) + cos(alpha) * (y - o.y);
         return Point(nx, ny) + o;
     }
     Point rot90() const { return Point(-y, x); }
     Point unit() { return *this / abs(); }
     void read() { scanf("%lf%lf", &x, &y); }
-    double abs() { return hypot(x, y); }
-    double abs2() { return x * x + y * y; }
+    T abs() { return hypot(x, y); }
+    T abs2() { return x * x + y * y; }
     void write() { cout << "(" << x << "," << y << ")" << endl; }
 };
 #define cross(p1, p2, p3) ((p2.x - p1.x) * (p3.y - p1.y) - (p3.x - p1.x) * (p2.y - p1.y))
 #define crossOp(p1, p2, p3) sign(cross(p1, p2, p3))
 
 Point isSS(Point p1, Point p2, Point q1, Point q2) {
-    double a1 = cross(q1, q2, p1), a2 = -cross(q1, q2, p2);
+    T a1 = cross(q1, q2, p1), a2 = -cross(q1, q2, p2);
     return (p1 * a2 + p2 * a1) / (a1 + a2);
 }
 struct Border {
     Point p1, p2;
-    double alpha;
+    T alpha;
     void setAlpha() { alpha = atan2(p2.y - p1.y, p2.x - p1.x); }
     void read() {
         p1.read();
@@ -88,7 +89,7 @@ bool operator<(const Border &a, const Border &b) {
 
 bool operator==(const Border &a, const Border &b) { return sign(a.alpha - b.alpha) == 0; }
 
-void add(double x, double y, double nx, double ny) {
+void add(T x, T y, T nx, T ny) {
     border[n].p1 = Point(x, y);
     border[n].p2 = Point(nx, ny);
     border[n].setAlpha();
@@ -123,7 +124,7 @@ void convexIntersection() {
         ++qh;
 }
 
-double calcArea() {
+T calcArea() {
     static Point ps[MAX_N_BORDER];
     int cnt = 0;
 
@@ -136,7 +137,7 @@ double calcArea() {
         ps[cnt++] = isBorder(que[i], que[next]);
     }
 
-    double area = 0;
+    T area = 0;
     for (int i = 0; i < cnt; ++i) {
         area += ps[i].det(ps[(i + 1) % cnt]);
     }
@@ -145,7 +146,7 @@ double calcArea() {
     return area;
 }
 
-double halfPlaneIntersection(vector<Line> cur) {
+T halfPlaneIntersection(vector<Line> cur) {
     n = 0;
     for (auto i: cur)
         add(i[0].x, i[0].y, i[1].x, i[1].y);
@@ -202,7 +203,7 @@ void testEmpty() {
     assert(sz(res) == 0);
 }
 void testRandom() {
-    int lim = 10;
+    int lim = 1e2;
     for (int i = 0; i < 1000; i++) {
         vector<Line> t;
         for (int i = 0; i < 6; i++) {
@@ -227,6 +228,9 @@ void testRandom() {
         assert(diff < EPS);
     }
 }
+void testConvex() {
+
+}
 
 int main() {
     test1();
@@ -235,7 +239,7 @@ int main() {
     testPoint();
     testEmpty();
     testRandom();
-    // Failure case for MIT
+    // Failure case for MIT's half plane code
     // vector<Line> t({{P(9, 8), P(9, 1)}, {P(3, 3), P(3, 5)}, {P(7, 6), P(0, 8)}});
     // addInf(t);
     // cout << polygonArea2(halfPlaneIntersection(t)) << endl;
