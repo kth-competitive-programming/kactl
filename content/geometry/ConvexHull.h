@@ -1,8 +1,8 @@
 /**
- * Author: Johan Sannemo
- * Date: 2017-04-16
- * License: CC0
- * Source: Basic algorithm knowledge
+ * Author: Stjepan Glavina, chilli
+ * Date: 2019-05-05
+ * License: Unlicense
+ * Source: https://github.com/stjepang/snippets/blob/master/convex_hull.cpp
  * Description:
 \\\begin{minipage}{75mm}
 Returns a vector of indices of the convex hull in counter-clockwise order.
@@ -14,9 +14,6 @@ Points on the edge of the hull between two other points are not considered part 
 \vspace{-6mm}
 \end{minipage}
  * Status: tested with Kattis problems convexhull
- * Usage:
- * 	vector<P> ps, hull;
- *  trav(i, convexHull(ps)) hull.push_back(ps[i]);
  * Time: O(n \log n)
 */
 #pragma once
