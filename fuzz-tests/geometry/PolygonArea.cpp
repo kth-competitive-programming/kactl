@@ -12,7 +12,7 @@ typedef vector<int> vi;
 
 #include "../../content/geometry/PolygonArea.h"
 #include "../../content/geometry/PolygonCenter.h"
-#include "../../content/geometry/insidePolygon.h"
+#include "../../content/geometry/InsidePolygon.h"
 
 int main() {
 	srand((int)time(0));

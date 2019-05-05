@@ -13,7 +13,7 @@ typedef vector<int> vi;
 
 const double EPS =1e-8;
 #include "../utilities/genPolygon.h"
-#include "../../content/geometry/insidePolygon.h"
+#include "../../content/geometry/InsidePolygon.h"
 namespace old {
 
 #include "../../content/geometry/onSegment.h"
