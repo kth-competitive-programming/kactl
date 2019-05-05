@@ -46,30 +46,14 @@ struct timeit {
 };
 int main() {
     const int SZ = 1e4;
-    {
-        timeit x("old");
-        rep(t,0,1000) {
-            const int GRID=10000;
-            vector<P> pts(SZ);
-            rep(i,0,SZ) pts[i] = P(rand()%GRID, rand()%GRID);
-            // auto res = convexHull(pts);
-            auto res2 = old::convexHull(pts);
-            vector<P> hull(sz(res2));
-            rep(i,0,sz(res2))
-                hull[i] = pts[res2[i]];
-        }
-    }
-    {
-        timeit x("new");
-        rep(t,0,1000) {
-            const int GRID=10000;
-            vector<P> pts(SZ);
-            rep(i,0,SZ) pts[i] = P(rand()%GRID, rand()%GRID);
-            auto res = convexHull(pts);
-            // auto res2 = old::convexHull(pts);
-            // rep(i,0,sz(res2)) {
-            //     assert(pts[res2[i]] == res[i]);
-            // }
+    rep(t,0,1000) {
+        const int GRID=1000;
+        vector<P> pts(SZ);
+        rep(i,0,SZ) pts[i] = P(rand()%GRID, rand()%GRID);
+        auto res = convexHull(pts);
+        auto res2 = old::convexHull(pts);
+        rep(i,0,sz(res2)) {
+            assert(pts[res2[i]] == res[i]);
         }
     }
     cout<<"Tests passed!"<<endl;
