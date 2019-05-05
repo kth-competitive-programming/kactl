@@ -47,7 +47,7 @@ struct timeit {
 int main() {
     const int SZ = 1e4;
     rep(t,0,1000) {
-        const int GRID=1000;
+        const int GRID=1e3;
         vector<P> pts(SZ);
         rep(i,0,SZ) pts[i] = P(rand()%GRID, rand()%GRID);
         auto res = convexHull(pts);

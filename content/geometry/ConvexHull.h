@@ -29,14 +29,12 @@ vector<P> convexHull(vector<P> pts) {
 	sort(all(pts));
 	vector<P> h(sz(pts)+1);
 	int t = 0;
-	rep(it,0,2) {
-		auto s = t;
-		for (auto &p : pts) {
+	for (int it = 0, s = t; it < 2; it++, s = t) {
+		trav(p, pts){
 			while (t >= s + 2 && h[t-2].cross(h[t-1], p) <= 0) t--;
 			h[t++] = p;
 		}
 		t--, reverse(all(pts));
 	}
-	if (t == 2 && h[0] == h[1]) t--;
-	return {h.begin(), h.begin()+t};
+	return {h.begin(), h.begin() + t - (t == 2 && h[0] == h[1])};
 }
