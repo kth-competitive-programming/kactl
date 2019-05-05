@@ -11,6 +11,9 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 #include "../../content/geometry/ConvexHull.h"
+namespace ignore {
+	#include "../../content/geometry/SegmentDistance.h"
+}
 #include "../../content/geometry/PointInsideHull.h"
 #include "../../content/geometry/InsidePolygon.h"
 
@@ -25,8 +28,9 @@ int main() {
 			int x = rand() % 22 - 11;
 			int y = rand() % 22 - 11;
 			P p{x,y};
-			assert(inPolygon(all(ps2), p, true) == (insideHull(ps2, p) == 2));
-			assert(inPolygon(all(ps2), p, false) == (insideHull(ps2, p) >= 1));
+			assert(inPolygon(ps2, p, true) == (inHull(ps2, p, true)));
+			assert(inPolygon(ps2, p, false) == (inHull(ps2, p, false)));
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 }
