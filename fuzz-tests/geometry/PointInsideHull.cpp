@@ -28,7 +28,7 @@ int main() {
 		vector<P> ps, ps2;
 		rep(i,0,N) ps.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
 		trav(i, convexHull(ps)) ps2.push_back(ps[i]);
-		if (sz(ps2) <= 0) continue;
+		if (ps2.empty()) continue;
 		rep(it2,0,20) {
 			int x = rand() % 22 - 11;
 			int y = rand() % 22 - 11;
