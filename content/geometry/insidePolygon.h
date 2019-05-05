@@ -3,15 +3,13 @@
  * Date: 2019-04-26
  * License: CC0
  * Source: https://vlecomte.github.io/cp-geo.pdf
- * Description: Returns true if p lies within the polygon. If p is on the edge
- * of the polygon, it returns false when strict is true. Answer is calculated
- * by counting the number of intersections between the polygon and a line going
- * from p to infinity in the positive x-direction. The algorithm uses products
- * in intermediate steps so watch out for overflow.
+ * Description: Returns true if p lies within the polygon. If strict is true,
+ * it returns false for points on the boundary. The algorithm uses
+ * products in intermediate steps so watch out for overflow.
  * Time: O(n)
  * Status: fuzz-tested and Kattis problem pointinpolygon
  * Usage:
- * vector<P> v= {P{4,4}, P{1,2}, P{2,1}};
+ * vector<P> v = {P{4,4}, P{1,2}, P{2,1}};
  * bool in = inPolygon(v, P{3, 3}, false);
  */
 #pragma once
