@@ -3,9 +3,9 @@
  * Date: 2019-04-26
  * License: CC0
  * Source: https://vlecomte.github.io/cp-geo.pdf
- * Description: Returns true if p lies within the polygon. If p is on the edge of the polygon, it returns false when strict is true. Answer is calculated by counting the number of intersections between the polygon and a line going from p to infinity in the positive x-direction. The algorithm uses products in intermediate steps so watch out for overflow.
+ * Description: Returns true if p lies within the polygon. If p is on the edge of the polygon, it returns false when strict is true. Answer is calculated by counting the number of intersections between the polygon and a line going from p to infinity in the positive x-direction. The algorithm uses products in intermediate steps so watch out for overflow. Works with integers.
  * Time: O(n)
- * Status: fuzz-tested
+ * Status: fuzz-tested and Kattis problem pointinpolygon
  * Usage:
  * 	typedef Point<int> P;
  * 	vector<P> v; v.push_back(P(4,4));
