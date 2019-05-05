@@ -30,16 +30,16 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
 	vector<Line> deq(sz(vs) + 5);
 	vector<P> ans(sz(vs) + 5);
 	deq[0] = vs[0];
-	int dh = 0, dt = 1, ah = 0, at = 0;
-    #define upd(l, pt, op) while (ah < at && sideOf(sp(l), ans[pt]) < 0) op;
+	int ah = 0, at = 0;
 	for (int i = 1; i < sz(vs); ++i) {
 		if (angDiff(vs[i], vs[i - 1]) == 0) continue;
-        upd(vs[i], at-1, (at--,dt--)) upd(vs[i], ah, (ah++,dh++));
-		ans[at++] = lineInter(sp(deq[dt - 1]), sp(vs[i])).second;
-		deq[dt++] = vs[i];
+		while (ah<at && sideOf(sp(vs[i]),ans[at-1]) < 0) at--;
+		while (ah<at && sideOf(sp(vs[i]),ans[ah]) < 0) ah++;
+		ans[at++] = lineInter(sp(deq[at]), sp(vs[i])).second;
+		deq[at] = vs[i];
 	}
-    upd(deq[dh], at-1, (at--,dt--)); upd(deq[dt], ah, (ah++,dh++));
-	if (dt - dh <= 2) return {};
-	ans[at++] = lineInter(sp(deq[dt-1]), sp(deq[dh])).second;
+	while (ah<at && sideOf(sp(deq[ah]),ans[at-1]) < 0) at--;
+	while (ah<at && sideOf(sp(deq[at]),ans[ah]) < 0) ah++;
+	ans[at++] = lineInter(sp(deq[ah]), sp(deq[at])).second;
 	return {ans.begin() + ah, ans.begin() + at};
 }

@@ -229,12 +229,12 @@ void testRandom() {
 }
 
 int main() {
-    test1();
-    testInf();
-    testLine();
+    // test1();
+    // testInf();
+    // testLine();
     testPoint();
-    testEmpty();
-    testRandom();
+    // testEmpty();
+    // testRandom();
     // Failure case for MIT's half plane code
     // vector<Line> t({{P(9, 8), P(9, 1)}, {P(3, 3), P(3, 5)}, {P(7, 6), P(0, 8)}});
     // addInf(t);
