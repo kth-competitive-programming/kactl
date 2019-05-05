@@ -1,15 +1,13 @@
 /**
- * Author: Johan Sannemo
- * Date: 2017-03-12
+ * Author: Oleksandr Bacherikov, chilli
+ * Date: 2019-05-05
  * License: CC0
- * Source: Wikipedia
- * Description: Calculates the max squared distance of a set of points.
+ * Source: https://codeforces.com/blog/entry/48868
+ * Description: Returns the two points with max distance on a convex hull. If input isn't a convex hull, call "convexHull" first.
  * Works with integers.
- * Status: Tested.
+ * Status: Fuzz-tested, submitted on kattis roberthood
  */
 #pragma once
-
-#include "ConvexHull.h"
 
 array<P, 2> hullDiameter(vector<P> S) {
 	int n = sz(S), j = n < 2 ? 0 : 1;
