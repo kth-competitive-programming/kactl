@@ -3,7 +3,8 @@
  * Date: 2019-05-05
  * License: CC0
  * Source: https://codeforces.com/blog/entry/48868
- * Description: Returns the two points with max distance on a convex hull. If input isn't a convex hull, call "convexHull" first.
+ * Description: Returns the two points with max distance on a convex hull (no duplicate/collinear points).
+ * If input isn't a convex hull, call "convexHull" first.
  * Works with integers.
  * Status: Fuzz-tested, submitted on kattis roberthood
  */
