@@ -4,7 +4,8 @@
  * Date: 2019-05-05
  * License: CC0
  * Source: https://github.com/zimpha/algorithmic-library/blob/master/computational-geometry/polygon.cc
- * Description: Computes the intersection of a set of half-planes.
+ * Description: Computes the intersection of a set of half-planes. Input is given as a set of planes, facing left.
+ * Output is the convex polygon representing the intersection. The points may have duplicates and be collinear.
  * Time: O(n \log n)
  * Status: fuzz-tested, submitted on https://maps19.kattis.com/problems/marshlandrescues
  * Usage:
@@ -41,5 +42,6 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
 	while (ah<at && sideOf(sp(deq[ah]),ans[at-1]) < 0) at--;
 	while (ah<at && sideOf(sp(deq[at]),ans[ah]) < 0) ah++;
 	ans[at++] = lineInter(sp(deq[ah]), sp(deq[at])).second;
+    if (at - ah <= 2) return {};
 	return {ans.begin() + ah, ans.begin() + at};
 }
