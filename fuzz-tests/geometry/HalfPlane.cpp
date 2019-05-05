@@ -92,6 +92,8 @@ double Intersection_Area(vector <Line> b) {
 	vector <P> s;
 	for (i = q; i <= h; i++)	s.push_back(ca[i].intpo(ca[i + 1]));
 	s.push_back(s[0]);
+    // for (auto i: s) cout<<i<<' ';
+    // cout<<endl;
 	double ans = 0;
 	for (i = 0; i < (int) s.size() - 1; i++)	ans += s[i].cross(s[i + 1]);
 	return ans / 2;
@@ -104,16 +106,19 @@ vector<MIT::Line> convert(vector<Line> x) {
     return res;
 }
 
-const double INF = 1e9;
-void addInf(vector<Line> &res) {
+const double INF = 1e1;
+const double EPS = 1e-8;
+void addInf(vector<Line> &res, double INF=INF) {
     vector<P> infPts({P(INF, INF), P(-INF, INF), P(-INF, -INF), P(INF, -INF)});
     for (int i=0; i<4; i++)
         res.push_back({infPts[i], infPts[(i+1)%4]});
 }
+P randPt(int lim = INF) {
+    return P(rand() % lim, rand() % lim);
+}
 void test1() {
     vector<Line> t({{P(0,0),P(5,0)}, {P(5,-2), P(5,2)}, {P(5,2),P(2,2)}, {P(0,3),P(0,-3)}});
     auto res = halfPlaneIntersection(t);
-    cout<<MIT::Intersection_Area(convert(t))<<endl;
     assert(polygonArea2(res) == 20);
     addInf(t);
     res = halfPlaneIntersection(t);
@@ -123,11 +128,11 @@ void testInf() {
     vector<Line> t({{P(0,0), P(5,0)}});
     addInf(t);
     auto res = halfPlaneIntersection(t);
-    assert(polygonArea2(res)/4e18);
+    assert(polygonArea2(res)/(4*INF*INF) == 1);
     t = vector<Line>({{P(0,0), P(5,0)}, {P(0,0), P(0,5)}});
     addInf(t);
     res = halfPlaneIntersection(t);
-    assert(polygonArea2(res)/2e18 == 1);
+    assert(polygonArea2(res)/(2*INF*INF) == 1);
 }
 void testLine() {
     vector<Line> t({{P(0,0), P(5,0)}, {P(5,0), P(0,0)}});
@@ -150,11 +155,40 @@ void testEmpty() {
     auto res = halfPlaneIntersection(t);
     assert(sz(res) == 0);
 }
+void testRandom() {
+    for (int i=0; i<1000; i++) {
+        vector<Line> t;
+        for (int i=0; i<3; i++){
+            Line cand{P(0,0), P(0,0)};
+            while (cand[0] == cand[1])
+                cand = {randPt(), randPt()};
+            t.push_back(cand);
+        }
+        addInf(t);
+        auto res = halfPlaneIntersection(t);
+        double area = MIT::Intersection_Area(convert(t));
+        double diff = abs(2*area - polygonArea2(res));
+        if (diff > EPS) {
+            cout<<diff<<' '<<area<<' '<<endl;
+            for (auto i: t) cout<<i[0]<<"->"<<i[1]<<' ';
+            cout<<endl;
+            for (auto i: res) cout<<i<<',';
+            cout<<endl;
+        }
+        assert(diff < EPS);
+    }
+}
 
 int main() {
-    test1();
-    testInf();
-    testLine();
-    testPoint();
-    testEmpty();
+    // test1();
+    // testInf();
+    // testLine();
+    // testPoint();
+    // testEmpty();
+    // testRandom();
+    vector<Line> t({{P(9,8), P(9,1)}, {P(3,3),P(3,5)},{P(7,6),P(0,8)}});
+    addInf(t);
+    cout<<polygonArea2(halfPlaneIntersection(t))<<endl;
+    cout<<MIT::Intersection_Area(convert(t))<<endl;
+    cout<<"Tests passed!"<<endl;
 }
