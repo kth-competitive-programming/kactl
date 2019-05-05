@@ -7,6 +7,7 @@
 \\\begin{minipage}{75mm}
 Returns a vector of indices of the convex hull in counter-clockwise order.
 Points on the edge of the hull between two other points are not considered part of the hull.
+Works with integers.
 \end{minipage}
 \begin{minipage}{15mm}
 \vspace{-6mm}
@@ -26,12 +27,10 @@ vector<P> convexHull(vector<P> pts) {
 	sort(all(pts));
 	vector<P> h(sz(pts)+1);
 	int t = 0;
-	for (int it = 0, s = t; it < 2; it++, s = t) {
+	for (int it=0, s=t; it<2; it++, s = --t, reverse(all(pts)))
 		trav(p, pts){
 			while (t >= s + 2 && h[t-2].cross(h[t-1], p) <= 0) t--;
 			h[t++] = p;
 		}
-		t--, reverse(all(pts));
-	}
 	return {h.begin(), h.begin() + t - (t == 2 && h[0] == h[1])};
 }

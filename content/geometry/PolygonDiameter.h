@@ -4,6 +4,7 @@
  * License: CC0
  * Source: Wikipedia
  * Description: Calculates the max squared distance of a set of points.
+ * Works with integers.
  * Status: Tested.
  */
 #pragma once
