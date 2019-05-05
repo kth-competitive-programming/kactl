@@ -12,7 +12,6 @@ typedef vector<int> vi;
 
 #include "../../content/geometry/HalfPlane.h"
 #include "../../content/geometry/PolygonArea.h"
-typedef Point<double> P;
 
 ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
 
@@ -203,8 +202,8 @@ void testEmpty() {
     assert(sz(res) == 0);
 }
 void testRandom() {
-    int lim = 1e2;
-    for (int i = 0; i < 1000; i++) {
+    int lim = 1e1;
+    for (int i = 0; i < 10000; i++) {
         vector<Line> t;
         for (int i = 0; i < 6; i++) {
             Line cand{P(0, 0), P(0, 0)};
@@ -228,8 +227,8 @@ void testRandom() {
         assert(diff < EPS);
     }
 }
-void testConvex() {
-
+void testSelf() {
+    int lim = 1e2;
 }
 
 int main() {
@@ -239,6 +238,13 @@ int main() {
     testPoint();
     testEmpty();
     testRandom();
+    vector<Line> t({{P(0,0), P(5,0)}, {P(0,1), P(5,1)}});
+    reverse(all(t));
+    addInf(t);
+
+    auto res = halfPlaneIntersection(t);
+    for (auto i: res) cout<<i<<' ';
+    cout<<endl;
     // Failure case for MIT's half plane code
     // vector<Line> t({{P(9, 8), P(9, 1)}, {P(3, 3), P(3, 5)}, {P(7, 6), P(0, 8)}});
     // addInf(t);
