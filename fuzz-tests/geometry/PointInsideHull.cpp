@@ -19,8 +19,7 @@ template<class P> bool onSegment(P s, P e, P p) {
 	return p.cross(s, e) == 0 && (s - p).dot(e - p) <= 0;
 }
 #include "../../content/geometry/PointInsideHull.h"
-#include "../../content/geometry/insidePolygon.h"
-ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
+#include "../../content/geometry/InsidePolygon.h"
 
 int main() {
 	rep(it,0,100000) {
@@ -33,8 +32,8 @@ int main() {
 			int x = rand() % 22 - 11;
 			int y = rand() % 22 - 11;
 			P p{x,y};
-			assert(insidePolygon(all(ps2), p, true) == (inHull(ps2, p, true)));
-			assert(insidePolygon(all(ps2), p, false) == (inHull(ps2, p, false)));
+			assert(inPolygon(ps2, p, true) == (inHull(ps2, p, true)));
+			assert(inPolygon(ps2, p, false) == (inHull(ps2, p, false)));
 		}
 	}
 	cout<<"Tests passed!"<<endl;
