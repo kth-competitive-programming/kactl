@@ -227,9 +227,6 @@ void testRandom() {
         assert(diff < EPS);
     }
 }
-void testSelf() {
-    int lim = 1e2;
-}
 
 int main() {
     test1();
@@ -238,13 +235,6 @@ int main() {
     testPoint();
     testEmpty();
     testRandom();
-    vector<Line> t({{P(0,0), P(5,0)}, {P(0,1), P(5,1)}});
-    reverse(all(t));
-    addInf(t);
-
-    auto res = halfPlaneIntersection(t);
-    for (auto i: res) cout<<i<<' ';
-    cout<<endl;
     // Failure case for MIT's half plane code
     // vector<Line> t({{P(9, 8), P(9, 1)}, {P(3, 3), P(3, 5)}, {P(7, 6), P(0, 8)}});
     // addInf(t);
