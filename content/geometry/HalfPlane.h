@@ -1,4 +1,3 @@
-
 /**
  * Author: chilli
  * Date: 2019-05-05
@@ -31,16 +30,15 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
 	vector<Line> deq(sz(vs) + 5);
 	vector<P> ans(sz(vs) + 5);
 	deq[0] = vs[0];
-	int ah = 0, at = 0;
-#define fix(a, b) \
-while (ah<at && sideOf(sp(a),ans[at-1]) < 0) at--;\
-while (ah<at && sideOf(sp(b),ans[ah]) < 0) ah++;\
-ans[at++] = lineInter(sp(a), sp(deq[at])).second;
-	rep(i,1,sz(vs)){
+	int ah = 0, at = 0, n = sz(vs);
+	rep(i,1,n+1) {
+		if (i == n) vs.push_back(deq[ah]);
 		if (angDiff(vs[i], vs[i - 1]) == 0) continue;
-		fix(vs[i], vs[i]); deq[at] = vs[i];
+		while (ah<at && sideOf(sp(vs[i]),ans[at-1]) < 0) at--;
+		while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah])<0) ah++;
+		ans[at++] = lineInter(sp(vs[i]), sp(deq[at])).second;
+		deq[at] = vs[i];
 	}
-	fix(deq[ah], deq[at]);
 	if (at - ah <= 2) return {};
 	return {ans.begin() + ah, ans.begin() + at};
 }
