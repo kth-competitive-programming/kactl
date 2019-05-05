@@ -20,66 +20,45 @@
 
 #include "Point.h"
 
-ll sgn(ll a) { return (a > 0) - (a < 0); }
-typedef Point<ll> P;
-struct HullIntersection {
-	int N;
-	vector<P> p;
-	vector<pair<P, int>> a;
+template <class F, class Function>
+int extremeVertex(const Polygon<F>& poly, Function direction) {
+  int n = static_cast<int>(poly.size()), left = 0, leftSgn;
+  auto vertexCmp = [&poly, direction](int i, int j) {
+    return sgn(ccw(direction(poly[j]), poly[j] - poly[i])); };
+  auto isExtreme = [n, vertexCmp](int i, int& iSgn) {
+    return (iSgn = vertexCmp(next(i, n), i)) >= 0 && vertexCmp(i, prev(i, n)) < 0; };
+  for (int right = isExtreme(0, leftSgn) ? 1 : n; left + 1 < right;) {
+    int middle = (left + right) / 2, middleSgn;
+    if (isExtreme(middle, middleSgn)) return middle;
+    if (leftSgn != middleSgn ? leftSgn < middleSgn
+        : leftSgn == vertexCmp(left, middle)) right = middle;
+    else left = middle, leftSgn = middleSgn;
+  }
+  return left;
+}
 
-	HullIntersection(const vector<P>& ps) : N(sz(ps)), p(ps) {
-		p.insert(p.end(), all(ps));
-		int b = 0;
-		rep(i,1,N) if (P{p[i].y,p[i].x} < P{p[b].y, p[b].x}) b = i;
-		rep(i,0,N) {
-			int f = (i + b) % N;
-			a.emplace_back(p[f+1] - p[f], f);
-		}
-	}
-
-	int qd(P p) {
-		return (p.y < 0) ? (p.x >= 0) + 2
-		     : (p.x <= 0) * (1 + (p.y <= 0));
-	}
-
-	int bs(P dir) {
-		int lo = -1, hi = N;
-		while (hi - lo > 1) {
-			int mid = (lo + hi) / 2;
-			if (make_pair(qd(dir), dir.y * a[mid].first.x) <
-				make_pair(qd(a[mid].first), dir.x * a[mid].first.y))
-				hi = mid;
-			else lo = mid;
-		}
-		return a[hi%N].second;
-	}
-
-	bool isign(P a, P b, int x, int y, int s) {
-		return sgn(a.cross(p[x], b)) * sgn(a.cross(p[y], b)) == s;
-	}
-
-	int bs2(int lo, int hi, P a, P b) {
-		int L = lo;
-		if (hi < lo) hi += N;
-		while (hi - lo > 1) {
-			int mid = (lo + hi) / 2;
-			if (isign(a, b, mid, L, -1)) hi = mid;
-			else lo = mid;
-		}
-		return lo;
-	}
-
-	pii isct(P a, P b) {
-		int f = bs(a - b), j = bs(b - a);
-		if (isign(a, b, f, j, 1)) return {-1, -1};
-		int x = bs2(f, j, a, b)%N,
-		    y = bs2(j, f, a, b)%N;
-		if (a.cross(p[x], b) == 0 &&
-		    a.cross(p[x+1], b) == 0) return {x, x};
-		if (a.cross(p[y], b) == 0 &&
-		    a.cross(p[y+1], b) == 0) return {y, y};
-		if (a.cross(p[f], b) == 0) return {f, -1};
-		if (a.cross(p[j], b) == 0) return {j, -1};
-		return {x, y};
-	}
-};
+template <class F1, class F2, class F3>
+bool stabConvexPolygon(const Line<F1>& line, const Polygon<F2>& poly, Line<F3>& res) {
+  assert(line);
+  int right = extremeVertex(poly, [&line](const Point<F2>&) { return line.ab; });
+  int left = extremeVertex(poly, [&line](const Point<F2>&) { return -line.ab; });
+  auto vertexCmp = [&line](const Point<F2>& vertex) {
+    return sgn(ccw(line.ab, vertex - line.a)); };
+  int rightSgn = vertexCmp(poly[right]), leftSgn = vertexCmp(poly[left]);
+  if (rightSgn < 0 || leftSgn > 0) return false;
+  auto intersectChain = [&line, &poly, vertexCmp](int first, int last,
+                                                  int firstSgn, Point<F3>& res) {
+    int n = static_cast<int>(poly.size());
+    while (next(first, n) != last) {
+      int middle = (first + last + (first < last ? 0 : n)) / 2;
+      if (middle >= n) middle -= n;
+      if (vertexCmp(poly[middle]) == firstSgn) first = middle;
+      else last = middle;
+    }
+    intersectLines<0, 0, 0, 0>(line, makeLine(poly[first], poly[last]), res);
+  };
+  intersectChain(left, right, leftSgn, res.a);
+  intersectChain(right, left, rightSgn, res.ab);
+  res.ab -= res.a;
+  return true;
+}
