@@ -32,16 +32,15 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
 	vector<P> ans(sz(vs) + 5);
 	deq[0] = vs[0];
 	int ah = 0, at = 0;
-	for (int i = 1; i < sz(vs); ++i) {
+#define fix(a, b) \
+while (ah<at && sideOf(sp(a),ans[at-1]) < 0) at--;\
+while (ah<at && sideOf(sp(b),ans[ah]) < 0) ah++;\
+ans[at++] = lineInter(sp(a), sp(deq[at])).second;
+	rep(i,1,sz(vs)){
 		if (angDiff(vs[i], vs[i - 1]) == 0) continue;
-		while (ah<at && sideOf(sp(vs[i]),ans[at-1]) < 0) at--;
-		while (ah<at && sideOf(sp(vs[i]),ans[ah]) < 0) ah++;
-		ans[at++] = lineInter(sp(deq[at]), sp(vs[i])).second;
-		deq[at] = vs[i];
+		fix(vs[i], vs[i]); deq[at] = vs[i];
 	}
-	while (ah<at && sideOf(sp(deq[ah]),ans[at-1]) < 0) at--;
-	while (ah<at && sideOf(sp(deq[at]),ans[ah]) < 0) ah++;
-	ans[at++] = lineInter(sp(deq[ah]), sp(deq[at])).second;
-    if (at - ah <= 2) return {};
+	fix(deq[ah], deq[at]);
+	if (at - ah <= 2) return {};
 	return {ans.begin() + ah, ans.begin() + at};
 }
