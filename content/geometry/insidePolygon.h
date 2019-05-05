@@ -7,7 +7,7 @@
  * of the polygon, it returns false when strict is true. Answer is calculated
  * by counting the number of intersections between the polygon and a line going
  * from p to infinity in the positive x-direction. The algorithm uses products
- * in intermediate steps so watch out for overflow. Works with integers.
+ * in intermediate steps so watch out for overflow.
  * Time: O(n)
  * Status: fuzz-tested and Kattis problem pointinpolygon
  * Usage:
