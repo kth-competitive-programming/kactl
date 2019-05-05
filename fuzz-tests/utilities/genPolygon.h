@@ -1,6 +1,7 @@
 #pragma once
 
 // Translated from Python code posted here: https://codeforces.com/blog/entry/63058?#comment-472788
+// May generate polygons with colinear points. Won't generate polygons with duplicate points.
 #include "../../content/geometry/Point.h"
 
 mt19937_64 rng(time(0));
@@ -44,7 +45,7 @@ template<class P> pair<bool, vector<P>> conquer(vector<P> pts, int depth) {
 }
 template<class P> vector<P> genPolygon(vector<P> pts) {
     sort(all(pts));
-    pts.resize(unique(all(pts), [](auto a, auto b){return (a-b).dist()<EPS;}) - pts.begin());
+    pts.resize(unique(all(pts)) - pts.begin());
     random_shuffle(all(pts));
     if (sz(pts) <=3) return pts;
     vector<double> line ={pts[1].y-pts[0].y, pts[0].x - pts[1].x, -pts[0].x*pts[1].y + pts[0].y*pts[1].x};
