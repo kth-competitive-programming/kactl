@@ -14,7 +14,7 @@
  */
 #pragma once
 
-bool dfs(int a, int layer, const vector<vi>& g, vi& btoa,
+bool dfs(int a, int layer, vector<vi>& g, vi& btoa,
 			vi& A, vi& B) {
 	if (A[a] != layer) return 0;
 	A[a] = -1;
@@ -26,7 +26,7 @@ bool dfs(int a, int layer, const vector<vi>& g, vi& btoa,
 	return 0;
 }
 
-int hopcroftKarp(const vector<vi>& g, vi& btoa) {
+int hopcroftKarp(vector<vi>& g, vi& btoa) {
 	int res = 0;
 	vi A(g.size()), B(btoa.size()), cur, next;
 	for (;;) {
