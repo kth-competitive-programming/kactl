@@ -14,13 +14,12 @@
  */
 #pragma once
 
-bool dfs(int a, int layer, vector<vi>& g, vi& btoa,
-			vi& A, vi& B) {
-	if (A[a] != layer) return 0;
+bool dfs(int a, int L, vector<vi>& g, vi& btoa, vi& A, vi& B) {
+	if (A[a] != L) return 0;
 	A[a] = -1;
-	trav(b, g[a]) if (B[b] == layer + 1) {
+	trav(b, g[a]) if (B[b] == L + 1) {
 		B[b] = -1;
-		if (btoa[b] == -1 || dfs(btoa[b], layer+2, g, btoa, A, B))
+		if (btoa[b] == -1 || dfs(btoa[b], L+2, g, btoa, A, B))
 			return btoa[b] = a, 1;
 	}
 	return 0;
