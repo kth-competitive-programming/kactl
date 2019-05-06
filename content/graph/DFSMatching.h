@@ -3,14 +3,12 @@
  * Date: 2009-10-28
  * License: CC0
  * Source:
- * Description: This is a simple matching algorithm but should
- * be just fine in most cases. Graph $g$ should be a list of
- * neighbours of the left partition, and $btoa$ should be
- * a vector with size equal to the size of the right partition.
- * If you want to get the matched pairs, $btoa[i]$ contains
- * match for vertex $i$ on the right side or $-1$ if it's not
- * matched.
- * Time: O(EV) where $E$ is the number of edges and V is the number of vertices.
+ * Description: Simple bipartite matching algorithm. Graph $g$ should be a list
+ * of neighbours of the left partition, and $btoa$ should be a vector full of
+ * -1's with size equal to the size of the right partition. Returns the size of
+ * the matching. $btoa[i]$ will the match for vertex $i$ or $-1$ if it's not
+ * matched. Time: O(EV) where $E$ is the number of edges and V is the number of
+ * vertices.
  * Usage: vi ba(m, -1); dfsMatching(g, ba);
  * Status: works
  */
