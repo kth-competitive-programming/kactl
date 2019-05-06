@@ -41,7 +41,7 @@ int main() {
 		vi cover2 = cover(gr, N, M);
 		// assert(sz(cover1) == sz(cover2));
 		// verify(cover1);
-		// verify(cover2);
+		verify(cover2);
 		// cout << '.' << endl;
 	}
 	cout<<"Tests passed!"<<endl;
