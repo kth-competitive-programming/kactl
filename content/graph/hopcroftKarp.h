@@ -3,13 +3,12 @@
  * Date: 2009-10-13
  * License: CC0
  * Source: N/A
- * Description: Faster bipartite matching algorithm. Graph $g$ should be a list
- * of neighbours of the left partition, and $btoa$ should be a vector full of
- * -1's with size equal to the size of the right partition. Returns the size of
- * the matching. $btoa[i]$ will the match for vertex $i$ or $-1$ if it's not
- * matched. Time: O(EV) where $E$ is the number of edges and V is the number of
- * vertices.
- * Usage: vi ba(m, -1); hopcroftKarp(g, ba);
+ * Description: Fast bipartite matching algorithm. Graph $g$ should be a list
+ * of neighbors of the left partition, and $btoa$ should be a vector full of
+ * -1's of the same size as the right partition. Returns the size of
+ * the matching. $btoa[i]$ will be the match for vertex $i$ on the right side,
+ * or $-1$ if it's not matched.
+ * Usage: vi btoa(m, -1); hopcroftKarp(g, btoa);
  * Time: O(\sqrt{V}E)
  */
 #pragma once
