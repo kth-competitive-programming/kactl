@@ -11,9 +11,31 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 #include "../../content/graph/MinimumVertexCover.h"
+#include "../../content/graph/hopcroftKarp.h"
+
+vi coverHK(vector<vi>& g, int n, int m) {
+	vi match(m, -1);
+	int res = hopcroftKarp(g, match);
+	vector<bool> lfound(n, true), seen(m);
+	trav(it, match) if (it != -1) lfound[it] = false;
+	vi q, cover;
+	rep(i,0,n) if (lfound[i]) q.push_back(i);
+	while (!q.empty()) {
+		int i = q.back(); q.pop_back();
+		lfound[i] = 1;
+		trav(e, g[i]) if (!seen[e] && match[e] != -1) {
+			seen[e] = true;
+			q.push_back(match[e]);
+		}
+	}
+	rep(i,0,n) if (!lfound[i]) cover.push_back(i);
+	rep(i,0,m) if (seen[i]) cover.push_back(n+i);
+	assert(sz(cover) == res);
+	return cover;
+}
 
 int main() {
-	rep(it,0,1000000) {
+	rep(it,0,300000) {
 		int N = rand() % 20, M = rand() % 20;
 		int prop = rand();
 		vector<vi> gr(N);
@@ -37,10 +59,10 @@ int main() {
 				} */
 			}
 		};
-		// vi cover1 = dfs2(gr, N, M);
-		vi cover2 = cover(gr, N, M);
-		// assert(sz(cover1) == sz(cover2));
-		// verify(cover1);
+		vi cover1 = cover(gr, N, M);
+		vi cover2 = coverHK(gr, N, M);
+		assert(sz(cover1) == sz(cover2));
+		verify(cover1);
 		verify(cover2);
 		// cout << '.' << endl;
 	}
