@@ -8,23 +8,21 @@
  */
 #pragma once
 
-#include "euclid.h"
-
 const ll mod = 17; // change to something else
 struct Mod {
-	ll x;
-	Mod(ll xx) : x(xx) {}
-	Mod operator+(Mod b) { return Mod((x + b.x) % mod); }
-	Mod operator-(Mod b) { return Mod((x - b.x + mod) % mod); }
-	Mod operator*(Mod b) { return Mod((x * b.x) % mod); }
+	ll v;
+	Mod() : v(0) {}
+	Mod(ll vv) : v(vv % mod) {}
+	Mod operator+(Mod b) { return Mod((v + b.v) % mod); }
+	Mod operator-(Mod b) { return Mod(v - b.v + mod); }
+	Mod operator*(Mod b) { return Mod(v * b.v); }
 	Mod operator/(Mod b) { return *this * invert(b); }
-	Mod invert(Mod a) {
-		ll x, y, g = euclid(a.x, mod, x, y);
-		assert(g == 1); return Mod((x + mod) % mod);
-	}
+	Mod invert(Mod a) { return a^(mod-2); }
 	Mod operator^(ll e) {
-		if (!e) return Mod(1);
-		Mod r = *this ^ (e / 2); r = r * r;
-		return e&1 ? *this * r : r;
+		ll ans = 1, b = (*this).v;
+		for (; e; b = b * b % mod, e /= 2)
+			if (e & 1) ans = ans * b % mod;
+		return ans;
 	}
+	explicit operator ll() const { return v; }
 };
