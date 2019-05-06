@@ -14,7 +14,7 @@
  */
 #pragma once
 
-bool find(int j, vector<vi>& g, vi& btoa, vector<bool>& vis) {
+bool find(int j, vector<vi>& g, vi& btoa, vi& vis) {
 	if (btoa[j] == -1) return 1;
 	vis[j] = 1; int di = btoa[j];
 	trav(e, g[di])
@@ -25,8 +25,9 @@ bool find(int j, vector<vi>& g, vi& btoa, vector<bool>& vis) {
 	return 0;
 }
 int dfsMatching(vector<vi> g, vi& btoa) {
+	vi vis(sz(btoa));
 	rep(i,0,sz(g)) {
-		vector<bool> vis(sz(btoa));
+		fill(all(vis), 0);
 		trav(j,g[i])
 			if (find(j, g, btoa, vis)) {
 				btoa[j] = i;
