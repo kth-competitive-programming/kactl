@@ -14,6 +14,7 @@
 #include "Point.h"
 #include "sideOf.h"
 #include "lineIntersection.h"
+#include "lineDistance.h"
 
 typedef Point<double> P;
 typedef array<P, 2> Line;
@@ -25,6 +26,7 @@ bool cmp(Line a, Line b) {
 	auto s = angDiff(a, b);
 	return s == 0 ? sideOf(sp(b), a[0]) >= 0 : s < 0;
 }
+double mxErr1 = 0, mxErr2 = 0;
 vector<P> halfPlaneIntersection(vector<Line> vs) {
 	sort(all(vs), cmp);
 	vector<Line> deq(sz(vs) + 5);
@@ -38,7 +40,11 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
 		while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah])<0) ah++;
 		auto res = lineInter(sp(vs[i]), sp(deq[at]));
 		if (res.first != 1) continue;
-		ans[at++] = res.second;
+		mxErr1 = max(mxErr1, (lineDist(sp(vs[i]), res.second)));
+		mxErr2 = max(mxErr2, (lineDist(sp(vs[i]), lineInter2(sp(vs[i]), sp(deq[at])))));
+		assert((res.second - lineInter2(sp(vs[i]), sp(deq[at]))).dist() < 1e-8);
+		// ans[at++] = res.second;
+		ans[at++] = lineInter2(sp(vs[i]), sp(deq[at]));
 		deq[at] = vs[i];
 	}
 	if (at - ah <= 2) return {};

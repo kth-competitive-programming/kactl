@@ -15,7 +15,6 @@ typedef Point<double> P;
 ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
 #include "../../content/geometry/HalfPlane.h"
 
-
 namespace sjtu {
 typedef double T;
 const T EPS = 1e-8;
@@ -148,12 +147,112 @@ T calcArea() {
 
 T halfPlaneIntersection(vector<Line> cur) {
     n = 0;
-    for (auto i: cur)
+    for (auto i : cur)
         add(i[0].x, i[0].y, i[1].x, i[1].y);
     convexIntersection();
     return calcArea();
 }
+#undef cross
 } // namespace sjtu
+namespace mit {
+#define eps 1e-8
+typedef Point<double> P;
+
+template <class P> pair<int, P> lineIntersection(P s1, P e1, P s2, P e2) {
+    auto d = (e1 - s1).cross(e2 - s2);
+    if (d == 0) // if parallel
+        return {-((e1 - s1).cross(s2 - s1) == 0 || s2 == e2), P(0, 0)};
+    else
+        return {1, s2 - (e2 - s2) * (e1 - s1).cross(s2 - s1) / d};
+}
+
+struct Line {
+    P P1, P2;
+    // Right hand side of the ray P1 -> P2
+    explicit Line(P a = P(), P b = P()) : P1(a), P2(b){};
+    P intpo(Line y) {
+        auto res = lineIntersection(P1, P2, y.P1, y.P2);
+        assert(res.first == 1);
+        return res.second;
+    }
+    P dir() { return P2 - P1; }
+    bool contains(P x) { return (P2 - P1).cross(x - P1) < eps; }
+    bool out(P x) { return !contains(x); }
+};
+
+template <class T> bool mycmp(Point<T> a, Point<T> b) {
+    // return atan2(a.y, a.x) < atan2(b.y, b.x);
+    if (a.x * b.x < 0)
+        return a.x < 0;
+    if (abs(a.x) < eps) {
+        if (abs(b.x) < eps)
+            return a.y > 0 && b.y < 0;
+        if (b.x < 0)
+            return a.y > 0;
+        if (b.x > 0)
+            return true;
+    }
+    if (abs(b.x) < eps) {
+        if (a.x < 0)
+            return b.y < 0;
+        if (a.x > 0)
+            return false;
+    }
+    return a.cross(b) > 0;
+}
+
+bool cmp(Line a, Line b) { return mycmp(a.dir(), b.dir()); }
+
+double Intersection_Area(vector<Line> b) {
+    sort(b.begin(), b.end(), cmp);
+    int n = b.size();
+    int q = 1, h = 0, i;
+    vector<Line> ca(b.size() + 10);
+    for (i = 0; i < n; i++) {
+        while (q < h && b[i].out(ca[h].intpo(ca[h - 1])))
+            h--;
+        while (q < h && b[i].out(ca[q].intpo(ca[q + 1])))
+            q++;
+        ca[++h] = b[i];
+        if (q < h && abs(ca[h].dir().cross(ca[h - 1].dir())) < eps) {
+            if (ca[h].dir().dot(ca[h - 1].dir()) > 0) {
+                h--;
+                if (b[i].out(ca[h].P1))
+                    ca[h] = b[i];
+            } else {
+                // The area is either 0 or infinite.
+                // If you have a bounding box, then the area is definitely 0.
+                return 0;
+            }
+        }
+    }
+    while (q < h - 1 && ca[q].out(ca[h].intpo(ca[h - 1])))
+        h--;
+    while (q < h - 1 && ca[h].out(ca[q].intpo(ca[q + 1])))
+        q++;
+    // Intersection is empty. This is sometimes different from the case when
+    // the intersection area is 0.
+    if (h - q <= 1)
+        return 0;
+    ca[h + 1] = ca[q];
+    vector<P> s;
+    for (i = q; i <= h; i++)
+        s.push_back(ca[i].intpo(ca[i + 1]));
+    s.push_back(s[0]);
+    // for (auto i: s) cout<<i<<' ';
+    // cout<<endl;
+    double ans = 0;
+    for (i = 0; i < (int)s.size() - 1; i++)
+        ans += s[i].cross(s[i + 1]);
+    return ans / 2;
+}
+} // namespace mit
+vector<mit::Line> convert(vector<Line> x) {
+    vector<mit::Line> res;
+    for (auto i : x)
+        res.push_back(mit::Line(i[1], i[0]));
+    return res;
+}
 
 const double INF = 100;
 const double EPS = 1e-8;
@@ -203,8 +302,8 @@ void testEmpty() {
     assert(sz(res) == 0);
 }
 void testRandom() {
-    int lim = 1e1;
-    for (int i = 0; i < 10000000; i++) {
+    int lim = 3;
+    for (int i = 0; i < 1000000; i++) {
         vector<Line> t;
         for (int i = 0; i < 6; i++) {
             Line cand{P(0, 0), P(0, 0)};
@@ -215,16 +314,17 @@ void testRandom() {
         addInf(t, lim);
         auto res = halfPlaneIntersection(t);
         double area = sjtu::halfPlaneIntersection(t);
-        double resArea = polygonArea2(res)/2;
-        if (isnan(resArea)) resArea = 0;
+        // double resArea = polygonArea2(res)/2;
+        double resArea = mit::Intersection_Area(convert(t));
         double diff = abs(area - resArea);
         if (diff > EPS) {
-            cout << diff << ' ' << area << ' ' <<resArea<< endl;
+            cout << diff << ' ' << area << ' ' << resArea << endl;
             for (auto i : t)
                 cout << i[0] << "->" << i[1] << ' ';
             cout << endl;
             for (auto i : t)
-                cout << "{P"<<i[0] << "," << "P"<<i[1] << "},";
+                cout << "{P" << i[0] << ","
+                     << "P" << i[1] << "},";
             cout << endl;
             for (auto i : res)
                 cout << i << ',';
@@ -235,18 +335,30 @@ void testRandom() {
 }
 
 int main() {
-    test1();
-    testInf();
-    testLine();
-    testPoint();
-    testEmpty();
-    // testRandom();
+    // test1();
+    // testInf();
+    // testLine();
+    // testPoint();
+    // testEmpty();
+    srand(time(0));
+    testRandom();
     // Case that messes with precision
-    vector<Line> t({{P(8,9),P(8,2)},{P(3,9),P(5,2)},{P(8,2),P(8,3)},{P(7,2),P(1,7)},{P(1,0),P(7,1)},{P(9,2),P(5,6)},{P(10,10),P(-10,10)},{P(-10,10),P(-10,-10)},{P(-10,-10),P(10,-10)},{P(10,-10),P(10,10)}});
+    vector<Line> t({{P(8, 9), P(8, 2)},
+                    {P(3, 9), P(5, 2)},
+                    {P(8, 2), P(8, 3)},
+                    {P(7, 2), P(1, 7)},
+                    {P(1, 0), P(7, 1)},
+                    {P(9, 2), P(5, 6)},
+                    {P(10, 10), P(-10, 10)},
+                    {P(-10, 10), P(-10, -10)},
+                    {P(-10, -10), P(10, -10)},
+                    {P(10, -10), P(10, 10)}});
     auto res = halfPlaneIntersection(t);
-    cout<<polygonArea2(res)<<endl;
-    cout << sjtu::halfPlaneIntersection(t)<<endl;
-    // Failure case for MIT's half plane cod
+    cout<<fixed<<setprecision(30)<<mxErr1<<' '<<mxErr2<<endl;
+    cout << polygonArea2(res) << endl;
+    cout << sjtu::halfPlaneIntersection(t) << endl;
+    cout << mit::Intersection_Area(convert(t))<<endl;
+    // Failure case for mit's half plane cod
     // vector<Line> t({{P(9, 8), P(9, 1)}, {P(3, 3), P(3, 5)}, {P(7, 6), P(0, 8)}});
     // Failure case for old code.
     // vector<Line> t({{P(3,0),P(3,3)},{P(5,3), P(5,0)}, {P(4,-2), P(0,1)}, {P(3,-1), P(0,-1)}});
