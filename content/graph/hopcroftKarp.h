@@ -10,6 +10,7 @@
  * or $-1$ if it's not matched.
  * Usage: vi btoa(m, -1); hopcroftKarp(g, btoa);
  * Time: O(\sqrt{V}E)
+ * Status: Previously tested on oldkattis.adkbipmatch and SPOJ:MATCHING
  */
 #pragma once
 
