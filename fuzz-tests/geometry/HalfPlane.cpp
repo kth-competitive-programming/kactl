@@ -223,6 +223,9 @@ void testRandom() {
             for (auto i : t)
                 cout << i[0] << "->" << i[1] << ' ';
             cout << endl;
+            for (auto i : t)
+                cout << "{P"<<i[0] << "," << "P"<<i[1] << "},";
+            cout << endl;
             for (auto i : res)
                 cout << i << ',';
             cout << endl;
@@ -237,7 +240,12 @@ int main() {
     testLine();
     testPoint();
     testEmpty();
-    testRandom();
+    // testRandom();
+    // Case that messes with precision
+    vector<Line> t({{P(8,9),P(8,2)},{P(3,9),P(5,2)},{P(8,2),P(8,3)},{P(7,2),P(1,7)},{P(1,0),P(7,1)},{P(9,2),P(5,6)},{P(10,10),P(-10,10)},{P(-10,10),P(-10,-10)},{P(-10,-10),P(10,-10)},{P(10,-10),P(10,10)}});
+    auto res = halfPlaneIntersection(t);
+    cout<<polygonArea2(res)<<endl;
+    cout << sjtu::halfPlaneIntersection(t)<<endl;
     // Failure case for MIT's half plane cod
     // vector<Line> t({{P(9, 8), P(9, 1)}, {P(3, 3), P(3, 5)}, {P(7, 6), P(0, 8)}});
     // Failure case for old code.
@@ -246,6 +254,5 @@ int main() {
     // cout << polygonArea2(halfPlaneIntersection(t)) << endl;
     // addInf(t);
     // cout << polygonArea2(halfPlaneIntersection(t)) << endl;
-    // cout << MIT::Intersection_Area(convert(t)) << endl;
     cout << "Tests passed!" << endl;
 }
