@@ -10,10 +10,11 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-#include "../../content/geometry/HalfPlane.h"
 #include "../../content/geometry/PolygonArea.h"
-
+typedef Point<double> P;
 ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
+#include "../../content/geometry/HalfPlane.h"
+
 
 namespace sjtu {
 typedef double T;
@@ -203,7 +204,7 @@ void testEmpty() {
 }
 void testRandom() {
     int lim = 1e1;
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < 10000000; i++) {
         vector<Line> t;
         for (int i = 0; i < 6; i++) {
             Line cand{P(0, 0), P(0, 0)};
@@ -214,9 +215,11 @@ void testRandom() {
         addInf(t, lim);
         auto res = halfPlaneIntersection(t);
         double area = sjtu::halfPlaneIntersection(t);
-        double diff = abs(2 * area - polygonArea2(res));
+        double resArea = polygonArea2(res)/2;
+        if (isnan(resArea)) resArea = 0;
+        double diff = abs(area - resArea);
         if (diff > EPS) {
-            cout << diff << ' ' << area << ' ' << endl;
+            cout << diff << ' ' << area << ' ' <<resArea<< endl;
             for (auto i : t)
                 cout << i[0] << "->" << i[1] << ' ';
             cout << endl;
@@ -237,6 +240,10 @@ int main() {
     testRandom();
     // Failure case for MIT's half plane cod
     // vector<Line> t({{P(9, 8), P(9, 1)}, {P(3, 3), P(3, 5)}, {P(7, 6), P(0, 8)}});
+    // Failure case for old code.
+    // vector<Line> t({{P(3,0),P(3,3)},{P(5,3), P(5,0)}, {P(4,-2), P(0,1)}, {P(3,-1), P(0,-1)}});
+    // addInf(t);
+    // cout << polygonArea2(halfPlaneIntersection(t)) << endl;
     // addInf(t);
     // cout << polygonArea2(halfPlaneIntersection(t)) << endl;
     // cout << MIT::Intersection_Area(convert(t)) << endl;

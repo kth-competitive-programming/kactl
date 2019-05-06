@@ -36,7 +36,13 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
 		if (angDiff(vs[i], vs[i - 1]) == 0) continue;
 		while (ah<at && sideOf(sp(vs[i]),ans[at-1]) < 0) at--;
 		while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah])<0) ah++;
-		ans[at++] = lineInter(sp(vs[i]), sp(deq[at])).second;
+		auto res = lineInter(sp(vs[i]), sp(deq[at]));
+		auto res2 = lineInter2(sp(vs[i]), sp(deq[at]));
+		// if (isnan(res2.x) || isinf(res2.x)) continue;
+		bool b = (isnan(res2.x) || isinf(res2.y)) == (res.first != 1);
+		assert(b);
+		if (res.first != 1) continue;
+		ans[at++] = res.second;
 		deq[at] = vs[i];
 	}
 	if (at - ah <= 2) return {};

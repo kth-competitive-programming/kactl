@@ -28,3 +28,8 @@ pair<int, P> lineInter(P s1, P e1, P s2, P e2) {
 	else
 		return {1, s2-(e2-s2)*s1.cross(e1, s2)/d};
 }
+template<class P> P lineInter2(P p1, P p2, P q1, P q2) {
+    double a1 = q1.cross(q2, p1), a2 = -q1.cross(q2, p2);
+    auto res = (p1 * a2 + p2 * a1) / (a1 + a2);
+	return res;
+}
