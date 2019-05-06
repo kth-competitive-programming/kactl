@@ -13,8 +13,8 @@ typedef vector<int> vi;
 #include "../../content/graph/MinimumVertexCover.h"
 
 int main() {
-	rep(it,0,10000) {
-		int N = rand() % 200, M = rand() % 200;
+	rep(it,0,1000000) {
+		int N = rand() % 20, M = rand() % 20;
 		int prop = rand();
 		vector<vi> gr(N);
 		vi left(N), right(M);
