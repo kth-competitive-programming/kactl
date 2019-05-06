@@ -3,26 +3,29 @@
  * Date: 2009-10-13
  * License: CC0
  * Source: N/A
- * Description: Find a maximum matching in a bipartite graph.
- * Status: Tested on oldkattis.adkbipmatch and SPOJ:MATCHING
- * Usage: vi ba(m, -1); hopcroftKarp(g, ba);
+ * Description: Fast bipartite matching algorithm. Graph $g$ should be a list
+ * of neighbors of the left partition, and $btoa$ should be a vector full of
+ * -1's of the same size as the right partition. Returns the size of
+ * the matching. $btoa[i]$ will be the match for vertex $i$ on the right side,
+ * or $-1$ if it's not matched.
+ * Usage: vi btoa(m, -1); hopcroftKarp(g, btoa);
  * Time: O(\sqrt{V}E)
+ * Status: Previously tested on oldkattis.adkbipmatch and SPOJ:MATCHING
  */
 #pragma once
 
-bool dfs(int a, int layer, const vector<vi>& g, vi& btoa,
-			vi& A, vi& B) {
-	if (A[a] != layer) return 0;
+bool dfs(int a, int L, vector<vi>& g, vi& btoa, vi& A, vi& B) {
+	if (A[a] != L) return 0;
 	A[a] = -1;
-	trav(b, g[a]) if (B[b] == layer + 1) {
+	trav(b, g[a]) if (B[b] == L + 1) {
 		B[b] = -1;
-		if (btoa[b] == -1 || dfs(btoa[b], layer+2, g, btoa, A, B))
+		if (btoa[b] == -1 || dfs(btoa[b], L+2, g, btoa, A, B))
 			return btoa[b] = a, 1;
 	}
 	return 0;
 }
 
-int hopcroftKarp(const vector<vi>& g, vi& btoa) {
+int hopcroftKarp(vector<vi>& g, vi& btoa) {
 	int res = 0;
 	vi A(g.size()), B(btoa.size()), cur, next;
 	for (;;) {

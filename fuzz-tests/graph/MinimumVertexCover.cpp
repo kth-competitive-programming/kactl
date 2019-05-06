@@ -44,4 +44,5 @@ int main() {
 		verify(cover2);
 		// cout << '.' << endl;
 	}
+	cout<<"Tests passed!"<<endl;
 }
