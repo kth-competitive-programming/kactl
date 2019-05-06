@@ -40,8 +40,7 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
 		while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah])<0) ah++;
 		auto res = lineInter(sp(vs[i]), sp(deq[at]));
 		if (res.first != 1) continue;
-		ans[at++] = res.second;
-		deq[at] = vs[i];
+		ans[at++] = res.second, deq[at] = vs[i];
 	}
 	if (at - ah <= 2) return {};
 	return {ans.begin() + ah, ans.begin() + at};
