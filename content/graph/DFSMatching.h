@@ -8,7 +8,7 @@
  * -1's of the same size as the right partition. Returns the size of
  * the matching. $btoa[i]$ will be the match for vertex $i$ on the right side,
  * or $-1$ if it's not matched.
- * Time: O(EV)
+ * Time: O(VE)
  * Usage: vi btoa(m, -1); dfsMatching(g, btoa);
  * Status: works
  */
