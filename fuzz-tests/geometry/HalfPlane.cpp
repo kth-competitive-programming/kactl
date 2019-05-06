@@ -335,12 +335,11 @@ void testRandom() {
 }
 
 int main() {
-    // test1();
-    // testInf();
-    // testLine();
-    // testPoint();
-    // testEmpty();
-    srand(time(0));
+    test1();
+    testInf();
+    testLine();
+    testPoint();
+    testEmpty();
     testRandom();
     // Case that messes with precision
     vector<Line> t({{P(8, 9), P(8, 2)},

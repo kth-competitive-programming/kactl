@@ -10,7 +10,7 @@ Returns the signed distance between point p and the line containing points a and
 \begin{minipage}{15mm}
 \includegraphics[width=\textwidth]{content/geometry/lineDistance}
 \end{minipage}
- * Status: tested 
+ * Status: tested
  */
 #pragma once
 
