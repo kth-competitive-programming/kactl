@@ -3,8 +3,9 @@
  * Date: 2019-05-05
  * License: CC0
  * Source: https://codeforces.com/blog/entry/48868
- * Description: Returns the two points with max distance on a convex hull (no duplicate/collinear points).
- * If input isn't a convex hull, call "convexHull" first.
+ * Description: Returns the two points with max distance on a convex hull (CCW,
+ * no duplicate/collinear points). If input isn't a convex hull, call
+ * "convexHull" first.
  * Status: Fuzz-tested, submitted on kattis roberthood
  */
 #pragma once
@@ -12,6 +13,7 @@
 typedef Point<ll> P;
 array<P, 2> hullDiameter(vector<P> S) {
 	int n = sz(S), j = n < 2 ? 0 : 1;
+	assert(n>=2);
 	pair<ll, array<P, 2>> res;
 	rep(i,0,j)
 		for (;; j = (j + 1) % n) {
