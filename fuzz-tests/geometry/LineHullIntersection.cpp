@@ -106,23 +106,19 @@ int extremeVertex(vector<P> poly, P dir) {
 }
 pair<bool, array<int, 2>> lineHull(Line line, vector<P> poly) {
 	int n = sz(poly);
-    int right = extremeVertex(poly, (line[0] - line[1]).perp());
-    int left = extremeVertex(poly, (line[1] - line[0]).perp());
+    array<int, 2> ends = {extremeVertex(poly, (line[0] - line[1]).perp()), extremeVertex(poly, (line[1] - line[0]).perp())};
     auto cmp = [&line](const P &vertex) { return sgn(line[0].cross(vertex, line[1])); };
-    int rSgn = cmp(poly[right]), lSgn = cmp(poly[left]);
-    if (rSgn < 0 || lSgn > 0) return {};
+    if (cmp(poly[ends[0]]) < 0 || cmp(poly[ends[1]]) > 0) return {};
     array<int, 2> res;
     for (int i = 0; i < 2; i++) {
-        int l = left, r = right, firstSgn = lSgn;
+        int l = ends[1], r = ends[0];
         while ((l + 1) % n != r) {
             int m = ((l + r + (l < r ? 0 : n)) / 2)%n;
-            if (cmp(poly[m]) == firstSgn)
-                l = m;
-            else
-                r = m;
+            if (cmp(poly[m]) == cmp(poly[ends[1]])) l = m;
+            else r = m;
         }
-        res[0] = (l + (poly[r].cross(line[0], line[1]) == 0)) % n;
-        swap(left, right), swap(lSgn, rSgn), swap(res[0], res[1]);
+        res[i] = (l + (poly[r].cross(line[0], line[1]) == 0)) % n;
+		swap(ends[1], ends[0]);
     }
     return {true, res};
 }
