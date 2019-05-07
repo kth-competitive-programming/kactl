@@ -22,7 +22,7 @@ int main() {
 			ps.emplace_back(rand() % 21 - 10, rand() % 21 - 10);
 		}
 
-		pair<double, P> pa = enclosingCircle(ps);
+		pair<double, P> pa = minCircle(ps);
 		double rad = pa.first;
 		P mid = pa.second;
 		double maxDist = 0;
