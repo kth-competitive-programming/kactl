@@ -20,66 +20,37 @@
 
 #include "Point.h"
 
-ll sgn(ll a) { return (a > 0) - (a < 0); }
-typedef Point<ll> P;
-struct HullIntersection {
-	int N;
-	vector<P> p;
-	vector<pair<P, int>> a;
-
-	HullIntersection(const vector<P>& ps) : N(sz(ps)), p(ps) {
-		p.insert(p.end(), all(ps));
-		int b = 0;
-		rep(i,1,N) if (P{p[i].y,p[i].x} < P{p[b].y, p[b].x}) b = i;
-		rep(i,0,N) {
-			int f = (i + b) % N;
-			a.emplace_back(p[f+1] - p[f], f);
-		}
-	}
-
-	int qd(P p) {
-		return (p.y < 0) ? (p.x >= 0) + 2
-		     : (p.x <= 0) * (1 + (p.y <= 0));
-	}
-
-	int bs(P dir) {
-		int lo = -1, hi = N;
-		while (hi - lo > 1) {
-			int mid = (lo + hi) / 2;
-			if (make_pair(qd(dir), dir.y * a[mid].first.x) <
-				make_pair(qd(a[mid].first), dir.x * a[mid].first.y))
-				hi = mid;
-			else lo = mid;
-		}
-		return a[hi%N].second;
-	}
-
-	bool isign(P a, P b, int x, int y, int s) {
-		return sgn(a.cross(p[x], b)) * sgn(a.cross(p[y], b)) == s;
-	}
-
-	int bs2(int lo, int hi, P a, P b) {
-		int L = lo;
-		if (hi < lo) hi += N;
-		while (hi - lo > 1) {
-			int mid = (lo + hi) / 2;
-			if (isign(a, b, mid, L, -1)) hi = mid;
-			else lo = mid;
-		}
-		return lo;
-	}
-
-	pii isct(P a, P b) {
-		int f = bs(a - b), j = bs(b - a);
-		if (isign(a, b, f, j, 1)) return {-1, -1};
-		int x = bs2(f, j, a, b)%N,
-		    y = bs2(j, f, a, b)%N;
-		if (a.cross(p[x], b) == 0 &&
-		    a.cross(p[x+1], b) == 0) return {x, x};
-		if (a.cross(p[y], b) == 0 &&
-		    a.cross(p[y+1], b) == 0) return {y, y};
-		if (a.cross(p[f], b) == 0) return {f, -1};
-		if (a.cross(p[j], b) == 0) return {j, -1};
-		return {x, y};
-	}
-};
+typedef array<P, 2> Line;
+#define isExtr(i) cmp(i+1, i) >= 0 && cmp(i, i-1) < 0
+int extrVertex(vector<P> poly, P dir) {
+    int n = sz(poly), l = 0, r = n;
+    auto cmp = [&](int i, int j) {
+		return sgn(dir.perp().cross(poly[(i + n) % n] - poly[(j + n) % n]));
+	};
+    if (isExtr(0)) return 0;
+    while (l + 1 < r) {
+        int m = (l + r) / 2;
+        if (isExtr(m)) return m;
+        int lS = cmp(l + 1, l), mS = cmp(m + 1, m);
+        if (lS != mS ? lS < mS : lS == cmp(l, m)) r = m;
+        else l = m;
+    }
+    return l;
+}
+pair<bool, array<int, 2>> lineHull(Line line, vector<P> poly) {
+    array<int, 2> ends = {extrVertex(poly, (line[0] - line[1]).perp()), extrVertex(poly, (line[1] - line[0]).perp())};
+    auto cmp = [&](int i) { return sgn(line[0].cross(poly[i], line[1])); };
+    if (cmp(ends[0]) < 0 || cmp(ends[1]) > 0) return {};
+    array<int, 2> res;
+    for (int i = 0; i < 2; i++) {
+        int l = ends[1], r = ends[0], n = sz(poly);
+        while ((l + 1) % n != r) {
+            int m = ((l + r + (l < r ? 0 : n)) / 2)%n;
+            if (cmp(m) == cmp(ends[1])) l = m;
+            else r = m;
+        }
+        res[i] = (l + (cmp(r) == 0)) % n;
+		swap(ends[0], ends[1]);
+    }
+    return {true, res};
+}
