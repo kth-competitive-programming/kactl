@@ -11,7 +11,7 @@
 
 struct Tree {
 	typedef int T;
-	static const T NEUTRAL = INT_MIN;
+	static constexpr T NEUTRAL = INT_MIN;
 	T f(T a, T b) { return max(a, b); } // (any associative fn)
 	vector<T> s; int n;
 	Tree(int n = 0, T def = NEUTRAL) : s(2*n, def), n(n) {}
