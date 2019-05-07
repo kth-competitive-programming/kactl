@@ -68,7 +68,7 @@ def find_start_comment(source, start=None):
 
     return first
 
-def processwithcomments(caption, instream, outstream, listingslang = None):
+def processwithcomments(caption, instream, outstream, listingslang):
     knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage']
     requiredcommands = ['Author', 'Description']
     includelist = []
@@ -144,10 +144,14 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
         nsource = nsource.rstrip() + source[end:]
     nsource = nsource.strip()
 
-    hash_script = 'hash'
-    p = subprocess.Popen(['sh', 'content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    hsh, _ = p.communicate(nsource)
-    hsh = hsh.split(None, 1)[0]
+    if listingslang in ['C++', 'Java']:
+        hash_script = 'hash'
+        p = subprocess.Popen(['sh', 'content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        hsh, _ = p.communicate(nsource)
+        hsh = hsh.split(None, 1)[0]
+        hsh = hsh + ', '
+    else:
+        hsh = ''
     # Produce output
     out = []
     if warning:
@@ -167,8 +171,8 @@ def processwithcomments(caption, instream, outstream, listingslang = None):
         if includelist:
             out.append(r"\leftcaption{%s}" % pathescape(", ".join(includelist)))
         if nsource:
-            out.append(r"\rightcaption{%s, %d lines}" % (hsh, len(nsource.split("\n"))))
-        langstr = ", language="+listingslang if listingslang else ""
+            out.append(r"\rightcaption{%s%d lines}" % (hsh, len(nsource.split("\n"))))
+        langstr = ", language="+listingslang
         out.append(r"\begin{lstlisting}[caption={%s}%s]" % (pathescape(caption), langstr))
         out.append(nsource)
         out.append(r"\end{lstlisting}")
@@ -258,7 +262,7 @@ def main():
             return
         print(" * \x1b[1m{}\x1b[0m".format(caption))
         if language == "cpp" or language == "cc" or language == "c" or language == "h" or language == "hpp":
-            processwithcomments(caption, instream, outstream)
+            processwithcomments(caption, instream, outstream, 'C++')
         elif language == "java":
             processwithcomments(caption, instream, outstream, 'Java')
         elif language == "ps":
