@@ -85,25 +85,22 @@ template <class P> pair<int, P> lineInter(P s1, P e1, P s2, P e2) {
 }
 
 ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
+
+
+#define isExtr(i) cmp(i+1, i) >= 0 && cmp(i, i-1) < 0
 int extremeVertex(vector<P> poly, P dir) {
     dir = dir.perp();
     int n = sz(poly), l = 0, r=n;
     auto cmp = [&](int i, int j) {
 		return sgn(dir.cross(poly[(i+n)%n] - poly[(j+n)%n]));
 	};
-	int lSgn = cmp(1, 0);
-    auto isExtr = [&](int i) {
-		return cmp(i+1, i) >= 0 && cmp(i, i-1) < 0;
-	};
 	if (isExtr(0)) return 0;
 	while (l+1<r){
-        int m = (l + r) / 2, mSgn;
-        mSgn = cmp((m + 1) % n, m);
+        int m = (l + r) / 2;
         if (isExtr(m)) return m;
-        if (lSgn != mSgn ? lSgn < mSgn : lSgn == cmp(l, m))
-            r = m;
-        else
-            l = m, lSgn = mSgn;
+		int lS = cmp(l+1, l), mS = cmp(m+1, m);
+        if (lS != mS ? lS < mS : lS == cmp(l, m)) r = m;
+        else l = m;
     }
     return l;
 }
@@ -148,7 +145,7 @@ int main() {
 		P delta = q - p, farp = p - delta * 50, farq = p + delta * 50;
 
 		pii r = hi.isct(p, q);
-		auto res = stabConvexPolygon({p, q}, ps);
+		auto res = lineHull({p, q}, ps);
 		// cout<<"orig: "<<r.first<<' '<<r.second<<endl;
 		if (r.first == -1 && r.second == -1) {
 			assert(res.first == 0);
