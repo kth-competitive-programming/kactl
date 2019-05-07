@@ -57,10 +57,8 @@ pair<bool, array<int, 2>> lineHull(Line line, vector<P> poly) {
 	}
 	if (res[0] == res[1]) res = {res[0], -1};
 	else if (cmp(res[0]) == 0 && cmp(res[1]) == 0){
-		if (max(res[0], res[1]) == sz(poly)-1 && min(res[0], res[1]) == 0)
-			res = {sz(poly) -1, sz(poly) -1};
-		else if (abs(res[0]-res[1]) == 1)
-			res = {min(res[0], res[1]), min(res[0], res[1])};
+		if (res[0] - res[1] == 1 || res[1] - res[0] == sz(poly) - 1) res = {res[1], res[1]};
+		else if (res[1] -res[0] == 1 || res[0] - res[1] == sz(poly) - 1) res = {res[0], res[0]};
 	}
 	return {true, res};
 }
