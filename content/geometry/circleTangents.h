@@ -8,7 +8,7 @@
 Returns a pair of the two points on the circle with radius r centered around c whos tangent lines intersect p. If p lies within the circle NaN-points are returned. P is intended to be Point<double>. The first point is the one to the right as seen from the p towards c.
 \end{minipage}
 \begin{minipage}{15mm}
-\includegraphics[width=\textwidth]{../content/geometry/circleTangents}
+\includegraphics[width=\textwidth]{content/geometry/circleTangents}
 \end{minipage}
  * Status: tested
  * Usage:

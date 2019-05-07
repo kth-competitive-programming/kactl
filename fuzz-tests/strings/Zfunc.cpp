@@ -48,5 +48,5 @@ signed main() {
         string s(n, 'x');
         gen(s, 0, 4, [&]() { test(s); });
     }
-    cout<<"Passed"<<endl;
+    cout<<"Tests passed!"<<endl;
 }

@@ -9,7 +9,7 @@
 \end{minipage}
 \begin{minipage}{15mm}
 \vspace{-6mm}
-\includegraphics[width=\textwidth]{../content/geometry/PolygonCut}
+\includegraphics[width=\textwidth]{content/geometry/PolygonCut}
 \vspace{-6mm}
 \end{minipage}
  * Status: tested but not extensively

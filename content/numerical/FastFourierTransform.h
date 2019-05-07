@@ -10,7 +10,7 @@
    pointwise, divide by n, reverse(start+1, end), FFT back.
    Safe for integers if $N\log_2{N}\max(a)\max(b) < \mathtt{\sim} 10^{16}$, where $N = \max(|a|,|b|)$.
    Consider using number-theoretic transform or FFTMod instead if precision is an issue.
- * Time: O(N \log N), where $N = |A|+|B|-1$ ($\tilde 1s$ for $N=2^{22}$)
+ * Time: O(N \log N) with $N = |A|+|B|-1$ ($\tilde 1s$ for $N=2^{22}$)
  * Status: somewhat tested
  */
 #pragma once
