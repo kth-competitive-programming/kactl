@@ -16,17 +16,18 @@
 #pragma once
 
 typedef complex<double> C;
-typedef complex<long double> Cd;
 typedef vector<double> vd;
 void fft(vector<C>& a) {
 	int n = sz(a), L = 31 - __builtin_clz(n);
-	vi rev(n); static vector<C> rt(2, 1);
-	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
+	static vector<complex<long double>> R(2, 1);
+	static vector<C> rt(2, 1);
 	for (static int k = 2; k < n; k *= 2) {
-		rt.resize(n);
-		Cd z[] = {1, polar(1.0L, M_PIl / k)};
-		rep(i, k, 2 * k) rt[i] = Cd(rt[i / 2]) * z[i & 1];
+		R.resize(n); rt.resize(n);
+		auto x = polar(1.0L, M_PIl / k); // M_PI, lower-case L
+		rep(i, k, 2*k) rt[i] = R[i] = i&1 ? R[i/2] * x : R[i/2];
 	}
+	vi rev(n);
+	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
 	rep(i,0,n) if (i < rev[i]) swap(a[i], a[rev[i]]);
 	for (int k = 1; k < n; k *= 2)
 		for (int i = 0; i < n; i += 2 * k) rep(j,0,k) {
@@ -41,7 +42,7 @@ vd conv(const vd& a, const vd& b) {
 	if (a.empty() || b.empty()) return {};
 	vd res(sz(a) + sz(b) - 1);
 	int L = 32 - __builtin_clz(sz(res)), n = 1 << L;
-	vector<C> in(n), out(n), rt;
+	vector<C> in(n), out(n);
 	copy(all(a), begin(in));
 	rep(i,0,sz(b)) in[i].imag(b[i]);
 	fft(in);
