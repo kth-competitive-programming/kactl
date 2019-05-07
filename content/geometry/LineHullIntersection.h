@@ -1,12 +1,13 @@
 /**
- * Author:
- * Date:
+ * Author: Oleksandr Bacherikov, chilli
+ * Date: 2019-05-07
  * License: CC0
  * Source:
- * Description: Line-convex polygon intersection. The polygon must be ccw and have no colinear points.
- *  isct(a, b) returns a pair describing the intersection of a line with the polygon:
+ * Description: Line-convex polygon intersection. The polygon must be ccw and
+ * have no colinear points. lineHull(line, poly) returns a pair representing
+ * whether an intersection between the line and the hull occurs and a pair
+ * describing the intersection.
  *  \begin{itemize*}
- *    \item $(-1, -1)$ if no collision,
  *    \item $(i, -1)$ if touching the corner $i$,
  *    \item $(i, i)$ if along side $(i, i+1)$,
  *    \item $(i, j)$ if crossing sides $(i, i+1)$ and $(j, j+1)$.
