@@ -20,6 +20,7 @@
 #pragma once
 
 #include "Point.h"
+#include "lineIntersection.h"
 
 typedef array<P, 2> Line;
 #define isExtr(i) cmp(i+1, i) >= 0 && cmp(i, i-1) < 0
@@ -53,6 +54,13 @@ pair<bool, array<int, 2>> lineHull(Line line, vector<P> poly) {
 		}
 		res[i] = (l + (cmp(r) == 0)) % n;
 		swap(ends[0], ends[1]);
+	}
+	if (res[0] == res[1]) res = {res[0], -1};
+	else if (cmp(res[0]) == 0 && cmp(res[1]) == 0){
+		if (max(res[0], res[1]) == sz(poly)-1 && min(res[0], res[1]) == 0)
+			res = {sz(poly) -1, sz(poly) -1};
+		else if (abs(res[0]-res[1]) == 1)
+			res = {min(res[0], res[1]), min(res[0], res[1])};
 	}
 	return {true, res};
 }

@@ -43,6 +43,7 @@ struct Point<double> {
 };
 
 #include "../../content/geometry/ConvexHull.h"
+ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
 #include "../../content/geometry/LineHullIntersection.h"
 
 int segmentIntersection(const P& s1, const P& e1,
@@ -76,6 +77,8 @@ int segmentIntersection(const P& s1, const P& e1,
 int main() {
 	srand(2);
 	rep(it,0,1000000) {
+		// cout<<endl;
+		// cout<<"it: "<<it<<endl;
 		if (it % 100 == 0) cerr << '.';
 		int N = rand() % 15;
 		vector<P> ps, ps2;
@@ -97,8 +100,9 @@ int main() {
 
 		auto fail = [&](int line) {
 			cerr << sz(ps) << endl;
-			trav(p, ps) cout << p.x << ' ' << p.y << endl;
-			cout << p.x << ' ' << p.y << ' ' << q.x << ' ' << q.y << endl << endl;
+			trav(p, ps) cout << p<<' ';
+			cout<<endl;
+			cout << "line: "<<p<<' '<<q<<endl;
 			cout << "-> " << r.first << ' ' << r.second << endl;
 			cout << "@line " << line << endl;
 			abort();
@@ -150,19 +154,17 @@ int main() {
 			assert(r.first == -1 && r.second == -1);
 			continue;
 		}
-		// if (!waspar) {
-		// 	cout<<r.first<<' '<<r.second<<endl;
-		// 	assert(r.first != r.second);
-		// }
-		// if (gen == 2) {
-		// 	cout<<"res: "<<r.first<<' '<<r.second<<endl;
-		// 	assert(r.first == corner);
-		// 	if (r.second != -1) FAIL();
-		// }
-		// if (N > 2 && (sz(hits) == 1) != (r.second == -1 || r.first == r.second)) {
-		// 	cout<<"res: "<<r.first<<' '<<r.second<<endl;
-		// 	FAIL();
-		// }
+		if (!waspar) {
+			if (r.first == r.second) FAIL();
+		}
+		if (gen == 2) {
+			assert(r.first == corner);
+			if (r.second != -1) FAIL();
+		}
+		if (N > 2 && (sz(hits) == 1) != (r.second == -1 || r.first == r.second)) {
+			cout<<"res: "<<r.first<<' '<<r.second<<endl;
+			FAIL();
+		}
 		assert(sz(hits) <= 2);
 		if (r.first != r.second && sz(hits) == 2) {
 			assert(r.second != -1);
