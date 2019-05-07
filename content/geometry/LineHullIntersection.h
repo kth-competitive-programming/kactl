@@ -40,25 +40,26 @@ int extrVertex(vector<P> poly, P dir) {
 	return l;
 }
 pair<bool, array<int, 2>> lineHull(Line line, vector<P> poly) {
-	array<int, 2> ends = {extrVertex(poly, (line[0] - line[1]).perp()),
-	                      extrVertex(poly, (line[1] - line[0]).perp())};
+	int endA = extrVertex(poly, (line[0] - line[1]).perp());
+	int endB = extrVertex(poly, (line[1] - line[0]).perp());
 	auto cmp = [&](int i) { return sgn(line[0].cross(poly[i], line[1])); };
-	if (cmp(ends[0]) < 0 || cmp(ends[1]) > 0) return {};
+	if (cmp(endA) < 0 || cmp(endB) > 0) return {};
 	array<int, 2> res;
 	for (int i = 0; i < 2; i++) {
-		int l = ends[1], r = ends[0], n = sz(poly);
+		int l = endB, r = endA, n = sz(poly);
 		while ((l + 1) % n != r) {
 			int m = ((l + r + (l < r ? 0 : n)) / 2)%n;
-			if (cmp(m) == cmp(ends[1])) l = m;
+			if (cmp(m) == cmp(endB)) l = m;
 			else r = m;
 		}
 		res[i] = (l + (cmp(r) == 0)) % n;
-		swap(ends[0], ends[1]);
+		swap(endA, endB);
 	}
 	if (res[0] == res[1]) res = {res[0], -1};
 	else if (cmp(res[0]) == 0 && cmp(res[1]) == 0){
-		if (res[0] - res[1] == 1 || res[1] - res[0] == sz(poly) - 1) res = {res[1], res[1]};
-		else if (res[1] -res[0] == 1 || res[0] - res[1] == sz(poly) - 1) res = {res[0], res[0]};
+		int diff = (res[0] - res[1] + sz(poly) + 1)%sz(poly);
+		if (diff == 0) res = {res[0], res[0]};
+		else if (diff == 2) res = {res[1], res[1]};
 	}
 	return {true, res};
 }
