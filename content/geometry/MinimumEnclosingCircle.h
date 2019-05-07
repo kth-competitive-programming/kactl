@@ -11,7 +11,7 @@
 
 #include "circumcircle.h"
 
-pair<double, P> mec(vector<P> ps) {
+pair<P, double> mec(vector<P> ps) {
 	shuffle(all(ps), mt19937(time(0)));
 	P o = ps[0];
 	double r = 0, EPS = (1 + 1e-8);
@@ -26,5 +26,5 @@ pair<double, P> mec(vector<P> ps) {
 			}
 		}
 	}
-	return {r, o};
+	return {o, r};
 }
