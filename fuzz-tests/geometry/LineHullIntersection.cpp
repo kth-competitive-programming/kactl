@@ -73,6 +73,63 @@ int segmentIntersection(const P& s1, const P& e1,
 	return 1;
 }
 
+typedef array<P, 2> Line;
+template <class P> pair<int, P> lineInter(P s1, P e1, P s2, P e2) {
+    auto d = (e1 - s1).cross(e2 - s2);
+    if (d == 0) // if parallel
+        return {-(s1.cross(e1, s2) == 0 || s2 == e2), P(0, 0)};
+    else {
+        double a1 = s2.cross(e2, s1), a2 = -s2.cross(e2, e1);
+        return {1, (s1 * a2 + e1 * a1) / (a1 + a2)};
+    }
+}
+
+ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
+int extremeVertex(vector<P> poly, P dir) {
+    dir = dir.perp();
+    int n = sz(poly), l = 0, r=n;
+    auto cmp = [&](int i, int j) {
+		return sgn(dir.cross(poly[(i+n)%n] - poly[(j+n)%n]));
+	};
+	int lSgn = cmp(1, 0);
+    auto isExtr = [&](int i) {
+		return cmp(i+1, i) >= 0 && cmp(i, i-1) < 0;
+	};
+	if (isExtr(0)) return 0;
+	while (l+1<r){
+        int m = (l + r) / 2, mSgn;
+        mSgn = cmp((m + 1) % n, m);
+        if (isExtr(m)) return m;
+        if (lSgn != mSgn ? lSgn < mSgn : lSgn == cmp(l, m))
+            r = m;
+        else
+            l = m, lSgn = mSgn;
+    }
+    return l;
+}
+pair<bool, array<int, 2>> lineHull(Line line, vector<P> poly) {
+	int n = sz(poly);
+    int right = extremeVertex(poly, (line[0] - line[1]).perp());
+    int left = extremeVertex(poly, (line[1] - line[0]).perp());
+    auto cmp = [&line](const P &vertex) { return sgn(line[0].cross(vertex, line[1])); };
+    int rSgn = cmp(poly[right]), lSgn = cmp(poly[left]);
+    if (rSgn < 0 || lSgn > 0) return {};
+    array<int, 2> res;
+    for (int i = 0; i < 2; i++) {
+        int l = left, r = right, firstSgn = lSgn;
+        while ((l + 1) % n != r) {
+            int m = ((l + r + (l < r ? 0 : n)) / 2)%n;
+            if (cmp(poly[m]) == firstSgn)
+                l = m;
+            else
+                r = m;
+        }
+        res[0] = (l + (poly[r].cross(line[0], line[1]) == 0)) % n;
+        swap(left, right), swap(lSgn, rSgn), swap(res[0], res[1]);
+    }
+    return {true, res};
+}
+
 int main() {
 	srand(2);
 	rep(it,0,1000000) {
@@ -91,6 +148,40 @@ int main() {
 		P delta = q - p, farp = p - delta * 50, farq = p + delta * 50;
 
 		pii r = hi.isct(p, q);
+		auto res = stabConvexPolygon({p, q}, ps);
+		// cout<<"orig: "<<r.first<<' '<<r.second<<endl;
+		if (r.first == -1 && r.second == -1) {
+			assert(res.first == 0);
+		} else if (r.second == -1) {
+			// cout<<res.first<<' '<<res.second[0]<<' '<<res.second[1]<<endl;
+			assert(res.first == 1 && res.second[0] == res.second[1]);
+		} else if (r.first == r.second) {
+			// cout<<"check: "<<endl;
+			// for (auto i:ps) cout<<i<<' ';
+			// cout<<endl;
+			// cout<<"line: "<<p<<' '<<q<<endl;
+			// cout<<r.first<<' '<<r.second<<endl;
+			// cout<<res.first<<' '<<res.second[0]<<' '<<res.second[1]<<endl;
+			// cout<<endl;
+			// assert((r.first == res.second[0] && r.second == res.second[1]) || (r.first == res.second[1] && r.second == res.second[0]));
+			// assert(r.first == res.second[0] || r.first == res.second[1]);
+			// assert(r.second == res.second[0] || r.second == res.second[1]);
+			// if (res.second[0].x != -5) {
+			// 	cout<<p<<" "<<q<<endl;
+			// 	assert(false);
+			// }
+		} else {
+			// cout<<"ans"<<endl;
+			// cout<<r.first<<' '<<r.second<<endl;
+			// cout<<res.first<<' '<<res.second[0]<<' '<<res.second[1]<<endl;
+			// cout<<lineInter(ps[r.first], ps[(r.first+1)%sz(ps)], p, q).second<<endl;
+			assert((r.first == res.second[0] && r.second == res.second[1]));
+			// P b = lineInter(ps[r.second], ps[(r.second+1)%sz(ps)], p, q).second;
+			// assert(res.first == 1);
+			// assert(a== res.second[0] || a == res.second[1]);
+			// assert(b== res.second[0] || b == res.second[1]);
+
+		}
 
 		if (p == q) continue;
 
