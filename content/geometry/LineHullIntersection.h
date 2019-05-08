@@ -4,23 +4,23 @@
  * License: CC0
  * Source:
  * Description: Line-convex polygon intersection. The polygon must be ccw and
- * have no colinear points. lineHull(line, poly) returns a pair representing
- * whether an intersection between the line and the hull occurs and a pair
- * describing the intersection.
+ * have no colinear points. lineHull(line, poly) returns a pair describing the
+ * intersection of a line with the polygon
  *  \begin{itemize*}
+ *    \item $(-1, -1)$ if no collision,
  *    \item $(i, -1)$ if touching the corner $i$,
  *    \item $(i, i)$ if along side $(i, i+1)$,
  *    \item $(i, j)$ if crossing sides $(i, i+1)$ and $(j, j+1)$.
  *  \end{itemize*}
  *  In the last case, if a corner $i$ is crossed, this is treated as happening on side $(i, i+1)$.
  *  The points are returned in the same order as the line hits the polygon.
+ * "extrVertex" returns the point of a hull with the max projection onto a line.
  * Status: fuzz-tested
  * Time: O(N + Q \log n)
  */
 #pragma once
 
 #include "Point.h"
-#include "lineIntersection.h"
 
 typedef array<P, 2> Line;
 #define isExtr(i) cmp(i+1, i) >= 0 && cmp(i, i-1) < 0
@@ -38,14 +38,15 @@ int extrVertex(vector<P> poly, P dir) {
 		else l = m;
 	}
 	return l;
+
 }
-pair<bool, array<int, 2>> lineHull(Line line, vector<P> poly) {
+array<int, 2> lineHull(Line line, vector<P> poly) {
 	int endA = extrVertex(poly, (line[0] - line[1]).perp());
 	int endB = extrVertex(poly, (line[1] - line[0]).perp());
 	auto cmp = [&](int i) { return sgn(line[0].cross(poly[i], line[1])); };
-	if (cmp(endA) < 0 || cmp(endB) > 0) return {};
+	if (cmp(endA) < 0 || cmp(endB) > 0) return {-1, -1};
 	array<int, 2> res;
-	for (int i = 0; i < 2; i++) {
+	rep(i,0,2){
 		int l = endB, r = endA, n = sz(poly);
 		while ((l + 1) % n != r) {
 			int m = ((l + r + (l < r ? 0 : n)) / 2)%n;
@@ -61,5 +62,5 @@ pair<bool, array<int, 2>> lineHull(Line line, vector<P> poly) {
 		if (diff == 0) res = {res[0], res[0]};
 		else if (diff == 2) res = {res[1], res[1]};
 	}
-	return {true, res};
+	return res;
 }
