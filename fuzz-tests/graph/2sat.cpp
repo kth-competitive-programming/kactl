@@ -70,6 +70,8 @@ int ra() {
 
 // Test at_most_one
 int main() {
+	main1();
+	main2();
 	const int N = 100, M = 400;
 	rep(it,0,100) {
 		vector<bool> v(N);
