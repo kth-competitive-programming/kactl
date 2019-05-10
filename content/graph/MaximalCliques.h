@@ -13,8 +13,7 @@
  */
 #pragma once
 
-const int n=63;
-typedef bitset<n> B;
+typedef bitset<128> B;
 template<class F>
 void cliques(vector<B>& eds, F f, B P = ~B(), B X={}, B R={}) {
 	if (!P.any()) { if (!X.any()) f(R); return; }
