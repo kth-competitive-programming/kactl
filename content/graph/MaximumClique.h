@@ -1,7 +1,7 @@
 /**
  * Author: chilli, SJTU
  * Date: 2019-05-10
- * License:
+ * License: GPL (https://gitlab.com/janezkonc/mcqd/blob/master/mcqd.h)
  * Source: https://en.wikipedia.org/wiki/MaxCliqueDyn_maximum_clique_algorithm, https://github.com/FTRobbin/Dreadnought-Standard-Code-Library/blob/11c861e55a73be9c32a799bfe4398e0c62c2da15/improve/MaximumClique.cpp
  * Description: Finds a maximum clique of a graph (given as n x n symmetric
  * bitset matrix; self-edges not allowed). Can be used to find a maximum
@@ -18,7 +18,7 @@ struct Maxclique {
 	vector<B> e;
 	vv V;
 	vector<vi> C;
-	vi qmax, q, S, So;
+	vi qmax, q, S, old;
 	bool cut1(int pi, vi& A) {
 		trav(i, A) if (e[pi][i]) return true;
 		return false;
@@ -31,35 +31,35 @@ struct Maxclique {
 		rep(i,0,sz(r)) r[i].d = min(i, mxD) + 1;
 	}
 	void expand(vv& R, int lev = 1) {
-		S[lev] += S[lev - 1] - So[lev];
-		So[lev] = S[lev - 1];
+		S[lev] += S[lev - 1] - old[lev];
+		old[lev] = S[lev - 1];
 		while (sz(R)) {
 			if (sz(q) + R.back().d <= sz(qmax)) return;
 			q.push_back(R.back().i);
-			vv Rp;
-			trav(v,R) if (e[R.back().i][v.i]) Rp.push_back({v.i});
-			if (sz(Rp)) {
-				if (S[lev]++ / ++pk < limit) init(Rp);
+			vv T;
+			trav(v,R) if (e[R.back().i][v.i]) T.push_back({v.i});
+			if (sz(T)) {
+				if (S[lev]++ / ++pk < limit) init(T);
 				int j = 0, mxk = 1, mnk = max(sz(qmax) - sz(q) + 1, 1);
 				C[1].clear(), C[2].clear();
-				trav(v, Rp) {
+				trav(v, T) {
 					int k = 1;
 					while (cut1(v.i, C[k])) k++;
 					if (k > mxk) mxk = k, C[mxk + 1].clear();
-					if (k < mnk) Rp[j++].i = v.i;
+					if (k < mnk) T[j++].i = v.i;
 					C[k].push_back(v.i);
 				}
-				if (j > 0) Rp[j - 1].d = 0;
+				if (j > 0) T[j - 1].d = 0;
 				rep(k,mnk,mxk + 1) trav(i, C[k])
-					Rp[j].i = i, Rp[j++].d = k;
-				expand(Rp, lev + 1);
+					T[j].i = i, T[j++].d = k;
+				expand(T, lev + 1);
 			} else if (sz(q) > sz(qmax)) qmax = q;
 			q.pop_back(), R.pop_back();
 		}
 	}
 	vi maxClique() { init(V), expand(V); return qmax; }
 	Maxclique(vector<B> conn) :
-		e(conn), C(sz(e) + 1), S(sz(e)+1), So(sz(e)+1)  {
+		e(conn), C(sz(e) + 1), S(sz(e)+1), old(S)  {
 		rep(i,0,sz(e)) V.push_back({i});
 	}
 };
