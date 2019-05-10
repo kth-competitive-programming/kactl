@@ -11,6 +11,7 @@
  * Status: fuzz-tested
  */
 struct Maxclique {
+	typedef bitset<200> B;
 	double limit=0.025, pk=0;
 	struct Vertex { int i, d=0; };
 	typedef vector<Vertex> vv;
