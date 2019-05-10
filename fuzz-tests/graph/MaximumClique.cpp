@@ -27,14 +27,16 @@ struct timeit {
 
 int main() {
     rep(it, 0, 10000) {
-        vector<B> ed(32);
-        rep(i, 0, 32) rep(j, 0, i) {
-            ed[i][j] = (rand() % 100) < 90;
+        vector<B> ed(n);
+        int p =rand()%100;
+        rep(i, 0, n) rep(j, 0, i) {
+            ed[i][j] = (rand() % 100) < p;
             ed[j][i] = ed[i][j];
         }
         auto clique2 = new Maxclique(ed);
         int mx = 0;
         cliques(ed, [&](auto x){mx = max(mx, int(x.count()));});
+        cout<<n<<' '<<p<<' '<<mx<<' '<<sz(clique2->maxClique())<<endl;
         assert(mx == sz(clique2->maxClique()));
     }
 }
