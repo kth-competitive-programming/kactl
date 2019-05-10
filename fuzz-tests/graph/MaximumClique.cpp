@@ -26,6 +26,7 @@ struct timeit {
 
 
 int main() {
+    int n =rand()%32;
     rep(it, 0, 10000) {
         vector<B> ed(n);
         int p =rand()%100;
@@ -36,7 +37,6 @@ int main() {
         auto clique2 = new Maxclique(ed);
         int mx = 0;
         cliques(ed, [&](auto x){mx = max(mx, int(x.count()));});
-        cout<<n<<' '<<p<<' '<<mx<<' '<<sz(clique2->maxClique())<<endl;
         assert(mx == sz(clique2->maxClique()));
     }
 }

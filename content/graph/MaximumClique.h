@@ -26,6 +26,8 @@ struct Maxclique {
 		trav(v,r) v.d = 0;
 		trav(v, r) trav(j, r) v.d += e[v.i][j.i];
 		sort(all(r), [](auto a, auto b) { return a.d > b.d; });
+		int mxD = r[0].d;
+		rep(i,0,sz(r)) r[i].d = min(i, mxD) + 1;
 	}
 	void expand(vv& R, int lev = 1) {
 		S[lev] += S[lev - 1] - So[lev];
@@ -56,7 +58,7 @@ struct Maxclique {
 	}
 	vi maxClique() { init(V), expand(V); return qmax; }
 	Maxclique(vector<B> conn) :
-        e(conn), C(sz(e) + 1), S(sz(e)), So(sz(e))  {
+		e(conn), C(sz(e) + 1), S(sz(e)), So(sz(e))  {
 		rep(i,0,sz(e)) V.push_back({i});
 	}
 };
