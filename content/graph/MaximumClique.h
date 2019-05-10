@@ -2,7 +2,8 @@
  * Author: chilli, Haobin Ni
  * Date: 2019-05-10
  * License: CC0
- * Source: https://en.wikipedia.org/wiki/MaxCliqueDyn_maximum_clique_algorithm
+ * Source: https://en.wikipedia.org/wiki/MaxCliqueDyn_maximum_clique_algorithm,
+ * https://github.com/FTRobbin/Dreadnought-Standard-Code-Library/blob/11c861e55a73be9c32a799bfe4398e0c62c2da15/improve/MaximumClique.cpp
  * Description: Finds the maximum clique of a graph. Can be used to find the
  * maximum independent set by finding the clique of the complement graph.
  * Time: Runs in about ~1s for n=155 and worst case random graphs (p=.95). Runs
@@ -10,7 +11,7 @@
  * Status: fuzz-tested
  */
 struct Maxclique {
-	double Tlimit=0.025, pk=0;
+	double limit=0.025, pk=0;
 	struct Vertex { int i, d; Vertex(int i) : i(i), d(0) {} };
 	typedef vector<Vertex> vv;
 	vector<B> e;
@@ -22,8 +23,8 @@ struct Maxclique {
 		return false;
 	}
 	void init(vv &r) {
-		trav(i,r) i.d = 0;
-		trav(i, r) trav(j, r) i.d += e[i.i][j.i];
+		trav(v,r) v.d = 0;
+		trav(v, r) trav(j, r) v.d += e[v.i][j.i];
 		sort(all(r), [](auto a, auto b) { return a.d > b.d; });
 	}
 	void expand(vv &R, int lev = 1) {
@@ -33,9 +34,9 @@ struct Maxclique {
 			if (sz(q) + R.back().d <= sz(qmax)) return;
 			q.push_back(R.back().i);
 			vv Rp;
-			trav(i,R) if (e[R.back().i][i.i]) Rp.push_back(i.i);
+			trav(v,R) if (e[R.back().i][v.i]) Rp.push_back(v.i);
 			if (sz(Rp)) {
-				if (S[lev]++ / ++pk < Tlimit) init(Rp);
+				if (S[lev]++ / ++pk < limit) init(Rp);
 				int j = 0, mxk = 1, mnk = max(sz(qmax) - sz(q) + 1, 1);
 				C[1].clear(), C[2].clear();
 				trav(v, Rp) {
@@ -54,7 +55,8 @@ struct Maxclique {
 		}
 	}
 	vi maxClique() { init(V), expand(V); return qmax; }
-	Maxclique(vector<B> conn) : e(conn), S(sz(e)), So(S), C(sz(e) + 1) {
+	Maxclique(vector<B> conn) :
+        e(conn), S(sz(e)), So(S), C(sz(e) + 1) {
 		rep(i,0,sz(e)) V.push_back(Vertex(i));
 	}
 };
