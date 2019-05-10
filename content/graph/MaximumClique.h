@@ -59,7 +59,7 @@ struct Maxclique {
 	}
 	vi maxClique() { init(V), expand(V); return qmax; }
 	Maxclique(vector<B> conn) :
-		e(conn), C(sz(e) + 1), S(sz(e)), So(sz(e))  {
+		e(conn), C(sz(e) + 1), S(sz(e)+1), So(sz(e)+1)  {
 		rep(i,0,sz(e)) V.push_back({i});
 	}
 };
