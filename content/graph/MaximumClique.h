@@ -1,8 +1,8 @@
 /**
- * Author: chilli, SJTU
+ * Author: chilli, SJTU, Janez Konc
  * Date: 2019-05-10
- * License: GPL (https://gitlab.com/janezkonc/mcqd/blob/master/mcqd.h)
- * Source: https://en.wikipedia.org/wiki/MaxCliqueDyn_maximum_clique_algorithm, https://github.com/FTRobbin/Dreadnought-Standard-Code-Library/blob/11c861e55a73be9c32a799bfe4398e0c62c2da15/improve/MaximumClique.cpp
+ * License: GPL
+ * Source: https://en.wikipedia.org/wiki/MaxCliqueDyn_maximum_clique_algorithm, https://gitlab.com/janezkonc/mcqd/blob/master/mcqd.h
  * Description: Finds a maximum clique of a graph (given as n x n symmetric
  * bitset matrix; self-edges not allowed). Can be used to find a maximum
  * independent set by finding a clique of a complement graph.
