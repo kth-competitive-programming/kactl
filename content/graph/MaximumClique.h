@@ -4,14 +4,14 @@
  * License: CC0
  * Source: https://en.wikipedia.org/wiki/MaxCliqueDyn_maximum_clique_algorithm,
  * https://github.com/FTRobbin/Dreadnought-Standard-Code-Library/blob/11c861e55a73be9c32a799bfe4398e0c62c2da15/improve/MaximumClique.cpp
- * Description: Finds the maximum clique of a graph. Can be used to find the
- * maximum independent set by finding the clique of the complement graph.
+ * Description: Finds a maximum clique of a graph. Can be used to find a
+ * maximum independent set by finding a clique of a complement graph.
  * Time: Runs in about ~1s for n=155 and worst case random graphs (p=.95). Runs
  * faster for sparse graphs.
  * Status: fuzz-tested
  */
+typedef bitset<200> B;
 struct Maxclique {
-	typedef bitset<200> B;
 	double limit=0.025, pk=0;
 	struct Vertex { int i, d=0; };
 	typedef vector<Vertex> vv;
