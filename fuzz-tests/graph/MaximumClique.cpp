@@ -38,9 +38,9 @@ struct timeit {
 
 
 int main() {
-    int n =rand()%32;
-    rep(it, 0, 1000000) {
-        vector<B> ed(n);
+    rep(it, 0, 100000) {
+        int n =rand()%32;
+        vector<B> ed(200);
         int p =rand()%100;
         rep(i, 0, n) rep(j, 0, i) {
             ed[i][j] = (rand() % 100) < p;
