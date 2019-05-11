@@ -8,7 +8,7 @@
  * the edges are indexed by order of insertion. If no MST exists, returns
   * weight=-1;
  * Time: O(VE)
- * Status: Tested on CF 240E
+ * Status: Fuz-tested, also tested on CF 240E
  */
 
 #include "../data-structures/UnionFind.h"
@@ -17,12 +17,12 @@ struct DMST {
 	UF uf;
 	struct edge { int a, b, w, id=-1; };
 	typedef vector<edge> ve;
-	vector<ve> adj;
+	vector<ve> g;
 	ve edges;
-	DMST(int _n) : n(_n), uf(n), adj(n) {}
+	DMST(int _n) : n(_n), uf(n), g(n) {}
 	void add_edge(int a, int b, int c) {
 		edges.push_back({a,b,c,m++});
-		adj[b].push_back(edges.back());
+		g[b].push_back(edges.back());
 	}
 	ve find_min(int r) {
 		vi vis(n, -1), mn(n, 1e9);
@@ -32,7 +32,7 @@ struct DMST {
 			int at = i;
 			while (at != r && vis[at] == -1) {
 				vis[at] = i;
-				trav(v, adj[at])
+				trav(v,g[at])
 					if (v.w < mn[at] && uf.find(v.a) != at)
 						mn[at] = v.w, par[at] = v;
 				if (par[at].id == -1) return {};
@@ -43,28 +43,26 @@ struct DMST {
 			vi seq;
 			do seq.push_back(at);
 			while ((at = uf.find(par[at].a)) != seq.front());
-			trav(v, seq) uf.join(v, seq[0]);
+			trav(v,seq) uf.join(v, seq[0]);
 			int c = uf.find(seq[0]);
 			ve nw;
-			trav(v, seq) trav(w, adj[v])
+			trav(v,seq) trav(w,g[v])
 				nw.push_back({w.a, w.b, w.w-mn[v], w.id});
-			adj[c] = nw;
+			g[c] = nw;
 			auto rest = find_min(r);
-			if (sz(rest) == 0) return {};
-			auto use = rest[c];
-			rest[at = tmp.find(use.b)] = use;
-			trav(v, seq) if (v != at) rest[v] = par[v];
+			if (rest.empty()) return {};
+			rest[at = tmp.find(rest[c].b)] = rest[c];
+			trav(v,seq) if (v != at) rest[v] = par[v];
 			return rest;
 		}
 		return par;
 	}
 	pair<int, vi> mst(int r) {
-		auto res = find_min(r);
-		if (res.empty()) return {-1, {}};
+		auto a = find_min(r);
+		if (a.empty()) return {-1, {}};
 		int sm=0;
-		vi ans;
-		rep(i,1,sz(res))
-			sm += edges[res[i].id].w, ans.push_back(res[i].id);
-		return {sm, ans};
+		vi b;
+		rep(i,1,sz(a)) sm += edges[a[i].id].w,b.push_back(a[i].id);
+		return {sm, b};
 	}
 };
