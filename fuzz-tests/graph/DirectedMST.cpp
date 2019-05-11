@@ -89,11 +89,12 @@ int Directed_MST(int root, int NV, int NE) {
 int adj[105][105];
 int main() {
 	rep(it,0,10000) {
-		int n = 100;
+		int n = (rand()%100)+1;
 		int cnt = 0;
 		DMST dmst(n);
 		rep(i,0,n)
-			rep(j,0,i){
+			rep(j,0,n){
+				if (i==j) continue;
 				int weight = rand()%100;
 				mit::E[cnt++] = {i,j, weight};
 				dmst.add_edge(i,j,weight);
