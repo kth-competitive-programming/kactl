@@ -13,14 +13,14 @@
 
 #include "../data-structures/UnionFind.h"
 struct DMST {
-	int n, m = 0;
-	UF uf;
 	struct edge { int a, b, w, id=-1; };
 	typedef vector<edge> ve;
+	int n, m = 0;
+	UF uf;
 	vector<ve> g;
 	ve edges;
 	DMST(int _n) : n(_n), uf(n), g(n) {}
-	void add_edge(int a, int b, int c) {
+	void addEdge(int a, int b, int c) {
 		edges.push_back({a,b,c,m++});
 		g[b].push_back(edges.back());
 	}
@@ -49,11 +49,11 @@ struct DMST {
 			trav(v,seq) trav(w,g[v])
 				nw.push_back({w.a, w.b, w.w-mn[v], w.id});
 			g[c] = nw;
-			auto rest = find_min(r);
-			if (rest.empty()) return {};
-			rest[at = tmp.find(rest[c].b)] = rest[c];
-			trav(v,seq) if (v != at) rest[v] = par[v];
-			return rest;
+			auto nxt = find_min(r);
+			if (nxt.empty()) return {};
+			nxt[at = tmp.find(nxt[c].b)] = nxt[c];
+			trav(v,seq) if (v != at) nxt[v] = par[v];
+			return nxt;
 		}
 		return par;
 	}
@@ -62,7 +62,8 @@ struct DMST {
 		if (a.empty()) return {-1, {}};
 		int sm=0;
 		vi b;
-		rep(i,1,sz(a)) sm += edges[a[i].id].w,b.push_back(a[i].id);
+		rep(i,0,sz(a))
+			if (i!= r) sm += edges[a[i].id].w, b.push_back(a[i].id);
 		return {sm, b};
 	}
 };

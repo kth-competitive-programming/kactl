@@ -90,6 +90,7 @@ int adj[105][105];
 int main() {
 	rep(it,0,10000) {
 		int n = (rand()%100)+1;
+		int r = rand()%n;
 		int cnt = 0;
 		DMST dmst(n);
 		rep(i,0,n)
@@ -97,10 +98,10 @@ int main() {
 				if (i==j) continue;
 				int weight = rand()%100;
 				mit::E[cnt++] = {i,j, weight};
-				dmst.add_edge(i,j,weight);
+				dmst.addEdge(i,j,weight);
 			}
-		int ans1 = mit::Directed_MST(0, n, cnt);
-		int ans2 = dmst.mst(0).first;
+		int ans1 = mit::Directed_MST(r, n, cnt);
+		int ans2 = dmst.mst(r).first;
 		assert(ans1 == ans2);
 	}
 	cout<<"Tests passed!"<<endl;
