@@ -27,7 +27,7 @@ int main1() {
 			if (a == b) continue;
 			ts.either(a ^ (s&1 ? 0 : -1), b ^ (s&2 ? 0 : -1));
 		}
-		cout << ts.solve() << endl;
+		assert(ts.solve() == 0);
 	}
 	// Random solvable instance
 	{
@@ -44,7 +44,7 @@ int main1() {
 			if (a == b) continue;
 			ts.either(a ^ (v[a] ? 0 : -1), b ^ (s&1 ? 0 : -1));
 		}
-		cout << ts.solve() << endl;
+		assert(ts.solve() == 1);
 	}
 	return 0;
 }
@@ -55,9 +55,8 @@ int main2() {
 	ts.either(0,1);
 	ts.either(0,~1);
 	ts.either(~2,~3);
-	cout << ts.solve() << endl;
-	rep(i,0,4) cout << ts.values[i] << ' ';
-	cout << endl;
+	assert(ts.solve()==1);
+	assert(ts.values == vi({1, 1, 0, 0}));
 	return 0;
 }
 
@@ -110,7 +109,7 @@ int main() {
 			trav(x, r) co += (ts.values[max(x, ~x)] == (x >= 0));
 			assert(co <= 1);
 		}
-		cout << to << '/' << N << endl;
 	}
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }

@@ -51,12 +51,12 @@ template<class G> vi scc(G &g) {
 int main() {
 	unsigned r = 1;
 	for (int N = 0; N <= 5; N++) {
-		cout << "N = " << N << endl;
+		// cout << "N = " << N << endl;
 		vector<vi> mat(N, vi(N)), adj(N);
 		vi compsize(N), seen(N);
 		int count = 0;
 		rep(bits,0,(1 << (N*N))) {
-			if (bits % 10000 == 0) cerr << "." << flush;
+			// if (bits % 10000 == 0) cerr << "." << flush;
 			rep(i,0,N) rep(j,0,N)
 				mat[i][j] = bits & 1 << (i*N+j);
 
@@ -92,7 +92,8 @@ int main() {
 
 			count++;
 		}
-		cout << "tested " << count << endl;
+		// cout << "tested " << count << endl;
 	}
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }
