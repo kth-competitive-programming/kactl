@@ -391,7 +391,7 @@ int main() {
 #else
 	}
 #endif
-	cerr << "tested " << count << endl;
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }
 
