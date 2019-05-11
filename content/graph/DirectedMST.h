@@ -16,7 +16,7 @@ struct DMST {
 	int n, m = 0;
 	UF uf;
 	struct edge { int a, b, w, id=-1; };
-	typedef ve vector<edge>;
+	typedef vector<edge> ve;
 	vector<ve> adj;
 	ve edges;
 	DMST(int _n) : n(_n), uf(n), adj(n) {}
