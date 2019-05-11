@@ -5,7 +5,8 @@
  * Source: https://github.com/SuprDewd/CompetitiveProgramming/blob/master/code/graph/arborescence.cpp
  * Description: The Edmonds/Chuliu algorithm for finding the minimum spanning
  * tree/arborescence in a directed graph. Returns (weight, edge indices) where
- * the edges are indexed by order of insertion.
+ * the edges are indexed by order of insertion. If no MST exists, returns
+  * weight=-1;
  * Time: O(VE)
  * Status: Tested on CF 240E
  */
@@ -15,16 +16,17 @@ struct DMST {
 	int n, m = 0;
 	UF uf;
 	struct edge { int a, b, w, id=-1; };
-	vector<vector<edge>> adj;
-	vector<edge> edges;
+	typedef ve vector<edge>;
+	vector<ve> adj;
+	ve edges;
 	DMST(int _n) : n(_n), uf(n), adj(n) {}
 	void add_edge(int a, int b, int c) {
 		edges.push_back({a,b,c,m++});
 		adj[b].push_back(edges.back());
 	}
-	vector<edge> find_min(int r) {
+	ve find_min(int r) {
 		vi vis(n, -1), mn(n, 1e9);
-		vector<edge> par(n);
+		ve par(n);
 		rep(i,0,n) {
 			if (uf.find(i) != i) continue;
 			int at = i;
@@ -43,7 +45,7 @@ struct DMST {
 			while ((at = uf.find(par[at].a)) != seq.front());
 			trav(v, seq) uf.join(v, seq[0]);
 			int c = uf.find(seq[0]);
-			vector<edge> nw;
+			ve nw;
 			trav(v, seq) trav(w, adj[v])
 				nw.push_back({w.a, w.b, w.w-mn[v], w.id});
 			adj[c] = nw;
