@@ -10,7 +10,7 @@
    For convolution of complex numbers or more than two vectors: FFT, multiply
    pointwise, divide by n, reverse(start+1, end), FFT back.
    For integers, consider using a number-theoretic transform instead, to avoid rounding issues.
- * Time: O(N \log N), where $N = |A|+|B|-1$ ($\tilde 1s$ for $N=2^{22}$)
+ * Time: O(N \log N) with $N = |A|+|B|-1$ ($\tilde 1s$ for $N=2^{22}$)
  * Status: somewhat tested
  */
 #pragma once

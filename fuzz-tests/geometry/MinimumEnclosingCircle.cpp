@@ -22,9 +22,9 @@ int main() {
 			ps.emplace_back(rand() % 21 - 10, rand() % 21 - 10);
 		}
 
-		pair<double, P> pa = enclosingCircle(ps);
-		double rad = pa.first;
-		P mid = pa.second;
+		pair<P, double> pa = mec(ps);
+		P mid = pa.first;
+		double rad = pa.second;
 		double maxDist = 0;
 		trav(p, ps) {
 			maxDist = max(maxDist, (p - mid).dist());
