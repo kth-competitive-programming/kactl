@@ -16,11 +16,11 @@ void FST(vi& a, bool inv) {
 		for (int i = 0; i < n; i += 2 * step) rep(j,i,i+step) {
 			int &u = a[j], &v = a[j + step]; tie(u, v) =
 				inv ? pii(v - u, u) : pii(v, u + v); // AND
-				inv ? pii(v, u - v) : pii(u + v, u); // OR
-				pii(u + v, u - v);                   // XOR
+				// inv ? pii(v, u - v) : pii(u + v, u); // OR /// include-line
+				// pii(u + v, u - v);                   // XOR /// include-line
 		}
 	}
-	if (inv) trav(x, a) x /= sz(a); // XOR only
+	// if (inv) trav(x, a) x /= sz(a); // XOR only /// include-line
 }
 vi conv(vi a, vi b) {
 	FST(a, 0); FST(b, 0);
