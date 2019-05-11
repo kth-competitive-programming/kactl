@@ -86,16 +86,17 @@ def processwithcomments(caption, instream, outstream, listingslang):
         if 'include-line' in line:
             line = line.replace('// ', '', 1)
         had_comment = "///" in line
+        keep_include = 'keep-include' in line
         # Remove /// comments
         line = line.split("///")[0].rstrip()
-        # Remove '#pragma once' and 'using namespace std;' lines
-        if line == "#pragma once" or line == "using namespace std;":
+        # Remove '#pragma once' lines
+        if line == "#pragma once":
             continue
         if had_comment and not line:
             continue
         # Check includes
-        include = isinclude(line)
-        if include is not None:
+        include = parse_include(line)
+        if include is not None and not keep_include:
             includelist.append(include)
             continue
         nlines.append(line)
@@ -191,9 +192,9 @@ def processraw(caption, instream, outstream, listingslang = 'raw'):
     except:
         print("\kactlerror{Could not read source.}", file=outstream)
 
-def isinclude(line):
+def parse_include(line):
     line = line.strip()
-    if line.startswith("#include") and not line.endswith("/** keep-include */"):
+    if line.startswith("#include"):
         return line[8:].strip()
     return None
 
