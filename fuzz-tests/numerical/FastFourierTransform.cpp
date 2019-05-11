@@ -54,8 +54,7 @@ int main() {
 		rep(x,0,n) {
 			sum += a[x] * polar(1.0, -2 * M_PI * k * x / n);
 		}
-		auto diff = sum-av[k];
-		assert(abs(diff.imag()) < eps && abs(diff.real()) < eps);
+		assert(abs(sum-av[k]) < eps);
 	}
 	cout<<"Tests passed!"<<endl;
 }
