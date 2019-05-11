@@ -109,7 +109,7 @@ int main() {
 			trav(x, r) co += (ts.values[max(x, ~x)] == (x >= 0));
 			assert(co <= 1);
 		}
-		cout << to << '/' << N << endl;
 	}
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }
