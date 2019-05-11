@@ -41,6 +41,7 @@ vd conv(const vd& a, const vd& b) {
 	return c;
 }
 
+const double eps = 1e-8;
 int main() {
 	int n = 8;
 	carray a(n), av(n), roots(n);
@@ -53,6 +54,7 @@ int main() {
 		rep(x,0,n) {
 			sum += a[x] * polar(1.0, -2 * M_PI * k * x / n);
 		}
-		cout << sum << ' ' << av[k] << endl;
+		assert(abs(sum-av[k]) < eps);
 	}
+	cout<<"Tests passed!"<<endl;
 }
