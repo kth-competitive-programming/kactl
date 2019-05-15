@@ -54,7 +54,6 @@ int main() {
 	}
 
 	rep(it,0,10000) {
-		cerr << '.';
 		vector<Node> nodes;
 		vi exp;
 		rep(i,0,10) nodes.emplace_back(i);
