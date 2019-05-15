@@ -17,11 +17,10 @@
 #pragma once
 
 typedef complex<double> C;
-typedef complex<long double> Cd;
 typedef vector<double> vd;
 void fft(vector<C>& a) {
 	int n = sz(a), L = 31 - __builtin_clz(n);
-	static vector<Cd> R(2, 1);
+	static vector<complex<long double>> R(2, 1);
 	static vector<C> rt(2, 1);
 	for (static int k = 2; k < n; k *= 2) {
 		R.resize(n); rt.resize(n);
