@@ -1,3 +1,14 @@
+/**
+ * Author: chilli, Takanori MAEHARA
+ * Date: 2019-05-10
+ * License: CC0
+ * Source: https://github.com/spaghetti-source/algorithm/blob/master/graph/arborescence.cc
+ * Description: The Edmonds/Chuliu algorithm for finding the minimum spanning
+ * tree/arborescence in a directed graph. If no MST exists, returns weight=-1;
+ * Time: O(E log V)
+ * Status: Fuzz-tested, also tested on NWERC 2018 fastestspeedrun
+ */
+
 #pragma once
 #include "../data-structures/UnionFind.h"
 
