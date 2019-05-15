@@ -15,8 +15,8 @@ const ll mod = 1000000007;
 #include "../../content/numerical/FastFourierTransformMod.h"
 
 vl simpleConv(vl a, vl b) {
-	int s = sz(a) + sz(b) - 1;
 	if (a.empty() || b.empty()) return {};
+	int s = sz(a) + sz(b) - 1;
 	vl c(s);
 	rep(i,0,sz(a)) rep(j,0,sz(b))
 		c[i+j] = (c[i+j] + (ll)a[i] * b[j]) % mod;
@@ -35,10 +35,10 @@ int ra() {
 int main() {
 	vl a, b;
 	rep(it,0,6000) {
-		a.resize(ra() % 10);
-		b.resize(ra() % 10);
-		trav(x, a) x = (ra() % 100 - 50+mod)%mod;
-		trav(x, b) x = (ra() % 100 - 50+mod)%mod;
+		a.resize(ra() % 100);
+		b.resize(ra() % 100);
+		trav(x, a) x = ra() % mod;
+		trav(x, b) x = ra() % mod;
 		auto v1 = simpleConv(a, b);
 		auto v2 = convMod<mod>(a, b);
 		assert(v1 == v2);
