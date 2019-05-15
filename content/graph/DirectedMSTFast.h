@@ -40,24 +40,20 @@ struct graph {
 		vector<skew_heap> heap(n);
 		trav(e, g) heap[e.b].push(e);
 		ll res = 0;
-		vector<int> seen(n, -1);
+		vi seen(n, -1), path(n);
 		seen[r] = r;
 		rep(s,0,n){
-			stack<int> path;
-			int v = 0, w = 0;
+			int v = 0, w = 0, qi = 0;
 			for (int u = s; seen[u] < 0; u = uf.find(v)) {
-				path.push(u), seen[u] = s;
+				path[qi++] = u, seen[u] = s;
 				if (heap[u].empty()) return INF;
 				edge min_e = heap[u].top();
-				res += min_e.w;
+				res += min_e.w, v = uf.find(min_e.a);
 				heap[u].add(-min_e.w), heap[u].pop();
-				v = uf.find(min_e.a);
 				if (seen[v] == s) {
 					skew_heap tmp;
-					do {
-						w = path.top(), path.pop();
-						tmp.merge(heap[w]);
-					} while (uf.join(v, w));
+					do tmp.merge(heap[w = path[--qi]]);
+					while (uf.join(v, w));
 					heap[uf.find(v)] = tmp, seen[uf.find(v)] = -1;
 				}
 			}
