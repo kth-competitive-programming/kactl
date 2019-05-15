@@ -94,7 +94,6 @@ void rec2(int i, vector<ll>& A, F f) {
 
 int main() {
 	rep(n,0,4) {
-		cout << n << endl;
 		vvll mat(n, vector<ll>(n, 0)), mat2;
 		vector<vector<double>> mat3(n, vector<double>(n, 0));
 		rec(0,0,mat,[&]() {
