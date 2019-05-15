@@ -1,14 +1,13 @@
 #pragma once
 #include "../data-structures/UnionFind.h"
 
-struct edge { ll a, b, w; };
+struct edge { int a, b; ll w; };
 struct skew_heap {
 	struct node {
 		node *l, *r;
 		edge key;
 		ll delta;
-	} * root;
-	skew_heap() : root(0) {}
+	} * root = 0;
 	void prop(node *a) {
 		a->key.w += a->delta;
 		if (a->l) a->l->delta += a->delta;
@@ -22,7 +21,7 @@ struct skew_heap {
 		swap(a->l, (a->r = merge(b, a->r)));
 		return a;
 	}
-	void push(edge key) { root = merge(root, new node{0, 0, key, 0}); }
+	void push(edge e) { root = merge(root, new node{0,0,e,0}); }
 	void pop() { prop(root), root = merge(root->l, root->r); }
 	edge top() { prop(root); return root->key; }
 	bool empty() { return !root; }
@@ -33,20 +32,20 @@ struct skew_heap {
 const ll INF = 1e18;
 struct graph {
 	vector<edge> g;
-	ll n;
+	int n;
 	graph(int _n): n(_n){}
-	void add_edge(ll a, ll b, ll w) { g.push_back({a, b, w}); }
-	ll solve(ll r) {
+	void add_edge(int a, int b, ll w) { g.push_back({a, b, w}); }
+	ll solve(int r) {
 		UF uf(n);
 		vector<skew_heap> heap(n);
 		trav(e, g) heap[e.b].push(e);
 		ll res = 0;
-		vector<ll> seen(n, -1);
+		vector<int> seen(n, -1);
 		seen[r] = r;
 		rep(s,0,n){
-			stack<ll> path;
-			ll v = 0, w = 0;
-			for (ll u = s; seen[u] < 0; u = uf.find(v)) {
+			stack<int> path;
+			int v = 0, w = 0;
+			for (int u = s; seen[u] < 0; u = uf.find(v)) {
 				path.push(u), seen[u] = s;
 				if (heap[u].empty()) return INF;
 				edge min_e = heap[u].top();
