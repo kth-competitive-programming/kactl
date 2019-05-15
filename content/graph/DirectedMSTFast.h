@@ -22,11 +22,7 @@ struct skew_heap {
 		swap(a->l, (a->r = merge(b, a->r)));
 		return a;
 	}
-	void push(edge key) {
-		node *n = new node();
-		*n = {0, 0, key, 0};
-		root = merge(root, n);
-	}
+	void push(edge key) { root = merge(root, new node{0, 0, key, 0}); }
 	void pop() { prop(root), root = merge(root->l, root->r); }
 	edge top() { prop(root); return root->key; }
 	bool empty() { return !root; }
