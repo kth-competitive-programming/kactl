@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 DIR=${1:-.}
 tests="$(find $DIR -name '*.cpp')"
 declare -i pass=0
