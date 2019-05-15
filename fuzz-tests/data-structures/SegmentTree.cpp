@@ -81,7 +81,7 @@ int main() {
 
 	rep(n,1,10) {
 		maximum::Tree tr(n);
-		vi v(n);
+		vi v(n, tr.unit);
 		rep(it,0,1000000) {
 			int i = rand() % (n+1), j = rand() % (n+1);
 			int x = rand() % (n+2);
