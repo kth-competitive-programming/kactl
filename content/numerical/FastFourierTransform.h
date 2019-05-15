@@ -9,7 +9,7 @@
    For convolution of complex numbers or more than two vectors: FFT, multiply
    pointwise, divide by n, reverse(start+1, end), FFT back.
    Rounding is safe if $(\sum a_i^2 + \sum b_i^2)\log_2{N} < 8\cdot10^{14}$
-   (in practice $10^{16}$; higher with random/non-negative values).
+   (in practice $10^{16}$; higher for random inputs).
    Otherwise, use a number-theoretic transform or FFTMod.
  * Time: O(N \log N) with $N = |A|+|B|$ ($\tilde 1s$ for $N=2^{22}$)
  * Status: somewhat tested

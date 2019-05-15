@@ -4,7 +4,7 @@
  * License: CC0
  * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf
  * Description: Higher precision FFT, can be used for convolutions modulo arbitrary integers
- * as long as $N\log_2N\cdot \text{mod} < 9\cdot10^{14}$ (in practice $10^{16}$ or higher).
+ * as long as $N\log_2N\cdot \text{mod} < 5.4 \cdot 10^{14}$ (in practice $10^{16}$ or higher).
  * Inputs must be in $[0, \text{mod})$.
  * Time: O(N \log N), where $N = |A|+|B|$ (twice as slow as NTT or FFT)
  * Status: somewhat tested
