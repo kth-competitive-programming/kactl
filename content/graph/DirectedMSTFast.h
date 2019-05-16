@@ -4,7 +4,7 @@
  * License: CC0
  * Source: https://github.com/spaghetti-source/algorithm/blob/master/graph/arborescence.cc
  * Description: The Edmonds/Chuliu algorithm for finding the minimum spanning
- * tree/arborescence in a directed graph. If no MST exists, returns weight=-1;
+ * tree/arborescence in a directed graph. If no MST exists, returns -1.
  * Time: O(E log V)
  * Status: Fuzz-tested, also tested on NWERC 2018 fastestspeedrun
  */
@@ -39,8 +39,6 @@ struct skew_heap {
 	void add(ll delta) { root->delta += delta; }
 	void merge(skew_heap x) { root = merge(root, x.root); }
 };
-
-const ll INF = 1e18;
 struct graph {
 	vector<edge> g;
 	int n;
@@ -57,7 +55,7 @@ struct graph {
 			int v = 0, w = 0, qi = 0;
 			for (int u = s; seen[u] < 0; u = uf.find(v)) {
 				path[qi++] = u, seen[u] = s;
-				if (heap[u].empty()) return INF;
+				if (heap[u].empty()) return -1;
 				edge min_e = heap[u].top();
 				res += min_e.w, v = uf.find(min_e.a);
 				heap[u].add(-min_e.w), heap[u].pop();
