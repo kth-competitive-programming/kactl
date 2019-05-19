@@ -88,7 +88,7 @@ int Directed_MST(int root, int NV, int NE) {
 
 int adj[105][105];
 int main() {
-	rep(it,0,10000) {
+	rep(it,0,100000) {
 		int n = (rand()%100)+1;
 		int r = rand()%n;
 		int cnt = 0;
@@ -101,7 +101,7 @@ int main() {
 				dmst.addEdge(i,j,weight);
 			}
 		int ans1 = mit::Directed_MST(r, n, cnt);
-		int ans2 = dmst.mst(r).first;
+		int ans2 = dmst.solve(r);
 		assert(ans1 == ans2);
 	}
 	cout<<"Tests passed!"<<endl;
