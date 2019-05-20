@@ -1,8 +1,8 @@
 /**
  * Author: Oleksandr Bacherikov, chilli
  * Date: 2019-05-07
- * License: CC0
- * Source:
+ * License: Boost Software License
+ * Source: https://github.com/AlCash07/ACTL/blob/master/include/actl/geometry/algorithm/intersect/line_convex_polygon.hpp
  * Description: Line-convex polygon intersection. The polygon must be ccw and
  * have no colinear points. lineHull(line, poly) returns a pair describing the
  * intersection of a line with the polygon
@@ -14,7 +14,7 @@
  *  \end{itemize*}
  *  In the last case, if a corner $i$ is crossed, this is treated as happening on side $(i, i+1)$.
  *  The points are returned in the same order as the line hits the polygon.
- * "extrVertex" returns the point of a hull with the max projection onto a line.
+ * \texttt{extrVertex} returns the point of a hull with the max projection onto a line.
  * Status: fuzz-tested
  * Time: O(N + Q \log n)
  */
