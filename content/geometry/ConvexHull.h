@@ -25,9 +25,9 @@ vector<P> convexHull(vector<P> pts) {
 	if (sz(pts) <= 1) return pts;
 	sort(all(pts));
 	vector<P> h(sz(pts)+1);
-	int t = 0;
-	for (int it=0, s=t; it<2; it++, s = --t, reverse(all(pts)))
-		trav(p, pts){
+	int s = 0, t = 0;
+	for (int it = 2; it--; s = --t, reverse(all(pts)))
+		trav(p, pts) {
 			while (t >= s + 2 && h[t-2].cross(h[t-1], p) <= 0) t--;
 			h[t++] = p;
 		}
