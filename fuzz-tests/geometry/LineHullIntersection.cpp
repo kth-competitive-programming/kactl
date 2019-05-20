@@ -45,6 +45,8 @@ struct Point<double> {
 #include "../../content/geometry/ConvexHull.h"
 #include "../../content/geometry/LineHullIntersection.h"
 
+ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
+
 int segmentIntersection(const P& s1, const P& e1,
 		const P& s2, const P& e2, Point<double>& r1, Point<double>& r2) {
 	if (e1==s1) {
@@ -76,7 +78,9 @@ int segmentIntersection(const P& s1, const P& e1,
 int main() {
 	srand(2);
 	rep(it,0,1000000) {
-		if (it % 100 == 0) cerr << '.';
+		// cout<<endl;
+		// cout<<"it: "<<it<<endl;
+		if (it % 10000 == 0) cerr << '.';
 		int N = rand() % 15;
 		vector<P> ps, ps2;
 		rep(i,0,N) ps2.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
@@ -85,19 +89,20 @@ int main() {
 		P p{rand() % 20 - 10, rand() % 20 - 10};
 		P q{rand() % 20 - 10, rand() % 20 - 10};
 
-		HullIntersection hi(ps);
 		N = sz(ps);
 
 		P delta = q - p, farp = p - delta * 50, farq = p + delta * 50;
 
-		pii r = hi.isct(p, q);
+		auto res = lineHull({p, q}, ps);
+		pii r = {res[0], res[1]};
 
 		if (p == q) continue;
 
 		auto fail = [&](int line) {
 			cerr << sz(ps) << endl;
-			trav(p, ps) cout << p.x << ' ' << p.y << endl;
-			cout << p.x << ' ' << p.y << ' ' << q.x << ' ' << q.y << endl << endl;
+			trav(p, ps) cout << p<<' ';
+			cout<<endl;
+			cout << "line: "<<p<<' '<<q<<endl;
 			cout << "-> " << r.first << ' ' << r.second << endl;
 			cout << "@line " << line << endl;
 			abort();
@@ -149,12 +154,17 @@ int main() {
 			assert(r.first == -1 && r.second == -1);
 			continue;
 		}
-		if (!waspar) assert(r.first != r.second);
+		if (!waspar) {
+			if (r.first == r.second) FAIL();
+		}
 		if (gen == 2) {
 			assert(r.first == corner);
 			if (r.second != -1) FAIL();
 		}
-		if (N > 2 && (sz(hits) == 1) != (r.second == -1 || r.first == r.second)) FAIL();
+		if (N > 2 && (sz(hits) == 1) != (r.second == -1 || r.first == r.second)) {
+			cout<<"res: "<<r.first<<' '<<r.second<<endl;
+			FAIL();
+		}
 		assert(sz(hits) <= 2);
 		if (r.first != r.second && sz(hits) == 2) {
 			assert(r.second != -1);
@@ -171,7 +181,8 @@ int main() {
 			}
 		}
 
-		pii R = hi.isct(q, p);
+		res = lineHull({q, p}, ps);
+		pii R = {res[0], res[1]};
 		if (r.second == -1) {
 			assert(R == r);
 		}
