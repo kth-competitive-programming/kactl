@@ -43,8 +43,9 @@ struct Point<double> {
 };
 
 #include "../../content/geometry/ConvexHull.h"
-ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
 #include "../../content/geometry/LineHullIntersection.h"
+
+ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
 
 int segmentIntersection(const P& s1, const P& e1,
 		const P& s2, const P& e2, Point<double>& r1, Point<double>& r2) {
