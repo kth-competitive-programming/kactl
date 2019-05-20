@@ -26,15 +26,15 @@ typedef array<P, 2> Line;
 #define cmp(i,j) sgn(dir.perp().cross(poly[(i)%n]-poly[(j)%n]))
 #define extr(i) cmp(i + 1, i) >= 0 && cmp(i, i - 1 + n) < 0
 int extrVertex(vector<P>& poly, P dir) {
-	int n = sz(poly), l = 0, r = n;
+	int n = sz(poly), lo = 0, hi = n;
 	if (extr(0)) return 0;
-	while (l + 1 < r) {
-		int m = (l + r) / 2;
+	while (lo + 1 < hi) {
+		int m = (lo + hi) / 2;
 		if (extr(m)) return m;
-		int ls = cmp(l + 1, l), ms = cmp(m + 1, m);
-		(ls < ms || (ls == ms && ls == cmp(l, m)) ? r : l) = m;
+		int ls = cmp(lo + 1, lo), ms = cmp(m + 1, m);
+		(ls < ms || (ls == ms && ls == cmp(lo, m)) ? hi : lo) = m;
 	}
-	return l;
+	return lo;
 }
 
 #define cmpL(i) sgn(line[0].cross(poly[i], line[1]))
@@ -45,12 +45,12 @@ array<int, 2> lineHull(Line line, vector<P> poly) {
 		return {-1, -1};
 	array<int, 2> res;
 	rep(i,0,2) {
-		int l = endB, r = endA, n = sz(poly);
-		while ((l + 1) % n != r) {
-			int m = ((l + r + (l < r ? 0 : n)) / 2) % n;
-			(cmpL(m) == cmpL(endB) ? l : r) = m;
+		int lo = endB, hi = endA, n = sz(poly);
+		while ((lo + 1) % n != hi) {
+			int m = ((lo + hi + (lo < hi ? 0 : n)) / 2) % n;
+			(cmpL(m) == cmpL(endB) ? lo : hi) = m;
 		}
-		res[i] = (l + !cmpL(r)) % n;
+		res[i] = (lo + !cmpL(hi)) % n;
 		swap(endA, endB);
 	}
 	if (res[0] == res[1]) return {res[0], -1};
