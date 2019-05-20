@@ -1,11 +1,11 @@
 /**
  * Author: Oleksandr Bacherikov, chilli
  * Date: 2019-05-05
- * License: CC0
+ * License: Boost Software License
  * Source: https://codeforces.com/blog/entry/48868
  * Description: Returns the two points with max distance on a convex hull (CCW,
- * no duplicate/collinear points). If input isn't a convex hull, call
- * "convexHull" first.
+ * no duplicate/collinear points). If the input isn't a convex hull, call
+ * \texttt{convexHull} first.
  * Status: Fuzz-tested, submitted on kattis roberthood
  */
 #pragma once
