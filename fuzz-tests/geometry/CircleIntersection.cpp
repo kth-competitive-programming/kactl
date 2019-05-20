@@ -27,8 +27,6 @@ int main() {
 		pair<P, P> out;
 		bool ret = circleInter(a, b, ra, rb, &out);
 		if (ret) {
-			// cout << (out.first - a).dist() << ' ' << ra << endl;
-			// cout << ((out.first - a).dist() - ra) << endl;
 			assert(abs((out.first - a).dist() - ra) < 1e-9);
 			assert(abs((out.second - a).dist() - ra) < 1e-9);
 			assert(abs((out.first - b).dist() - rb) < 1e-9);
@@ -60,11 +58,8 @@ int main() {
 		if (abs((cur.second - a).dist() - ra) < 1e-9 &&
 		    abs((cur.second - b).dist() - rb) < 1e-9) {
 			assert(ret);
-			// cout << out.second.x << ' ' << out.second.y << endl;
 			assert((out.first - cur.second).dist() < 1e-6 || (out.second - cur.second).dist() < 1e-6);
 		} else {
-			// cout << a.x << ' ' << a.y << ' ' << b.x << ' ' << b.y << ' ' << ra << ' ' << rb << endl;
-			// cout << cur.second.x << ' ' << cur.second.y << endl;
 			assert(!ret);
 		}
 
@@ -74,4 +69,5 @@ skip:;
 		// Sometimes hill-climbing is slow, for some reason. :(
 		// cerr << '#';
 	}
+	cout<<"Tests passed!"<<endl;
 }
