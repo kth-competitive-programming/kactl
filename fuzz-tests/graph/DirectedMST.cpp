@@ -10,7 +10,31 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
+struct Bumpalloc {
+	char buf[450 << 20];
+	size_t bufp;
+	void* alloc(size_t s) {
+		assert(s < bufp);
+		return (void*)&buf[bufp -= s];
+	}
+	Bumpalloc() { reset(); }
+
+	template<class T> T* operator=(T&& x) {
+		T* r = (T*)alloc(sizeof(T));
+		new(r) T(move(x));
+		return r;
+	}
+	void reset() { bufp = sizeof buf; }
+} bumpalloc;
+
+// When not testing perf, we don't want to leak memory
+#ifndef TEST_PERF
+#define new bumpalloc =
+#endif
 #include "../../content/graph/DirectedMST.h"
+#ifndef TEST_PERF
+#undef new
+#endif
 
 namespace mit {
 
@@ -89,6 +113,7 @@ int Directed_MST(int root, int NV, int NE) {
 int adj[105][105];
 int main() {
 	rep(it,0,100000) {
+		bumpalloc.reset();
 		int n = (rand()%100)+1;
 		int r = rand()%n;
 		int cnt = 0;
