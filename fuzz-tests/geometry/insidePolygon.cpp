@@ -16,7 +16,7 @@ const double EPS =1e-8;
 #include "../../content/geometry/InsidePolygon.h"
 namespace old {
 
-#include "../../content/geometry/onSegment.h"
+#include "../../content/geometry/OnSegment.h"
 #include "../../content/geometry/SegmentDistance.h"
 
 template<class It, class P>
