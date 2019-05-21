@@ -3,8 +3,9 @@
  * Date: 2019-05-10
  * License: CC0
  * Source: https://github.com/spaghetti-source/algorithm/blob/master/graph/arborescence.cc
- * Description: The Edmonds/Chuliu algorithm for finding the minimum spanning
- * tree/arborescence in a directed graph. If no MST exists, returns -1.
+ * Description: Edmonds' algorithm for finding the minimum spanning
+ * tree/arborescence of a directed graph, given a root node. Returns (weight, parents), where
+ * parents[root] = -1. If no MST exists, returns -1, \{\}.
  * Time: O(E \log V)
  * Status: Fuzz-tested, also tested on NWERC 2018 fastestspeedrun
  */
