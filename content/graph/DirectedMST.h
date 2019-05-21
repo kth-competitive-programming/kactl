@@ -13,7 +13,7 @@
 #include "../data-structures/UnionFind.h"
 
 struct Edge { int a, b; ll w; };
-struct Node {
+struct Node { /// lazy skew heap node
 	Edge key;
 	Node *l, *r;
 	ll delta;
