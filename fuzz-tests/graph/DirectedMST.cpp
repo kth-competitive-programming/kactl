@@ -134,13 +134,23 @@ int main() {
 		assert(ans1 == ans2);
 		if (ans1 != -1) {
 			ll sum = 0;
+			vector<vi> ch(n);
 			rep(i,0,n) {
 				if (i == r) assert(pa.second[i] == -1);
 				else {
 					assert(pa.second[i] != -1);
 					sum += adj[pa.second[i]][i];
+					ch[pa.second[i]].push_back(i);
 				}
 			}
+			assert(sum == ans1);
+			vi seen(n), q = {r};
+			rep(qi,0,sz(q)) {
+				int s = q[qi];
+				if (!seen[s]++)
+					trav(x, ch[s]) q.push_back(x);
+			}
+			assert(count(all(seen), 0) == 0);
 		}
 	}
 	cout<<"Tests passed!"<<endl;
