@@ -118,18 +118,18 @@ int main() {
 		int density = rand() % 101;
 		int r = rand()%n;
 		int cnt = 0;
-		DMST dmst(n);
+		vector<Edge> edges;
 		rep(i,0,n)
 			rep(j,0,n){
 				if (i==j) continue;
 				if (rand() % 100 >= density) continue;
 				int weight = rand()%100;
 				mit::E[cnt++] = {i,j, weight};
-				dmst.addEdge(i,j,weight);
+				edges.push_back({i,j,weight});
 				adj[i][j] = weight;
 			}
 		ll ans1 = mit::Directed_MST(r, n, cnt);
-		auto pa = dmst.solve(r);
+		auto pa = dmst(n, r, edges);
 		ll ans2 = pa.first;
 		assert(ans1 == ans2);
 		if (ans1 != -1) {

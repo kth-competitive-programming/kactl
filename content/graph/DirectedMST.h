@@ -35,36 +35,30 @@ Node *merge(Node *a, Node *b) {
 }
 void pop(Node*& a) { a->prop(); a = merge(a->l, a->r); }
 
-struct DMST {
-	vector<Edge> g;
-	int n;
-	DMST(int _n): n(_n){}
-	void addEdge(int a, int b, ll w) { g.push_back({a, b, w}); }
-	pair<ll, vi> solve(int r) {
-		UF uf(n);
-		vector<Node*> heap(n);
-		trav(e,g) heap[e.b] = merge(heap[e.b], new Node{e});
-		ll res = 0;
-		vi seen(n, -1), path(n), par(n, -1);
-		seen[r] = r;
-		rep(s,0,n) {
-			int u = s, qi = 0, w;
-			while (seen[u] < 0) {
-				path[qi++] = u, seen[u] = s;
-				if (!heap[u]) return {-1, {}};
-				Edge e = heap[u]->top();
-				heap[u]->delta -= e.w, pop(heap[u]);
-				res += e.w, u = uf.find(e.a);
-				par[e.b] = e.a;
-				if (seen[u] == s) {
-					Node* cyc = 0;
-					do cyc = merge(cyc, heap[w = path[--qi]]);
-					while (uf.join(u, w));
-					u = uf.find(u);
-					heap[u] = cyc, seen[u] = -1;
-				}
+pair<ll, vi> dmst(int n, int r, vector<Edge>& g) {
+	UF uf(n);
+	vector<Node*> heap(n);
+	trav(e, g) heap[e.b] = merge(heap[e.b], new Node{e});
+	ll res = 0;
+	vi seen(n, -1), path(n), par(n, -1);
+	seen[r] = r;
+	rep(s,0,n) {
+		int u = s, qi = 0, w;
+		while (seen[u] < 0) {
+			path[qi++] = u, seen[u] = s;
+			if (!heap[u]) return {-1, {}};
+			Edge e = heap[u]->top();
+			heap[u]->delta -= e.w, pop(heap[u]);
+			res += e.w, u = uf.find(e.a);
+			par[e.b] = e.a;
+			if (seen[u] == s) {
+				Node* cyc = 0;
+				do cyc = merge(cyc, heap[w = path[--qi]]);
+				while (uf.join(u, w));
+				u = uf.find(u);
+				heap[u] = cyc, seen[u] = -1;
 			}
 		}
-		return {res, par};
 	}
-};
+	return {res, par};
+}
