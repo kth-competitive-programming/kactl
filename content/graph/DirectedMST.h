@@ -49,8 +49,8 @@ pair<ll, vi> dmst(int n, int r, vector<Edge>& g) {
 			if (!heap[u]) return {-1, {}};
 			Edge e = heap[u]->top();
 			heap[u]->delta -= e.w, pop(heap[u]);
-			res += e.w, u = uf.find(e.a);
-			par[e.b] = e.a;
+			res += e.w, par[e.b] = e.a;
+			u = uf.find(e.a);
 			if (seen[u] == s) {
 				Node* cyc = 0;
 				do cyc = merge(cyc, heap[w = path[--qi]]);
