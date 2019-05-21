@@ -115,18 +115,20 @@ int main() {
 	rep(it,0,100000) {
 		bumpalloc.reset();
 		int n = (rand()%100)+1;
+		int density = rand() % 101;
 		int r = rand()%n;
 		int cnt = 0;
 		DMST dmst(n);
 		rep(i,0,n)
 			rep(j,0,n){
 				if (i==j) continue;
+				if (rand() % 100 >= density) continue;
 				int weight = rand()%100;
 				mit::E[cnt++] = {i,j, weight};
 				dmst.addEdge(i,j,weight);
 			}
-		int ans1 = mit::Directed_MST(r, n, cnt);
-		int ans2 = dmst.solve(r);
+		ll ans1 = mit::Directed_MST(r, n, cnt);
+		ll ans2 = dmst.solve(r);
 		assert(ans1 == ans2);
 	}
 	cout<<"Tests passed!"<<endl;
