@@ -15,25 +15,25 @@
 
 struct Edge { int a, b; ll w; };
 struct SkewHeap {
-	struct node {
-		node *l, *r;
+	struct Node {
+		Node *l, *r;
 		Edge key;
 		ll delta;
 	} * root = 0;
-	void prop(node *a) {
+	void prop(Node *a) {
 		a->key.w += a->delta;
 		if (a->l) a->l->delta += a->delta;
 		if (a->r) a->r->delta += a->delta;
 		a->delta = 0;
 	}
-	node *merge(node *a, node *b) {
+	Node *merge(Node *a, node *b) {
 		if (!a || !b) return a ? a : b;
 		prop(a), prop(b);
 		if (a->key.w > b->key.w) swap(a, b);
 		swap(a->l, (a->r = merge(b, a->r)));
 		return a;
 	}
-	void push(Edge e) { root = merge(root, new node{0,0,e,0}); }
+	void push(Edge e) { root = merge(root, new Node{0,0,e,0}); }
 	void pop() { prop(root), root = merge(root->l, root->r); }
 	Edge top() { prop(root); return root->key; }
 	bool empty() { return !root; }
