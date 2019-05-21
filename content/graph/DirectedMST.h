@@ -51,20 +51,21 @@ struct DMST {
 		ll res = 0;
 		vi seen(n, -1), path(n), par(n, -1);
 		seen[r] = r;
-		rep(s,0,n){
-			int v = 0, w = 0, qi = 0;
-			for (int u = s; seen[u] < 0; u = uf.find(v)) {
+		rep(s,0,n) {
+			int u = s, qi = 0, w;
+			while (seen[u] < 0) {
 				path[qi++] = u, seen[u] = s;
 				if (heap[u].empty()) return {-1, {}};
 				edge e = heap[u].top();
-				res += e.w, v = uf.find(e.a);
-				par[e.b] = e.a;
 				heap[u].add(-e.w), heap[u].pop();
-				if (seen[v] == s) {
-					SkewHeap tmp;
-					do tmp.merge(heap[w = path[--qi]]);
-					while (uf.join(v, w));
-					heap[uf.find(v)] = tmp, seen[uf.find(v)] = -1;
+				res += e.w, u = uf.find(e.a);
+				par[e.b] = e.a;
+				if (seen[u] == s) {
+					SkewHeap cyc;
+					do cyc.merge(heap[w = path[--qi]]);
+					while (uf.join(u, w));
+					u = uf.find(u);
+					heap[u] = cyc, seen[u] = -1;
 				}
 			}
 		}
