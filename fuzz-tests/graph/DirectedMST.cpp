@@ -114,7 +114,7 @@ int adj[105][105];
 int main() {
 	rep(it,0,100000) {
 		bumpalloc.reset();
-		int n = (rand()%100)+1;
+		int n = (rand()%20)+1;
 		int density = rand() % 101;
 		int r = rand()%n;
 		int cnt = 0;
