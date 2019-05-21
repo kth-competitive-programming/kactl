@@ -44,21 +44,22 @@ struct DMST {
 	int n;
 	DMST(int _n): n(_n){}
 	void addEdge(int a, int b, ll w) { g.push_back({a, b, w}); }
-	ll solve(int r) {
+	pair<ll, vi> solve(int r) {
 		UF uf(n);
 		vector<SkewHeap> heap(n);
 		trav(e,g) heap[e.b].push(e);
 		ll res = 0;
-		vi seen(n, -1), path(n);
+		vi seen(n, -1), path(n), par(n, -1);
 		seen[r] = r;
 		rep(s,0,n){
 			int v = 0, w = 0, qi = 0;
 			for (int u = s; seen[u] < 0; u = uf.find(v)) {
 				path[qi++] = u, seen[u] = s;
-				if (heap[u].empty()) return -1;
-				edge min_e = heap[u].top();
-				res += min_e.w, v = uf.find(min_e.a);
-				heap[u].add(-min_e.w), heap[u].pop();
+				if (heap[u].empty()) return {-1, {}};
+				edge e = heap[u].top();
+				res += e.w, v = uf.find(e.a);
+				par[e.b] = e.a;
+				heap[u].add(-e.w), heap[u].pop();
 				if (seen[v] == s) {
 					SkewHeap tmp;
 					do tmp.merge(heap[w = path[--qi]]);
@@ -67,6 +68,6 @@ struct DMST {
 				}
 			}
 		}
-		return res;
+		return {res, par};
 	}
 };

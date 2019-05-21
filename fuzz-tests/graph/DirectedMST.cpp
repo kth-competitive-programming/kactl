@@ -126,10 +126,22 @@ int main() {
 				int weight = rand()%100;
 				mit::E[cnt++] = {i,j, weight};
 				dmst.addEdge(i,j,weight);
+				adj[i][j] = weight;
 			}
 		ll ans1 = mit::Directed_MST(r, n, cnt);
-		ll ans2 = dmst.solve(r);
+		auto pa = dmst.solve(r);
+		ll ans2 = pa.first;
 		assert(ans1 == ans2);
+		if (ans1 != -1) {
+			ll sum = 0;
+			rep(i,0,n) {
+				if (i == r) assert(pa.second[i] == -1);
+				else {
+					assert(pa.second[i] != -1);
+					sum += adj[pa.second[i]][i];
+				}
+			}
+		}
 	}
 	cout<<"Tests passed!"<<endl;
 	return 0;
