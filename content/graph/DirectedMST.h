@@ -3,9 +3,8 @@
  * Date: 2019-05-10
  * License: CC0
  * Source: https://github.com/spaghetti-source/algorithm/blob/master/graph/arborescence.cc
- * Description: Edmonds' algorithm for finding the minimum spanning
- * tree/arborescence of a directed graph, given a root node. Returns (weight, parents), where
- * parents[root] = -1. If no MST exists, returns -1, \{\}.
+ * Description: Edmonds' algorithm for finding the weight of the minimum spanning
+ * tree/arborescence of a directed graph, given a root node. If no MST exists, returns -1.
  * Time: O(E \log V)
  * Status: Fuzz-tested, also tested on NWERC 2018 fastestspeedrun
  */
@@ -35,22 +34,21 @@ Node *merge(Node *a, Node *b) {
 }
 void pop(Node*& a) { a->prop(); a = merge(a->l, a->r); }
 
-pair<ll, vi> dmst(int n, int r, vector<Edge>& g) {
+ll dmst(int n, int r, vector<Edge>& g) {
 	UF uf(n);
 	vector<Node*> heap(n);
 	trav(e, g) heap[e.b] = merge(heap[e.b], new Node{e});
 	ll res = 0;
-	vi seen(n, -1), path(n), par(n, -1);
+	vi seen(n, -1), path(n);
 	seen[r] = r;
 	rep(s,0,n) {
 		int u = s, qi = 0, w;
 		while (seen[u] < 0) {
 			path[qi++] = u, seen[u] = s;
-			if (!heap[u]) return {-1, {}};
+			if (!heap[u]) return -1;
 			Edge e = heap[u]->top();
 			heap[u]->delta -= e.w, pop(heap[u]);
-			res += e.w, par[e.b] = e.a;
-			u = uf.find(e.a);
+			res += e.w, u = uf.find(e.a);
 			if (seen[u] == s) {
 				Node* cyc = 0;
 				do cyc = merge(cyc, heap[w = path[--qi]]);
@@ -60,5 +58,5 @@ pair<ll, vi> dmst(int n, int r, vector<Edge>& g) {
 			}
 		}
 	}
-	return {res, par};
+	return res;
 }

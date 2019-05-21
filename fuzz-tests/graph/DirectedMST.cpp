@@ -129,18 +129,28 @@ int main() {
 				adj[i][j] = weight;
 			}
 		ll ans1 = mit::Directed_MST(r, n, cnt);
-		auto pa = dmst(n, r, edges);
-		ll ans2 = pa.first;
+		ll ans2 = dmst(n, r, edges);
 		assert(ans1 == ans2);
+		// For verifying a reconstruction:
+		/*
 		if (ans1 != -1) {
+			vi par = pa.second;
+			if (debug) {
+				cout << "r = " << r << endl;
+				trav(x, par) cout << x << ' ';
+				cout << endl;
+				trav(e, edges) {
+					cout << e.a << ' ' << e.b << ' ' << e.w << endl;
+				}
+			}
 			ll sum = 0;
 			vector<vi> ch(n);
 			rep(i,0,n) {
-				if (i == r) assert(pa.second[i] == -1);
+				if (i == r) assert(par[i] == -1);
 				else {
-					assert(pa.second[i] != -1);
-					sum += adj[pa.second[i]][i];
-					ch[pa.second[i]].push_back(i);
+					assert(par[i] != -1);
+					sum += adj[par[i]][i];
+					ch[par[i]].push_back(i);
 				}
 			}
 			assert(sum == ans1);
@@ -152,6 +162,7 @@ int main() {
 			}
 			assert(count(all(seen), 0) == 0);
 		}
+		*/
 	}
 	cout<<"Tests passed!"<<endl;
 	return 0;
