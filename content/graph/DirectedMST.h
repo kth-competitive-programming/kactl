@@ -8,15 +8,15 @@
  * Time: O(E \log V)
  * Status: Fuzz-tested, also tested on NWERC 2018 fastestspeedrun
  */
-
 #pragma once
+
 #include "../data-structures/UnionFind.h"
 
-struct edge { int a, b; ll w; };
+struct Edge { int a, b; ll w; };
 struct SkewHeap {
 	struct node {
 		node *l, *r;
-		edge key;
+		Edge key;
 		ll delta;
 	} * root = 0;
 	void prop(node *a) {
@@ -32,15 +32,15 @@ struct SkewHeap {
 		swap(a->l, (a->r = merge(b, a->r)));
 		return a;
 	}
-	void push(edge e) { root = merge(root, new node{0,0,e,0}); }
+	void push(Edge e) { root = merge(root, new node{0,0,e,0}); }
 	void pop() { prop(root), root = merge(root->l, root->r); }
-	edge top() { prop(root); return root->key; }
+	Edge top() { prop(root); return root->key; }
 	bool empty() { return !root; }
 	void add(ll delta) { root->delta += delta; }
 	void merge(SkewHeap x) { root = merge(root, x.root); }
 };
 struct DMST {
-	vector<edge> g;
+	vector<Edge> g;
 	int n;
 	DMST(int _n): n(_n){}
 	void addEdge(int a, int b, ll w) { g.push_back({a, b, w}); }
@@ -56,7 +56,7 @@ struct DMST {
 			while (seen[u] < 0) {
 				path[qi++] = u, seen[u] = s;
 				if (heap[u].empty()) return {-1, {}};
-				edge e = heap[u].top();
+				Edge e = heap[u].top();
 				heap[u].add(-e.w), heap[u].pop();
 				res += e.w, u = uf.find(e.a);
 				par[e.b] = e.a;
