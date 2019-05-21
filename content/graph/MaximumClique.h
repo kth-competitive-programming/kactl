@@ -1,7 +1,7 @@
 /**
  * Author: chilli, SJTU, Janez Konc
  * Date: 2019-05-10
- * License: GPL
+ * License: GPL3+
  * Source: https://en.wikipedia.org/wiki/MaxCliqueDyn_maximum_clique_algorithm, https://gitlab.com/janezkonc/mcqd/blob/master/mcqd.h
  * Description: Finds a maximum clique of a graph (given as symmetric bitset
  * matrix; self-edges not allowed). Can be used to find a maximum independent
