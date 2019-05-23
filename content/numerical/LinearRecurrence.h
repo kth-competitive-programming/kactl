@@ -5,7 +5,7 @@
  * Source: Chinese material
  * Description: Generates the $k$'th term of an $n$-order
  * linear recurrence $S[i] = \sum_j S[i-j-1]tr[j]$,
- * given $S[0 \dots n-1]$ and $tr[0 \dots n-1]$.
+ * given $S[0 \ldots \ge n-1]$ and $tr[0 \ldots n-1]$.
  * Faster than matrix multiplication.
  * Useful together with Berlekamp--Massey.
  * Usage: linearRec({0, 1}, {1, 1}, k) // k'th Fibonacci number
