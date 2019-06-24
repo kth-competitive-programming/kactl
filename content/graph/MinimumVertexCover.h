@@ -4,7 +4,7 @@
  * License: CC0
  * Description: Finds a minimum vertex cover in a bipartite graph.
  *  The size is the same as the size of a maximum matching, and
- *  the complement is an independent set.
+ *  the complement is a maximum independent set.
  * Status: fuzz-tested
  */
 #pragma once

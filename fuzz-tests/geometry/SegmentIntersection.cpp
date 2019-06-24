@@ -11,7 +11,7 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 
 
-#include "../content/geometry/SegmentIntersection.h"
+#include "../../content/geometry/SegmentIntersection.h"
 namespace oldImpl {
 template<class P>
 int segmentIntersection(const P& s1, const P& e1,

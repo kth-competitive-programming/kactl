@@ -81,7 +81,7 @@ int main() {
 		if (nm > nmmax) continue;
 		vector<bs> A(n, bs(m));
 		bs b, x, theX;
-		vi b2(n); 
+		vi b2(n);
 		rec(0, 0, A, m, [&]() {
 			rec2(0, b, n, [&]() {
 				int sols = 0;
@@ -105,5 +105,5 @@ int main() {
 			});
 		});
 	}
-	cout << "Tested " << ct << endl;
+	cout<<"Tests passed!"<<endl;
 }

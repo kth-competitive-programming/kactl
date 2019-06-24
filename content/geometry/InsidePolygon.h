@@ -15,7 +15,7 @@
 #pragma once
 
 #include "Point.h"
-#include "onSegment.h"
+#include "OnSegment.h"
 #include "SegmentDistance.h"
 
 template<class P>

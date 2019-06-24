@@ -54,10 +54,9 @@ struct TwoSat {
 		int low = val[i] = ++time, x; z.push_back(i);
 		trav(e, gr[i]) if (!comp[e])
 			low = min(low, val[e] ?: dfs(e));
-		++time;
 		if (low == val[i]) do {
 			x = z.back(); z.pop_back();
-			comp[x] = time;
+			comp[x] = low;
 			if (values[x>>1] == -1)
 				values[x>>1] = x&1;
 		} while (x != i);

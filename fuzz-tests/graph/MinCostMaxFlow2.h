@@ -12,8 +12,8 @@ Flow inf = 1<<28;
 
 struct FlowEdge {
 	int dest, back;
-	Flow c, f, cost; 
-	Flow r() { return c - f; } 
+	Flow c, f, cost;
+	Flow r() { return c - f; }
 	FlowEdge(int d, int b, Flow c, Flow cost = 0)
 		: dest(d), back(b), c(c), f(0), cost(cost) {}
 };

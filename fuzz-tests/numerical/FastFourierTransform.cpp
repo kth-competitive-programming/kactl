@@ -13,6 +13,7 @@ typedef vector<int> vi;
 
 #include "../../content/numerical/FastFourierTransform.h"
 
+const double eps = 1e-8;
 int main() {
 	int n = 8;
 	vector<C> a(n);
@@ -36,6 +37,7 @@ int main() {
 		rep(j,0,sz(A)) if (i - j >= 0 && i - j < sz(B)) {
 			sum += A[j] * B[i - j];
 		}
-		assert(abs(sum - C[i]) < 1e-6);
+		assert(abs(sum - C[i]) < eps);
 	}
+	cout<<"Tests passed!"<<endl;
 }

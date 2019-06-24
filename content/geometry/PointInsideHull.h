@@ -14,7 +14,7 @@
 
 #include "Point.h"
 #include "sideOf.h"
-#include "onSegment.h"
+#include "OnSegment.h"
 
 typedef Point<ll> P;
 

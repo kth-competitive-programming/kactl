@@ -28,4 +28,5 @@ int main() {
 		// rep(i,0,1 << k) cout << target[i] << ' '; cout << endl;
 		assert(c == target);
 	}
+	cout<<"Tests passed!"<<endl;
 }

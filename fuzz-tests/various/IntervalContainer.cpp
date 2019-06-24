@@ -67,5 +67,5 @@ int main() {
 		sum += sz(iv);
 		++sumit;
 	}
-	cerr << ((double)sum / (double)sumit) << endl;
+	cout<<"Tests passed!"<<endl;
 }

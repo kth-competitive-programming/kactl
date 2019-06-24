@@ -3,7 +3,7 @@
  * Date: 2009-09-25
  * License: CC0
  * Source: http://en.wikipedia.org/wiki/Euler's_totient_function
- * Description: \emph{Euler's totient} or \emph{Euler's phi} function is defined as $\phi(n):=\#$ of positive integers $\leq n$ that are coprime with $n$. The \emph{cototient} is $n-\phi(n)$.
+ * Description: \emph{Euler's $\phi$} function is defined as $\phi(n):=\#$ of positive integers $\leq n$ that are coprime with $n$.
  * $\phi(1)=1$, $p$ prime $\Rightarrow \phi(p^k)=(p-1)p^{k-1}$, $m,n$ coprime $\Rightarrow \phi(mn)=\phi(m)\phi(n)$.
  * If $n=p_1^{k_1}p_2^{k_2} ... p_r^{k_r}$ then $\phi(n) = (p_1-1)p_1^{k_1-1}...(p_r-1)p_r^{k_r-1}$.
  * $\phi(n)=n \cdot \prod_{p|n}(1-1/p)$.
