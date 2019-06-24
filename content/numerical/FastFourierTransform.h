@@ -3,22 +3,32 @@
  * Date: 2019-01-09
  * License: CC0
  * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf (do read, it's excellent)
-   Papers about accuracy: http://www.daemonology.net/papers/fft.pdf, http://www.cs.berkeley.edu/~fateman/papers/fftvsothers.pdf
-   For integers rounding works if $(|a| + |b|)\max(a, b) < \mathtt{\sim} 10^9$, or in theory maybe $10^6$.
- * Description: fft(a, ...) computes $\hat f(k) = \sum_x a[x] \exp(2\pi i \cdot k x / N)$ for all $k$. Useful for convolution:
+   Accuracy bound from http://www.daemonology.net/papers/fft.pdf
+ * Description: fft(a) computes $\hat f(k) = \sum_x a[x] \exp(2\pi i \cdot k x / N)$ for all $k$. Useful for convolution:
    \texttt{conv(a, b) = c}, where $c[x] = \sum a[i]b[x-i]$.
    For convolution of complex numbers or more than two vectors: FFT, multiply
    pointwise, divide by n, reverse(start+1, end), FFT back.
-   For integers, consider using a number-theoretic transform instead, to avoid rounding issues.
- * Time: O(N \log N) with $N = |A|+|B|-1$ ($\tilde 1s$ for $N=2^{22}$)
+   Rounding is safe if $(\sum a_i^2 + \sum b_i^2)\log_2{N} < 9\cdot10^{14}$
+   (in practice $10^{16}$; higher for random inputs).
+   Otherwise, use long doubles/NTT/FFTMod.
+ * Time: O(N \log N) with $N = |A|+|B|$ ($\tilde 1s$ for $N=2^{22}$)
  * Status: somewhat tested
  */
 #pragma once
 
 typedef complex<double> C;
 typedef vector<double> vd;
-
-void fft(vector<C> &a, vector<C> &rt, vi& rev, int n) {
+void fft(vector<C>& a) {
+	int n = sz(a), L = 31 - __builtin_clz(n);
+	static vector<complex<long double>> R(2, 1);
+	static vector<C> rt(2, 1);  // (^ 10% faster if double)
+	for (static int k = 2; k < n; k *= 2) {
+		R.resize(n); rt.resize(n);
+		auto x = polar(1.0L, M_PIl / k); // M_PI, lower-case L
+		rep(i,k,2*k) rt[i] = R[i] = i&1 ? R[i/2] * x : R[i/2];
+	}
+	vi rev(n);
+	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
 	rep(i,0,n) if (i < rev[i]) swap(a[i], a[rev[i]]);
 	for (int k = 1; k < n; k *= 2)
 		for (int i = 0; i < n; i += 2 * k) rep(j,0,k) {
@@ -27,25 +37,19 @@ void fft(vector<C> &a, vector<C> &rt, vi& rev, int n) {
 			C z(x[0]*y[0] - x[1]*y[1], x[0]*y[1] + x[1]*y[0]);           /// exclude-line
 			a[i + j + k] = a[i + j] - z;
 			a[i + j] += z;
-	}
+		}
 }
-
 vd conv(const vd& a, const vd& b) {
 	if (a.empty() || b.empty()) return {};
 	vd res(sz(a) + sz(b) - 1);
 	int L = 32 - __builtin_clz(sz(res)), n = 1 << L;
-	vector<C> in(n), out(n), rt(n, 1); vi rev(n);
-	rep(i,0,n) rev[i] = (rev[i/2] | (i&1) << L) / 2;
-	for (int k = 2; k < n; k *= 2) {
-		C z[] = {1, polar(1.0, M_PI / k)};
-		rep(i,k,2*k) rt[i] = rt[i/2] * z[i&1];
-	}
+	vector<C> in(n), out(n);
 	copy(all(a), begin(in));
 	rep(i,0,sz(b)) in[i].imag(b[i]);
-	fft(in, rt, rev, n);
+	fft(in);
 	trav(x, in) x *= x;
 	rep(i,0,n) out[i] = in[-i & (n - 1)] - conj(in[i]);
-	fft(out, rt, rev, n);
-	rep(i,0,sz(res)) res[i] = imag(out[i]) / (4*n);
+	fft(out);
+	rep(i,0,sz(res)) res[i] = imag(out[i]) / (4 * n);
 	return res;
 }
