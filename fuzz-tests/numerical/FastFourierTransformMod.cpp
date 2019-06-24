@@ -43,4 +43,5 @@ int main() {
 		auto v2 = convMod<mod>(a, b);
 		assert(v1 == v2);
 	}
+	cout<<"Tests passed!"<<endl;
 }
