@@ -2,110 +2,94 @@
  * Author: 
  * Description: link-cut Tree.
  */
+struct Node {
+	bool flip = 0;
+	Node *pp, *p, *c[2];
+	// add stuff
+	Node() { pp = p = c[0] = c[1] = 0; }
+	void push() {
+		if (flip) {
+			if(c[0]) c[0]->flip ^= 1;
+			if(c[1]) c[1]->flip ^= 1;
+			swap(c[0], c[1]); flip = 0;
+		}
+		// add stuff
+	}
+	void pull() {
+		if(c[0]) c[0]->push(); 
+		if(c[1]) c[1]->push();
+		// add stuff
+	}
+	void rot(bool t) { /// start-hash
+		Node *y = p, *z = y->p;
+		if (z) z->c[z->c[1] == y] = this;
+		p = z;
+		if (y) y->c[t] = c[!t];
+		if (c[!t]) c[!t]->p = y;
+		c[!t] = y;
+		y->p = this;
+		if (z) z->pull();
+		if (y) y->pull();
+	} /// end-hash
+	void xiao() {
+		if (p) p->xiao(), pp = p->pp;
+		push();
+	}
+	void splay() { /// start-hash
+		xiao();
+		Node *y, *z;
+		while (p) {
+			y = p; z = y->p;
+			bool t1 = (y->c[1] == this);
+			if (z) {
+				bool t2 = (z->c[1] == y);
+				if (t1 == t2) y->rot(t2), rot(t1);
+				else rot(t1), rot(t2);
+			} else rot(t1);
+		}
+		pull();
+	} /// end-hash
+	Node* access() {/// start-hash
+		for (Node *y = 0, *z = this; z; y = z, z = z->pp) {
+			z->splay();
+			if (z->c[1]) z->c[1]->pp = z, z->c[1]->p = 0;
+			z->c[1] = y;
+			if (y) y->p = z;
+			z->push();
+		}
+		splay();
+		flip = 1;
+		push();
+		return this;
+	} /// end-hash
+};
 struct LinkCut {
-  struct Node {
-    bool flip = 0;
-    Node *pp, *p, *c[2];
-    // add stuff
-  };
-
-  vector<Node> node;
-  vector<Node*> f;
-  Node *null;
-	LinkCut(int N) : node(N), f(N), null(new Node) {
-    null -> c[0] = null -> c[1] = null -> p = null -> pp = null;
-    rep(i, 0, N) {
-      f[i] = &node[i];
-      f[i] -> c[0] = f[i] -> c[1] = f[i] -> p = f[i] -> pp = null;
-    }
-  }
-
-  void push(Node *x) {
-    if (x -> flip) {
-      x -> c[0] -> flip ^= 1;
-      x -> c[1] -> flip ^= 1;
-      swap(x -> c[0], x -> c[1]);
-      x -> flip = false;
-    }
-    // add stuff
-  }
-
-  void pull(Node *x) {
-    push(x -> c[0]);
-    push(x -> c[1]);
-    // add stuff
-  }
-
-  void rot(Node *x, bool t) { /// start-hash
-    Node *y = x -> p, *z = y -> p;
-    if (z != null)  z -> c[z -> c[1] == y] = x;
-    x -> p = z;
-    y -> c[t] = x -> c[!t];
-    x -> c[!t] -> p = y;
-    x -> c[!t] = y;
-    y -> p = x;
-    pull(z);
-    pull(y);
-  } /// end-hash
-
-  void xiao(Node *x) {
-    if (x -> p != null)  xiao(x -> p), x -> pp = x -> p -> pp;
-    push(x);
-  }
-
-  void splay(Node *x) { /// start-hash
-    xiao(x);
-    Node *y, *z;
-    while (x -> p != null) {
-      y = x -> p; z = y -> p;
-      bool t1 = (y -> c[1] == x), t2 = (z -> c[1] == y);
-      if (z != null) {
-        if (t1 == t2) rot(y, t2), rot(x, t1);
-        else  rot(x, t1), rot(x, t2);
-      } else rot(x, t1);
-    }
-    pull(x);
-  } /// end-hash
-
-  Node* access(Node *x) {/// start-hash
-    for (Node *y = null, *z = x; z != null; y = z, z = z -> pp) {
-        splay(z);
-        z -> c[1] -> pp = z;
-        z -> c[1] -> p = null;
-        z -> c[1] = y;
-        y -> p = z;
-        push(z);
-    }
-    splay(x);
-    x -> flip = true;
-		push(x);
-    return x;
-  } /// end-hash
-
-  bool cut(int u, int v) { /// start-hash
-    access(f[u]);
-    access(f[v]);
-    if (f[v] -> c[1] != f[u] || f[u] -> c[0] != null)
-      return false;
-    f[v] -> c[1] = null;
-    f[u] -> p = f[u] -> pp = null;
-    pull(f[u]);
-    pull(f[v]);
-    return true;
-  } /// end-hash
-
-  bool isConnected(int u, int v) {
-    access(f[u]);
-    access(f[v]);
-    return f[u] == f[v] || f[u] -> p != null;
-  }
-
-  bool link(int u, int v) {
-    if (isConnected(u, v))
-      return false;
-    access(f[u]);
-    access(f[v]);
-    f[u] -> pp = f[v];
-    return true;
-  }
+	vector<Node> node;
+	LinkCut(int N): node(N) {}
+	bool cut(int u, int v) { /// start-hash
+		Node *x = &node[u], *y = &node[v];
+		x->access();
+		y->access();
+		if (y->c[1] != x || x->c[0] != 0)
+			return false;
+		y->c[1] = 0;
+		x->p = x->pp = 0;
+		x->pull();
+		y->pull();
+		return true;
+	} /// end-hash
+	bool isConnected(int u, int v) {
+		Node *x = &node[u], *y = &node[v];
+		x->access();
+		y->access();
+		return x == y || x->p != 0;
+	}
+	bool link(int u, int v) {
+		Node *x = &node[u], *y = &node[v];
+		if (isConnected(u, v)) return false;
+		x->access();
+		y->access();
+		x->pp = y;
+		return true;
+	}
 };
