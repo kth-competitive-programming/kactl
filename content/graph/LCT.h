@@ -100,9 +100,9 @@ struct LinkCut {
 		x->pp = y;
 		return true;
 	}
-    void update(int u, int c) {
-        node[u].access()->val+=c;
-    }
+	void update(int u, int c) {
+		node[u].access()->val+=c;
+	}
 	ll query(int u, int v) {
 		node[v].access();
 		return node[u].access()->cval;
