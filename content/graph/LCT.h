@@ -6,7 +6,11 @@ struct Node {
 	bool flip = 0;
 	Node *pp, *p, *c[2];
 	// add stuff
-	Node() { pp = p = c[0] = c[1] = 0; }
+	int val, cval;
+	Node() { 
+		pp = p = c[0] = c[1] = 0; 
+		val = cval = 0;
+	}
 	void push() {
 		if (flip) {
 			if(c[0]) c[0]->flip ^= 1;
@@ -16,8 +20,9 @@ struct Node {
 		// add stuff
 	}
 	void pull() {
-		if(c[0]) c[0]->push(); 
-		if(c[1]) c[1]->push();
+        cval = val;
+		if(c[0]) c[0]->push(), cval = max(cval, c[0]->cval); 
+		if(c[1]) c[1]->push(), cval = max(cval, c[1]->cval);
 		// add stuff
 	}
 	void rot(bool t) { /// start-hash
@@ -55,7 +60,7 @@ struct Node {
 			if (z->c[1]) z->c[1]->pp = z, z->c[1]->p = 0;
 			z->c[1] = y;
 			if (y) y->p = z;
-			z->push();
+			z->pull();
 		}
 		splay();
 		flip = 1;
@@ -74,7 +79,6 @@ struct LinkCut {
 			return false;
 		y->c[1] = 0;
 		x->p = x->pp = 0;
-		x->pull();
 		y->pull();
 		return true;
 	} /// end-hash
@@ -88,8 +92,14 @@ struct LinkCut {
 		Node *x = &node[u], *y = &node[v];
 		if (isConnected(u, v)) return false;
 		x->access();
-		y->access();
 		x->pp = y;
 		return true;
+	}
+    void update(int u, int c) {
+        node[u].access()->val+=c;
+    }
+	ll query(int u, int v) {
+		node[v].access();
+		return node[u].access()->cval;
 	}
 };
