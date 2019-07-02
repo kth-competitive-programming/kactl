@@ -16,6 +16,7 @@ struct Node {
 		pp = p = c[0] = c[1] = 0; 
 		val = cval = 0;
 	}
+	// lazy propogation
 	void push() {
 		if (flip) {
 			if(c[0]) c[0]->flip ^= 1;
@@ -24,8 +25,9 @@ struct Node {
 		}
 		// add stuff
 	}
+	// combine values from children with self.
 	void pull() {
-        cval = val;
+		cval = val;
 		if(c[0]) c[0]->push(), cval = max(cval, c[0]->cval); 
 		if(c[1]) c[1]->push(), cval = max(cval, c[1]->cval);
 		// add stuff
@@ -96,13 +98,14 @@ struct LinkCut {
 	bool link(int u, int v) {
 		Node *x = &node[u], *y = &node[v];
 		if (isConnected(u, v)) return false;
-		x->access();
-		x->pp = y;
+		x->access()->pp = y;
 		return true;
 	}
+	// Add c to node u.
 	void update(int u, int c) {
 		node[u].access()->val+=c;
 	}
+	// Find max on the path from u to v.
 	ll query(int u, int v) {
 		node[v].access();
 		return node[u].access()->cval;
