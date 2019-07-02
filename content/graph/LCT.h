@@ -11,7 +11,7 @@ struct Node {
 	bool flip = 0;
 	Node *pp, *p, *c[2];
 	// add stuff
-	int val, cval;
+	int val, cval, ind;
 	Node() { 
 		pp = p = c[0] = c[1] = 0; 
 		val = cval = 0;
@@ -72,23 +72,22 @@ struct Node {
 		splay();
 		return this;
 	} /// end-hash
+	Node* makeRoot() {
+		access()->flip ^= 1;
+		return this;
+	}
 };
 struct LinkCut {
 	vector<Node> node;
-	LinkCut(int N): node(N) {}
-	Node* makeRoot(int u) {
-		node[u].access()->flip ^= 1;
-		return &node[u];
-	}
-	Node* findRoot(int u) {
+	LinkCut(int N): node(N) { rep(i, 0, N) node[i].ind = i; }
+	int findRoot(int u) {
 		Node *x = node[u].access();
 		while(x->c[0]) x = x->c[0];
-		return x;
+		return x->ind;
 	}
 	bool cut(int u, int v) { /// start-hash
-		Node *x = &node[u], *y = &node[v];
-		makeRoot(v);
-		x->access();
+		Node *y = node[v].makeRoot();
+		Node *x = node[u].access();
 		if (x->c[0] != y || y->c[1] != 0)
 			return false;
 		x->c[0] = y->p = y->pp = 0;
@@ -99,9 +98,8 @@ struct LinkCut {
 		return findRoot(u) == findRoot(v);
 	}
 	bool link(int u, int v) {
-		Node *y = &node[v];
 		if (isConnected(u, v)) return false;
-		makeRoot(u)->pp = y;
+		node[u].makeRoot()->pp = &node[v];
 		return true;
 	}
 	// Add c to node u.
@@ -110,7 +108,7 @@ struct LinkCut {
 	}
 	// Find max on the path from u to v.
 	ll query(int u, int v) {
-		makeRoot(v);
+		node[v].makeRoot();
 		return node[u].access()->cval;
 	}
 };
