@@ -1,6 +1,11 @@
 /**
  * Author: 
- * Description: link-cut Tree.
+ * Description: link-cut Tree. Supports BBST-like 
+ * augmentations. (Can be used in place of HLD).
+ * Current implementation supports update value at a node,
+ * and query max on a path.
+ * Tested on: http://acm.timus.ru/problem.aspx?num=1553
+ * Status: Passes existing fuzz tests (with function names modified).
  */
 struct Node {
 	bool flip = 0;
@@ -29,12 +34,12 @@ struct Node {
 		Node *y = p, *z = y->p;
 		if (z) z->c[z->c[1] == y] = this;
 		p = z;
-		if (y) y->c[t] = c[!t];
+		y->c[t] = c[!t];
 		if (c[!t]) c[!t]->p = y;
 		c[!t] = y;
 		y->p = this;
 		if (z) z->pull();
-		if (y) y->pull();
+		y->pull();
 	} /// end-hash
 	void xiao() {
 		if (p) p->xiao(), pp = p->pp;
