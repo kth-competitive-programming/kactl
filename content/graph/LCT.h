@@ -36,15 +36,11 @@ struct Node {
 		xiao();
 		while (p) {
 			Node* y = p; Node *z = y->p;
-			bool t1 = (y->c[1] != this);bool t2 = z && (z->c[1] != y) == t1;
-if (t2) y->rot(t1);
-rot(t1);
-if (z && !t2) rot(!t1);
-			// if (z) {
-			// 	bool t2 = (z->c[1] != y);
-			// 	if (t1 == t2) y->rot(t2), rot(t1);
-			// 	else rot(t1), rot(t2);
-			// } else rot(t1);
+			bool t1 = (y->c[1] != this);
+			bool t2 = z && (z->c[1] != y) == t1;
+			if (t2) y->rot(t1);
+			rot(t1);
+			if (z && !t2) rot(!t1);
 		}
 		pull();
 	}
