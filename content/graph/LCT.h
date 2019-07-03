@@ -9,7 +9,8 @@
  */
 struct Node {
 	bool flip = 0;
-	Node *pp, *p, *c[2]; // path parent, parent, children
+	 // pp = path parent, p = splay tree parent
+	Node *pp, *p, *c[2];
 	// add stuff
 	int val = 0, cval = 0, ind;
 	Node() { pp = p = c[0] = c[1] = 0; }
@@ -49,7 +50,7 @@ struct Node {
 		}
 		pull();
 	}
-	Node* access() {
+	Node* access(bool r = 0) { // if (r) then reroot tree at this.
 		for (Node *y = 0, *z = this; z; y = z, z = z->pp) {
 			z->splay();
 			if (z->c[1]) z->c[1]->pp = z, z->c[1]->p = 0;
@@ -58,10 +59,7 @@ struct Node {
 			z->pull();
 		}
 		splay();
-		return this;
-	}
-	Node* makeRoot() {
-		access()->flip ^= 1;
+		if (r) flip ^= 1, push();
 		return this;
 	}
 };
@@ -74,7 +72,7 @@ struct LinkCut {
 		return x->ind;
 	}
 	bool cut(int u, int v) { /// start-hash
-		Node *y = nodes[v].makeRoot();
+		Node *y = nodes[v].access(1);
 		Node *x = nodes[u].access();
 		if (x->c[0] != y || y->c[1])
 			return false;
@@ -85,14 +83,14 @@ struct LinkCut {
 	bool isConnected(int u, int v) { return findRoot(u) == findRoot(v); }
 	bool link(int u, int v) {
 		if (isConnected(u, v)) return false;
-		nodes[u].makeRoot()->pp = &nodes[v];
+		nodes[u].access(1)->pp = &nodes[v];
 		return true;
 	}
 	void update(int u, int c) {
 		nodes[u].access()->val += c;
 	}
 	int query(int u, int v) { // Find max on the path from u to v.
-		nodes[v].makeRoot();
+		nodes[v].access(1);
 		return nodes[u].access()->cval;
 	}
 };
