@@ -1,9 +1,7 @@
 /**
  * Author: 
- * Description: link-cut Tree. Supports BST-like 
- * augmentations. (Can be used in place of HLD).
- * Current implementation supports update value at a node,
- * and query max on a path.
+ * Description: link-cut Tree. Supports BST-like augmentations. (Can be used in place of HLD).
+ * Current implementation supports update value at a node, and query max on a path.
  * Tested on: http://acm.timus.ru/problem.aspx?num=1553
  * Status: Passes existing fuzz tests (with function names modified).
  */
@@ -16,41 +14,41 @@ struct Node {
 	Node() { pp = p = c[0] = c[1] = 0; }
 	void push() {
 		if (flip) {
-			rep(i, 0, 2) if(c[i]) c[i]->flip ^= 1;
+			rep(i, 0, 2) if (c[i]) c[i]->flip ^= 1;
 			swap(c[0], c[1]); flip = 0;
 		}
 	}
 	void pull() {
 		cval = val;
-		rep(i, 0, 2) if(c[i]) c[i]->push(), cval = max(cval, c[i]->cval);
+		if(c[0]) c[0]->push(), cval = max(cval, c[0]->cval);
+		if(c[1]) c[1]->push(), cval = max(cval, c[1]->cval);
 	}
 	void rot(bool t) {
-		Node *y = p, *z = y->p;
+		Node *y = p, *z = y->p, *&w = c[t];
 		if (z) z->c[z->c[1] == y] = this;
-		y->c[!t] = c[t];
-		if (c[t]) c[t]->p = y;
-		c[t] = y; p = z;
-		y->p = this;
-		y->pull();
+		if (w) w->p = y;
+		y->c[!t] = w;
+		w = y; p = z;
+		y->p = this; y->pull();
 	}
-	void xiao() {
-		if (p) p->xiao(), pp = p->pp;
-		push();
-	}
+	void xiao() { if (p) p->xiao(), pp = p->pp; push(); }
 	void splay() {
 		xiao();
 		while (p) {
 			Node* y = p; Node *z = y->p;
-			bool t1 = (y->c[1] != this);
-			if (z) {
-				bool t2 = (z->c[1] != y);
-				if (t1 == t2) y->rot(t2), rot(t1);
-				else rot(t1), rot(t2);
-			} else rot(t1);
+			bool t1 = (y->c[1] != this);bool t2 = z && (z->c[1] != y) == t1;
+if (t2) y->rot(t1);
+rot(t1);
+if (z && !t2) rot(!t1);
+			// if (z) {
+			// 	bool t2 = (z->c[1] != y);
+			// 	if (t1 == t2) y->rot(t2), rot(t1);
+			// 	else rot(t1), rot(t2);
+			// } else rot(t1);
 		}
 		pull();
 	}
-	Node* access(bool r = 0) { // if (r) then reroot tree at this.
+	Node* access(bool r = 0) { // if (r) then reroot at this.
 		for (Node *y = 0, *z = this; z; y = z, z = z->pp) {
 			z->splay();
 			if (z->c[1]) z->c[1]->pp = z, z->c[1]->p = 0;
@@ -65,7 +63,9 @@ struct Node {
 };
 struct LinkCut {
 	vector<Node> nodes;
-	LinkCut(int N) : nodes(N) { rep(i, 0, N) nodes[i].ind = i; }
+	LinkCut(int N) : nodes(N) { 
+		rep(i, 0, N) nodes[i].ind = i;
+	}
 	int findRoot(int u) {
 		Node *x = nodes[u].access();
 		while(x->c[0]) x = x->c[0];
@@ -74,13 +74,14 @@ struct LinkCut {
 	bool cut(int u, int v) { /// start-hash
 		Node *y = nodes[v].access(1);
 		Node *x = nodes[u].access();
-		if (x->c[0] != y || y->c[1])
-			return false;
+		if (x->c[0] != y || y->c[1]) return false;
 		x->c[0] = y->p = y->pp = 0;
 		x->pull();
 		return true;
 	} /// end-hash
-	bool isConnected(int u, int v) { return findRoot(u) == findRoot(v); }
+	bool isConnected(int u, int v) { 
+		return findRoot(u) == findRoot(v); 
+	}
 	bool link(int u, int v) {
 		if (isConnected(u, v)) return false;
 		nodes[u].access(1)->pp = &nodes[v];
@@ -89,7 +90,7 @@ struct LinkCut {
 	void update(int u, int c) {
 		nodes[u].access()->val += c;
 	}
-	int query(int u, int v) { // Find max on the path from u to v.
+	int query(int u, int v) { // Find max on the path.
 		nodes[v].access(1);
 		return nodes[u].access()->cval;
 	}
