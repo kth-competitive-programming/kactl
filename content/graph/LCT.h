@@ -2,6 +2,7 @@
  * Author: 
  * Description: link-cut Tree. Supports BST-like augmentations. (Can be used in place of HLD).
  * Current implementation supports update value at a node, and query max on a path.
+ * For details about the structure, refer to https://en.wikipedia.org/wiki/Link/cut_tree
  * Tested on: http://acm.timus.ru/problem.aspx?num=1553
  * Status: Passes existing fuzz tests (with function names modified).
  */
@@ -31,9 +32,9 @@ struct Node {
 		w = y; p = z;
 		y->p = this; y->pull();
 	}
-	void xiao() { if (p) p->xiao(), pp = p->pp; push(); }
+	void g() { if (p) p->g(), pp = p->pp; push(); }
 	void splay() {
-		xiao();
+		g();
 		while (p) {
 			Node* y = p; Node *z = y->p;
 			bool t1 = (y->c[1] != this);
