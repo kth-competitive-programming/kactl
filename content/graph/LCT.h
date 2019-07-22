@@ -10,7 +10,7 @@ struct Node {
 	 // pp = path parent, p = splay tree parent
 	Node *pp, *p, *c[2];
 	// add stuff
-	int val = 0, cval = 0, ind;
+	int val = 0, cval = 0;
 	Node() { pp = p = c[0] = c[1] = 0; }
 	void push() {
 		if (flip) {
@@ -19,7 +19,7 @@ struct Node {
 		}
 	}
 	void pull() {
-		cval = val;
+		push(), cval = val;
 		if(c[0]) c[0]->push(), cval = max(cval, c[0]->cval);
 		if(c[1]) c[1]->push(), cval = max(cval, c[1]->cval);
 	}
@@ -44,50 +44,44 @@ struct Node {
 		}
 		pull();
 	}
-	Node* access(bool r = 0) { // if (r) then reroot at this.
+	Node* access() {
 		for (Node *y = 0, *z = this; z; y = z, z = z->pp) {
 			z->splay();
 			if (z->c[1]) z->c[1]->pp = z, z->c[1]->p = 0;
-			z->c[1] = y;
 			if (y) y->p = z;
-			z->pull();
+			z->c[1] = y; z->pull();
 		}
 		splay();
-		if (r) flip ^= 1, push();
+		flip ^= 1;
 		return this;
 	}
 };
 struct LinkCut {
 	vector<Node> nodes;
-	LinkCut(int N) : nodes(N) { 
-		rep(i, 0, N) nodes[i].ind = i;
-	}
-	int findRoot(int u) {
-		Node *x = nodes[u].access();
-		while(x->c[0]) x = x->c[0];
-		return x->ind;
-	}
+	LinkCut(int N) : nodes(N) {}
 	bool cut(int u, int v) { /// start-hash
-		Node *y = nodes[v].access(1);
+		Node *y = nodes[v].access();
 		Node *x = nodes[u].access();
 		if (x->c[0] != y || y->c[1]) return false;
 		x->c[0] = y->p = y->pp = 0;
 		x->pull();
 		return true;
 	} /// end-hash
-	bool isConnected(int u, int v) { 
-		return findRoot(u) == findRoot(v); 
+	bool isConnected(int u, int v) {
+		Node *x = nodes[u].access();
+		Node *y = nodes[v].access();
+        return x == y || x -> p;
 	}
 	bool link(int u, int v) {
 		if (isConnected(u, v)) return false;
-		nodes[u].access(1)->pp = &nodes[v];
+		nodes[u].access()->pp = &nodes[v];
 		return true;
 	}
 	void update(int u, int c) {
 		nodes[u].access()->val += c;
 	}
 	int query(int u, int v) { // Find max on the path.
-		nodes[v].access(1);
+		nodes[v].access();
 		return nodes[u].access()->cval;
 	}
 };
