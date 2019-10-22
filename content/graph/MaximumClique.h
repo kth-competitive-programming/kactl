@@ -10,19 +10,15 @@
  * faster for sparse graphs.
  * Status: fuzz-tested
  */
-typedef bitset<200> B;
+typedef vector<bitset<200>> vb;
 struct Maxclique {
 	double limit=0.025, pk=0;
 	struct Vertex { int i, d=0; };
 	typedef vector<Vertex> vv;
-	vector<B> e;
+	vb e;
 	vv V;
 	vector<vi> C;
 	vi qmax, q, S, old;
-	bool cut1(int pi, vi& A) {
-		trav(i, A) if (e[pi][i]) return true;
-		return false;
-	}
 	void init(vv& r) {
 		trav(v,r) v.d = 0;
 		trav(v, r) trav(j, r) v.d += e[v.i][j.i];
@@ -44,7 +40,8 @@ struct Maxclique {
 				C[1].clear(), C[2].clear();
 				trav(v, T) {
 					int k = 1;
-					while (cut1(v.i, C[k])) k++;
+					auto f = [&](int i) { return e[v.i][i]; };
+					while (any_of(all(C[k]), f)) k++;
 					if (k > mxk) mxk = k, C[mxk + 1].clear();
 					if (k < mnk) T[j++].i = v.i;
 					C[k].push_back(v.i);
@@ -58,8 +55,7 @@ struct Maxclique {
 		}
 	}
 	vi maxClique() { init(V), expand(V); return qmax; }
-	Maxclique(vector<B> conn) :
-		e(conn), C(sz(e) + 1), S(sz(e)+1), old(S)  {
+	Maxclique(vb conn) : e(conn), C(sz(e)+1), S(sz(C)), old(S) {
 		rep(i,0,sz(e)) V.push_back({i});
 	}
 };
