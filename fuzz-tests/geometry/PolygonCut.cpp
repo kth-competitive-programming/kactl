@@ -13,7 +13,7 @@ typedef vector<int> vi;
 #include "../../content/geometry/PolygonArea.h"
 #include "../../content/geometry/PolygonCut.h"
 #include "../../content/geometry/sideOf.h"
-#include "../../content/geometry/insidePolygon.h"
+#include "../../content/geometry/InsidePolygon.h"
 #include "../../content/geometry/SegmentIntersection.h"
 
 typedef Point<double> P;
@@ -41,7 +41,7 @@ int main() {
 		rep(it,0,ITS) {
 			double x = rand() / (RAND_MAX + 1.0) * 10 - 5;
 			double y = rand() / (RAND_MAX + 1.0) * 10 - 5;
-			if (!insidePolygon(all(ps), P{x,y}, true)) continue;
+			if (!inPolygon(ps, P{x,y}, true)) continue;
 			if (sideOf(p, q, P{x,y}) > 0) continue;
 			count++;
 		}

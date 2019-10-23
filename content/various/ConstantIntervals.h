@@ -12,7 +12,7 @@
 #pragma once
 
 template<class F, class G, class T>
-void rec(int from, int to, F f, G g, int& i, T& p, T q) {
+void rec(int from, int to, F& f, G& g, int& i, T& p, T q) {
 	if (p == q) return;
 	if (from == to) {
 		g(i, to, p);

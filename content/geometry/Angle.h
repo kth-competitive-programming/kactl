@@ -2,7 +2,7 @@
  * Author: Simon Lindholm
  * Date: 2015-01-31
  * License: CC0
- * Source:
+ * Source: me
  * Description: A class for ordering angles (as represented by int points and
  *  a number of rotations around the origin). Useful for rotational sweeping.
  *  Sometimes also represents points or vectors.
@@ -19,20 +19,18 @@ struct Angle {
 	int t;
 	Angle(int x, int y, int t=0) : x(x), y(y), t(t) {}
 	Angle operator-(Angle b) const { return {x-b.x, y-b.y, t}; }
-	int quad() const {
+	int half() const {
 		assert(x || y);
-		if (y < 0) return (x >= 0) + 2;
-		if (y > 0) return (x <= 0);
-		return (x <= 0) * 2;
+		return y < 0 || (y == 0 && x < 0);
 	}
-	Angle t90() const { return {-y, x, t + (quad() == 3)}; }
-	Angle t180() const { return {-x, -y, t + (quad() >= 2)}; }
+	Angle t90() const { return {-y, x, t + (half() && x >= 0)}; }
+	Angle t180() const { return {-x, -y, t + half()}; }
 	Angle t360() const { return {x, y, t + 1}; }
 };
 bool operator<(Angle a, Angle b) {
 	// add a.dist2() and b.dist2() to also compare distances
-	return make_tuple(a.t, a.quad(), a.y * (ll)b.x) <
-	       make_tuple(b.t, b.quad(), a.x * (ll)b.y);
+	return make_tuple(a.t, a.half(), a.y * (ll)b.x) <
+	       make_tuple(b.t, b.half(), a.x * (ll)b.y);
 }
 
 // Given two points, this calculates the smallest angle between

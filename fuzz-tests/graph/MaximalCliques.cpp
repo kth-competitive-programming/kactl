@@ -67,6 +67,7 @@ int main1() {
 		}
 		assert(co == realCo);
 	}
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }
 

@@ -37,7 +37,7 @@ const int lut[6][6] = {
 
 struct Tree {
 	typedef int T;
-	const T LOW = 0;
+	const T unit = 0;
 	T f(T a, T b) { return lut[a][b]; }
 	vector<T> s; int n;
 	Tree(int n = 0, T def = 0) : s(2*n, def), n(n) {}
@@ -46,7 +46,7 @@ struct Tree {
 			s[pos / 2] = f(s[pos & ~1], s[pos | 1]);
 	}
 	T query(int b, int e) { // query [b, e)
-		T ra = LOW, rb = LOW;
+		T ra = unit, rb = unit;
 		for (b += n, e += n; b < e; b /= 2, e /= 2) {
 			if (b % 2) ra = f(ra, s[b++]);
 			if (e % 2) rb = f(s[--e], rb);
@@ -60,10 +60,10 @@ struct Tree {
 int main() {
 	{
 		maximum::Tree t(0);
-		assert(t.query(0, 0) == t.LOW);
+		assert(t.query(0, 0) == t.unit);
 	}
 
-	if (1) {
+	if (0) {
 		const int N = 10000;
 		maximum::Tree tr(N);
 		ll sum = 0;
@@ -81,14 +81,14 @@ int main() {
 
 	rep(n,1,10) {
 		maximum::Tree tr(n);
-		vi v(n);
+		vi v(n, maximum::Tree::unit);
 		rep(it,0,1000000) {
 			int i = rand() % (n+1), j = rand() % (n+1);
 			int x = rand() % (n+2);
 
 			int r = rand() % 100;
 			if (r < 30) {
-				int ma = tr.LOW;
+				int ma = tr.unit;
 				rep(k,i,j) ma = max(ma, v[k]);
 				assert(ma == tr.query(i,j));
 			}
@@ -109,7 +109,7 @@ int main() {
 
 			int r = rand() % 100;
 			if (r < 30) {
-				int ma = tr.LOW;
+				int ma = tr.unit;
 				rep(k,i,j) ma = nonabelian::lut[ma][v[k]];
 				assert(ma == tr.query(i,j));
 			}

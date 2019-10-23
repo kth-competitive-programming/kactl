@@ -353,7 +353,6 @@ int main() {
                     {P(-10, -10), P(10, -10)},
                     {P(10, -10), P(10, 10)}});
     auto res = halfPlaneIntersection(t);
-    cout<<fixed<<setprecision(30)<<mxErr1<<' '<<mxErr2<<endl;
     cout << polygonArea2(res) << endl;
     cout << sjtu::halfPlaneIntersection(t) << endl;
     cout << mit::Intersection_Area(convert(t))<<endl;

@@ -108,6 +108,7 @@ int main() {
 		ull ret = bar.reduce(a);
 		assert(ret == a % b);
 	}
+	cout<<"Tests passed!"<<endl;
 	return 0;
 }
 

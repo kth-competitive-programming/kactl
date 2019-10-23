@@ -3,7 +3,8 @@
  * Date: 2019-04-26
  * License: CC0
  * Source: https://vlecomte.github.io/cp-geo.pdf
- * Description: Returns true iff p lies on the line segment from s to e. Intended for use with e.g. Point<ll> where overflow is an issue.  Use \texttt{(segDist(s,e,p)<=epsilon)} instead when using Point<double>.
+ * Description: Returns true iff p lies on the line segment from s to e.
+ * Use \texttt{(segDist(s,e,p)<=epsilon)} instead when using Point<double>.
  * Status:
  */
 #pragma once

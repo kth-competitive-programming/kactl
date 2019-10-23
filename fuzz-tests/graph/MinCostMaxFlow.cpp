@@ -14,6 +14,7 @@ typedef vector<int> vi;
 // #include "mcmf4.h"
 // #include "mcmfold.h"
 // #include "mcmfnew.h"
+#include <bits/extc++.h>
 #define setpi dummy(){} bool setpi
 #undef assert
 #define assert(x) return x
@@ -192,16 +193,14 @@ void testNeg() {
 				mcmf2.addEdge(i, j, fl, co);
 			}
 		}
-		if (!mcmf.setpi(S)) {
-			cerr << '!';
+		if (!mcmf.setpi(S))  // has negative loops
 			continue;
-		}
-		cerr << '.';
 		auto pa = mcmf.maxflow(S, T);
 		auto pa2 = mcmf2.maxflow(S, T);
 		assert(pa == pa2);
 		::i = lasti;
 	}
+	cout<<"Tests passed!"<<endl;
 }
 
 int main() {

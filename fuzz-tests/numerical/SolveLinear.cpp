@@ -116,4 +116,5 @@ int main() {
 			});
 		});
 	}
+	cout<<"Tests passed!"<<endl;
 }

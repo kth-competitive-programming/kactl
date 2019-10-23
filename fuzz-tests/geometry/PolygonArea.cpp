@@ -12,7 +12,7 @@ typedef vector<int> vi;
 
 #include "../../content/geometry/PolygonArea.h"
 #include "../../content/geometry/PolygonCenter.h"
-#include "../../content/geometry/insidePolygon.h"
+#include "../../content/geometry/InsidePolygon.h"
 
 int main() {
 	srand((int)time(0));
@@ -25,7 +25,7 @@ int main() {
 		double y = rand() / (RAND_MAX + 1.0);
 		x *= 10;
 		y *= 10;
-		if (!insidePolygon(all(ps), P{x,y}, true)) continue;
+		if (!inPolygon(ps, P{x,y}, true)) continue;
 		count++;
 		su = su + P{x,y};
 	}

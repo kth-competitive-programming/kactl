@@ -5,7 +5,6 @@
  * Source: based on KACTL's FFT
  * Description: Can be used for convolutions modulo specific nice primes
  * of the form $2^a b+1$, where the convolution result has size at most $2^a$.
- * For other primes/integers, use three different primes and combine with CRT.
  * Inputs must be in [0, mod).
  * Time: O(N \log N)
  * Status: fuzz-tested

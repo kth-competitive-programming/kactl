@@ -55,6 +55,6 @@ int main() {
 		trav(x, simpleConv(a, b)) res += (ll)x * ind++ % mod;
 		trav(x, conv(a, b)) res2 += (ll)x * ind2++ % mod;
 	}
-	cout << res << ' ' << res2 << endl;
 	assert(res==res2);
+	cout<<"Tests passed!"<<endl;
 }

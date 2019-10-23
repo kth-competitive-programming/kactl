@@ -57,6 +57,7 @@ int main() {
 	rep(i,0,n) b[i] = rand() * 1000.0 / RAND_MAX;
 	int r = solve_linear(A, b, x);
 	assert(r == 0);
+	cout<<"Tests passed!"<<endl;
 	// cout << r << endl;
 	// rep(i,0,n) cout << x[i] << ' ';
 	// cout << endl;
