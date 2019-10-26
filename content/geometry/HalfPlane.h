@@ -27,18 +27,40 @@ bool cmp(Line a, Line b) {
 }
 vector<P> halfPlaneIntersection(vector<Line> vs) {
 	sort(all(vs), cmp);
+	// for (auto l: vs) {
+	// 	cout<<l[0]<<" -> "<<l[1]<<endl;
+	// }
 	vector<Line> deq(sz(vs) + 5);
 	vector<P> ans(sz(vs) + 5);
 	deq[0] = vs[0];
 	int ah = 0, at = 0, n = sz(vs);
 	rep(i,1,n+1) {
 		if (i == n) vs.push_back(deq[ah]);
-		if (angDiff(vs[i], vs[i - 1]) == 0) continue;
-		while (ah<at && sideOf(sp(vs[i]),ans[at-1]) < 0) at--;
-		while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah])<0) ah++;
+		if (angDiff(vs[i], vs[i - 1]) == 0) {
+			continue;
+		}
+
+		while (ah<at && sideOf(sp(vs[i]),ans[at-1], 1e-8) < 0) at--;
+		while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah], 1e-8)<0) ah++;
 		auto res = lineInter(sp(vs[i]), sp(deq[at]));
-		if (res.first != 1) continue;
+		if (res.first != 1) {
+			// cout<<"46"<<endl;
+			continue;
+		}
 		ans[at++] = res.second, deq[at] = vs[i];
+		// cout<<"i: "<<i<<endl;
+		// cout<<"ans: ";
+		// cout<<ah<<' '<<at<<endl;
+		// for (int j=ah; j<at; j++) {
+		// 	cout<<ans[j]<<" ";
+		// }
+		// cout<<endl;
+		// cout<<"deq: ";
+		// for(int j=ah; j<=at; j++) {
+		// 	cout<<deq[j][0]<<"-> "<<deq[j][1]<<' ';
+		// }
+		// cout<<endl;
+		// cout<<endl;
 	}
 	if (at - ah <= 2) return {};
 	return {ans.begin() + ah, ans.begin() + at};

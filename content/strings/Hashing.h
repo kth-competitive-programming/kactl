@@ -16,10 +16,12 @@
 struct H {
 	typedef uint64_t ull;
 	ull x; H(ull x=0) : x(x) {}
-#define OP(O,A,B) H operator O(H o) { ull r = x; asm \
-	(A "addq %%rdx, %0\n adcq $0,%0" : "+a"(r) : B); return r; }
-	OP(+,,"d"(o.x)) OP(*,"mul %1\n", "r"(o.x) : "rdx")
-	H operator-(H o) { return *this + ~o.x; }
+ H operator+(H o) { return x + o.x + (x + o.x < x); }
+    H operator*(H o) {
+        ull r = x;
+        asm("mul %1\n addq %%rdx, %0\n adcq $0,%0" : "+a"(r) : "r"(o.x) : "rdx");
+        return r;
+    }	H operator-(H o) { return *this + ~o.x; }
 	ull get() const { return x + !~x; }
 	bool operator==(H o) const { return get() == o.get(); }
 	bool operator<(H o) const { return get() < o.get(); }

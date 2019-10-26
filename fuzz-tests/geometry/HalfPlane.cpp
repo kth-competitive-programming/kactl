@@ -302,22 +302,37 @@ void testEmpty() {
     assert(sz(res) == 0);
 }
 void testRandom() {
-    int lim = 3;
-    for (int i = 0; i < 1000000; i++) {
+    int lim = 5;
+    for (int i = 0; i < 10000000; i++) {
         vector<Line> t;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 4; i++) {
             Line cand{P(0, 0), P(0, 0)};
             while (cand[0] == cand[1])
                 cand = {randPt(lim), randPt(lim)};
+            Point<int> s1 = Point<int>(cand[0].x, cand[0].y);
+            Point<int> e1 = Point<int>(cand[1].x, cand[1].y);
+            bool fail = false;
+            for (auto j: t) {
+                Point<int> s2 = Point<int>(j[0].x, j[0].y);
+                Point<int> e2 = Point<int>(j[1].x, j[1].y);
+                if (lineInter(s1, e1, s2, e2).first == -1) {
+                    fail = false;
+                    break;
+                }
+            }
+            if (fail) {
+                i--;
+                continue;
+            }
             t.push_back(cand);
         }
         addInf(t, lim);
         auto res = halfPlaneIntersection(t);
         double area = sjtu::halfPlaneIntersection(t);
-        // double resArea = polygonArea2(res)/2;
-        double resArea = mit::Intersection_Area(convert(t));
+        double resArea = abs(polygonArea2(res) / 2);
+        // double resArea = mit::Intersection_Area(convert(t));
         double diff = abs(area - resArea);
-        if (diff > EPS) {
+        if (diff > EPS || isnan(diff)) {
             cout << diff << ' ' << area << ' ' << resArea << endl;
             for (auto i : t)
                 cout << i[0] << "->" << i[1] << ' ';
@@ -330,36 +345,121 @@ void testRandom() {
                 cout << i << ',';
             cout << endl;
         }
-        assert(diff < EPS);
+        assert(diff <= EPS);
     }
 }
+vector<P> convexHull(vector<P> pts) {
+	if (sz(pts) <= 1) return pts;
+	sort(all(pts));
+	vector<P> h(sz(pts)+1);
+	int s = 0, t = 0;
+	for (int it = 2; it--; s = --t, reverse(all(pts)))
+		trav(p, pts) {
+			while (t >= s + 2 && h[t-2].cross(h[t-1], p) <= 0) t--;
+			h[t++] = p;
+		}
+	return {h.begin(), h.begin() + t - (t == 2 && h[0] == h[1])};
+}
+
 
 int main() {
-    test1();
-    testInf();
-    testLine();
-    testPoint();
-    testEmpty();
-    testRandom();
+    // test1();
+    // testInf();
+    // testLine();
+    // testPoint();
+    // testRandom();
+    // return 0;
+    // testEmpty();
     // Case that messes with precision
-    vector<Line> t({{P(8, 9), P(8, 2)},
-                    {P(3, 9), P(5, 2)},
-                    {P(8, 2), P(8, 3)},
-                    {P(7, 2), P(1, 7)},
-                    {P(1, 0), P(7, 1)},
-                    {P(9, 2), P(5, 6)},
-                    {P(10, 10), P(-10, 10)},
-                    {P(-10, 10), P(-10, -10)},
-                    {P(-10, -10), P(10, -10)},
-                    {P(10, -10), P(10, 10)}});
-    auto res = halfPlaneIntersection(t);
-    cout << polygonArea2(res) << endl;
-    cout << sjtu::halfPlaneIntersection(t) << endl;
-    cout << mit::Intersection_Area(convert(t))<<endl;
+    // vector<Line> cases({{P(1,0),P(0,2)},{P(0,1),P(2,0)},{P(0,0),P(1,1)},{P(2,2),P(1,1)},{P(3,3),P(-3,3)},{P(-3,3),P(-3,-3)},{P(-3,-3),P(3,-3)},{P(3,-3),P(3,3)}});
+
+    // auto pts = halfPlaneIntersection(cases);
+    // for (auto p: pts) {
+    //     cout<<p<<' ';
+    // }
+    // cout<<endl;
+    // cout<<polygonArea2(pts)<<endl;
+    // return 0;
+
+    array<int, 3> mn = {1e6, 1e6, 10};
+    for (int i = 0; i < 10000000; i++) {
+        ll offset = rand() % ll(1e9);
+        ll mul = rand() % ll(1e9);
+        vector<pair<int, vector<Line>>> cases;
+
+        cases.push_back({10,
+                         {{P(offset + mul * 8, offset + mul * 9), P(offset + mul * 8, offset + mul * 2)},
+                          {P(offset + mul * 3, offset + mul * 9), P(offset + mul * 5, offset + mul * 2)},
+                          {P(offset + mul * 8, offset + mul * 2), P(offset + mul * 8, offset + mul * 3)},
+                          {P(offset + mul * 7, offset + mul * 2), P(offset + mul * 1, offset + mul * 7)},
+                          {P(offset + mul * 1, offset + mul * 0), P(offset + mul * 7, offset + mul * 1)},
+                          {P(offset + mul * 9, offset + mul * 2), P(offset + mul * 5, offset + mul * 6)},
+                          {P(offset + mul * 10, offset + mul * 10), P(offset + mul * -10, offset + mul * 10)},
+                          {P(offset + mul * -10, offset + mul * 10), P(offset + mul * -10, offset + mul * -10)},
+                          {P(offset + mul * -10, offset + mul * -10), P(offset + mul * 10, offset + mul * -10)},
+                          {P(offset + mul * 10, offset + mul * -10), P(offset + mul * 10, offset + mul * 10)}}});
+        cases.push_back({5,
+                         {{P(offset + mul * 0, offset + mul * 1), P(offset + mul * 4, offset + mul * 0)},
+                          {P(offset + mul * 0, offset + mul * 2), P(offset + mul * 2, offset + mul * 0)},
+                          {P(offset + mul * 1, offset + mul * 0), P(offset + mul * 3, offset + mul * 4)},
+                          {P(offset + mul * 4, offset + mul * 2), P(offset + mul * 0, offset + mul * 0)},
+                          {P(offset + mul * 4, offset + mul * 2), P(offset + mul * 2, offset + mul * 2)},
+                          {P(offset + mul * 0, offset + mul * 3), P(offset + mul * 1, offset + mul * 1)},
+                          {P(offset + mul * 5, offset + mul * 5), P(offset + mul * -5, offset + mul * 5)},
+                          {P(offset + mul * -5, offset + mul * 5), P(offset + mul * -5, offset + mul * -5)},
+                          {P(offset + mul * -5, offset + mul * -5), P(offset + mul * 5, offset + mul * -5)},
+                          {P(offset + mul * 5, offset + mul * -5), P(offset + mul * 5, offset + mul * 5)}}});
+        cases.push_back({20,
+                         {{P(offset + mul * 10, offset + mul * 12), P(offset + mul * 16, offset + mul * 5)},
+                          {P(offset + mul * 10, offset + mul * 12), P(offset + mul * 4, offset + mul * 19)},
+                          {P(offset + mul * 18, offset + mul * 15), P(offset + mul * 17, offset + mul * 7)},
+                          {P(offset + mul * 12, offset + mul * 13), P(offset + mul * 14, offset + mul * 6)},
+                          {P(offset + mul * 16, offset + mul * 3), P(offset + mul * 4, offset + mul * 11)},
+                          {P(offset + mul * 12, offset + mul * 8), P(offset + mul * 9, offset + mul * 0)},
+                          {P(offset + mul * 20, offset + mul * 20), P(offset + mul * -20, offset + mul * 20)},
+                          {P(offset + mul * -20, offset + mul * 20), P(offset + mul * -20, offset + mul * -20)},
+                          {P(offset + mul * -20, offset + mul * -20), P(offset + mul * 20, offset + mul * -20)},
+                          {P(offset + mul * 20, offset + mul * -20), P(offset + mul * 20, offset + mul * 20)}}});
+        // {P(5,8),P(4,9)},{P(9,1),P(5,8)},{P(9,7),P(7,6)},{P(3,7),P(8,5)},{P(6,6),P(8,4)},{P(6,1),P(7,2)},{P(10,10),P(-10,10)},{P(-10,10),P(-10,-10)},{P(-10,-10),P(10,-10)},{P(10,-10),P(10,10)},
+        int idx = 0;
+        for (auto tmp : cases) {
+            auto t = tmp.second;
+            auto lim = tmp.first;
+            auto res = halfPlaneIntersection(t);
+            auto ours = polygonArea2(res);
+            if (abs(ours) > 1e-3) {
+                if (mn[0] + mn[1] * mn[2] >= offset + mul * tmp.first) {
+                    cout << "case: " << idx << endl;
+                    cout << offset << ' ' << mul << ' ' << offset + mul * tmp.first << endl;
+                    cout << ours << ' ' << sjtu::halfPlaneIntersection(t) << endl;
+
+                    double mx = 0;
+                    for (auto i: res) {
+                        for (auto j: res)
+                            mx = max(mx, (i - j).dist());
+                    }
+                    cout<<"mx: "<<mx<<endl;
+                    for (auto i: res) {
+                        cout<<i<<' ';
+                    }
+                    cout<<endl;
+                    cout << endl;
+                    mn = {offset, mul, tmp.first};
+                }
+                // cout << ours << endl;
+                // cout << sjtu::halfPlaneIntersection(t) << endl;
+                // auto mits = mit::Intersection_Area(convert(t));
+                // cout << mits<<endl;
+                // cout << endl;
+            }
+            idx++;
+        }
+    }
+    cout << "mn: " << mn[0] << ' ' << mn[1] << endl;
+    cout << mn[0] + mn[1] * mn[2] << endl;
     // Failure case for mit's half plane cod
     // vector<Line> t({{P(9, 8), P(9, 1)}, {P(3, 3), P(3, 5)}, {P(7, 6), P(0, 8)}});
     // Failure case for old code.
-    // vector<Line> t({{P(3,0),P(3,3)},{P(5,3), P(5,0)}, {P(4,-2), P(0,1)}, {P(3,-1), P(0,-1)}});
     // addInf(t);
     // cout << polygonArea2(halfPlaneIntersection(t)) << endl;
     // addInf(t);
