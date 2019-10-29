@@ -7,7 +7,7 @@
  * of point p across line ab insted. The wrong point will be returned if P is
  * an integer point and the desired point doesn't have integer coordinates. The
  * algorithm uses products in intermediate steps so watch out for overflow.
- * Status:
+ * Status: fuzz-tested
  */
 #pragma once
 
