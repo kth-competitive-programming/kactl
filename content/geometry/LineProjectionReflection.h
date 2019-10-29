@@ -14,6 +14,6 @@
 #include "lineDistance.h"
 
 template <class P>
-P proj(P a, P b, P p, bool refl=false) {
-	return p - (b-a).perp().unit()*(1+refl)*lineDist(a, b, p);
+P lineProj(P a, P b, P p, bool refl=false) {
+	return p - (b-a).normal()*(1+refl)*lineDist(a, b, p);
 }

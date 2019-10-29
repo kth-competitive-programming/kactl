@@ -12,13 +12,13 @@
 
 #include "Point.h"
 #include "lineDistance.h"
-#include "LineProj.h"
+#include "LineProjectionReflection.h"
 
 template<class P>
 vector<P> circleLine(P c, double r, P a, P b) {
 	double h2 = r * r - lineDist(a, b, c) * lineDist(a, b, c);
 	if (h2 < 0) return {};
-	P p = proj(a, b, c);
+	P p = lineProj(a, b, c);
 	if (h2 == 0) return {p};
 	P h = (b-a) * sqrt(h2) / (b-a).dist();
 	return {p - h, p + h};
