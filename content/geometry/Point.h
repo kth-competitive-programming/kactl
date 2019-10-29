@@ -37,5 +37,5 @@ struct Point {
 };
 template<class T>
 ostream &operator<<(ostream &os, Point<T> p) {
-	return cout << "(" << p.x << "," << p.y << ")";
+	return os << "(" << p.x << "," << p.y << ")";
 }

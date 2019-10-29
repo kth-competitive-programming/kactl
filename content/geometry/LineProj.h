@@ -7,9 +7,6 @@
  * across line ab. The algorithm uses products in intermediate steps so watch
  * out for overflow.
  * Status:
- * Usage:
- * vector<P> v = {P{4,4}, P{1,2}, P{2,1}};
- * bool in = inPolygon(v, P{3, 3}, false);
  */
 #pragma once
 
