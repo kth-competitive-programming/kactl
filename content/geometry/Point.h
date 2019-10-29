@@ -35,3 +35,7 @@ struct Point {
 	P rotate(double a) const {
 		return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a)); }
 };
+template<class T>
+ostream &operator<<(ostream &os, Point<T> p) {
+	return cout << "(" << p.x << "," << p.y << ")";
+}
