@@ -5,7 +5,8 @@
  * Source:
  * Description: Calculates the area of the union of $n$ polygons (not
  * necessarily convex). The points within each polygon must be given in CCW
- * order.
+ * order. Should be precise up to ~2^25. If epsilons are needed, add them in
+ * sideOf as well as the definition of sgn.
  * Status: Submitted on ECNA 2017 Problem A, fuzz-tested
  * Time: $O(N^2)$, where $N$ is the total number of points
  * Usage:
@@ -17,11 +18,11 @@
 
 typedef Point<double> P;
 double rat(P a, P b) { return sgn(b.x) ? a.x/b.x : a.y/b.y; }
-double polyUnion(vector<vector<P>> &poly) {
+double polyUnion(vector<vector<P>>& poly) {
 	double ret = 0;
 	rep(i,0,sz(poly)) rep(v,0,sz(poly[i])) {
 		P A = poly[i][v], B = poly[i][(v + 1) % sz(poly[i])];
-		vector<pair<double, int>> segs({{0, 0}, {1, 0}});
+		vector<pair<double, int>> segs = {{0, 0}, {1, 0}};
 		rep(j,0,sz(poly)) if (i != j) {
 			rep(u,0,sz(poly[j])) {
 				P C = poly[j][u], D = poly[j][(u + 1) % sz(poly[j])];

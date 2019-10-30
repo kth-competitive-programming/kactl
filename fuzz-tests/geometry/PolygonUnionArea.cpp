@@ -12,8 +12,6 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-// #include "../../content/geometry/PolygonUnionArea.h"
-
 #include "../../content/geometry/Point.h"
 #include "../../content/geometry/sideOf.h"
 #include "../../content/geometry/PolygonArea.h"
