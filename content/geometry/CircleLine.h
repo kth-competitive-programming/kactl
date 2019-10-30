@@ -17,10 +17,9 @@
 
 template<class P>
 vector<P> circleLine(P c, double r, P a, P b) {
-	double h2 = r*r - b.cross(a,c)*b.cross(a,c)/(b-a).dist2();
+	double h2 = r*r - a.cross(b,c)*a.cross(b,c)/(b-a).dist2();
 	if (h2 < 0) return {};
-	P p = lineProj(a, b, c);
+	P p = lineProj(a, b, c), h = (b-a).unit() * sqrt(h2);
 	if (h2 == 0) return {p};
-	P h = (b-a) * sqrt(h2) / (b-a).dist();
 	return {p - h, p + h};
 }
