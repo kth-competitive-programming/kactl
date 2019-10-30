@@ -1,7 +1,7 @@
 #pragma once
 
 // Translated from Python code posted here: https://codeforces.com/blog/entry/63058?#comment-472788
-// May generate polygons with colinear points. Won't generate polygons with duplicate points.
+// May generate polygons with colinear points. Won't generate polygons with duplicate points. No guarantee of the direction of the polygon.
 #include "../../content/geometry/Point.h"
 
 mt19937_64 rng(time(0));

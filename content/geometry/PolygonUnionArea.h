@@ -1,7 +1,7 @@
 /**
  * Author: black_horse2014, chilli
  * Date: 2019-10-29
- * License: CC0
+ * License:
  * Source:
  * Description: Calculates the area of the union of $n$ polygons (not
  * necessarily convex). The points within each polygon must be given in CCW

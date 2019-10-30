@@ -16,6 +16,7 @@ typedef vector<int> vi;
 
 #include "../../content/geometry/Point.h"
 #include "../../content/geometry/sideOf.h"
+#include "../../content/geometry/PolygonArea.h"
 #include "../../content/geometry/PolygonUnionArea.h"
 #include "../utilities/genPolygon.h"
 
@@ -81,16 +82,97 @@ db polygon_union(vector<pt> poly[], int n) {
     return ret / 2;
 }
 } // namespace blackhorse
+namespace approximate {
+#include "../../content/geometry/InsidePolygon.h"
+double polygonUnion(vector<vector<P>> &polygons, int lim) {
+    int cnt = 0;
+    int total = 0;
+    for (double y = -lim; y < lim; y += lim / 200.0) {
+        for (double x = -lim; x < lim; x += lim / 200.0) {
+            total++;
+            for (auto &i : polygons) {
+                if (inPolygon(i, P(x, y))) {
+                    cnt++;
+                    break;
+                }
+            }
+        }
+    }
+    return lim * lim * 4 * cnt / double(total);
+}
+} // namespace approximate
+namespace lovelive {
+#define re real
+#define im imag
+#define pb push_back
+#define fir first
+#define sec second
+typedef double db;
+const db pi = acos(db(-1));
+inline int sgn(db x) { return (x > 1e-8) - (x < -1e-8); }
+
+typedef complex<db> cpoi;
+db polygon_union(vector<cpoi> py[], int n) {
+    auto ratio = [](cpoi &a, cpoi &b, cpoi &c) {
+        cpoi x = b - a, y = c - a;
+        if (sgn(re(x)) == 0)
+            return im(y) / im(x);
+        return re(y) / re(x);
+    };
+    db ret = 0;
+    for (int i = 0; i < n; ++i)
+        for (int v = 0; v < py[i].size(); ++v) {
+            cpoi a = py[i][v], b = py[i][(v + 1) % py[i].size()];
+            vector<pair<db, int>> segs = {{0, 0}, {1, 0}};
+            for (int j = 0; j < n; ++j)
+                if (i != j)
+                    for (int u = 0; u < py[j].size(); ++u) {
+                        cpoi c = py[j][u], d = py[j][(u + 1) % py[j].size()];
+                        int sc = sgn(im(conj(b - a) * (c - a)));
+                        int sd = sgn(im(conj(b - a) * (d - a)));
+                        if (!sc && !sd) {
+                            if (sgn(re(conj(b - a) * (d - c))) > 0 && i > j) {
+                                segs.pb({ratio(a, b, c), +1});
+                                segs.pb({ratio(a, b, d), -1});
+                            }
+                        } else {
+                            db sa = im(conj(d - c) * (a - c));
+                            db sb = im(conj(d - c) * (b - c));
+                            if (sc >= 0 && sd < 0)
+                                segs.pb({sa / (sa - sb), 1});
+                            else if (sc < 0 && sd >= 0)
+                                segs.pb({sa / (sa - sb), -1});
+                        }
+                    }
+            sort(segs.begin(), segs.end());
+            db pre = min(max(segs[0].fir, 0.0), 1.0);
+            db cur, sum = 0;
+            int cnt = segs[0].sec;
+            for (int j = 1; j < segs.size(); ++j) {
+                cur = min(max(segs[j].fir, 0.0), 1.0);
+                if (!cnt)
+                    sum += cur - pre;
+                cnt += segs[j].sec;
+                pre = cur;
+            }
+            ret += im(conj(a) * b) * sum;
+        }
+    ret = abs(ret) * 0.5;
+    return ret;
+}
+} // namespace lovelive
 
 void testRandom(int n, int numPts = 10, int lim = 5) {
     vector<vector<P>> polygons;
     for (int i = 0; i < n; i++) {
         vector<P> pts;
         for (int j = 0; j < numPts; j++) {
-            pts.push_back(P(rand() % lim, rand() % lim));
+            pts.push_back(P((rand() % (2 * lim)) - lim, (rand() % (2 * lim)) - lim));
         }
         polygons.push_back(genPolygon(pts));
-        reverse(all(polygons.back()));
+        if (polygonArea2(polygons.back()) < 0) {
+            reverse(all(polygons.back()));
+        }
     }
     vector<vector<blackhorse::pt>> polygons2;
     for (auto i : polygons) {
@@ -99,21 +181,33 @@ void testRandom(int n, int numPts = 10, int lim = 5) {
             t.push_back({j.x, j.y});
         polygons2.push_back(t);
     }
+    vector<vector<lovelive::cpoi>> polygons3;
+    for (auto i : polygons) {
+        vector<lovelive::cpoi> t;
+        for (auto j : i)
+            t.push_back({j.x, j.y});
+        polygons3.push_back(t);
+    }
     auto val1 = polyUnion(polygons);
-    auto val2 = blackhorse::polygon_union(polygons2.data(), polygons2.size());
-    if (abs(val1 - val2) > 1e-8) {
+    auto val2 = approximate::polygonUnion(polygons, lim);
+    auto val3 = blackhorse::polygon_union(polygons2.data(), polygons2.size());
+    auto val4 = lovelive::polygon_union(polygons3.data(), polygons3.size());
+    if (abs(val1 - val2) / max(val1, val2) > 0.1) {
+        cout << val3 <<' '<<val4<< endl;
         cout << val1 << ' ' << val2 << ' ' << endl;
         assert(abs(val1 - val2) < 1e-8);
     }
 }
 int main() {
-    for (int i = 0; i < 1000; i++) {
-        testRandom(5, 20, 10);
+    srand(time(0));
+    for (int i = 0; i < 100; i++) {
+        testRandom(2, 3, 2);
     }
-    for (int i = 0; i < 1000; i++) {
-        testRandom(2, 10, 5);
+    for (int i = 0; i < 100; i++) {
+        testRandom(2, 10, 2);
     }
-    for (int i = 0; i < 1000; i++) {
-        testRandom(5, 100, 10);
+    for (int i = 0; i < 100; i++) {
+        testRandom(5, 100, 5);
     }
+    cout << "Tests passed!" << endl;
 }
