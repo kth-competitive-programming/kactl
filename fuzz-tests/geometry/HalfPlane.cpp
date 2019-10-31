@@ -301,8 +301,9 @@ void testEmpty() {
     auto res = halfPlaneIntersection(t);
     assert(sz(res) == 0);
 }
-void testRandom() {
-    int lim = 5;
+void testRandom(const double EPS) {
+    int lim = 3;
+    double mxDiff = 0;
     for (int i = 0; i < 10000000; i++) {
         vector<Line> t;
         for (int i = 0; i < 4; i++) {
@@ -327,12 +328,14 @@ void testRandom() {
             t.push_back(cand);
         }
         addInf(t, lim);
-        auto res = halfPlaneIntersection(t);
+        auto res = halfPlaneIntersection(t, EPS);
         double area = sjtu::halfPlaneIntersection(t);
         double resArea = abs(polygonArea2(res) / 2);
         // double resArea = mit::Intersection_Area(convert(t));
         double diff = abs(area - resArea);
-        if (diff > EPS || isnan(diff)) {
+        mxDiff = max(diff, mxDiff);
+        continue;
+        if (diff > .1 || isnan(diff)) {
             cout << diff << ' ' << area << ' ' << resArea << endl;
             for (auto i : t)
                 cout << i[0] << "->" << i[1] << ' ';
@@ -344,9 +347,11 @@ void testRandom() {
             for (auto i : res)
                 cout << i << ',';
             cout << endl;
+            assert(false);
         }
-        assert(diff <= EPS);
     }
+    cout<<"eps: "<<EPS<<endl;
+    cout<<"mxDiff: "<<mxDiff<<endl;
 }
 vector<P> convexHull(vector<P> pts) {
 	if (sz(pts) <= 1) return pts;
@@ -367,8 +372,9 @@ int main() {
     // testInf();
     // testLine();
     // testPoint();
-    // testRandom();
-    // return 0;
+    for (double e : {1e-10, 1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2})
+        testRandom(e);
+    return 0;
     // testEmpty();
     // Case that messes with precision
     // vector<Line> cases({{P(1,0),P(0,2)},{P(0,1),P(2,0)},{P(0,0),P(1,1)},{P(2,2),P(1,1)},{P(3,3),P(-3,3)},{P(-3,3),P(-3,-3)},{P(-3,-3),P(3,-3)},{P(3,-3),P(3,3)}});

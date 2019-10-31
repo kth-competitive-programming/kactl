@@ -25,7 +25,9 @@ bool cmp(Line a, Line b) {
 	auto s = angDiff(a, b);
 	return s == 0 ? sideOf(sp(b), a[0]) >= 0 : s < 0;
 }
-vector<P> halfPlaneIntersection(vector<Line> vs) {
+std::random_device rd;
+std::mt19937 e2(rd());
+vector<P> halfPlaneIntersection(vector<Line> vs, const double EPS=1e-8) {
 	sort(all(vs), cmp);
 	// for (auto l: vs) {
 	// 	cout<<l[0]<<" -> "<<l[1]<<endl;
@@ -39,10 +41,12 @@ vector<P> halfPlaneIntersection(vector<Line> vs) {
 		if (angDiff(vs[i], vs[i - 1]) == 0) {
 			continue;
 		}
-
-		while (ah<at && sideOf(sp(vs[i]),ans[at-1], 1e-8) < 0) at--;
-		while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah], 1e-8)<0) ah++;
-		auto res = lineInter(sp(vs[i]), sp(deq[at]));
+const double mult = 1.414;
+std::uniform_real_distribution<> dist(-EPS, EPS);
+while (ah<at && sideOf(sp(vs[i]),ans[at-1], mult*EPS) < 0) at--;
+while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah], mult*EPS)<0) ah++;
+auto res = lineInter(sp(vs[i]), sp(deq[at]));
+res.second = res.second + P(dist(e2), dist(e2));
 		if (res.first != 1) {
 			// cout<<"46"<<endl;
 			continue;
