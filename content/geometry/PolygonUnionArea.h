@@ -5,8 +5,8 @@
  * Source:
  * Description: Calculates the area of the union of $n$ polygons (not
  * necessarily convex). The points within each polygon must be given in CCW
- * order. Should be precise up to ~2^25. If epsilons are needed, add them in
- * sideOf as well as the definition of sgn.
+ * order. Guaranteed to be precise for integer coordinates up to ~3e7. If
+ * epsilons are needed, add them in sideOf as well as the definition of sgn.
  * Status: Submitted on ECNA 2017 Problem A, fuzz-tested
  * Time: $O(N^2)$, where $N$ is the total number of points
  * Usage:
