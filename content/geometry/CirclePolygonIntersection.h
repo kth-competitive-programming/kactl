@@ -1,12 +1,11 @@
 /**
- * Author: Haobin Ni, chilli
+ * Author: chilli, Takanori MAEHARA
  * Date: 2019-10-31
  * License: CC0
- * Source: https://github.com/FTRobbin/Dreadnought-Standard-Code-Library/blob/master/merge/areaCT.cpp
+ * Source: https://github.com/spaghetti-source/algorithm/blob/master/geometry/_geom.cc#L744
  * Description: Returns the area of the intersection of a circle with a
- * polygon. areaCT returns the area of the intersection of the triangle
- * (origin, pa, pb) and the circle of radius r with origin at 0.
- * Status: Tested on GNYR 2019 Gerrymandering
+ * polygon.
+ * Status: Tested on GNYR 2019 Gerrymandering, fuzz-tested
  * Time: O(n)
 */
 #pragma once
