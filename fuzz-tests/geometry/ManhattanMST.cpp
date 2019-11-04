@@ -41,8 +41,8 @@ signed main() {
         int num_pts = 1000;
         vector<P> pts;
         for (int i = 0; i < num_pts; ++i) {
-            double x = rand() % 300;
-            double y = rand() % 300;
+            int x = rand() % 300 - 150;
+            int y = rand() % 300 - 150;
             pts.push_back(P(x,y));
         }
         auto edges = manhattanMST(pts);
