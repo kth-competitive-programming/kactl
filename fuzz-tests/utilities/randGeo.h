@@ -7,6 +7,7 @@
 typedef long long ll;
 using namespace std;
 
-Point<double> randPt(int lim) {
-    return Point<double>(rand()%(lim*2) - lim, rand()%(lim*2)-lim);
+template <class T=double>
+Point<T> randIntPt(int lim) {
+    return Point<T>(rand()%(lim*2) - lim, rand()%(lim*2)-lim);
 }

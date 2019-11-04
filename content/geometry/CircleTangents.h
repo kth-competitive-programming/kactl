@@ -2,10 +2,10 @@
  * Author: Victor Lecomte, chilli
  * Date: 2019-10-31
  * License: CC0
- * Source:
+ * Source: https://vlecomte.github.io/cp-geo.pdf
  * Description: Returns the external tangents of two circles, where P1 and P2
  * are the tangency points of circle 1 and 2 respectively. Can return 0, 1, or
- * 2 tangents. If the circles are the same, returns 0 tangents. If there is
+ * 2 tangents. If the circles have no tangents/are identical, returns 0 tangents. If there is
  * only 1 tangent, then the circles are tangent to each other at some point P,
  * and the tangent line can be found as the perpendicular line c1 -> P passing
  * through P. Internal tangents can be found by negating r2. To find the
