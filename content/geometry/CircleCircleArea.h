@@ -14,8 +14,8 @@ double circleCircleArea(P c, double cr, P d, double dr) {
 		return r*r*acos(h/r)-h*sqrt(r*r-h*h);
 	};
 	auto l = (c - d).dist(), a = (l*l + cr*cr - dr*dr)/(2*l);
-	if (sgn(l - cr - dr) >= 0) return 0; // far away
-	if (sgn(l - cr + dr) <= 0) return M_PI*dr*dr;
-	if (sgn(l - cr) >= 0) return A(cr, a) + A(dr, l-a);
+	if (l - cr - dr >= 0) return 0; // far away
+	if (l - cr + dr <= 0) return M_PI*dr*dr;
+	if (l - cr >= 0) return A(cr, a) + A(dr, l-a);
 	else return A(cr, a) + M_PI*dr*dr - A(dr, a-l);
 }
