@@ -4,7 +4,7 @@
  * Source:
  * Description: Reads in arbitrary amounts of integral values.
  * Status: tested on SPOJ INTEST
- * Time: About 3x as fast as cin.
+ * Time: About 5x as fast as cin.
  * Usage: int a, b[5]; ll c;
  * read_int(a, b[0], c);
  */
