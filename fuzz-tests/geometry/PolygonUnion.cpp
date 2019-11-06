@@ -17,6 +17,7 @@ typedef vector<int> vi;
 #include "../../content/geometry/PolygonArea.h"
 #include "../../content/geometry/PolygonUnion.h"
 #include "../utilities/genPolygon.h"
+#include "../utilities/random.h"
 
 namespace blackhorse {
 
@@ -42,7 +43,7 @@ db polygon_union(vector<pt> poly[], int n) {
     };
     db ret = 0;
     for (int i = 0; i < n; ++i) {
-        for (int v = 0; v < poly[i].size(); ++v) {
+        for (size_t v = 0; v < poly[i].size(); ++v) {
             pt A = poly[i][v], B = poly[i][(v + 1) % poly[i].size()];
             vector<pair<db, int>> segs;
             segs.emplace_back(0, 0), segs.emplace_back(1, 0);
@@ -67,7 +68,7 @@ db polygon_union(vector<pt> poly[], int n) {
             sort(segs.begin(), segs.end());
             db pre = min(max(segs[0].first, 0.0), 1.0), now, sum = 0;
             int cnt = segs[0].second;
-            for (int j = 1; j < segs.size(); ++j) {
+            for (size_t j = 1; j < segs.size(); ++j) {
                 now = min(max(segs[j].first, 0.0), 1.0);
                 if (!cnt)
                     sum += now - pre;
@@ -80,13 +81,14 @@ db polygon_union(vector<pt> poly[], int n) {
     return ret / 2;
 }
 } // namespace blackhorse
+
 namespace approximate {
 #include "../../content/geometry/InsidePolygon.h"
 double polygonUnion(vector<vector<P>> &polygons, int lim) {
     int cnt = 0;
     int total = 0;
-    for (double y = -lim; y < lim; y += lim / 200.0) {
-        for (double x = -lim; x < lim; x += lim / 200.0) {
+    for (double y = -lim + 1e-5; y < lim; y += lim / 200.0) {
+        for (double x = -lim + 1.1e-5; x < lim; x += lim / 200.0) {
             total++;
             for (auto &i : polygons) {
                 if (inPolygon(i, P(x, y))) {
@@ -99,6 +101,7 @@ double polygonUnion(vector<vector<P>> &polygons, int lim) {
     return lim * lim * 4 * cnt / double(total);
 }
 } // namespace approximate
+
 namespace lovelive {
 #define re real
 #define im imag
@@ -119,12 +122,12 @@ db polygon_union(vector<cpoi> py[], int n) {
     };
     db ret = 0;
     for (int i = 0; i < n; ++i)
-        for (int v = 0; v < py[i].size(); ++v) {
+        for (size_t v = 0; v < py[i].size(); ++v) {
             cpoi a = py[i][v], b = py[i][(v + 1) % py[i].size()];
             vector<pair<db, int>> segs = {{0, 0}, {1, 0}};
             for (int j = 0; j < n; ++j)
                 if (i != j)
-                    for (int u = 0; u < py[j].size(); ++u) {
+                    for (size_t u = 0; u < py[j].size(); ++u) {
                         cpoi c = py[j][u], d = py[j][(u + 1) % py[j].size()];
                         int sc = sgn(im(conj(b - a) * (c - a)));
                         int sd = sgn(im(conj(b - a) * (d - a)));
@@ -146,7 +149,7 @@ db polygon_union(vector<cpoi> py[], int n) {
             db pre = min(max(segs[0].fir, 0.0), 1.0);
             db cur, sum = 0;
             int cnt = segs[0].sec;
-            for (int j = 1; j < segs.size(); ++j) {
+            for (size_t j = 1; j < segs.size(); ++j) {
                 cur = min(max(segs[j].fir, 0.0), 1.0);
                 if (!cnt)
                     sum += cur - pre;
@@ -160,46 +163,74 @@ db polygon_union(vector<cpoi> py[], int n) {
 }
 } // namespace lovelive
 
+P randPt(int lim) {
+    return P(randRange(-lim, lim), randRange(-lim, lim));
+}
+
+P rndUlp(int lim, long long ulps = 5) {
+    return P(randNearIntUlps(lim, ulps), randNearIntUlps(lim, ulps));
+}
+
+P rndEps(int lim, double eps) {
+    return P(randNearIntEps(lim, eps), randNearIntEps(lim, eps));
+}
+
 void testRandom(int n, int numPts = 10, int lim = 5) {
     vector<vector<P>> polygons;
     for (int i = 0; i < n; i++) {
         vector<P> pts;
-        for (int j = 0; j < numPts; j++) {
-            pts.push_back(P((rand() % (2 * lim)) - lim, (rand() % (2 * lim)) - lim));
+        int k = randIncl(3, numPts);
+        for (int j = 0; j < k; j++) {
+            pts.push_back(randPt(lim)); // rndEps(lim, 1e-10));
         }
         polygons.push_back(genPolygon(pts));
         if (polygonArea2(polygons.back()) < 0) {
             reverse(all(polygons.back()));
         }
     }
-    vector<vector<blackhorse::pt>> polygons2;
-    for (auto i : polygons) {
-        vector<blackhorse::pt> t;
-        for (auto j : i)
-            t.push_back({j.x, j.y});
-        polygons2.push_back(t);
-    }
-    vector<vector<lovelive::cpoi>> polygons3;
-    for (auto i : polygons) {
-        vector<lovelive::cpoi> t;
-        for (auto j : i)
-            t.push_back({j.x, j.y});
-        polygons3.push_back(t);
-    }
     auto val1 = polyUnion(polygons);
     auto val2 = approximate::polygonUnion(polygons, lim);
-    auto val3 = blackhorse::polygon_union(polygons2.data(), polygons2.size());
-    auto val4 = lovelive::polygon_union(polygons3.data(), polygons3.size());
     if (abs(val1 - val2) / max(val1, val2) > 0.1) {
-        cout << val3 <<' '<<val4<< endl;
+        vector<vector<blackhorse::pt>> polygons2;
+        for (auto i : polygons) {
+            vector<blackhorse::pt> t;
+            for (auto j : i)
+                t.push_back({j.x, j.y});
+            polygons2.push_back(t);
+        }
+        vector<vector<lovelive::cpoi>> polygons3;
+        for (auto i : polygons) {
+            vector<lovelive::cpoi> t;
+            for (auto j : i)
+                t.push_back({j.x, j.y});
+            polygons3.push_back(t);
+        }
+        auto val3 = blackhorse::polygon_union(polygons2.data(), sz(polygons2));
+        auto val4 = lovelive::polygon_union(polygons3.data(), sz(polygons3));
+
+        cout << endl;
+        cout << val3 <<' ' << val4 << endl;
         cout << val1 << ' ' << val2 << ' ' << endl;
-        assert(abs(val1 - val2) < 1e-8);
+        if (abs(val1 - val2) > 1e-8) {
+            rep(i,0,n) {
+                trav(x, polygons[i]) {
+                    cout << x << ' ';
+                }
+                cout << endl;
+            }
+            abort();
+        }
     }
 }
+
 int main() {
-    srand(time(0));
+    int s = (int)time(0);
+    // s = 1572890368;
+    // cout << "seed " << s << endl;
+    srand(s);
     for (int i = 0; i < 100; i++) {
-        testRandom(2, 3, 2);
+        // cerr << i << ' ';
+        testRandom(2, 5, 5);
     }
     for (int i = 0; i < 100; i++) {
         testRandom(2, 10, 2);

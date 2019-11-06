@@ -3,8 +3,8 @@
 // Translated from Python code posted here: https://codeforces.com/blog/entry/63058?#comment-472788
 // May generate polygons with colinear points. Won't generate polygons with duplicate points. No guarantee of the direction of the polygon.
 #include "../../content/geometry/Point.h"
+#include "random.h"
 
-mt19937_64 rng(time(0));
 template<class P> pair<bool, vector<P>> conquer(vector<P> pts, int depth) {
     if (depth>100) {
         return {false, {}};
@@ -15,11 +15,9 @@ template<class P> pair<bool, vector<P>> conquer(vector<P> pts, int depth) {
         return {true,pts};
     }
 
-    uniform_int_distribution<int> uni(2, sz(pts)-1);
-    int divideId = uni(rng);
+    int divideId = randRange(2, sz(pts));
     P p1 = pts[divideId];
-    uniform_real_distribution<> uniFloat(0.01, 0.99);
-    double divideK = uniFloat(rng);
+    double divideK = randDouble(0.01, 0.99);
     P p2(divideK*(pts[1].x-pts[0].x) + pts[0].x, divideK*(pts[1].y - pts[0].y) + pts[0].y);
     vector<double> line = {p2.y - p1.y, p1.x - p2.x, -p1.x*p2.y + p1.y*p2.x};
     int idx0 = ((line[0]*pts[0].x + line[1]*pts[0].y + line[2]) >=0);
@@ -46,7 +44,7 @@ template<class P> pair<bool, vector<P>> conquer(vector<P> pts, int depth) {
 template<class P> vector<P> genPolygon(vector<P> pts) {
     sort(all(pts));
     pts.resize(unique(all(pts)) - pts.begin());
-    random_shuffle(all(pts));
+    shuffle_vec(pts);
     if (sz(pts) <=3) return pts;
     vector<double> line ={pts[1].y-pts[0].y, pts[0].x - pts[1].x, -pts[0].x*pts[1].y + pts[0].y*pts[1].x};
     array<vector<P>, 2> S;
