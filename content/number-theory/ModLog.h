@@ -11,16 +11,16 @@
 #pragma once
 
 ll modLog(ll a, ll b, ll m) {
-    assert(__gcd(a, m) == 1);
-    ll n = (ll) sqrt(m) + 1, an = 1;
-    rep(i,0,n) an = an * a % m;
-    unordered_map<ll, ll> vals;
-    for (ll i = 1, x = an; i <= n; i++, x = x * an % m)
-        if (!vals.count(x)) vals[x] = i;
-    for (ll i = 0, x = b; i <= n; i++, x = x * a % m)
-        if (vals.count(x)) {
-            ll res = vals[x] * n - i;
-            if (res < m) return res;
-        }
-    return -1;
+	assert(__gcd(a, m) == 1);
+	ll n = (ll) sqrt(m) + 1, an = 1;
+	rep(i,0,n) an = an * a % m;
+	unordered_map<ll, ll> vals;
+	for (ll i = 1, x = an; i <= n; i++, x = x * an % m)
+		if (!vals.count(x)) vals[x] = i;
+	for (ll i = 0, x = b; i <= n; i++, x = x * a % m)
+		if (vals.count(x)) {
+			ll res = vals[x] * n - i;
+			if (res < m) return res;
+		}
+	return -1;
 }
