@@ -7,7 +7,7 @@
  * Can return 0, 1, or 2 tangents -- 0 if one circle contains the other (or overlaps it, in the internal case);
  * 1 if the circles are tangent to each other (in which case .first = .second and the tangent line is perpendicular to the line between the centers).
  * .first and .second give the tangency points at circle 1 and 2 respectively.
- * To find the tangents of a circle with a point c2 set r2 to 0.
+ * To find the tangents of a circle with a point set r2 to 0.
  * Status: tested
  */
 #pragma once
