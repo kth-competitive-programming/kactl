@@ -17,14 +17,19 @@ uniform_int_distribution<ll> uni(1, 100);
 const int ITERS = 1e7;
 const int LIM = 1000;
 int main() {
-    rep(m,1,500) {
-        rep(a,1,m) {
+    rep(m,1,200) {
+        rep(a,0,m) {
             rep(x,0,m) {
                 if (__gcd(a, m) != 1) continue;
                 ull b  = mod_pow(a, x, m);
                 ull res = modLog(a, b, m);
                 ull recover = mod_pow(a, res, m);
-                assert(recover == b);
+                // cout<<a<<' '<<b<<' '<<m<<endl;
+                if (recover != b) {
+                    cout<<a<<'^'<<x<<" = "<<b<<" mod "<<m<<endl;
+                    cout<<"Found "<<res<<endl;
+                    return 0;
+                }
             }
         }
     }
