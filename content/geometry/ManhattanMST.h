@@ -15,24 +15,22 @@ vector<array<int, 3>> manhattanMST(vector<P> ps) {
 	vi id(sz(ps));
 	iota(all(id), 0);
 	vector<array<int, 3>> edges;
-	rep(s,0,2) {
-		rep(t,0,2) {
-			sort(all(id), [&](int i, int j) {
-			     return (ps[i]-ps[j]).x < (ps[j]-ps[i]).y;});
-			map<int, int> sweep;
-			trav(i,id) {
-				for (auto it = sweep.lower_bound(-ps[i].y);
-					        it != sweep.end(); sweep.erase(it++)) {
-					int j = it->second;
-					auto d = ps[j] - ps[i];
-					if (d.y < d.x) break;
-					edges.push_back({abs(d.y) + abs(d.x), i, j});
-				}
-				sweep[-ps[i].y] = i;
+	rep(k,0,4) {
+		sort(all(id), [&](int i, int j) {
+				return (ps[i]-ps[j]).x < (ps[j]-ps[i]).y;});
+		map<int, int> sweep;
+		trav(i,id) {
+			for (auto it = sweep.lower_bound(-ps[i].y);
+						it != sweep.end(); sweep.erase(it++)) {
+				int j = it->second;
+				auto d = ps[j] - ps[i];
+				if (d.y < d.x) break;
+				edges.push_back({abs(d.y) + abs(d.x), i, j});
 			}
-			trav(p,ps) swap(p.y, p.x);
+			sweep[-ps[i].y] = i;
 		}
-		trav(p,ps) p.x = -p.x;
+		if (k & 1) trav(p,ps) p.x = -p.x;
+		else trav(p,ps) swap(p.x, p.y);
 	}
 	return edges;
 }
