@@ -2,7 +2,9 @@
  * Author: chilli
  * License: CC0
  * Source:
- * Description: Returns an integer. Usage requires your program to pipe in input from file.
+ * Description: Returns an integer. Usage requires your program to pipe in
+ * input from file. Can replace calls to gc() with getchar_unlocked() if extra
+ * speed isn't necessary (60% slowdown).
  * Status: tested on SPOJ INTEST
  * Time: About 5x as fast as cin/scanf.
  * Usage: ./a.out < input.txt
@@ -17,7 +19,7 @@ struct GC {
 			be = fread(buf, 1, sizeof(buf) - 1, stdin);
 			buf[be] = bc = 0;
 		}
-		return buf[bc++];
+		return buf[bc++]; // returns 0 on EOF
 	}
 } gc;
 inline int read_int() {
