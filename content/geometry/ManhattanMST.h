@@ -3,12 +3,10 @@
  * Date: 2019-11-02
  * License: CC0
  * Source: https://github.com/spaghetti-source/algorithm/blob/master/geometry/rectilinear_mst.cc
- * Description: Given N points, returns up to 8*N edges, which are guaranteed
- * to contain the Manhattan MST. The Manhattan MST of a set of points is the
- * MST where the weight of the edge between any pair of points is the Manhattan
- * distance between the points. Edges are in the form (distance, src, dst). Use
- * a standard MST algorithm on the result to find the final MST. Modify `edges`
- * and `sweep` to support doubles.
+ * Description: Given N points, returns up to 4*N edges, which are guaranteed
+ * to contain a minimum spanning tree for the graph with edge weights w(p, q) =
+ * |p.x - q.x| + |p.y - q.y|. Edges are in the form (distance, src, dst). Use a
+ * standard MST algorithm on the result to find the final MST.
  * Time: O(N log N)
  * Status: Fuzz-tested
  */
@@ -22,7 +20,7 @@ vector<array<int, 3>> manhattanMST(vector<P> ps) {
 			sort(all(id), [&](int i, int j) {
 			     return (ps[i]-ps[j]).x < (ps[j]-ps[i]).y;});
 			map<int, int> sweep;
-			for (int i: id) {
+			trav(i,id) {
 				for (auto it = sweep.lower_bound(-ps[i].y);
 					        it != sweep.end(); sweep.erase(it++)) {
 					int j = it->second;

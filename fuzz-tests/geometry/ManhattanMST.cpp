@@ -46,6 +46,7 @@ signed main() {
             pts.push_back(P(x,y));
         }
         auto edges = manhattanMST(pts);
+        assert(edges.size() < 4*pts.size());
         sort(all(edges));
         UF uf(sz(pts));
         int cost = 0;
