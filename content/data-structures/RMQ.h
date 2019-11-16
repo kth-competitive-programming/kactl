@@ -5,7 +5,7 @@
  * Source: Folklore
  * Status: Tested at Petrozavodsk
  * Description: Range Minimum Queries on an array. Returns
- * min(V[a], V[a + 1], ... V[b - 1]) in constant time. 
+ * min(V[a], V[a + 1], ... V[b - 1]) in constant time.
  * Usage:
  *  RMQ rmq(values);
  *  rmq.query(inclusive, exclusive);
@@ -16,7 +16,6 @@
 template<class T>
 struct RMQ {
 	vector<vector<T>> jmp;
-
 	RMQ(const vector<T>& V) {
 		int N = sz(V), on = 1, depth = 1;
 		while (on < N) on *= 2, depth++;
@@ -25,7 +24,6 @@ struct RMQ {
 			jmp[i+1][j] = min(jmp[i][j],
 			jmp[i][min(N - 1, j + (1 << i))]);
 	}
-
 	T query(int a, int b) {
 		assert(a < b); // or return inf if a == b
 		int dep = 31 - __builtin_clz(b - a);
