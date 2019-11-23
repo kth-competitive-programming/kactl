@@ -5,7 +5,7 @@
  * Source: https://github.com/stjepang/snippets/blob/master/convex_hull.cpp
  * Description:
 \\\begin{minipage}{75mm}
-Returns a vector of indices of the convex hull in counter-clockwise order.
+Returns a vector of the points of the convex hull in counter-clockwise order.
 Points on the edge of the hull between two other points are not considered part of the hull.
 \end{minipage}
 \begin{minipage}{15mm}
