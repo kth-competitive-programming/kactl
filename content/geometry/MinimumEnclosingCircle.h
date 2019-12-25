@@ -5,7 +5,7 @@
  * Source: folklore
  * Description: Computes the minimum circle that encloses a set of points.
  * Time: expected O(n)
- * Status: fuzz-tested
+ * Status: stress-tested
  */
 #pragma once
 

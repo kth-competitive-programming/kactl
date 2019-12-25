@@ -7,7 +7,7 @@
  * order, with no colinear points). Returns true if point lies within
  * the hull. If strict is true, points on the boundary aren't included.
  * Usage:
- * Status: fuzz-tested
+ * Status: stress-tested
  * Time: O(\log N)
  */
 #pragma once

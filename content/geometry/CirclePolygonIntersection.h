@@ -5,7 +5,7 @@
  * Source: https://github.com/spaghetti-source/algorithm/blob/master/geometry/_geom.cc#L744
  * Description: Returns the area of the intersection of a circle with a
  * ccw polygon.
- * Status: Tested on GNYR 2019 Gerrymandering, fuzz-tested
+ * Status: Tested on GNYR 2019 Gerrymandering, stress-tested
  * Time: O(n)
 */
 #pragma once

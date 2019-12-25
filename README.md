@@ -44,7 +44,7 @@ To upstream your changes, [send a pull request](https://help.github.com/articles
 
 ## Testing
 
-KACTL algorithms are tested manually, on online judges and/or using fuzz-tests (see the `fuzz-tests` directory).
+KACTL algorithms are tested manually, on online judges and/or using stress tests (see the `stress-tests` directory).
 Simple variable renamings etc. don't need testing, but it's prudent to at least run `./test-compiles.sh file.h` to make sure the file still compiles.
 
 `old-unit-tests` contains a couple of broken unit tests, last touched about ten years ago.
@@ -57,4 +57,4 @@ Many source files are marked with license (we try to go with
 Presumably good will is to be assumed from other authors, though, and in many cases permission should not be needed since the code is not distributed.
 To help trace things back, sources and authors are noted in source files.
 
-Everything in `fuzz-tests` is implicitly CC0, except reference implementations taken from around the Internet.
+Everything in `stress-tests` is implicitly CC0, except reference implementations taken from around the Internet.

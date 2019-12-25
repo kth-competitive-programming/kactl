@@ -207,7 +207,7 @@ signed compare() {
 	return 0;
 }
 
-void fuzz(bool onlySmall = false) {
+void stress(bool onlySmall = false) {
 	rep(large,0,2) {
 		if (onlySmall && large) break;
 		double work = large ? 1e7 : 5e5;
@@ -251,7 +251,7 @@ void perf2() {
 
 int main() {
 	// compare();
-	fuzz(0);
+	stress(0);
 	cout<<"Tests passed!"<<endl;
 	// perf();
 	// perf2();

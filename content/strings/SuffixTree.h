@@ -9,7 +9,7 @@
  *  To get a complete tree, append a dummy symbol -- otherwise it may contain
  *  an incomplete path (still useful for substring matching, though).
  * Time: $O(26N)$
- * Status: fuzz-tested a bit
+ * Status: stress-tested a bit
  */
 #pragma once
 
