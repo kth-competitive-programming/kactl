@@ -1,22 +1,18 @@
 # KACTL
 
 This repo hosts KACTL, KTH's ICPC team reference document.
-It consists of 25 pages of copy-paste:able code, for use in ICPC-style programming competitions.
+It consists of 25 pages of copy-pasteable code, for use in ICPC-style programming competitions.
 
 See [kactl.pdf](https://github.com/kth-competitive-programming/kactl/blob/master/kactl.pdf) for the final, browsable version,
 and [content/](https://github.com/kth-competitive-programming/kactl/tree/master/content) for raw source code.
 
 ## Aspirations
 
-KACTL algorithms should be: useful, short, fast enough, readable, and if relevant, easy to modify.
-Short and readable sometimes conflict -- usually then short takes precedence, although
-the algorithms should still be made easy to type in and hard to make typos in (since ICPC-style contests
-require you to copy them from paper).
-
+KACTL algorithms should be: useful, short, fast enough, well tested, and if relevant, readable and easy to modify.
 They should *not* be overly generic, since code is manually typed and that just adds overhead.
 Due to space issues, we also exclude algorithms that are very common/simple (e.g., Dijkstra), or very uncommon (general weighted matching).
 
-If you feel that something is missing, could be cleaned up, or notice a bug, please file an issue or send us a pull request!
+If you feel that something is missing, could be cleaned up, or notice a bug, please file an issue or send a pull request!
 
 ## Hacking on KACTL
 
