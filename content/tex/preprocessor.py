@@ -1,8 +1,9 @@
 #!/usr/bin/env python2
 # encoding: utf-8
 
-# Source code preprocessor for KACTL building process.
-# Written by Håkan Terelius, 2008-11-24
+# Source code preprocessor for KACTL build process. Compatible with both Python 2 and 3;
+# currently 2 is used because it has better startup overhead (5% faster builds).
+# License: CC0
 
 from __future__ import print_function
 import sys

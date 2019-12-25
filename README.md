@@ -57,4 +57,4 @@ Many source files are marked with license (we try to go with
 Presumably good will is to be assumed from other authors, though, and in many cases permission should not be needed since the code is not distributed.
 To help trace things back, sources and authors are noted in source files.
 
-Everything in `fuzz-tests` and `build` is implicitly CC0.
+Everything in `fuzz-tests` is implicitly CC0, except reference implementations taken from around the Internet.
