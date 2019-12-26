@@ -6,7 +6,7 @@
  * Description: Push-relabel using the highest label selection rule and the gap heuristic. Quite fast in practice.
  *  To obtain the actual flow, look at positive values only.
  * Time: $O(V^2\sqrt E)$
- * Status: Tested on kattis and SPOJ
+ * Status: Tested on Kattis and SPOJ, and stress-tested
  */
 #pragma once
 
