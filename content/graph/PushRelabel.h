@@ -58,4 +58,5 @@ struct PushRelabel {
 				else ++cur[u];
 		}
 	}
+	bool leftOfMinCut(int a) { return H[a] >= sz(g); }
 };
