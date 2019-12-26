@@ -1,5 +1,5 @@
 Pre-submit:
-Write a few simple test cases, if sample is not enough.
+Write a few simple test cases if sample is not enough.
 Are time limits close? If so, generate max cases.
 Is the memory usage fine?
 Could anything overflow?
@@ -7,7 +7,7 @@ Make sure to submit the right file.
 
 Wrong answer:
 Print your solution! Print debug output, as well.
-Are you clearing all datastructures between test cases?
+Are you clearing all data structures between test cases?
 Can your algorithm handle the whole range of input?
 Read the full problem statement again.
 Do you handle all corner cases correctly?
@@ -22,11 +22,11 @@ Add some assertions, maybe resubmit.
 Create some testcases to run your algorithm on.
 Go through the algorithm for a simple case.
 Go through this list again.
-Explain your algorithm to a team mate.
-Ask the team mate to look at your code.
+Explain your algorithm to a teammate.
+Ask the teammate to look at your code.
 Go for a small walk, e.g. to the toilet.
 Is your output format correct? (including whitespace)
-Rewrite your solution from the start or let a team mate do it.
+Rewrite your solution from the start or let a teammate do it.
 
 Runtime error:
 Have you tested all corner cases locally?
@@ -45,8 +45,8 @@ What is the complexity of your algorithm?
 Are you copying a lot of unnecessary data? (References)
 How big is the input and output? (consider scanf)
 Avoid vector, map. (use arrays/unordered_map)
-What do your team mates think about your algorithm?
+What do your teammates think about your algorithm?
 
 Memory limit exceeded:
 What is the max amount of memory your algorithm should need?
-Are you clearing all datastructures between test cases?
+Are you clearing all data structures between test cases?
