@@ -8,7 +8,7 @@
  * |p.x - q.x| + |p.y - q.y|. Edges are in the form (distance, src, dst). Use a
  * standard MST algorithm on the result to find the final MST.
  * Time: O(N log N)
- * Status: Fuzz-tested
+ * Status: Stress-tested
  */
 typedef Point<int> P;
 vector<array<int, 3>> manhattanMST(vector<P> ps) {
