@@ -269,9 +269,9 @@ def main():
             print_header(print_header_value, outstream)
             return
         print(" * \x1b[1m{}\x1b[0m".format(caption))
-        if language == "cpp" or language == "cc" or language == "c" or language == "h" or language == "hpp":
+        if language in ["cpp", "cc", "c", "h", "hpp"]:
             processwithcomments(caption, instream, outstream, 'C++')
-        elif language == "java":
+        elif language in ["java", "kt"]:
             processwithcomments(caption, instream, outstream, 'Java')
         elif language == "ps":
             processraw(caption, instream, outstream) # PostScript was added in listings v1.4
