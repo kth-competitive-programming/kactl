@@ -2,12 +2,13 @@
  * Author: Johan Sannemo
  * License: CC0
  * Description: Compute indices for the longest increasing subsequence.
- * Status: Tested on Kattis, longincsubseq
+ * Status: Tested on Kattis, longincsubseq, stress-tested
  * Time: $O(N \log N)$
  */
 #pragma once
 
 template<class I> vi lis(const vector<I>& S) {
+	if (S.empty()) return {};
 	vi prev(sz(S));
 	typedef pair<I, int> p;
 	vector<p> res;
