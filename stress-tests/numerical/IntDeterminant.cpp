@@ -1,16 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-#define rep(i, a, b) for(int i = a; i < int(b); ++i)
-#define trav(a, v) for(auto& a : v)
-#define all(x) x.begin(), x.end()
-#define sz(x) (int)(x).size()
+#include "../utilities/template.h"
 
 const int mod = 7; // 4
-
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
 
 typedef vector<vector<ll>> vvll;
 ll det(vvll& a) { // integer determinant

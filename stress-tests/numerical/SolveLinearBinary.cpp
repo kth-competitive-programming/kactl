@@ -1,14 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-#define rep(i, a, b) for(int i = a; i < (b); ++i)
-#define trav(it, v) for(auto& it : v)
-#define all(x) x.begin(), x.end()
-#define sz(x) (int)(x).size()
-
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
+#include "../utilities/template.h"
 
 const int nmax = 5, mmax = 5, nmmax = 16;
 

@@ -1,9 +1,4 @@
-#include <iostream>
-#include <cassert>
-using namespace std;
-
-#define rep(i,f,t) for (int i = (f); i < (t); ++i)
-typedef long long ll;
+#include "../utilities/template.h"
 
 #include "../../content/various/FastMod.h"
 
