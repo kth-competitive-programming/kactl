@@ -32,7 +32,6 @@ int segmentIntersection(const P& s1, const P& e1,
 }
 }
 typedef Point<double> P;
-ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
 bool eq(P a, P b) {
     return (a-b).dist()<1e-8;
 }

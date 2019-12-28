@@ -61,8 +61,10 @@ int main() {
 				compsize[ncomps] = sz(v);
 			});
 			if (comp != comp2) {
-				trav(x, comp) cout << x << ' '; cout << endl;
-				trav(x, comp2) cout << x << ' '; cout << endl;
+				trav(x, comp) cout << x << ' ';
+				cout << endl;
+				trav(x, comp2) cout << x << ' ';
+				cout << endl;
 			}
 			rep(i,0,N) assert(comp[i] >= 0 && comp[i] < ncomps);
 			rep(i,0,N) trav(j, adj[i]) assert(comp[j] <= comp[i]);

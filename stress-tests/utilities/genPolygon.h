@@ -21,8 +21,9 @@ template<class P> pair<bool, vector<P>> conquer(vector<P> pts, int depth) {
     P p1 = pts[divideId];
     uniform_real_distribution<> uniFloat(0.01, 0.99);
     double divideK = uniFloat(rng);
-    P p2(divideK*(pts[1].x-pts[0].x) + pts[0].x, divideK*(pts[1].y - pts[0].y) + pts[0].y);
-    vector<double> line = {p2.y - p1.y, p1.x - p2.x, -p1.x*p2.y + p1.y*p2.x};
+    double divx = divideK * (pts[1].x - pts[0].x) + pts[0].x;
+    double divy = divideK * (pts[1].y - pts[0].y) + pts[0].y;
+    vector<double> line = {(double)(divy - p1.y), (double)(p1.x - divx), (double)(-p1.x*divy + p1.y*divx)};
     int idx0 = ((line[0]*pts[0].x + line[1]*pts[0].y + line[2]) >=0);
     int idx1 = ((line[0]*pts[1].x + line[1]*pts[1].y + line[2]) >=0);
     if (idx0==idx1)
@@ -49,7 +50,7 @@ template<class P> vector<P> genPolygon(vector<P> pts) {
     pts.resize(unique(all(pts)) - pts.begin());
     random_shuffle(all(pts));
     if (sz(pts) <=3) return pts;
-    vector<double> line ={pts[1].y-pts[0].y, pts[0].x - pts[1].x, -pts[0].x*pts[1].y + pts[0].y*pts[1].x};
+    vector<double> line ={(double)(pts[1].y-pts[0].y), (double)(pts[0].x - pts[1].x), (double)(-pts[0].x*pts[1].y + pts[0].y*pts[1].x)};
     array<vector<P>, 2> S;
     S[0].push_back(pts[0]);
     S[0].push_back(pts[1]);

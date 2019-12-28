@@ -51,9 +51,9 @@ void dela(A& v, F f) {
 int main1() {
 	srand(2);
 	feenableexcept(29);
-	rep(it,0,30000000) {{
+	rep(it,0,3000000) {{
 		bumpalloc.reset();
-		if (it % 200 == 0) cerr << endl;
+		// if (it % 200 == 0) cerr << endl;
 		vector<P> ps;
 		int N = rand() % 20 + 1;
 		int xrange = rand() % 50 + 1;
@@ -126,15 +126,14 @@ int main1() {
 			assert(!any);
 		}
 
-		vector<P> hull;
-		trav(i, convexHull(ps)) hull.push_back(ps[i]);
+		vector<P> hull = convexHull(ps);
 		ll ar2 = polygonArea2(hull);
 		if (ar2 != sumar) fail();
 
 		continue; }
 fail:;
 	}
-	cerr << endl;
+	// cerr << endl;
 	return 0;
 }
 

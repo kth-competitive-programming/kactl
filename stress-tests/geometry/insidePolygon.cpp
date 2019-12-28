@@ -35,7 +35,6 @@ bool insidePolygon(It begin, It end, const P& p,
 }
 }
 typedef Point<double> P;
-ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
 bool eq(P a, P b) {
     return (a-b).dist()<EPS;
 }

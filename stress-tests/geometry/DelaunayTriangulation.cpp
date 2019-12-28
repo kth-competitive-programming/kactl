@@ -10,7 +10,7 @@
 typedef Point<double> P;
 int main() {
 	feenableexcept(29);
-	rep(it,0,1000000) {{
+	rep(it,0,100000) {{
 		vector<P> ps;
 		int N = rand() % 20 + 1;
 		rep(i,0,N) {
@@ -64,8 +64,7 @@ int main() {
 		});
 		if (N >= 3) rep(i,0,N) if (!used[i]) fail();
 
-		vector<P> hull;
-		trav(i, convexHull(ps)) hull.push_back(ps[i]);
+		vector<P> hull = convexHull(ps);
 		double ar2 = polygonArea2(hull);
 		if (abs(sumar - ar2) > 1e-4) fail();
 

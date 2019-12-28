@@ -1,6 +1,8 @@
 #include "../utilities/template.h"
 
 #include "../../content/geometry/ConvexHull.h"
+#include "../utilities/bench.h"
+
 namespace old {
 pair<vi, vi> ulHull(const vector<P>& S) {
 	vi Q(sz(S)), U, L;
@@ -22,17 +24,7 @@ vi convexHull(const vector<P>& S) {
 	return l;
 }
 }
-ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
-struct timeit {
-    decltype(chrono::high_resolution_clock::now()) begin;
-    const string label;
-    timeit(string label = "???") : label(label) { begin = chrono::high_resolution_clock::now(); }
-    ~timeit() {
-        auto end = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::milliseconds>(end - begin).count();
-        cerr << duration << "ms elapsed [" << label << "]" << endl;
-    }
-};
+
 int main() {
     const int SZ = 1e2;
     rep(t,0,100000) {

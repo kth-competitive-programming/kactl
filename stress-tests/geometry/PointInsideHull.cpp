@@ -10,9 +10,9 @@ namespace ignore {
 int main() {
 	rep(it,0,100000) {
 		int N = rand() % 15;
-		vector<P> ps, ps2;
+		vector<P> ps;
 		rep(i,0,N) ps.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
-		trav(i, convexHull(ps)) ps2.push_back(ps[i]);
+		vector<P> ps2 = convexHull(ps);
 		if (ps2.empty()) continue;
 		rep(it2,0,20) {
 			int x = rand() % 22 - 11;

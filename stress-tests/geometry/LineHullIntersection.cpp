@@ -35,8 +35,6 @@ struct Point<double> {
 #include "../../content/geometry/ConvexHull.h"
 #include "../../content/geometry/LineHullIntersection.h"
 
-ostream &operator<<(ostream &os, P p) { return cout << "(" << p.x << "," << p.y << ")"; }
-
 int segmentIntersection(const P& s1, const P& e1,
 		const P& s2, const P& e2, Point<double>& r1, Point<double>& r2) {
 	if (e1==s1) {
@@ -72,9 +70,9 @@ int main() {
 		// cout<<"it: "<<it<<endl;
 		if (it % 10000 == 0) cerr << '.';
 		int N = rand() % 15;
-		vector<P> ps, ps2;
+		vector<P> ps2;
 		rep(i,0,N) ps2.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
-		trav(i, convexHull(ps2)) ps.push_back(ps2[i]);
+		vector<P> ps = convexHull(ps2);
 		if (ps.empty()) continue;
 		P p{rand() % 20 - 10, rand() % 20 - 10};
 		P q{rand() % 20 - 10, rand() % 20 - 10};
