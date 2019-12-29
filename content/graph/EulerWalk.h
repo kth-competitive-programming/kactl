@@ -11,7 +11,7 @@
 #pragma once
 
 struct V {
-	vector<pii> outs; // (dest, edge index)
+	vector<pii> outs; // (dest, global edge index)
 	int nins = 0;
 };
 
@@ -24,14 +24,14 @@ vi euler_walk(vector<V>& nodes, int nedges, int src=0) {
 		its.push_back(n.outs.begin());
 	vector<bool> eu(nedges);
 	vi ret, s = {src};
-	while(!s.empty()) {
+	while (!s.empty()) {
 		int x = s.back();
 		auto& it = its[x], end = nodes[x].outs.end();
-		while(it != end && eu[it->second]) ++it;
-		if(it == end) { ret.push_back(x); s.pop_back(); }
+		while (it != end && eu[it->second]) ++it;
+		if (it == end) { ret.push_back(x); s.pop_back(); }
 		else { s.push_back(it->first); eu[it->second] = true; }
 	}
-	if(sz(ret) != nedges+1)
+	if (sz(ret) != nedges+1)
 		ret.clear(); // No Eulerian cycles/paths.
 	// else, non-cycle if ret.front() != ret.back()
 	reverse(all(ret));
