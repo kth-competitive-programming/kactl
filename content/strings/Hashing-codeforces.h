@@ -5,7 +5,7 @@
  * Source: own work
  * Description: Various self-explanatory methods for string hashing.
  * Use on Codeforces, which lacks 64-bit support and where solutions can be hacked.
- * Status: somewhat tested
+ * Status: stress-tested
  */
 #pragma once
 

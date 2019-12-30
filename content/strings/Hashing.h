@@ -4,7 +4,7 @@
  * License: CC0
  * Source: own work
  * Description: Self-explanatory methods for string hashing.
- * Status: tested
+ * Status: stress-tested
  */
 #pragma once
 
