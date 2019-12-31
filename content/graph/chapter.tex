@@ -40,5 +40,13 @@
 	\kactlimport{HLD.h}
 	\kactlimport{LinkCutTree.h}
 	\kactlimport{DirectedMST.h}
-	\kactlimport{MatrixTree.h}
-	\columnbreak
+
+\section{Math}
+	\subsection{Number of Spanning Trees}
+		% I.e. matrix-tree theorem.
+		% Source: https://en.wikipedia.org/wiki/Kirchhoff%27s_theorem
+		% Test: stress-tests/graph/matrix-tree.cpp
+		Create an $N\times N$ matrix \texttt{mat}, and for each edge $a \rightarrow b \in G$, do
+		\texttt{mat[a][b]--, mat[b][b]++} (and \texttt{mat[b][a]--, mat[a][a]++} if $G$ is undirected).
+		Remove the $i$th row and column and take the determinant; this yields the number of directed spanning trees rooted at $i$
+		(if $G$ is undirected, remove any row/column).
