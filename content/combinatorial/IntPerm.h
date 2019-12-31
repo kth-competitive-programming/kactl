@@ -3,6 +3,7 @@
  * Date: 2018-07-06
  * License: CC0
  * Description: Permutation -> integer conversion. (Not order preserving.)
+ * Integer -> permutation can use a lookup table.
  * Time: O(n)
  */
 #pragma once
