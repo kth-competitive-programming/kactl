@@ -7,7 +7,7 @@
  * of the form $2^a b+1$, where the convolution result has size at most $2^a$.
  * Inputs must be in [0, mod).
  * Time: O(N \log N)
- * Status: fuzz-tested
+ * Status: stress-tested
  */
 #pragma once
 

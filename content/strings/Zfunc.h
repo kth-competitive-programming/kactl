@@ -3,7 +3,7 @@
  * License: CC0
  * Description: z[x] computes the length of the longest common prefix of s[i:] and s, except z[0] = 0. (abacaba -> 0010301)
  * Time: O(n)
- * Status: fuzz-tested
+ * Status: stress-tested
  */
 #pragma once
 

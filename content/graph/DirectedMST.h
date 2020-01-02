@@ -6,7 +6,7 @@
  * Description: Edmonds' algorithm for finding the weight of the minimum spanning
  * tree/arborescence of a directed graph, given a root node. If no MST exists, returns -1.
  * Time: O(E \log V)
- * Status: Fuzz-tested, also tested on NWERC 2018 fastestspeedrun
+ * Status: Stress-tested, also tested on NWERC 2018 fastestspeedrun
  */
 #pragma once
 
