@@ -3,10 +3,9 @@
  * Date: 2019-10-29
  * License:
  * Source:
- * Description: Calculates the area of the union of $n$ polygons (not
- * necessarily convex). The points within each polygon must be given in CCW
- * order. Guaranteed to be precise for integer coordinates up to ~3e7. If
- * epsilons are needed, add them in sideOf as well as the definition of sgn.
+ * Description: Calculates the area of the union of $n$ polygons (not necessarily
+ * convex). The points within each polygon must be given in CCW order.
+ * (Epsilon checks may optionally be added to sideOf/sgn, but shouldn't be needed.)
  * Status: Submitted on ECNA 2017 Problem A, fuzz-tested
  * Time: $O(N^2)$, where $N$ is the total number of points
  * Usage:
