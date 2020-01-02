@@ -23,10 +23,10 @@ struct GC {
 	}
 } gc;
 inline int read_int() {
-	static char c;
+	char c;
 	while ((c = gc()) < 40);
 	if (c == '-') return -read_int();
 	int a = c - '0';
-	for (; isdigit(c = gc()); a = a * 10 + c - '0');
+	while (isdigit(c = gc())) a = a * 10 + c -'0';
 	return a;
 }
