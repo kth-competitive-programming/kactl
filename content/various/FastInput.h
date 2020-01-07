@@ -12,17 +12,17 @@
 #pragma once
 
 struct GC {
-	char buf[1 << 16 | 1];
+	char buf[1 << 16];
 	int bc = 0, be = 0;
 	char operator()() {
 		if (bc >= be) {
-			be = fread(buf, 1, sizeof(buf) - 1, stdin);
-			buf[be] = bc = 0;
+			buf[0] = bc = 0;
+			be = fread(buf, 1, sizeof(buf), stdin);
 		}
 		return buf[bc++]; // returns 0 on EOF
 	}
 } gc;
-inline int read_int() {
+int read_int() {
 	char c;
 	while ((c = gc()) < 40);
 	if (c == '-') return -read_int();
