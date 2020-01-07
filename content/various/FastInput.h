@@ -1,7 +1,7 @@
 /**
  * Author: chilli
  * License: CC0
- * Source:
+ * Source: Own work
  * Description: Returns an integer. Usage requires your program to pipe in
  * input from file. Can replace calls to gc() with getchar_unlocked() if extra
  * speed isn't necessary (60% slowdown).
