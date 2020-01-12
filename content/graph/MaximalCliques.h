@@ -7,7 +7,7 @@
  * symmetric bitset matrix; self-edges not allowed). Callback is given a bitset
  * representing the maximal clique.
  * Time: O(3^{n/3}), much faster for sparse graphs
- * Status: fuzz-tested
+ * Status: stress-tested
  */
 #pragma once
 /// Possible optimization: on the top-most

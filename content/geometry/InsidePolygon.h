@@ -7,7 +7,7 @@
  * it returns false for points on the boundary. The algorithm uses
  * products in intermediate steps so watch out for overflow.
  * Time: O(n)
- * Status: fuzz-tested and Kattis problem pointinpolygon
+ * Status: stress-tested and Kattis problem pointinpolygon
  * Usage:
  * vector<P> v = {P{4,4}, P{1,2}, P{2,1}};
  * bool in = inPolygon(v, P{3, 3}, false);

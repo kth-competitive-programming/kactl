@@ -6,7 +6,7 @@
  * Proof of correctness is in doc/modmul-proof.md.
  * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for $0 \le a, b < c < 2^{63}$.
  * Time: O(1) for \texttt{mod\_mul}, O(\log b) for \texttt{mod\_pow}
- * Status: fuzz-tested, proven correct
+ * Status: stress-tested, proven correct
  */
 #pragma once
 

@@ -11,7 +11,7 @@
  * If $x$ is rational, $y$ eventually becomes $\infty$;
  * if $x$ is the root of a degree $2$ polynomial the $a$'s eventually become cyclic.
  * Time: O(\log N)
- * Status: fuzz-tested for n <= 300
+ * Status: stress-tested for n <= 300
  */
 
 typedef double d; // for N ~ 1e7; long double for N ~ 1e9

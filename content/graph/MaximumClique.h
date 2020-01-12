@@ -8,7 +8,7 @@
  * set by finding a clique of the complement graph.
  * Time: Runs in about 1s for n=155 and worst case random graphs (p=.90). Runs
  * faster for sparse graphs.
- * Status: fuzz-tested
+ * Status: stress-tested
  */
 typedef vector<bitset<200>> vb;
 struct Maxclique {

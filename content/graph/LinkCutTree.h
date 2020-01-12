@@ -6,7 +6,7 @@
  * edges (as long as the result is still a forest), and check whether
  * two nodes are in the same tree.
  * Time: All operations take amortized O(\log N).
- * Status: Fuzz-tested a bit for N <= 20
+ * Status: Stress-tested a bit for N <= 20
  */
 #pragma once
 

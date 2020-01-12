@@ -13,7 +13,7 @@ Products of three coordinates are used in intermediate steps so watch out for ov
 \begin{minipage}{15mm}
 \includegraphics[width=\textwidth]{content/geometry/SegmentIntersection}
 \end{minipage}
- * Status: Well tested with fuzz-test and with Kattis problem intersection.
+ * Status: Well tested with stress-test and with Kattis problem intersection.
  * Usage:
  * vector<P> inter = segInter(s1,e1,s2,e2);
  * if (sz(inter)==1)

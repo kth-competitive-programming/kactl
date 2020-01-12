@@ -29,7 +29,7 @@ Fails if the solution is not unique.
 If $|d_i| > |p_i| + |q_{i-1}|$ for all $i$, or $|d_i| > |p_{i-1}| + |q_i|$, or the matrix is positive definite,
 the algorithm is numerically stable and neither \texttt{tr} nor the check for \texttt{diag[i] == 0} is needed.
  * Time: O(N)
- * Status: Brute-force tested mod 5 and 7 and fuzz-tested for real matrices obeying the criteria above.
+ * Status: Brute-force tested mod 5 and 7 and stress-tested for real matrices obeying the criteria above.
  */
 #pragma once
 

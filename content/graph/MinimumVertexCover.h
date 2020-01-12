@@ -5,7 +5,7 @@
  * Description: Finds a minimum vertex cover in a bipartite graph.
  *  The size is the same as the size of a maximum matching, and
  *  the complement is a maximum independent set.
- * Status: fuzz-tested
+ * Status: stress-tested
  */
 #pragma once
 
