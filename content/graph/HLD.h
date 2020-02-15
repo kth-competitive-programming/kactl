@@ -5,16 +5,18 @@
  * Source: https://codeforces.com/blog/entry/53170, https://github.com/bqi343/USACO/blob/master/Implementations/content/graphs%20(12)/Trees%20(10)/HLD%20(10.3).h
  * Description: Decomposes a tree into vertex disjoint heavy paths and light
  * edges such that the path from any leaf to the root contains at most log(n)
- * light edges. Supports any segtree modifications/queries on paths and
- * subtrees. Takes as input the full adjacency list.
+ * light edges. Supports commutative segtree modifications/queries on paths and
+ * subtrees. Takes as input the full adjacency list. VALS_EDGES being true
+ * means that values are stored in the edges, as opposed to the nodes. All
+ * values initialized to the segtree default.
  * Status: Will do in morning
  */
 #pragma once
 
 #include "../data-structures/LazySegmentTree.h"
 
-template <bool USE_EDGES> struct HLD {
-	int N;
+template <bool VALS_EDGES> struct HLD {
+	int N, tim = 0;
 	vector<vi> adj;
 	vi par, siz, depth, rt, pos;
 	Node *tree;
@@ -30,7 +32,6 @@ template <bool USE_EDGES> struct HLD {
 			if (siz[u] > siz[adj[v][0]]) swap(u, adj[v][0]);
 		}
 	}
-	int tim = 0;
 	void dfsHld(int v = 0) {
 		pos[v] = tim++;
 		trav(u, adj[v]) {
@@ -44,17 +45,19 @@ template <bool USE_EDGES> struct HLD {
 			op(pos[rt[v]], pos[v] + 1);
 		}
 		if (depth[u] > depth[v]) swap(u, v);
-		op(pos[u] + USE_EDGES, pos[v] + 1);
+		op(pos[u] + VALS_EDGES, pos[v] + 1);
 	}
 	void modifyPath(int u, int v, int val) {
 		process(u, v, [&](int l, int r) { tree->add(l, r, val); });
 	}
 	int queryPath(int u, int v) {
 		int res = 0;
-		process(u,v,[&](int l, int r) { res+=tree->query(l,r); });
+		process(u, v, [&](int l, int r) {
+				res += tree->query(l, r);
+		});
 		return res;
 	}
 	int querySubtree(int v) { // modifySubtree is similar
-		return tree->query(pos[v] + USE_EDGES, pos[v] + siz[v]);
+		return tree->query(pos[v] + VALS_EDGES, pos[v] + siz[v]);
 	}
 };
