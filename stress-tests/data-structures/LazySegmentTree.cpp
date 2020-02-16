@@ -17,7 +17,7 @@ int main() {
 	random_shuffle(all(v), [](int x) { return ra() % x; });
 	Node* tr = new Node(v,0,N);
 	rep(i,0,N) rep(j,0,N) if (i <= j) {
-		int ma = -inf;
+		int ma = tr->unit;
 		rep(k,i,j) ma = max(ma, v[k]);
 		assert(ma == tr->query(i,j));
 	}
@@ -29,7 +29,7 @@ int main() {
 		int r = ra() % 100;
 		if (r < 30) {
 			::res = tr->query(i, j);
-			int ma = -inf;
+			int ma = tr->unit;
 			rep(k,i,j) ma = max(ma, v[k]);
 			assert(ma == ::res);
 		}

@@ -5,11 +5,13 @@
  * Source: https://codeforces.com/blog/entry/53170, https://github.com/bqi343/USACO/blob/master/Implementations/content/graphs%20(12)/Trees%20(10)/HLD%20(10.3).h
  * Description: Decomposes a tree into vertex disjoint heavy paths and light
  * edges such that the path from any leaf to the root contains at most log(n)
- * light edges. Supports commutative segtree modifications/queries on paths and
- * subtrees. Takes as input the full adjacency list. VALS_EDGES being true
- * means that values are stored in the edges, as opposed to the nodes. All
- * values initialized to the segtree default.
- * Status: Will do in morning
+ * light edges. Code does additive modifications and max queries, but can
+ * support commutative segtree modifications/queries on paths and subtrees.
+ * Takes as input the full adjacency list. VALS_EDGES being true means that
+ * values are stored in the edges, as opposed to the nodes. All values
+ * initialized to the segtree default. For subtree purposes, assumes root at 0.
+ * Time: O((\log N)^2)
+ * Status: stress-tested against old HLD
  */
 #pragma once
 
@@ -51,9 +53,9 @@ template <bool VALS_EDGES> struct HLD {
 		process(u, v, [&](int l, int r) { tree->add(l, r, val); });
 	}
 	int queryPath(int u, int v) {
-		int res = 0;
+		int res = tree->unit;
 		process(u, v, [&](int l, int r) {
-				res += tree->query(l, r);
+				res = tree->f(res, tree->query(l, r));
 		});
 		return res;
 	}
