@@ -1,6 +1,6 @@
 /**
- * Author: Johan Sannemo, Simon Lindholm, chilli
- * Date: 2015-09-20
+ * Author: chilli, bjorn-martinsson
+ * Date: 2020-02-20
  * License: CC0
  * Source: Folklore
  * Status: Somewhat tested
@@ -22,26 +22,25 @@ typedef vector<vpi> graph;
 #include "../data-structures/RMQ.h"
 
 struct LCA {
-	vi time;
-	vector<ll> dist;
-	vpi ret;
 	int T = 0;
-	RMQ<pii> rmq;
+	vi time, path, ret;
+	vector<ll> dist;
+	RMQ<int> rmq;
 
-	LCA(graph& C) : time(sz(C)),dist(sz(C)),rmq((dfs(C),ret)) {}
+	LCA(graph& C):time(sz(C)), dist(sz(C)), rmq((dfs(C), ret)) {}
 
-	void dfs(graph& C, int v=0, int p=-1, int d=0, ll di=0) {
-		if (d) ret.emplace_back(d, p);
+	void dfs(graph& C, int v=0, int p=-1, ll di=0) {
 		time[v] = T++;
 		dist[v] = di;
-		trav(e, C[v]) if (e.first != p)
-			dfs(C, e.first, v, d + 1, di + e.second);
+		trav(e, C[v]) if (e.first != p) {
+			path.push_back(v), ret.push_back(time[v]);
+			dfs(C, e.first, v, di + e.second);
+		}
 	}
-
 	int query(int a, int b) {
 		if (a == b) return a;
-		a = time[a], b = time[b];
-		return rmq.query(min(a, b), max(a, b)).second;
+		tie(a, b) = minmax(time[a], time[b]);
+		return path[rmq.query(min(a, b), max(a, b))];
 	}
 	ll distance(int a, int b) {
 		int lca = query(a, b);
