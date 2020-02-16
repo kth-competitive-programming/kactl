@@ -38,7 +38,7 @@ struct LCA {
 	int query(int a, int b) {
 		if (a == b) return a;
 		tie(a, b) = minmax(time[a], time[b]);
-		return path[rmq.query(min(a, b), max(a, b))];
+		return path[rmq.query(a, b)];
 	}
 	ll distance(int a, int b) {
 		int lca = query(a, b);
