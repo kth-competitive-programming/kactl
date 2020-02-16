@@ -3,8 +3,8 @@
  * License: CC0
  * Source: Own work
  * Description: Returns an integer. Usage requires your program to pipe in
- * input from file. Can replace calls to gc() with getchar_unlocked() if extra
- * speed isn't necessary (60% slowdown).
+ * input from file. Can replace calls to gc() with getchar\_unlocked() if extra
+ * speed isn't necessary (60\% slowdown).
  * Status: tested on SPOJ INTEST
  * Time: About 5x as fast as cin/scanf.
  * Usage: ./a.out < input.txt
