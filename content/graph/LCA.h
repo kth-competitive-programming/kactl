@@ -1,5 +1,5 @@
 /**
- * Author: Johan Sannemo, Simon Lindholm
+ * Author: Johan Sannemo, Simon Lindholm, chilli
  * Date: 2015-09-20
  * License: CC0
  * Source: Folklore
@@ -24,24 +24,18 @@ typedef vector<vpi> graph;
 struct LCA {
 	vi time;
 	vector<ll> dist;
+	vpi ret;
+	int T = 0;
 	RMQ<pii> rmq;
 
-	LCA(graph& C) : time(sz(C), -99), dist(sz(C)), rmq(dfs(C)) {}
+	LCA(graph& C) : time(sz(C)),dist(sz(C)),rmq((dfs(C),ret)) {}
 
-	vpi dfs(graph& C) {
-		vector<tuple<int, int, int, ll>> q(1);
-		vpi ret;
-		int T = 0, v, p, d; ll di;
-		while (!q.empty()) {
-			tie(v, p, d, di) = q.back();
-			q.pop_back();
-			if (d) ret.emplace_back(d, p);
-			time[v] = T++;
-			dist[v] = di;
-			trav(e, C[v]) if (e.first != p)
-				q.emplace_back(e.first, v, d+1, di + e.second);
-		}
-		return ret;
+	void dfs(graph& C, int v=0, int p=-1, int d=0, ll di=0) {
+		if (d) ret.emplace_back(d, p);
+		time[v] = T++;
+		dist[v] = di;
+		trav(e, C[v]) if (e.first != p)
+			dfs(C, e.first, v, d + 1, di + e.second);
 	}
 
 	int query(int a, int b) {
