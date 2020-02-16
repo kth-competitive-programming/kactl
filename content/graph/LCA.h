@@ -1,5 +1,5 @@
 /**
- * Author: chilli, bjorn-martinsson
+ * Author: chilli, pajenegod
  * Date: 2020-02-20
  * License: CC0
  * Source: Folklore
