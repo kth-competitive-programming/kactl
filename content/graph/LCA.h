@@ -27,7 +27,6 @@ struct LCA {
 	RMQ<int> rmq;
 
 	LCA(graph& C):time(sz(C)), dist(sz(C)), rmq((dfs(C), ret)) {}
-
 	void dfs(graph& C, int v = 0, int p = -1, ll di = 0) {
 		time[v] = T++, dist[v] = di;
 		trav(e, C[v]) if (e.first != p) {
@@ -35,6 +34,7 @@ struct LCA {
 			dfs(C, e.first, v, di + e.second);
 		}
 	}
+
 	int query(int a, int b) {
 		if (a == b) return a;
 		tie(a, b) = minmax(time[a], time[b]);
