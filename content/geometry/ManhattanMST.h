@@ -7,7 +7,7 @@
  * to contain a minimum spanning tree for the graph with edge weights w(p, q) =
  * |p.x - q.x| + |p.y - q.y|. Edges are in the form (distance, src, dst). Use a
  * standard MST algorithm on the result to find the final MST.
- * Time: O(N log N)
+ * Time: O(N \log N)
  * Status: Stress-tested
  */
 typedef Point<int> P;
