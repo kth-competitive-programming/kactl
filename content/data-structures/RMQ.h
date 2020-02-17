@@ -16,13 +16,12 @@
 template<class T>
 struct RMQ {
 	vector<vector<T>> jmp;
-	RMQ(const vector<T>& V) {
-		int N = sz(V), on = 1, depth = 1;
-		while (on < N) on *= 2, depth++;
-		jmp.assign(depth, V);
-		rep(i,0,depth-1) rep(j,0,N)
-			jmp[i+1][j] = min(jmp[i][j],
-			jmp[i][min(N - 1, j + (1 << i))]);
+	RMQ(const vector<T>& V) : jmp(1, V) {
+		for (int pw = 1, k = 1; pw * 2 <= sz(V); pw *= 2, ++k) {
+			jmp.emplace_back(sz(V) - pw * 2 + 1);
+			rep(j,0,sz(jmp[k]))
+				jmp[k][j] = min(jmp[k - 1][j], jmp[k - 1][j + pw]);
+		}
 	}
 	T query(int a, int b) {
 		assert(a < b); // or return inf if a == b
