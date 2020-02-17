@@ -52,10 +52,10 @@ template <bool VALS_EDGES> struct HLD {
 	void modifyPath(int u, int v, int val) {
 		process(u, v, [&](int l, int r) { tree->add(l, r, val); });
 	}
-	int queryPath(int u, int v) {
-		int res = tree->unit;
+	int queryPath(int u, int v) { // Modify depending on query
+		int res = -1e9;
 		process(u, v, [&](int l, int r) {
-				res = tree->f(res, tree->query(l, r));
+				res = max(res, tree->query(l, r));
 		});
 		return res;
 	}
