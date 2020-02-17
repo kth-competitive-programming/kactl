@@ -22,9 +22,9 @@ template <bool VALS_EDGES> struct HLD {
 	vector<vi> adj;
 	vi par, siz, depth, rt, pos;
 	Node *tree;
-	HLD(vector<vi> adj_)
+	HLD(vector<vi> adj_, int rt = 0)
 		: N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1), depth(N),
-		  rt(N), pos(N), tree(new Node(0, N)){ dfsSz(),dfsHld(); }
+		  rt(N),pos(N),tree(new Node(0, N)){ dfsSz(rt),dfsHld(rt);}
 	void dfsSz(int v = 0) {
 		if (par[v] != -1) adj[v].erase(find(all(adj[v]), par[v]));
 		trav(u, adj[v]) {
