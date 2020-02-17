@@ -9,7 +9,7 @@
  * support commutative segtree modifications/queries on paths and subtrees.
  * Takes as input the full adjacency list. VALS_EDGES being true means that
  * values are stored in the edges, as opposed to the nodes. All values
- * initialized to the segtree default. For subtree purposes, assumes root at 0.
+ * initialized to the segtree default. Root must be 0.
  * Time: O((\log N)^2)
  * Status: stress-tested against old HLD
  */
@@ -22,9 +22,9 @@ template <bool VALS_EDGES> struct HLD {
 	vector<vi> adj;
 	vi par, siz, depth, rt, pos;
 	Node *tree;
-	HLD(vector<vi> adj_, int rt = 0)
+	HLD(vector<vi> adj_)
 		: N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1), depth(N),
-		  rt(N),pos(N),tree(new Node(0, N)){ dfsSz(rt),dfsHld(rt);}
+		  rt(N),pos(N),tree(new Node(0, N)){ dfsSz(),dfsHld();}
 	void dfsSz(int v = 0) {
 		if (par[v] != -1) adj[v].erase(find(all(adj[v]), par[v]));
 		trav(u, adj[v]) {

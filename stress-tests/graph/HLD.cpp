@@ -18,7 +18,7 @@ struct bruteforce { // values in nodes
 			if (i != p) root(i, cur);
 		}
 	}
-	bruteforce(vector<vector<int>> _tree, int rt): tree(_tree), vals(sz(tree)), pars(sz(tree)) {
+	bruteforce(vector<vector<int>> _tree): tree(_tree), vals(sz(tree)), pars(sz(tree)) {
 		root(0);
 	}
 	bool dfsModify(int cur, int target, int val, int p=-1) {
@@ -107,8 +107,9 @@ void testAgainstBrute(int n, int iters, int queries) {
             tree1[i.first].push_back(i.second);
             tree1[i.second].push_back(i.first);
         }
-        HLD<false> hld(tree1, 0);
-		bruteforce hld2(tree1, 0);
+		int root = rand() % n;
+        HLD<false> hld(tree1);
+		bruteforce hld2(tree1);
         hld.tree->set(0, n, 0);
         for (int itr = 0; itr < queries; itr++) {
 			int rng = rand() % 3;
@@ -121,6 +122,8 @@ void testAgainstBrute(int n, int iters, int queries) {
             } else if (rng == 1){
                 int a = rand() % n;
                 int b = rand() % n;
+				hld.queryPath(a, b);
+				hld2.queryPath(a, b);
                 assert(hld.queryPath(a, b) == hld2.queryPath(a, b));
             } else if (rng == 2) {
 				int a = rand() % n;
@@ -132,10 +135,10 @@ void testAgainstBrute(int n, int iters, int queries) {
 }
 int main() {
     srand(2);
-	// testAgainstOld(5, 1000, 100);
-	testAgainstBrute(5, 1000, 100);
-	// testAgainstOld(10000, 100, 1000);
-	// testAgainstOld(10000, 100, 1000);
+	testAgainstBrute(5, 1000, 10000);
+	testAgainstBrute(1000, 100, 100);
+	testAgainstOld(5, 1000, 100);
+	testAgainstOld(10000, 100, 1000);
 	cout<<"Tests passed!"<<endl;
     return 0;
 }
