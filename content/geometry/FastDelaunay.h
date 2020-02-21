@@ -3,12 +3,14 @@
  * Date: 2016
  * License: MIT
  * Source: https://github.com/Bathlamos/delaunay-triangulation/
- * Description: Fast Delaunay triangulation. There must be no duplicate points.
+ * Description: Fast Delaunay triangulation.
+ * Each circumcircle contains none of the input points.
+ * There must be no duplicate points.
  * If all points are on a line, no triangles will be returned.
  * Should work for doubles as well, though there may be precision issues in 'circ'.
  * Returns triangles in order \{t[0][0], t[0][1], t[0][2], t[1][0], \dots\}, all counter-clockwise.
  * Time: O(n \log n)
- * Status: fuzz-tested
+ * Status: stress-tested
  */
 #pragma once
 
@@ -24,7 +26,7 @@ struct Quad {
 	P F() { return r()->p; }
 	Q r() { return rot->rot; }
 	Q prev() { return rot->o->rot; }
-	Q next() { return rot->r()->o->rot; }
+	Q next() { return r()->prev(); }
 };
 
 bool circ(P p, P a, P b, P c) { // is p in the circumcircle?
@@ -33,13 +35,11 @@ bool circ(P p, P a, P b, P c) { // is p in the circumcircle?
 	return p.cross(a,b)*C + p.cross(b,c)*A + p.cross(c,a)*B > 0;
 }
 Q makeEdge(P orig, P dest) {
-	Q q0 = new Quad{0,0,0,orig}, q1 = new Quad{0,0,0,arb},
-	  q2 = new Quad{0,0,0,dest}, q3 = new Quad{0,0,0,arb};
-	q0->o = q0; q2->o = q2; // 0-0, 2-2
-	q1->o = q3; q3->o = q1; // 1-3, 3-1
-	q0->rot = q1; q1->rot = q2;
-	q2->rot = q3; q3->rot = q0;
-	return q0;
+	Q q[] = {new Quad{0,0,0,orig}, new Quad{0,0,0,arb},
+	         new Quad{0,0,0,dest}, new Quad{0,0,0,arb}};
+	rep(i,0,4)
+		q[i]->o = q[-i & 3], q[i]->rot = q[(i+1) & 3];
+	return *q;
 }
 void splice(Q a, Q b) {
 	swap(a->o->rot->o, b->o->rot->o); swap(a->o, b->o);
@@ -64,9 +64,9 @@ pair<Q,Q> rec(const vector<P>& s) {
 #define H(e) e->F(), e->p
 #define valid(e) (e->F().cross(H(base)) > 0)
 	Q A, B, ra, rb;
-	int half = (sz(s) + 1) / 2;
-	tie(ra, A) = rec({s.begin(), s.begin() + half});
-	tie(B, rb) = rec({s.begin() + half, s.end()});
+	int half = sz(s) / 2;
+	tie(ra, A) = rec({all(s) - half});
+	tie(B, rb) = rec({sz(s) - half + all(s)});
 	while ((B->p.cross(H(A)) < 0 && (A = A->next())) ||
 	       (A->p.cross(H(B)) > 0 && (B = B->r()->o)));
 	Q base = connect(B->r(), A);

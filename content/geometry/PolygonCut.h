@@ -9,7 +9,7 @@
 \end{minipage}
 \begin{minipage}{15mm}
 \vspace{-6mm}
-\includegraphics[width=\textwidth]{../content/geometry/PolygonCut}
+\includegraphics[width=\textwidth]{content/geometry/PolygonCut}
 \vspace{-6mm}
 \end{minipage}
  * Status: tested but not extensively
@@ -28,10 +28,8 @@ vector<P> polygonCut(const vector<P>& poly, P s, P e) {
 	rep(i,0,sz(poly)) {
 		P cur = poly[i], prev = i ? poly[i-1] : poly.back();
 		bool side = s.cross(e, cur) < 0;
-		if (side != (s.cross(e, prev) < 0)) {
-			res.emplace_back();
-			lineIntersection(s, e, cur, prev, res.back());
-		}
+		if (side != (s.cross(e, prev) < 0))
+			res.push_back(lineInter(s, e, cur, prev).second);
 		if (side)
 			res.push_back(cur);
 	}

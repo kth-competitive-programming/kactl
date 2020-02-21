@@ -14,6 +14,7 @@
 
 typedef unsigned long long ull;
 ull sumsq(ull to) { return to / 2 * ((to-1) | 1); }
+/// ^ written in a weird way to deal with overflows correctly
 
 ull divsum(ull to, ull c, ull k, ull m) {
 	ull res = k / m * sumsq(to) + c / m * to;

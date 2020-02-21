@@ -4,17 +4,17 @@
  * License: CC0
  * Description: Finds a minimum vertex cover in a bipartite graph.
  *  The size is the same as the size of a maximum matching, and
- *  the complement is an independent set.
- * Status: fuzz-tested
+ *  the complement is a maximum independent set.
+ * Status: stress-tested
  */
 #pragma once
 
 #include "DFSMatching.h"
 
 vi cover(vector<vi>& g, int n, int m) {
-	int res = dfs_matching(g, n, m);
-	seen.assign(m, false);
-	vector<bool> lfound(n, true);
+	vi match(m, -1);
+	int res = dfsMatching(g, match);
+	vector<bool> lfound(n, true), seen(m);
 	trav(it, match) if (it != -1) lfound[it] = false;
 	vi q, cover;
 	rep(i,0,n) if (lfound[i]) q.push_back(i);

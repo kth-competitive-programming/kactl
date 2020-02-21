@@ -1,7 +1,8 @@
 /**
  * Author: Emil Lenngren, Simon Lindholm
  * Date: 2011-11-29
- * Source:
+ * License: CC0
+ * Source: folklore
  * Description: Calculates a valid assignment to boolean variables a, b, c,... to a 2-SAT problem, so that an expression of the type $(a\|\|b)\&\&(!a\|\|c)\&\&(d\|\|!b)\&\&...$ becomes true, or reports that it is unsatisfiable.
  * Negated variables are represented by bit-inversions (\texttt{\tilde{}x}).
  * Usage:
@@ -54,10 +55,9 @@ struct TwoSat {
 		int low = val[i] = ++time, x; z.push_back(i);
 		trav(e, gr[i]) if (!comp[e])
 			low = min(low, val[e] ?: dfs(e));
-		++time;
 		if (low == val[i]) do {
 			x = z.back(); z.pop_back();
-			comp[x] = time;
+			comp[x] = low;
 			if (values[x>>1] == -1)
 				values[x>>1] = x&1;
 		} while (x != i);

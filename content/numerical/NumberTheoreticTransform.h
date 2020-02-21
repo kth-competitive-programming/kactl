@@ -1,54 +1,47 @@
 /**
- * Author: Simon Lindholm
- * Date: 2016-09-10
+ * Author: chilli
+ * Date: 2019-04-16
  * License: CC0
  * Source: based on KACTL's FFT
  * Description: Can be used for convolutions modulo specific nice primes
  * of the form $2^a b+1$, where the convolution result has size at most $2^a$.
- * For other primes/integers, use two different primes and combine with CRT.
- * May return negative values.
+ * Inputs must be in [0, mod).
  * Time: O(N \log N)
- * Status: Somewhat tested
+ * Status: stress-tested
  */
 #pragma once
 
-#include "ModPow.h"
+#include "../number-theory/ModPow.h"
 
-const ll mod = (119 << 23) + 1, root = 3; // = 998244353
-// For p < 2^30 there is also e.g. (5 << 25, 3), (7 << 26, 3),
-// (479 << 21, 3) and (483 << 21, 5). The last two are > 10^9.
+const ll mod = (119 << 23) + 1, root = 62; // = 998244353
+// For p < 2^30 there is also e.g. 5 << 25, 7 << 26, 479 << 21
+// and 483 << 21 (same root). The last two are > 10^9.
 
 typedef vector<ll> vl;
-void ntt(ll* x, ll* temp, ll* roots, int N, int skip) {
-	if (N == 1) return;
-	int n2 = N/2;
-	ntt(x     , temp, roots, n2, skip*2);
-	ntt(x+skip, temp, roots, n2, skip*2);
-	rep(i,0,N) temp[i] = x[i*skip];
-	rep(i,0,n2) {
-		ll s = temp[2*i], t = temp[2*i+1] * roots[skip*i];
-		x[skip*i] = (s + t) % mod; x[skip*(i+n2)] = (s - t) % mod;
+void ntt(vl& a, vl& rt, vl& rev, int n) {
+	rep(i,0,n) if (i < rev[i]) swap(a[i], a[rev[i]]);
+	for (int k = 1; k < n; k *= 2)
+		for (int i = 0; i < n; i += 2 * k) rep(j,0,k) {
+				ll z = rt[j + k] * a[i + j + k] % mod, &ai = a[i + j];
+				a[i + j + k] = (z > ai ? ai - z + mod : ai - z);
+				ai += (ai + z >= mod ? z - mod : z);
 	}
 }
-void ntt(vl& x, bool inv = false) {
-	ll e = modpow(root, (mod-1) / sz(x));
-	if (inv) e = modpow(e, mod-2);
-	vl roots(sz(x), 1), temp = roots;
-	rep(i,1,sz(x)) roots[i] = roots[i-1] * e % mod;
-	ntt(&x[0], &temp[0], &roots[0], sz(x), 1);
-}
-vl conv(vl a, vl b) {
-	int s = sz(a) + sz(b) - 1; if (s <= 0) return {};
-	int L = s > 1 ? 32 - __builtin_clz(s - 1) : 0, n = 1 << L;
-	if (s <= 200) { // (factor 10 optimization for |a|,|b| = 10)
-		vl c(s);
-		rep(i,0,sz(a)) rep(j,0,sz(b))
-			c[i + j] = (c[i + j] + a[i] * b[j]) % mod;
-		return c;
+
+vl conv(const vl& a, const vl& b) {
+	if (a.empty() || b.empty())
+		return {};
+	int s = sz(a)+sz(b)-1, B = 32 - __builtin_clz(s), n = 1 << B;
+	vl L(a), R(b), out(n), rt(n, 1), rev(n);
+	L.resize(n), R.resize(n);
+	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << B) / 2;
+	ll curL = mod / 2, inv = modpow(n, mod - 2);
+	for (int k = 2; k < n; k *= 2) {
+		ll z[] = {1, modpow(root, curL /= 2)};
+		rep(i,k,2*k) rt[i] = rt[i / 2] * z[i & 1] % mod;
 	}
-	a.resize(n); ntt(a);
-	b.resize(n); ntt(b);
-	vl c(n); ll d = modpow(n, mod-2);
-	rep(i,0,n) c[i] = a[i] * b[i] % mod * d % mod;
-	ntt(c, true); c.resize(s); return c;
+	ntt(L, rt, rev, n); ntt(R, rt, rev, n);
+	rep(i,0,n) out[-i & (n-1)] = L[i] * R[i] % mod * inv % mod;
+	ntt(out, rt, rev, n);
+	return {out.begin(), out.begin() + s};
 }

@@ -13,7 +13,7 @@
  * \texttt{lcp[i] = lcp(sa[i], sa[i-1])}, \texttt{lcp[0] = 0}.
  * The input string must not contain any zero bytes.
  * Time: O(n \log n)
- * Status: fuzz-tested
+ * Status: stress-tested
  */
 #pragma once
 

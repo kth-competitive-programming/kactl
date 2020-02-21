@@ -1,10 +1,10 @@
 /**
- * Author: Johan Sannemo
- * Date: 2017-05-15
- * License: CC0
- * Source: thin air
+ * Author: Oleksandr Bacherikov, chilli
+ * Date: 2019-05-07
+ * License: Boost Software License
+ * Source: https://github.com/AlCash07/ACTL/blob/master/include/actl/geometry/algorithm/intersect/line_convex_polygon.hpp
  * Description: Line-convex polygon intersection. The polygon must be ccw and have no colinear points.
- *  isct(a, b) returns a pair describing the intersection of a line with the polygon:
+ * lineHull(line, poly) returns a pair describing the intersection of a line with the polygon:
  *  \begin{itemize*}
  *    \item $(-1, -1)$ if no collision,
  *    \item $(i, -1)$ if touching the corner $i$,
@@ -13,73 +13,50 @@
  *  \end{itemize*}
  *  In the last case, if a corner $i$ is crossed, this is treated as happening on side $(i, i+1)$.
  *  The points are returned in the same order as the line hits the polygon.
- * Status: fuzz-tested
+ * \texttt{extrVertex} returns the point of a hull with the max projection onto a line.
+ * Status: stress-tested
  * Time: O(N + Q \log n)
  */
 #pragma once
 
 #include "Point.h"
 
-ll sgn(ll a) { return (a > 0) - (a < 0); }
-typedef Point<ll> P;
-struct HullIntersection {
-	int N;
-	vector<P> p;
-	vector<pair<P, int>> a;
+typedef array<P, 2> Line;
+#define cmp(i,j) sgn(dir.perp().cross(poly[(i)%n]-poly[(j)%n]))
+#define extr(i) cmp(i + 1, i) >= 0 && cmp(i, i - 1 + n) < 0
+int extrVertex(vector<P>& poly, P dir) {
+	int n = sz(poly), lo = 0, hi = n;
+	if (extr(0)) return 0;
+	while (lo + 1 < hi) {
+		int m = (lo + hi) / 2;
+		if (extr(m)) return m;
+		int ls = cmp(lo + 1, lo), ms = cmp(m + 1, m);
+		(ls < ms || (ls == ms && ls == cmp(lo, m)) ? hi : lo) = m;
+	}
+	return lo;
+}
 
-	HullIntersection(const vector<P>& ps) : N(sz(ps)), p(ps) {
-		p.insert(p.end(), all(ps));
-		int b = 0;
-		rep(i,1,N) if (P{p[i].y,p[i].x} < P{p[b].y, p[b].x}) b = i;
-		rep(i,0,N) {
-			int f = (i + b) % N;
-			a.emplace_back(p[f+1] - p[f], f);
+#define cmpL(i) sgn(line[0].cross(poly[i], line[1]))
+array<int, 2> lineHull(Line line, vector<P> poly) {
+	int endA = extrVertex(poly, (line[0] - line[1]).perp());
+	int endB = extrVertex(poly, (line[1] - line[0]).perp());
+	if (cmpL(endA) < 0 || cmpL(endB) > 0)
+		return {-1, -1};
+	array<int, 2> res;
+	rep(i,0,2) {
+		int lo = endB, hi = endA, n = sz(poly);
+		while ((lo + 1) % n != hi) {
+			int m = ((lo + hi + (lo < hi ? 0 : n)) / 2) % n;
+			(cmpL(m) == cmpL(endB) ? lo : hi) = m;
 		}
+		res[i] = (lo + !cmpL(hi)) % n;
+		swap(endA, endB);
 	}
-
-	int qd(P p) {
-		return (p.y < 0) ? (p.x >= 0) + 2
-		     : (p.x <= 0) * (1 + (p.y <= 0));
-	}
-
-	int bs(P dir) {
-		int lo = -1, hi = N;
-		while (hi - lo > 1) {
-			int mid = (lo + hi) / 2;
-			if (make_pair(qd(dir), dir.y * a[mid].first.x) <
-				make_pair(qd(a[mid].first), dir.x * a[mid].first.y))
-				hi = mid;
-			else lo = mid;
+	if (res[0] == res[1]) return {res[0], -1};
+	if (!cmpL(res[0]) && !cmpL(res[1]))
+		switch ((res[0] - res[1] + sz(poly) + 1) % sz(poly)) {
+			case 0: return {res[0], res[0]};
+			case 2: return {res[1], res[1]};
 		}
-		return a[hi%N].second;
-	}
-
-	bool isign(P a, P b, int x, int y, int s) {
-		return sgn(a.cross(p[x], b)) * sgn(a.cross(p[y], b)) == s;
-	}
-
-	int bs2(int lo, int hi, P a, P b) {
-		int L = lo;
-		if (hi < lo) hi += N;
-		while (hi - lo > 1) {
-			int mid = (lo + hi) / 2;
-			if (isign(a, b, mid, L, -1)) hi = mid;
-			else lo = mid;
-		}
-		return lo;
-	}
-
-	pii isct(P a, P b) {
-		int f = bs(a - b), j = bs(b - a);
-		if (isign(a, b, f, j, 1)) return {-1, -1};
-		int x = bs2(f, j, a, b)%N,
-		    y = bs2(j, f, a, b)%N;
-		if (a.cross(p[x], b) == 0 &&
-		    a.cross(p[x+1], b) == 0) return {x, x};
-		if (a.cross(p[y], b) == 0 &&
-		    a.cross(p[y+1], b) == 0) return {y, y};
-		if (a.cross(p[f], b) == 0) return {f, -1};
-		if (a.cross(p[j], b) == 0) return {j, -1};
-		return {x, y};
-	}
-};
+	return res;
+}

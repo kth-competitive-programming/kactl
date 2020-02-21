@@ -5,7 +5,7 @@
  * Source: https://en.wikipedia.org/wiki/Barrett_reduction
  * Description: Compute $a \% b$ about 4 times faster than usual, where $b$ is constant but not known at compile time.
  * Fails for $b = 1$.
- * Status: proven correct, fuzz-tested
+ * Status: proven correct, stress-tested
  * Measured as having 3 times lower latency, and 8 times higher throughput.
  */
 #pragma once

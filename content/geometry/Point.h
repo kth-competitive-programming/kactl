@@ -9,6 +9,7 @@
  */
 #pragma once
 
+template <class T> int sgn(T x) { return (x > 0) - (x < 0); }
 template<class T>
 struct Point {
 	typedef Point P;
@@ -33,4 +34,6 @@ struct Point {
 	// returns point rotated 'a' radians ccw around the origin
 	P rotate(double a) const {
 		return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a)); }
+	friend ostream& operator<<(ostream& os, P p) {
+		return os << "(" << p.x << "," << p.y << ")"; }
 };

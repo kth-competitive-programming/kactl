@@ -3,8 +3,8 @@
  * Date: 2015-03-15
  * License: CC0
  * Source: own work
- * Description: Various self-explanatory methods for string hashing.
- * Status: tested
+ * Description: Self-explanatory methods for string hashing.
+ * Status: stress-tested
  */
 #pragma once
 
