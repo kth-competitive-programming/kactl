@@ -12,7 +12,7 @@ vector<pair<int,int>> pruferCodeToTree(vector<int> &pruferCode) {
     // Set of integers absent in prufer code. They are the leaves
     set<int> leaves;
 
-    int len = pruferCode.size();
+    int len = (int) pruferCode.size();
     int node = len + 2;
 
     // Count frequency of nodes
