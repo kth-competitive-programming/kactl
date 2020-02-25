@@ -71,7 +71,7 @@ void test_n(int n, int num) {
         for (int i=0; i<100; i++) {
             int a = rand()%n, b = rand()%n;
             int binLca = lca(tbl, depth, a, b);
-            int newLca = new_lca.query(a,b);
+            int newLca = new_lca.lca(a,b);
             int oldLca = old_lca.query(a,b);
             assert(oldLca == newLca);
             assert(binLca == newLca);
