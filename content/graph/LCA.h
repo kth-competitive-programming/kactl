@@ -27,10 +27,10 @@ struct LCA {
 		}
 	}
 
-	int query(int a, int b) {
+	int lca(int a, int b) {
 		if (a == b) return a;
 		tie(a, b) = minmax(time[a], time[b]);
 		return path[rmq.query(a, b)];
 	}
-	// dist(a,b) { return dist[a] + dist[b] - 2*dist[lca(a,b)]; }
+	//dist(a,b){return depth[a] + depth[b] - 2*depth[lca(a,b)];}
 };
