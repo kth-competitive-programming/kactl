@@ -25,8 +25,8 @@
  * Alternatively, one can use a quadratic sieve for an asymptotic improvement,
  * which starts being factor in practice around 1e13.
  *
- * Brent's cycle finding algorithm was tested. It reduces f calls by a small
- * amount in exchange for a significant increase in gcd calls.
+ * Brent's cycle finding algorithm was tested, but doesn't reduce mod_mul calls
+ * significantly.
  */
 #pragma once
 
