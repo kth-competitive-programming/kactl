@@ -18,18 +18,18 @@
 #include "MillerRabin.h"
 
 ull pollard(ull n) {
-    auto f = [n](ull x) { return mod_mul(x, x, n) + 1; };
-    if (!(n & 1)) return 2;
-    ull x = 0, y = 0, tim = 0, prd = 1, i = 1, tmp;
-    for (; prd; y = f(f(y)), x = f(x)) {
-        if (x == y || ++tim == 40) {
-            tim = 0;
-            if ((prd = __gcd(prd, n)) > 1) return prd;
-            while (x == y) x = ++i, y = f(x);
-        }
-        tmp = prd, prd = mod_mul(prd, n + y - x, n);
-    }
-    return __gcd(tmp, n);
+	auto f = [n](ull x) { return mod_mul(x, x, n) + 1; };
+	if (!(n & 1)) return 2;
+	ull x = 0, y = 0, tim = 0, prd = 1, i = 1, tmp;
+	for (; prd; y = f(f(y)), x = f(x)) {
+		if (x == y || ++tim == 40) {
+			tim = 0;
+			if ((prd = __gcd(prd, n)) > 1) return prd;
+			while (x == y) x = ++i, y = f(x);
+		}
+		tmp = prd, prd = mod_mul(prd, n + y - x, n);
+	}
+	return __gcd(tmp, n);
 }
 vector<ull> factor(ull n) {
 	if (n == 1) return {};
