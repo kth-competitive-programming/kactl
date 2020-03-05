@@ -6,11 +6,27 @@
  * Description: Pollard-rho randomized factorization algorithm. Returns prime
  * factors of a number, in arbitrary order (e.g. 2299 -> \{11, 19, 11\}).
  * Time: $O(n^{1/4})$ gcd calls, less for numbers with small factors.
- * Details: This implementation uses the improvement described here: https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm#Variants, where one can accumulate gcd calls by some factor (40 chosen here through exhaustive testing). This improves performance by approximately 6-10x depending on the inputs and speed of gcd. Benchmark found here: https://ideone.com/nGGD9T
- * GCD can improved by a factor of 1.75x using Binary GCD (https://lemire.me/blog/2013/12/26/fastest-way-to-compute-the-greatest-common-divisor/). However, with the gcd accumulation the bottleneck moves from the gcd calls to the mod_mul. As GCD only constitutes ~12% of runtime, speeding it up doesn't matter so much.
- * This code can probably be sped up by using a faster mod mul - potentially montgomery reduction on 128 bit integers.
- * Alternatively, one can use a quadratic sieve for an asymptotic improvement, which starts being factor in practice around 1e13.
- * Brent's cycle finding algorithm was tested. It reduces f calls by a small amount in exchange for a significant increase in gcd calls.
+ *
+ * Details: This implementation uses the improvement described here
+ * (https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm#Variants), where
+ * one can accumulate gcd calls by some factor (40 chosen here through
+ * exhaustive testing). This improves performance by approximately 6-10x
+ * depending on the inputs and speed of gcd. Benchmark found here:
+ * (https://ideone.com/nGGD9T)
+ *
+ * GCD can improved by a factor of 1.75x using Binary GCD
+ * (https://lemire.me/blog/2013/12/26/fastest-way-to-compute-the-greatest-common-divisor/).
+ * However, with the gcd accumulation the bottleneck moves from the gcd calls
+ * to the mod_mul. As GCD only constitutes ~12% of runtime, speeding it up
+ * doesn't matter so much.
+ *
+ * This code can probably be sped up by using a faster mod mul - potentially
+ * montgomery reduction on 128 bit integers.
+ * Alternatively, one can use a quadratic sieve for an asymptotic improvement,
+ * which starts being factor in practice around 1e13.
+ *
+ * Brent's cycle finding algorithm was tested. It reduces f calls by a small
+ * amount in exchange for a significant increase in gcd calls.
  */
 #pragma once
 

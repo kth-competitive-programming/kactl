@@ -127,7 +127,7 @@ def processwithcomments(caption, instream, outstream, listingslang):
                 cline = cline[1:].strip()
                 allow_command = True
             ind = cline.find(':')
-            if allow_command and ind != -1 and ' ' not in cline[:ind]:
+            if allow_command and ind != -1 and ' ' not in cline[:ind] and cline[0] != '(':
                 if command:
                     if command not in knowncommands:
                         error = error + "Unknown command: " + command + ". "
