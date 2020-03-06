@@ -26,7 +26,7 @@ int main() {
         isValid(n, res);
     }
     rep(i,2,ITERS) {
-        ull n = 1 + (uni()%(1ul<<50));
+        ull n = 1 + (uni()%(1ul<<63));
         auto res = factor(n);
         isValid(n, res);
     }

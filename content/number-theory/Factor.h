@@ -15,7 +15,7 @@
  * depending on the inputs and speed of gcd. Benchmark found here:
  * (https://ideone.com/nGGD9T)
  *
- * GCD can improved by a factor of 1.75x using Binary GCD
+ * GCD can be improved by a factor of 1.75x using Binary GCD
  * (https://lemire.me/blog/2013/12/26/fastest-way-to-compute-the-greatest-common-divisor/).
  * However, with the gcd accumulation the bottleneck moves from the gcd calls
  * to the mod_mul. As GCD only constitutes ~12% of runtime, speeding it up
@@ -36,11 +36,11 @@
 
 ull pollard(ull n) {
 	auto f = [n](ull x) { return mod_mul(x, x, n) + 1; };
-	ull x = 0, y = 0, tim = 0, prd = 2, i = 1, tmp = 1;
-	while (x != y && ++tim % 40 && tmp || __gcd(prd, n) == 1) {
-		while (x == y) x = ++i, y = f(x);
+	ull x = 0, y = 0, t = 0, prd = 2, i = 1, tmp;
+	while (t++ % 40 || __gcd(prd, n) == 1) {
+		if (x == y) x = ++i, y = f(x);
 		if (tmp = mod_mul(prd, min(y - x, x - y), n)) prd = tmp;
-		y = f(f(y)), x = f(x);
+		x = f(x), y = f(f(y));
 	}
 	return __gcd(prd, n);
 }
