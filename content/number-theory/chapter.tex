@@ -48,12 +48,3 @@
 	$\sum_{d|n} d = O(n \log \log n)$.
 
 	The number of divisors of $n$ is at most around 100 for $n < 5e4$, 500 for $n < 1e7$, 2000 for $n < 1e10$, 200\,000 for $n < 1e19$.
-
-\section{Mobius Function}
-\[
-	\mu(n) = \begin{cases} 0 & n \textrm{ is not square free}\\ 1 & n \textrm{ has even number of prime factors}\\ -1 & n \textrm{ has odd number of prime factors}\\\end{cases}
-\]
-  Mobius Inversion: If $g(n) = \sum_{d|n} f(d)$, then $f(n) = \sum_{d|n} \mu(d)g(n/d)$.
-  \[
-	  \sum_{d | n} \mu(d) = \begin{cases} 1 & \text{if} n = 1 \\ 0 \text{if} n > 1 \end{cases}
-  \]
