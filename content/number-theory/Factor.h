@@ -37,14 +37,13 @@
 ull pollard(ull n) {
 	auto f = [n](ull x) { return mod_mul(x, x, n) + 1; };
 	if (!(n & 1)) return 2;
-	ull x = 0, y = 0, tim = 0, prd = 1, i = 1, tmp;
-	for (; prd; y = f(f(y)), x = f(x)) {
-		if ((x == y || !(++tim % 40)) && (prd=__gcd(prd, n)) > 1)
-			return prd;
+	ull x = 0, y = 0, tim = 0, prd = 1, i = 1, tmp = 1;
+	while (x != y && ++tim % 40 && tmp || __gcd(prd, n) == 1) {
 		while (x == y) x = ++i, y = f(x);
-		tmp = prd, prd = mod_mul(prd, n + y - x, n);
+		if (tmp = mod_mul(prd, n + y - x, n)) prd = tmp;
+		x = f(x), y = f(f(y));
 	}
-	return __gcd(tmp, n);
+	return __gcd(prd, n);
 }
 vector<ull> factor(ull n) {
 	if (n == 1) return {};
