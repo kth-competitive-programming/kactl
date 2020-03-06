@@ -36,12 +36,11 @@
 
 ull pollard(ull n) {
 	auto f = [n](ull x) { return mod_mul(x, x, n) + 1; };
-	if (!(n & 1)) return 2;
-	ull x = 0, y = 0, tim = 0, prd = 1, i = 1, tmp = 1;
+	ull x = 0, y = 0, tim = 0, prd = 2, i = 1, tmp = 1;
 	while (x != y && ++tim % 40 && tmp || __gcd(prd, n) == 1) {
 		while (x == y) x = ++i, y = f(x);
 		if (tmp = mod_mul(prd, n + y - x, n)) prd = tmp;
-		x = f(x), y = f(f(y));
+		y = f(f(y)), x = f(x);
 	}
 	return __gcd(prd, n);
 }
