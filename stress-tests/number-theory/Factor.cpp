@@ -4,7 +4,7 @@
 
 mt19937_64 uni(time(0));
 const int ITERS=1e4;
-void isValid(ull N, vector<ull> prFac){
+void assertValid(ull N, vector<ull> prFac){
     ull cur=1;
     for (auto i: prFac){
         if (!isPrime(i)){
@@ -21,14 +21,17 @@ void isValid(ull N, vector<ull> prFac){
 int main() {
     assert(factor(1).empty());
     assert(factor(2) == vector<ull>{2});
+    assert((factor(2299) == vector<ull>{11, 19, 11}));
     rep(n,2,1e5) {
         auto res = factor(n);
-        isValid(n, res);
+        assertValid(n, res);
+        res = factor(n*ll(n));
+        assertValid(n*ll(n), res);
     }
     rep(i,2,ITERS) {
-        ull n = 1 + (uni()%(1ul<<50));
+        ull n = 1 + (uni()%(1ul<<63));
         auto res = factor(n);
-        isValid(n, res);
+        assertValid(n, res);
     }
     cout<<"Prime Factoring tests passed!"<<endl;
 }
