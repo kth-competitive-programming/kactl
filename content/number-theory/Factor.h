@@ -28,6 +28,12 @@
  *
  * Brent's cycle finding algorithm was tested, but doesn't reduce mod_mul calls
  * significantly.
+ *
+ * Subtle implementation notes:
+ * - we operate on residues in [1, n]; mod_mul can be proven to work for those
+ * - prd starts off as 2 to handle the case n = 4; it's harmless for other n
+ *   since we're guaranteed that n > 2. (Pollard rho has problems with prime
+ *   powers in general, but all larger ones happen to work.)
  */
 #pragma once
 
