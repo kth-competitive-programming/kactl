@@ -6,6 +6,16 @@
 ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 int afactors[] = {2, 3, 5, 13, 19, 73, 193, 407521, 299210837};
 
+const ull LIM = 1ULL << 63;
+
+// Accurate for arbitrary 64-bit numbers
+ull int128_mod_mul(ull a, ull b, ull m) { return (ull)((__uint128_t)a * b % m); }
+ull int128_mod_pow(ull b, ull e, ull mod) {
+	ull ans = 1;
+	for (; e; b = int128_mod_mul(b, b, mod), e /= 2)
+		if (e & 1) ans = int128_mod_mul(ans, b, mod);
+	return ans;
+}
 bool oldIsPrime(ull p) {
 	if (p == 2) return true;
 	if (p == 1 || p % 2 == 0) return false;
@@ -13,9 +23,9 @@ bool oldIsPrime(ull p) {
 	while (s % 2 == 0) s /= 2;
 	rep(i,0,15) {
 		ull a = rand() % (p - 1) + 1, tmp = s;
-		ull mod = mod_pow(a, tmp, p);
+		ull mod = int128_mod_pow(a, tmp, p);
 		while (tmp != p - 1 && mod != 1 && mod != p - 1) {
-			mod = mod_mul(mod, mod, p);
+			mod = int128_mod_mul(mod, mod, p);
 			tmp *= 2;
 		}
 		if (mod != p - 1 && tmp % 2 == 0) return false;
@@ -52,8 +62,10 @@ int main() {
 	rep(i,0,1000000) {
 		n ^= (ull)rand();
 		n *= 1237618231ULL;
-		if (oldIsPrime(n) != isPrime(n)) {
+		if (n < LIM && oldIsPrime(n) != isPrime(n)) {
 			cout << "differs from old for " << n << endl;
+			cout << "old says " << oldIsPrime(n) << endl;
+			cout << "new says " << isPrime(n) << endl;
 			assert(false);
 		}
 	}
