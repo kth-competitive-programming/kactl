@@ -5,8 +5,8 @@
  * Source: own
  * Description: Pollard-rho randomized factorization algorithm. Returns prime
  * factors of a number, in arbitrary order (e.g. 2299 -> \{11, 19, 11\}).
- * Time: $O(n^{1/4})$ gcd calls, less for numbers with small factors.
- * Status: Stress-tested
+ * Time: $O(n^{1/4})$, less for numbers with small factors.
+ * Status: stress-tested
  *
  * Details: This implementation uses the improvement described here
  * (https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm#Variants), where
@@ -36,10 +36,10 @@
 
 ull pollard(ull n) {
 	auto f = [n](ull x) { return mod_mul(x, x, n) + 1; };
-	ull x = 0, y = 0, t = 0, prd = 2, i = 1, tmp;
+	ull x = 0, y = 0, t = 0, prd = 2, i = 1, q;
 	while (t++ % 40 || __gcd(prd, n) == 1) {
 		if (x == y) x = ++i, y = f(x);
-		if (tmp = mod_mul(prd, max(x, y) - min(x, y), n)) prd = tmp;
+		if ((q = mod_mul(prd, max(x,y) - min(x,y), n))) prd = q;
 		x = f(x), y = f(f(y));
 	}
 	return __gcd(prd, n);
