@@ -24,6 +24,8 @@ int main() {
     rep(n,2,1e5) {
         auto res = factor(n);
         isValid(n, res);
+        res = factor(n*ll(n));
+        isValid(n*ll(n), res);
     }
     rep(i,2,ITERS) {
         ull n = 1 + (uni()%(1ul<<63));
