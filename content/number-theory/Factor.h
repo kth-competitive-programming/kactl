@@ -39,7 +39,7 @@ ull pollard(ull n) {
 	ull x = 0, y = 0, t = 0, prd = 2, i = 1, tmp;
 	while (t++ % 40 || __gcd(prd, n) == 1) {
 		if (x == y) x = ++i, y = f(x);
-		if (tmp = mod_mul(prd, min(y - x, x - y), n)) prd = tmp;
+		if (tmp = mod_mul(prd, max(x, y) - min(x, y), n)) prd = tmp;
 		x = f(x), y = f(f(y));
 	}
 	return __gcd(prd, n);
