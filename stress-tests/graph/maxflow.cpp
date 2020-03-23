@@ -30,14 +30,14 @@ int main() {
 			int b = rand() % n;
 			int c = rand() % 4;
 			int d = rand() % 4 == 0 ? rand() % 3 + 1 : 0;
-			pr.add_edge(a, b, c, d);
+			pr.addEdge(a, b, c, d);
 			dinic.addEdge(a, b, c, d);
 			ek[a][b] += c;
 			ek[b][a] += d;
 		}
 		auto origEk = ek;
 
-		ll flow = pr.maxflow(s, t);
+		ll flow = pr.calc(s, t);
 
 		// PushRelabel matches Dinic
 		ll dinicFlow = dinic.calc(s, t);
