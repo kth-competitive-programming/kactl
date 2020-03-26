@@ -71,4 +71,5 @@ int main() {
 		continue; }
 fail:;
 	}
+	cout<<"Tests passed!"<<endl;
 }

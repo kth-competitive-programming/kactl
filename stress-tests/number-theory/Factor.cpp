@@ -33,5 +33,5 @@ int main() {
         auto res = factor(n);
         assertValid(n, res);
     }
-    cout<<"Prime Factoring tests passed!"<<endl;
+    cout<<"Tests passed!"<<endl;
 }

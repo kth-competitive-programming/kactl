@@ -31,4 +31,5 @@ int main() {
 fail:;
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 }

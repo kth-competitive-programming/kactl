@@ -4,7 +4,7 @@
  * License: CC0
  * Source: me
  * Description: To get all uniquely determined values of $x$ back from SolveLinear, make the following changes:
- * Status: tested on kattis:equationsolverplus
+ * Status: tested on kattis:equationsolverplus, stress-tested
  */
 #pragma once
 

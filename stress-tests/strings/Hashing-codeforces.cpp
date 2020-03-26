@@ -44,4 +44,5 @@ int main() {
 		// No collisions
 		assert(sz(strs) == sz(hashes));
 	}
+	cout<<"Tests passed!"<<endl;
 }

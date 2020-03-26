@@ -6,6 +6,7 @@
  * Description: Computes sums a[i,j] for all i<I, j<J, and increases single elements a[i,j].
  *  Requires that the elements to be updated are known in advance (call fakeUpdate() before init()).
  * Time: $O(\log^2 N)$. (Use persistent segment trees for $O(\log N)$.)
+ * Status: stress-tested
  */
 #pragma once
 

@@ -68,7 +68,6 @@ int main() {
 	rep(it,0,1000000) {
 		// cout<<endl;
 		// cout<<"it: "<<it<<endl;
-		if (it % 10000 == 0) cerr << '.';
 		int N = rand() % 15;
 		vector<P> ps2;
 		rep(i,0,N) ps2.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
@@ -182,4 +181,5 @@ int main() {
 			assert(R.second == r.first);
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 }

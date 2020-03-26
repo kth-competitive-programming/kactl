@@ -68,7 +68,7 @@ int main() {
 	ll sum = 0;
 	int mode = 1;
 	if (mode != 0) rep(it,0,100) {
-		clog << it << ' ';
+		// clog << it << ' ';
 		int n = 100000;
 		int maxx = rand() % 1000000 + 1;
 		int maxy = rand() % 1000000 + 1;
@@ -91,13 +91,13 @@ int main() {
 			theDist = oldDist = (*i1 - *i2).dist2();
 		}
 		sum += theDist;
-		cerr << theDist << endl;
+		// cerr << theDist << endl;
 		if (mode == 3 && oldDist != foundDist) {
 			cerr << "failed at " << it << endl;
 			return 1;
 		}
 	}
-	cout << sum << endl;
+	// cout << sum << endl;
 
 	// Compare against bruteforce
 	rep(it,0,1'000'000) {
@@ -123,4 +123,5 @@ int main() {
 			return 1;
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 }

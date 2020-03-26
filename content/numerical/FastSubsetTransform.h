@@ -7,7 +7,7 @@
  * $\displaystyle c[z] = \sum\nolimits_{z = x \oplus y} a[x] \cdot b[y]$,
  * where $\oplus$ is one of AND, OR, XOR. The size of $a$ must be a power of two.
  * Time: O(N \log N)
- * Status: tested
+ * Status: stress-tested
  */
 #pragma once
 

@@ -10,6 +10,7 @@
  *  RMQ rmq(values);
  *  rmq.query(inclusive, exclusive);
  * Time: $O(|V| \log |V| + Q)$
+ * Status: stress-tested
  */
 #pragma once
 
