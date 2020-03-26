@@ -33,7 +33,7 @@ To build KACTL, type `make kactl` (or `make fast`) on a \*nix machine -- this wi
 (Windows might work as well, but is not tested.) `doc/README` has a few more notes about this.
 
 Tips:
-1. Check out what's not included by default by running `make nonincluded`.
+1. Check out what's excluded by default by running `make showexcluded`.
 The default configuration is chosen to be a reasonable balance for beginners
 and advanced teams.
 2. Take advantage of the hashing when typing in these algorithms. Each
