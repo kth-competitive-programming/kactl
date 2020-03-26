@@ -13,5 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Run compiles
+      run: make test-compiles
     - name: Run stress tests
       run: make test

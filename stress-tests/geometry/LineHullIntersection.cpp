@@ -80,7 +80,7 @@ int main() {
 
 		P delta = q - p, farp = p - delta * 50, farq = p + delta * 50;
 
-		auto res = lineHull({p, q}, ps);
+		auto res = lineHull(p, q, ps);
 		pii r = {res[0], res[1]};
 
 		if (p == q) continue;
@@ -168,7 +168,7 @@ int main() {
 			}
 		}
 
-		res = lineHull({q, p}, ps);
+		res = lineHull(q, p, ps);
 		pii R = {res[0], res[1]};
 		if (r.second == -1) {
 			assert(R == r);

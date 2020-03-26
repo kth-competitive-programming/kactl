@@ -34,7 +34,10 @@ build:
 	mkdir -p build/
 
 test:
-	cd stress-tests && ./run-all.sh
+	./doc/scripts/run-all.sh .
+
+test-compiles:
+	./doc/scripts/compile-all.sh .
 
 test-session.pdf: content/test-session/test-session.tex content/test-session/chapter.tex | build
 	$(LATEXCMD) content/test-session/test-session.tex
