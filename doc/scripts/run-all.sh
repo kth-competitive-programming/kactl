@@ -4,7 +4,6 @@ tests="$(find $DIR/stress-tests -name '*.cpp')"
 declare -i pass=0
 declare -i fail=0
 failTests=""
-echo -e $failTests
 ulimit -s 524288 # For 2-sat test
 for test in $tests; do
     echo "$(basename $test): "

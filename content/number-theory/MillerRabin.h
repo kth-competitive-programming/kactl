@@ -16,9 +16,9 @@ bool isPrime(ull n) {
 	ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022},
 	    s = __builtin_ctzll(n-1), d = n >> s;
 	trav(a, A) {   // ^ count trailing zeroes
-		ull p = modPow(a%n, d, n), i = s;
+		ull p = modpow(a%n, d, n), i = s;
 		while (p != 1 && p != n - 1 && a % n && i--)
-			p = modMul(p, p, n);
+			p = modmul(p, p, n);
 		if (p != n-1 && i != s) return 0;
 	}
 	return 1;

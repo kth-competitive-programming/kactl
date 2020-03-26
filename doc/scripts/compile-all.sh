@@ -7,7 +7,6 @@ find $DIR/content -name '*.h' | grep -Ff $SCRIPT_DIR/skip_headers
 declare -i pass=0
 declare -i fail=0
 failHeaders=""
-echo -e $failTests
 ulimit -s 524288 # For 2-sat test
 for test in $tests; do
     echo "$(basename $test): "
@@ -16,7 +15,7 @@ for test in $tests; do
     if (($retCode != 0)); then
         echo $retCode
         fail+=1
-        failTests="$failTests$test\n"
+        failHeaders="$failHeaders$test\n"
     else
         pass+=1
     fi
@@ -32,6 +31,6 @@ elif (($fail == 0)); then
     echo "No tests failed"
     exit 0
 else
-    echo -e "These tests failed: \n $failTests"
+    echo -e "These tests failed: \n $failHeaders"
     exit 1
 fi
