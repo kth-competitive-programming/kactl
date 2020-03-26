@@ -23,6 +23,8 @@ done
 echo "$pass/$(($pass+$fail)) tests passed"
 if (($fail == 0)); then
     echo "No tests failed"
+    exit 0
 else
     echo -e "These tests failed: \n $failTests"
+    exit 1
 fi
