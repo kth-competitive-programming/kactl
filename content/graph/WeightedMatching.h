@@ -10,7 +10,7 @@
 
 typedef vector<double> vd;
 bool zero(double x) { return fabs(x) < 1e-10; }
-double MinCostMatching(const vector<vd>& cost, vi& L, vi& R) {
+double minCostMatching(const vector<vd>& cost, vi& L, vi& R) {
 	int n = sz(cost), mated = 0;
 	vd dist(n), u(n), v(n);
 	vi dad(n), seen(n);

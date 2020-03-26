@@ -133,6 +133,7 @@ int main1() {
 		continue; }
 fail:;
 	}
+	cout<<"Tests passed!"<<endl;
 	// cerr << endl;
 	return 0;
 }

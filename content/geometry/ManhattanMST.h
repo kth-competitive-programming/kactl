@@ -10,6 +10,9 @@
  * Time: O(N \log N)
  * Status: Stress-tested
  */
+#pragma once
+#include "Point.h"
+
 typedef Point<int> P;
 vector<array<int, 3>> manhattanMST(vector<P> ps) {
 	vi id(sz(ps));

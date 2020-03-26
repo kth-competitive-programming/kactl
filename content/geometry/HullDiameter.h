@@ -8,6 +8,7 @@
  * Status: Stress-tested, submitted on kattis roberthood
  */
 #pragma once
+#include "Point.h"
 
 typedef Point<ll> P;
 array<P, 2> hullDiameter(vector<P> S) {

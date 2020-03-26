@@ -20,4 +20,5 @@ int main() {
         auto manProj = (refl + p) / 2;
         assert((proj-manProj).dist() < 1e-8);
     }
+    cout<<"Tests passed!"<<endl;
 }

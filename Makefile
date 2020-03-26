@@ -6,11 +6,13 @@ help:
 	@echo "This makefile builds KACTL (KTH Algorithm Competition Template Library)"
 	@echo ""
 	@echo "Available commands are:"
-	@echo "	make fast	- to build KACTL, quickly (only runs LaTeX once)"
-	@echo "	make kactl	- to build KACTL"
-	@echo "	make clean	- to clean up the build process"
-	@echo "	make veryclean	- to clean up and remove kactl.pdf"
-	@echo "	make help	- to show this information"
+	@echo "	make fast		- to build KACTL, quickly (only runs LaTeX once)"
+	@echo "	make kactl		- to build KACTL"
+	@echo "	make clean		- to clean up the build process"
+	@echo "	make veryclean		- to clean up and remove kactl.pdf"
+	@echo "	make test		- to run all the stress tests in stress-tests/"
+	@echo "	make test-compiles	- to test compiling all headers"
+	@echo "	make help		- to show this information"
 	@echo ""
 	@echo "For more information see the file 'doc/README'"
 
@@ -32,6 +34,12 @@ veryclean: clean
 
 build:
 	mkdir -p build/
+
+test:
+	./doc/scripts/run-all.sh .
+
+test-compiles:
+	./doc/scripts/compile-all.sh .
 
 test-session.pdf: content/test-session/test-session.tex content/test-session/chapter.tex | build
 	$(LATEXCMD) content/test-session/test-session.tex

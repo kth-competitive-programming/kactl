@@ -65,4 +65,5 @@ signed main() {
             assert(false);
         }
     }
+    cout<<"Tests passed!"<<endl;
 }

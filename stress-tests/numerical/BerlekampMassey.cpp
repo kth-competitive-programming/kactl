@@ -36,7 +36,7 @@ int main() {
 			rep(i,0,n) full[i] = start[i];
 			rep(i,n,2*n) full[i] = 0;
 			rep(i,n,2*n) rep(j,0,n) full[i] = (full[i] + coef[j] * full[i-1 - j]) % mod;
-			coef2 = BerlekampMassey(full);
+			coef2 = berlekampMassey(full);
 // rep(i,0,2*n) cerr << full[i] << ' '; cerr << endl;
 // rep(i,0,n) cerr << coef[i] << ' '; cerr << endl;
 // rep(i,0,sz(coef2)) cerr << coef2[i] << ' '; cerr << endl;
@@ -59,7 +59,7 @@ int main() {
 
 int main2() {
 	vector<ll> v{0, 1, 1, 3, 5, 11};
-	auto v2 = BerlekampMassey(v);
+	auto v2 = berlekampMassey(v);
 	trav(x, v2) cout << x << ' ';
 	cout << endl;
 	return 0;

@@ -40,12 +40,14 @@ int main() {
 		ps = polygonCut(ps, p, q);
 		double realArea = ps.empty() ? 0.0 : abs(polygonArea2(ps) / 2.0);
 
-		cout << setprecision(2) << fixed;
-		cout << N << ' ' << realArea << '\t' << approxArea << '\t' << realArea - approxArea << endl;
+		// cout << setprecision(2) << fixed;
+		assert(realArea - approxArea < 2e-1);
+		// cout << N << ' ' << realArea << '\t' << approxArea << '\t' << realArea - approxArea << endl;
 
 		// cerr << N << endl;
 		// trav(x, ps) {
 			// cout << x.x << ' ' << x.y << endl;
 		// }
 	}
+	cout<<"Tests passed!"<<endl;
 }

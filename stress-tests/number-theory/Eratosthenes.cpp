@@ -46,9 +46,8 @@ int main(int argc, char** argv) {
 	ll s = 0, s2 = 0;
 	prime_sieve ps(MAX_PR);
 	rep(i,0,ps.primes) s += ps.prime[i];
-	vi r = eratosthenes_sieve(MAX_PR);
+	vi r = eratosthenesSieve(MAX_PR);
 	trav(x, r) s2 += x;
-	cout << s << ' ' << s2 << endl;
 	assert(s==s2);
 	cout<<"Tests passed!"<<endl;
 }

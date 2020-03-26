@@ -10,7 +10,7 @@ int main() {
     for (int i = 0; i < ITERS; i++) {
         ull c = uni(rng), a = uni(rng) % c, b = uni(rng) % c;
         ull l = int128_mod_mul(a, b, c);
-        ull r = mod_mul(a, b, c);
+        ull r = modmul(a, b, c);
         if (l != r) {
             cout << a << ' ' << b << ' ' << c << endl;
             cout << l << ' ' << r << endl;

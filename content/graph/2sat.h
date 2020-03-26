@@ -8,11 +8,12 @@
  * Usage:
  *  TwoSat ts(number of boolean variables);
  *  ts.either(0, \tilde3); // Var 0 is true or var 3 is false
- *  ts.set_value(2); // Var 2 is true
- *  ts.at_most_one({0,\tilde1,2}); // <= 1 of vars 0, \tilde1 and 2 are true
+ *  ts.setValue(2); // Var 2 is true
+ *  ts.atMostOne({0,\tilde1,2}); // <= 1 of vars 0, \tilde1 and 2 are true
  *  ts.solve(); // Returns true iff it is solvable
  *  ts.values[0..N-1] holds the assigned values to the vars
  * Time: O(N+E), where N is the number of boolean variables, and E is the number of clauses.
+ * Status: stress-tested
  */
 #pragma once
 
@@ -23,7 +24,7 @@ struct TwoSat {
 
 	TwoSat(int n = 0) : N(n), gr(2*n) {}
 
-	int add_var() { // (optional)
+	int addVar() { // (optional)
 		gr.emplace_back();
 		gr.emplace_back();
 		return N++;
@@ -35,13 +36,13 @@ struct TwoSat {
 		gr[f].push_back(j^1);
 		gr[j].push_back(f^1);
 	}
-	void set_value(int x) { either(x, x); }
+	void setValue(int x) { either(x, x); }
 
-	void at_most_one(const vi& li) { // (optional)
+	void atMostOne(const vi& li) { // (optional)
 		if (sz(li) <= 1) return;
 		int cur = ~li[0];
 		rep(i,2,sz(li)) {
-			int next = add_var();
+			int next = addVar();
 			either(cur, ~li[i]);
 			either(cur, next);
 			either(~li[i], next);

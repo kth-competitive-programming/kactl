@@ -59,7 +59,7 @@ Occasionally the generated kactl.pdf is committed to the repo for convenience, b
 KACTL aims for a high level of confidence in algorithm correctness.
 Testing is done both on online judges and (for newer algorithms) with stress tests
 that compare output to a more naive algorithm for a large amount of randomly generated cases.
-These tests live in the `stress-tests` directory, and are currently run manually when making changes.
+These tests live in the `stress-tests` directory, and are run with CI on every commit. The CI also verifies that all headers compile (except for a whitelist in `docs/scripts/skip_headers`) and that the latex compiles.
 
 `old-unit-tests` contains a couple of broken unit tests, last touched about ten years ago.
 

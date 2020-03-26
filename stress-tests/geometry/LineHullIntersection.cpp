@@ -68,7 +68,6 @@ int main() {
 	rep(it,0,1000000) {
 		// cout<<endl;
 		// cout<<"it: "<<it<<endl;
-		if (it % 10000 == 0) cerr << '.';
 		int N = rand() % 15;
 		vector<P> ps2;
 		rep(i,0,N) ps2.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
@@ -81,7 +80,7 @@ int main() {
 
 		P delta = q - p, farp = p - delta * 50, farq = p + delta * 50;
 
-		auto res = lineHull({p, q}, ps);
+		auto res = lineHull(p, q, ps);
 		pii r = {res[0], res[1]};
 
 		if (p == q) continue;
@@ -169,7 +168,7 @@ int main() {
 			}
 		}
 
-		res = lineHull({q, p}, ps);
+		res = lineHull(q, p, ps);
 		pii R = {res[0], res[1]};
 		if (r.second == -1) {
 			assert(R == r);
@@ -182,4 +181,5 @@ int main() {
 			assert(R.second == r.first);
 		}
 	}
+	cout<<"Tests passed!"<<endl;
 }
