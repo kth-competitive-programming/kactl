@@ -66,7 +66,7 @@ int main() {
 			cout << "differs from old for " << n << endl;
 			cout << "old says " << oldIsPrime(n) << endl;
 			cout << "new says " << isPrime(n) << endl;
-			asset(false);
+			assert(false);
 		}
 	}
 	cout << "Tests passed!" << endl;
