@@ -17,3 +17,5 @@ jobs:
       run: make test-compiles
     - name: Run stress tests
       run: make test
+    - name: Build pdf
+      run: make kactl
