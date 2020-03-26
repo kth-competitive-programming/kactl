@@ -15,7 +15,6 @@ void gen(vector<ll>& v, int at, F f) {
 
 int main() {
 	rep(n,1,5) {
-		cerr << n << endl;
 		vector<ll> start(n);
 		vector<ll> coef(n);
 		int size = 10*n + 3;

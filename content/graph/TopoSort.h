@@ -10,7 +10,7 @@
  */
 #pragma once
 
-vi topo_sort(const vector<vi>& gr) {
+vi topoSort(const vector<vi>& gr) {
 	vi indeg(sz(gr)), ret;
 	trav(li, gr) trav(x, li) indeg[x]++;
 	queue<int> q; // use priority queue for lexic. smallest ans.

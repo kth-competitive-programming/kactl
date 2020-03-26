@@ -22,10 +22,10 @@ struct GC {
 		return buf[bc++]; // returns 0 on EOF
 	}
 } gc;
-int read_int() {
+int readInt() {
 	char c;
 	while ((c = gc()) < 40);
-	if (c == '-') return -read_int();
+	if (c == '-') return -readInt();
 	int a = c - '0';
 	while (isdigit(c = gc())) a = a * 10 + c -'0';
 	return a;

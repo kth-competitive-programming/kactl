@@ -48,7 +48,7 @@ void rec(ull div, ll num, int ind, int factors) {
 }
 
 int main() {
-	eratosthenes_sieve(MAX_PR);
+	eratosthenesSieve(MAX_PR);
 	trav(a, A) rec(1, a, 0, 0);
 
 	rep(n,0,MAX_PR) {

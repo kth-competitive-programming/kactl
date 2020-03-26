@@ -87,7 +87,7 @@ int main() {
 				}
 				r.push_back(ra() % (2*N) - N);
 				random_shuffle(all(r), [](int x) { return ra() % x; });
-				ts.at_most_one(r);
+				ts.atMostOne(r);
 				atm.push_back(r);
 			}
 		}

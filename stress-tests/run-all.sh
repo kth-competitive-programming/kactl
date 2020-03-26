@@ -5,6 +5,7 @@ declare -i pass=0
 declare -i fail=0
 failTests=""
 echo -e $failTests
+ulimit -s unlimited # For 2-sat test
 for test in $tests; do
     echo "$(basename $test): "
     g++ -std=c++14 -O2 $test && ./a.out
