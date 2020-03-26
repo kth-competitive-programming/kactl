@@ -22,7 +22,7 @@ kactl: test-session.pdf | build
 	$(LATEXCMD) content/kactl.tex && $(LATEXCMD) content/kactl.tex
 	cp build/kactl.pdf kactl.pdf
 
-clean: 
+clean:
 	cd build && rm -f kactl.aux kactl.log kactl.tmp kactl.toc kactl.pdf kactl.ptc
 
 veryclean: clean
@@ -32,6 +32,9 @@ veryclean: clean
 
 build:
 	mkdir -p build/
+
+test:
+	cd stress-tests && ./run-all.sh
 
 test-session.pdf: content/test-session/test-session.tex content/test-session/chapter.tex | build
 	$(LATEXCMD) content/test-session/test-session.tex

@@ -13,5 +13,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run stres tests
-      run: ./stress-tests/run-all.sh
+    - name: Run stress tests
+      run: make test
