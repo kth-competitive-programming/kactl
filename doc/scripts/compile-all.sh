@@ -1,9 +1,9 @@
+#!/usr/bin/env bash
 DIR=${1:-.}
 SCRIPT_DIR=$DIR/doc/scripts
-echo $SCRIPT_DIR
 tests="$(find $DIR/content -name '*.h' | grep -vFf $SCRIPT_DIR/skip_headers)"
 echo "skipped: "
-echo $(find $DIR/content -name '*.h' | grep -Ff $SCRIPT_DIR/skip_headers)
+find $DIR/content -name '*.h' | grep -Ff $SCRIPT_DIR/skip_headers
 declare -i pass=0
 declare -i fail=0
 failHeaders=""
