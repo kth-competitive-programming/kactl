@@ -1,5 +1,6 @@
 DIR=${1:-.}
-SCRIPT_DIR=$DIR/doc/scripts/
+SCRIPT_DIR=$DIR/doc/scripts
+echo $SCRIPT_DIR
 tests="$(find $DIR/content -name '*.h' | grep -vFf $SCRIPT_DIR/skip_headers)"
 echo "skipped: "
 find $DIR/content -name '*.h' | grep -Ff $SCRIPT_DIR/skip_headers
