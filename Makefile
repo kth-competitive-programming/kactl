@@ -39,5 +39,4 @@ test-session.pdf: content/test-session/test-session.tex content/test-session/cha
 
 nonincluded:
 	make fast >> /dev/null
-	echo "These headers aren't included in the pdf currently"
 	find ./content -name "*.h" -o -name "*.py" -o -name "*.java" | grep -vFf build/headers_included
