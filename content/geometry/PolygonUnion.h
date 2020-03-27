@@ -1,8 +1,8 @@
 /**
  * Author: black_horse2014, chilli
  * Date: 2019-10-29
- * License:
- * Source:
+ * License: Unknown
+ * Source: https://codeforces.com/gym/101673/submission/50481926
  * Description: Calculates the area of the union of $n$ polygons (not necessarily
  * convex). The points within each polygon must be given in CCW order.
  * (Epsilon checks may optionally be added to sideOf/sgn, but shouldn't be needed.)
