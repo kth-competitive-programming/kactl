@@ -7,6 +7,11 @@
  * vertices is given by minimum edge weight along the Gomory-Hu tree path.
  * Time: $O(V)$ Flow Computations
  * Status: Tested on CERC 2015 J, stress-tested
+ *
+ * Details: The implementation used here is not actually the original
+ * Gomory-Hu, but Gusfield's simplified version: "Very simple methods for all
+ * pairs network flow analysis". PushRelabel is used here, but any flow
+ * implementation that supports `leftOfMinCut` also works.
  */
 #pragma once
 
