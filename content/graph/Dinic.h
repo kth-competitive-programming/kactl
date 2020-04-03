@@ -49,4 +49,5 @@ struct Dinic {
 		} while (lvl[t]);
 		return flow;
 	}
+	bool leftOfMinCut(int a) { return lvl[a] != 0; }
 };
