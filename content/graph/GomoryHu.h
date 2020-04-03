@@ -17,7 +17,7 @@ vector<Edge> gomoryHu(int N, vector<Edge> ed) {
 	vector<Edge> tree;
 	vi par(N);
 	rep(i,1,N) {
-		PushRelabel D(N); // Dinic.h also works here
+		PushRelabel D(N); // Dinic also works
 		trav(t,ed) D.addEdge(t[0], t[1], t[2], t[2]);
 		tree.push_back({i, par[i], D.calc(i, par[i])});
 		rep(j,i+1,N)
