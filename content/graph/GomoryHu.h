@@ -3,7 +3,8 @@
  * Date: 2020-04-03
  * License: CC0
  * Source: https://github.com/spaghetti-source/algorithm/blob/master/graph/gomory_hu_tree.cc#L102
- * Description: Given a list of edges representing an undirected flow graph, returns edges of the Gomory-Hu tree. The max flow between any pair of
+ * Description: Given a list of edges representing an undirected flow graph,
+ * returns edges of the Gomory-Hu tree. The max flow between any pair of
  * vertices is given by minimum edge weight along the Gomory-Hu tree path.
  * Time: $O(V)$ Flow Computations
  * Status: Tested on CERC 2015 J, stress-tested
