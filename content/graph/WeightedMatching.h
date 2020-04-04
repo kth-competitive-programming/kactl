@@ -1,18 +1,21 @@
 /**
  * Author: Benjamin Qi, Chilli
- * Date: 4/04/20
+ * Date: 2020-04-04
  * License: CC0
  * Source: https://github.com/bqi343/USACO/blob/master/Implementations/content/graphs%20(12)/Matching/Hungarian.h
- * Description: Minimum cost bipartite matching. Takes in cost[N][M], where N
- * <= M, and cost[i][j] = cost for i-th node on left to j-th node on right.
- * Returns flow and match, where match[i] = node assigned to i-th left node.
- * Negate costs for max cost.
+ * Description: Given array of (possibly negative) costs to complete $N$ jobs
+ * w/ $M$ workers $(N \le M)$, finds min cost to complete all jobs s.t. each
+ * worker is assigned to at most one job. Takes cost[N][M], where cost[i][j] =
+ * cost for i-th job to be completed by j-th worker and returns (min cost,
+ * match), where match[i] = worker assigned to i-th job. Negate costs for max
+ * cost.
  * Time: O(N^2M)
  * Status: Tested on kattis:cordonbleu
  */
 #pragma once
 
 pair<int, vi> hungarian(const vector<vi> &a) {
+	if (a.empty()) return {0, {}};
 	int n = sz(a) + 1, m = sz(a[0]) + 1;
 	vi u(n), v(m), p(m), ans(n - 1);
 	rep(i,1,n) {
