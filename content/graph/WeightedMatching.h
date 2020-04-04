@@ -10,7 +10,7 @@
  * match), where match[i] = worker assigned to i-th job. Negate costs for max
  * cost.
  * Time: O(N^2M)
- * Status: Tested on kattis:cordonbleu
+ * Status: Tested on kattis:cordonbleu, stress-tested
  */
 #pragma once
 
