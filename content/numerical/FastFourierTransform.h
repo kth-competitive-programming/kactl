@@ -24,7 +24,7 @@ void fft(vector<C>& a) {
 	static vector<C> rt(2, 1);  // (^ 10% faster if double)
 	for (static int k = 2; k < n; k *= 2) {
 		R.resize(n); rt.resize(n);
-		auto x = polar(1.0L, M_PIl / k); // M_PI, lower-case L
+		auto x = polar(1.0L, acos(-1.0L) / k);
 		rep(i,k,2*k) rt[i] = R[i] = i&1 ? R[i/2] * x : R[i/2];
 	}
 	vi rev(n);
