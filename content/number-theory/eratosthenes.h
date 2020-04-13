@@ -2,7 +2,6 @@
  * Author: Jakob Kogler, chilli, pajenegod
  * Date: 2020-04-12
  * License: CC0
- * Source:
  * Description: Prime sieve for generating all primes up to LIM.
  * Status: Stress-tested
  * Time: LIM=1e9 $\approx$ 1.5s
@@ -16,24 +15,22 @@
 #pragma once
 
 const int LIM = 1e6;
+bitset<LIM> isPrime;
 vi eratosthenes() {
-	const int S = round(sqrt(LIM)), h = (LIM - 1) / 2;
-	vi pr({2}), sieve(S + 1);
+	const int S = round(sqrt(LIM)), R = (LIM - 1) / 2;
+	vi pr({2}), sieve(S + 1); pr.reserve(LIM / (int)log(LIM));
 	vector<array<int, 2>> cp;
-	for (int i = 3; i < S; i += 2) {
-		if (sieve[i]) continue;
-		cp.push_back({i, i * i / 2 - 1});
-		for (int j = i * i; j <= S; j += 2 * i) sieve[j] = true;
+	for (int i = 3; i < S; i += 2) if (!sieve[i]) {
+		cp.push_back({i, i * i / 2});
+		for (int j = i * i; j <= S; j += 2 * i) sieve[j] = 1;
 	}
-	for (int l = 1; l <= h; l += S) {
+	for (int L = 1; L <= R; L += S) {
 		array<bool, S> block{};
-		trav(i, cp) {
-			int idx = i[1];
-			for (; idx < S; idx += i[0]) block[idx] = true;
-			i[1] = idx - S;
-		}
-		rep(i,0,min(S, h - l))
-			if (!block[i]) pr.push_back((l + i) * 2 + 1);
-	};
+		for (auto &[p, idx] : cp)
+			for (int i=idx; i < S+L; idx = (i+=p)) block[i-L] = 1;
+		rep(i,0,min(S, R - L))
+			if (!block[i]) pr.push_back((L + i) * 2 + 1);
+	}
+	trav(i,pr) isPrime[i] = 1;
 	return pr;
 }
