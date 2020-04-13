@@ -3,8 +3,10 @@
  * Date: 2019-04-16
  * License: CC0
  * Source: based on KACTL's FFT
- * Description: Can be used for convolutions modulo specific nice primes
- * of the form $2^a b+1$, where the convolution result has size at most $2^a$.
+ * Description: ntt(a) computes $\hat f(k) = \sum_x a[x] g^{ik}$ for all $k$, where $g=\text{root}^{(M-1)/N}$.
+ * Useful for convolution modulo specific nice primes of the form $2^a b+1$,
+ * where the convolution result has size at most $2^a$. For arbitrary modulo, see FFTMod.
+ * See FFT for more details.
  * Inputs must be in [0, mod).
  * Time: O(N \log N)
  * Status: stress-tested
