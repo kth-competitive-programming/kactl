@@ -1,22 +1,39 @@
 /**
- * Author: Håkan Terelius
- * Date: 2009-08-26
+ * Author: Jakob Kogler, chilli, pajenegod
+ * Date: 2020-04-12
  * License: CC0
- * Source: http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
- * Description: Prime sieve for generating all primes up to a certain limit. isprime$[i]$ is true iff $i$ is a prime.
- * Status: Tested
- * Time: lim=100'000'000 $\approx$ 0.8 s. Runs 30\% faster if only odd indices are stored.
+ * Source:
+ * Description: Prime sieve for generating all primes up to LIM.
+ * Status: Stress-tested
+ * Time: LIM=1e9 $\approx$ 1.5s
+ * Details: Despite its n log log n complexity, segmented sieve is still faster
+ * than other options, including bitset sieves and linear sieves. This is
+ * primarily due to its low memory usage, which reduces cache misses. This
+ * implementation skips even numbers.
+ *
+ * Benchmark can be found here: https://ideone.com/e7TbX4
  */
 #pragma once
 
-const int MAX_PR = 5'000'000;
-bitset<MAX_PR> isprime;
-vi eratosthenesSieve(int lim) {
-	isprime.set(); isprime[0] = isprime[1] = 0;
-	for (int i = 4; i < lim; i += 2) isprime[i] = 0;
-	for (int i = 3; i*i < lim; i += 2) if (isprime[i])
-		for (int j = i*i; j < lim; j += i*2) isprime[j] = 0;
-	vi pr;
-	rep(i,2,lim) if (isprime[i]) pr.push_back(i);
+const int LIM = 1e6;
+vi eratosthenes() {
+	const int S = round(sqrt(LIM)), h = (LIM - 1) / 2;
+	vi pr({2}), sieve(S + 1);
+	vector<array<int, 2>> cp;
+	for (int i = 3; i < S; i += 2) {
+		if (sieve[i]) continue;
+		cp.push_back({i, i * i / 2 - 1});
+		for (int j = i * i; j <= S; j += 2 * i) sieve[j] = true;
+	}
+	for (int l = 1; l <= h; l += S) {
+		array<bool, S> block{};
+		trav(i, cp) {
+			int idx = i[1];
+			for (; idx < S; idx += i[0]) block[idx] = true;
+			i[1] = idx - S;
+		}
+		rep(i,0,min(S, h - l))
+			if (!block[i]) pr.push_back((l + i) * 2 + 1);
+	};
 	return pr;
 }

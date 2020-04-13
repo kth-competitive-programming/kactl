@@ -6,7 +6,7 @@
 ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 int afactors[] = {2, 3, 5, 13, 19, 73, 193, 407521, 299210837};
 
-const ull LIM = 1ULL << 63;
+const ull MR_LIM = 1ULL << 63;
 
 // Accurate for arbitrary 64-bit numbers
 ull int128_mod_mul(ull a, ull b, ull m) { return (ull)((__uint128_t)a * b % m); }
@@ -47,11 +47,14 @@ void rec(ull div, ll num, int ind, int factors) {
 	}
 }
 
+const int MAXPR = 1e6;
 int main() {
-	eratosthenesSieve(MAX_PR);
+	auto prs = eratosthenes();
+	vector<bool> isprime(MAXPR);
+	for (auto i: prs) isprime[i] = true;
 	trav(a, A) rec(1, a, 0, 0);
 
-	rep(n,0,MAX_PR) {
+	rep(n,0,MAXPR) {
 		if (isPrime(n) != isprime[n]) {
 			cout << "fails for " << n << endl;
 			return 1;
@@ -62,7 +65,7 @@ int main() {
 	rep(i,0,1000000) {
 		n ^= (ull)rand();
 		n *= 1237618231ULL;
-		if (n < LIM && oldIsPrime(n) != isPrime(n)) {
+		if (n < MR_LIM && oldIsPrime(n) != isPrime(n)) {
 			cout << "differs from old for " << n << endl;
 			cout << "old says " << oldIsPrime(n) << endl;
 			cout << "new says " << isPrime(n) << endl;

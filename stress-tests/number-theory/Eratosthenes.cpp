@@ -44,9 +44,9 @@ struct prime_sieve {
 
 int main(int argc, char** argv) {
 	ll s = 0, s2 = 0;
-	prime_sieve ps(MAX_PR);
+	prime_sieve ps(LIM);
 	rep(i,0,ps.primes) s += ps.prime[i];
-	vi r = eratosthenesSieve(MAX_PR);
+	vi r = eratosthenes();
 	trav(x, r) s2 += x;
 	assert(s==s2);
 	cout<<"Tests passed!"<<endl;
