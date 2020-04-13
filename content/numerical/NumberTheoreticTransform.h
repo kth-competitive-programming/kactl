@@ -20,10 +20,10 @@ typedef vector<ll> vl;
 void ntt(vl &a) {
 	int n = sz(a), L = 31 - __builtin_clz(n);
 	static vl rt(2, 1);
-	for (static int k = 2, l = 2; k < n; k *= 2, l++) {
+	for (static int k = 2, s = 2; k < n; k *= 2, s++) {
 		rt.resize(n);
-		ll z[] = {1, modpow(root, mod >> l)};
-		rep(i, k, 2 * k) rt[i] = rt[i / 2] * z[i & 1] % mod;
+		ll z[] = {1, modpow(root, mod >> s)};
+		rep(i,k,2*k) rt[i] = rt[i / 2] * z[i & 1] % mod;
 	}
 	vl rev(n);
 	rep(i,0,n) rev[i] = (rev[i / 2] | (i & 1) << L) / 2;
@@ -42,7 +42,7 @@ vl conv(const vl &a, const vl &b) {
 	vl L(a), R(b), out(n);
 	L.resize(n), R.resize(n);
 	ntt(L), ntt(R);
-	rep(i, 0, n) out[-i & (n - 1)] = (ll)L[i] * R[i] % mod * inv % mod;
+	rep(i,0,n) out[-i & (n - 1)] = (ll)L[i] * R[i] % mod * inv % mod;
 	ntt(out);
 	return {out.begin(), out.begin() + s};
 }
