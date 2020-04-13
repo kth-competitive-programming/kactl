@@ -17,10 +17,10 @@
 const int LIM = 1e6;
 bitset<LIM> isPrime;
 vi eratosthenes() {
-	const int S = round(sqrt(LIM)), R = (LIM - 1) / 2;
+	const int S = round(sqrt(LIM)), R = LIM / 2;
 	vi pr({2}), sieve(S + 1); pr.reserve(LIM / (int)log(LIM));
 	vector<array<int, 2>> cp;
-	for (int i = 3; i < S; i += 2) if (!sieve[i]) {
+	for (int i = 3; i <= S; i += 2) if (!sieve[i]) {
 		cp.push_back({i, i * i / 2});
 		for (int j = i * i; j <= S; j += 2 * i) sieve[j] = 1;
 	}
