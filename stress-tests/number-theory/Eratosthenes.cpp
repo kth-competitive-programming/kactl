@@ -34,7 +34,7 @@ vi eratosthenes(int LIM) {
 	return pr;
 }
 }
-#include "../../content/number-theory/eratosthenes.h"
+#include "../../content/number-theory/Eratosthenes.h"
 
 
 int main() {
