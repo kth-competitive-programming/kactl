@@ -8,7 +8,7 @@
 
 void test(int N, int mxCost, int iters) {
     for (int it = 0; it < iters; it++) {
-        int n = randRange(1, N), m = randRange(1, N);
+        int n = randRange(0, N), m = randRange(0, N);
         if (n > m)
             swap(n, m);
 
@@ -33,8 +33,12 @@ void test(int N, int mxCost, int iters) {
         assert(maxflow.first == n);
         assert(maxflow.second == matching.first);
         int matchSum = 0;
-        for (int i = 0; i < n; i++)
+        set<int> used;
+        for (int i = 0; i < n; i++) {
             matchSum += cost[i][matching.second[i]];
+            assert(used.count(matching.second[i]) == 0);
+            used.insert(matching.second[i]);
+        }
         assert(matchSum == matching.first);
         return;
     }
