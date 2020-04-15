@@ -7,6 +7,11 @@
  * Time:
  * Status:
  */
+struct Matroid {
+    bool check(int x) {} // will adding x make matroid dependent
+    void add(int x) {} // adds x to matroid
+    void clear() {}  // resets matroid to empty
+};
 template <class M1, class M2, class T> struct MatroidIsect {
 	int n;
 	vector<T> gset; vector<bool> iset;
@@ -26,7 +31,7 @@ template <class M1, class M2, class T> struct MatroidIsect {
 	}
 	template <class M>
 	bool test(vector<M> &m, int add, int rem) {
-		return !iset[add] && iset[rem] && m[rem].test(gset[add]);
+		return !iset[add] && iset[rem] && m[rem].check(gset[add]);
 	}
 	bool augment() {
 		rep(i,0,n + 1) { //  Construct matroids
