@@ -55,7 +55,10 @@
 \]
   Mobius Inversion:
   \[ g(n) = \sum_{d|n} f(d) \Leftrightarrow f(n) = \sum_{d|n} \mu(d)g(n/d) \]
-
   Other useful formulas/forms:
-  \[ \sum_{d | n} \mu(d) = [ n = 1] \]
-  \[ g(n) = \sum_{n|d} f(d) \Leftrightarrow f(n) = \sum_{n|d} g(d)\mu(d/n)\]
+
+  $ \sum_{d | n} \mu(d) = [ n = 1] $ (very useful)
+
+  $ g(n) = \sum_{n|d} f(d) \Leftrightarrow f(n) = \sum_{n|d} \mu(d/n)g(d)$
+
+ $ g(n) = \sum_{1 \leq m \leq n} f(\left\lfloor\frac{n}{m}\right \rfloor ) \Leftrightarrow f(n) = \sum_{1\leq m\leq n} \mu(m)g(\left\lfloor\frac{n}{m}\right\rfloor)$
