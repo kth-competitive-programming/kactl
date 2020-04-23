@@ -37,7 +37,7 @@ template<class G> vi scc(G &g) {
 
 int main() {
 	unsigned r = 1;
-	for (int N = 0; N <= 5; N++) {
+	for (int N = 0; N <= 4; N++) {
 		// cout << "N = " << N << endl;
 		vector<vi> mat(N, vi(N)), adj(N);
 		vi compsize(N), seen(N);

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 DIR=${1:-.}
-tests="$(find $DIR/stress-tests -name '*Polygon*.cpp')"
+tests="$(find $DIR/stress-tests -name '*.cpp')"
 declare -i pass=0
 declare -i fail=0
 failTests=""

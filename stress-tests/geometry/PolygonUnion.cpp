@@ -162,19 +162,13 @@ db polygon_union(vector<cpoi> py[], int n) {
 }
 } // namespace lovelive
 
-P randPt(int lim) {
-    return P(randRange(-lim, lim), randRange(-lim, lim));
-}
+P randPt(int lim) { return P(randRange(-lim, lim), randRange(-lim, lim)); }
 
-P rndUlp(int lim, long long ulps = 5) {
-    return P(randNearIntUlps(lim, ulps), randNearIntUlps(lim, ulps));
-}
+P rndUlp(int lim, long long ulps = 5) { return P(randNearIntUlps(lim, ulps), randNearIntUlps(lim, ulps)); }
 
-P rndEps(int lim, double eps) {
-    return P(randNearIntEps(lim, eps), randNearIntEps(lim, eps));
-}
+P rndEps(int lim, double eps) { return P(randNearIntEps(lim, eps), randNearIntEps(lim, eps)); }
 
-void testRandom(int n, int numPts = 10, int lim = 5) {
+void testRandom(int n, int numPts = 10, int lim = 5, bool brute = false) {
     vector<vector<P>> polygons;
     for (int i = 0; i < n; i++) {
         vector<P> pts;
@@ -188,37 +182,30 @@ void testRandom(int n, int numPts = 10, int lim = 5) {
         }
     }
     auto val1 = polyUnion(polygons);
-    auto val2 = approximate::polygonUnion(polygons, lim);
-    if (abs(val1 - val2) / max(val1, val2) > 0.1) {
-        vector<vector<blackhorse::pt>> polygons2;
-        for (auto i : polygons) {
-            vector<blackhorse::pt> t;
-            for (auto j : i)
-                t.push_back({j.x, j.y});
-            polygons2.push_back(t);
-        }
-        vector<vector<lovelive::cpoi>> polygons3;
-        for (auto i : polygons) {
-            vector<lovelive::cpoi> t;
-            for (auto j : i)
-                t.push_back({j.x, j.y});
-            polygons3.push_back(t);
-        }
-        auto val3 = blackhorse::polygon_union(polygons2.data(), sz(polygons2));
-        auto val4 = lovelive::polygon_union(polygons3.data(), sz(polygons3));
-
-        cout << endl;
-        cout << val3 <<' ' << val4 << endl;
-        cout << val1 << ' ' << val2 << ' ' << endl;
-        if (abs(val1 - val2) > 1e-8) {
-            rep(i,0,n) {
-                for(auto &x: polygons[i]) {
-                    cout << x << ' ';
-                }
-                cout << endl;
+    vector<vector<blackhorse::pt>> polygons2;
+    for (auto i : polygons) {
+        vector<blackhorse::pt> t;
+        for (auto j : i)
+            t.push_back({j.x, j.y});
+        polygons2.push_back(t);
+    }
+    vector<vector<lovelive::cpoi>> polygons3;
+    for (auto i : polygons) {
+        vector<lovelive::cpoi> t;
+        for (auto j : i)
+            t.push_back({j.x, j.y});
+        polygons3.push_back(t);
+    }
+    auto val3 = blackhorse::polygon_union(polygons2.data(), sz(polygons2));
+    auto val4 = lovelive::polygon_union(polygons3.data(), sz(polygons3));
+    if (abs(val1 - val3) > 1e-8 || abs(val1 - val4) > 1e-8) {
+        rep(i, 0, n) {
+            for (auto &x : polygons[i]) {
+                cout << x << ' ';
             }
-            abort();
+            cout << endl;
         }
+        abort();
     }
 }
 
@@ -228,15 +215,12 @@ int main() {
     // cout << "seed " << s << endl;
     srand(s);
     for (int i = 0; i < 100; i++) {
-        cerr << i << ' ';
         testRandom(2, 5, 5);
     }
     for (int i = 0; i < 100; i++) {
-        cerr << i << ' ';
         testRandom(2, 10, 2);
     }
-    for (int i = 0; i < 100; i++) {
-        cerr << i << ' ';
+    for (int i = 0; i < 50; i++) {
         testRandom(5, 100, 5);
     }
     cout << "Tests passed!" << endl;
