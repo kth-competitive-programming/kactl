@@ -21,7 +21,7 @@ struct Maxclique {
 	vi qmax, q, S, old;
 	void init(vv& r) {
 		for (auto& v : r) v.d = 0;
-		for (auto& v : r) for(auto j: r) v.d += e[v.i][j.i];
+		for (auto& v : r) for (auto j : r) v.d += e[v.i][j.i];
 		sort(all(r), [](auto a, auto b) { return a.d > b.d; });
 		int mxD = r[0].d;
 		rep(i,0,sz(r)) r[i].d = min(i, mxD) + 1;

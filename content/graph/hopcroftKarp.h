@@ -39,7 +39,7 @@ int hopcroftKarp(vector<vi>& g, vi& btoa) {
 		for (int lay = 1;; lay++) {
 			bool islast = 0;
 			next.clear();
-			for (int a : cur) for (int b: g[a]) {
+			for (int a : cur) for (int b : g[a]) {
 				if (btoa[b] == -1) {
 					B[b] = lay;
 					islast = 1;
