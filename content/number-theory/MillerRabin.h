@@ -6,6 +6,7 @@
  * Description: Deterministic Miller-Rabin primality test.
  * Guaranteed to work for numbers up to $2^{63}$; for larger numbers, extend A randomly.
  * Time: 7 times the complexity of $a^b \mod c$.
+ * Status: Stress-tested
  */
 #pragma once
 
