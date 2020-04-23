@@ -7,7 +7,6 @@
 using namespace std;
 
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
-#define trav(it, v) for(auto& it : v)
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
 

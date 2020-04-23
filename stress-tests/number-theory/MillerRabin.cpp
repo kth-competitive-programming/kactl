@@ -49,7 +49,7 @@ void rec(ull div, ll num, int ind, int factors) {
 
 int main() {
 	eratosthenesSieve(MAX_PR);
-	trav(a, A) rec(1, a, 0, 0);
+	for(auto &a: A) rec(1, a, 0, 0);
 
 	rep(n,0,MAX_PR) {
 		if (isPrime(n) != isprime[n]) {

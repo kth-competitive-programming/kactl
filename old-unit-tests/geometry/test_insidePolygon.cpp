@@ -55,15 +55,15 @@ public:
 			stringstream ss;
 			ss << strings[c] << " : " << points[c];
 			check(a, (bool)answers[c], ss.str());
-		} else { 
+		} else {
 			vector<Point<double> > poly(2+rand()%20);
-			trav(i,poly) i = Point<double>(rand()%100000,rand()%100000);
+			for(auto &i:poly) i = Point<double>(rand()%100000,rand()%100000);
 			Point<double> p(rand()%100000,rand()%100000);
 			bool a = insidePolygon(poly.begin(),poly.end(),p,true);
 			for (int i = 0; i < 10; ++i) {
 				double alpha = rand()%1000/1000.0;
 				Point<double> D(rand()%1000,rand()%1000);
-				trav(i,poly) i = i.rotate(alpha)+D;
+				for(auto &i:poly) i = i.rotate(alpha)+D;
 				p = p.rotate(alpha)+D;
 				check(insidePolygon(poly.begin(),poly.end(),p,true),a);
 			}

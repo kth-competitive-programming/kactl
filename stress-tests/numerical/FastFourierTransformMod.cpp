@@ -10,7 +10,7 @@ vl simpleConv(vl a, vl b) {
 	vl c(s);
 	rep(i,0,sz(a)) rep(j,0,sz(b))
 		c[i+j] = (c[i+j] + (ll)a[i] * b[j]) % mod;
-	trav(x, c) if (x < 0) x += mod;
+	for(auto &x: c) if (x < 0) x += mod;
 	return c;
 }
 
@@ -27,8 +27,8 @@ int main() {
 	rep(it,0,6000) {
 		a.resize(ra() % 100);
 		b.resize(ra() % 100);
-		trav(x, a) x = ra() % mod;
-		trav(x, b) x = ra() % mod;
+		for(auto &x: a) x = ra() % mod;
+		for(auto &x: b) x = ra() % mod;
 		auto v1 = simpleConv(a, b);
 		auto v2 = convMod<mod>(a, b);
 		assert(v1 == v2);

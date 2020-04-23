@@ -127,9 +127,9 @@ int main() {
 			vi par = pa.second;
 			if (debug) {
 				cout << "r = " << r << endl;
-				trav(x, par) cout << x << ' ';
+				for(auto &x: par) cout << x << ' ';
 				cout << endl;
-				trav(e, edges) {
+				for(auto &e: edges) {
 					cout << e.a << ' ' << e.b << ' ' << e.w << endl;
 				}
 			}
@@ -148,7 +148,7 @@ int main() {
 			rep(qi,0,sz(q)) {
 				int s = q[qi];
 				if (!seen[s]++)
-					trav(x, ch[s]) q.push_back(x);
+					for(auto &x: ch[s]) q.push_back(x);
 			}
 			assert(count(all(seen), 0) == 0);
 		}

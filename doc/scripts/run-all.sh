@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 DIR=${1:-.}
-tests="$(find $DIR/stress-tests -name '*.cpp')"
+tests="$(find $DIR/stress-tests -name '*Polygon*.cpp')"
 declare -i pass=0
 declare -i fail=0
 failTests=""
@@ -8,10 +8,12 @@ ulimit -s 524288 # For 2-sat test
 for test in $tests; do
     echo "$(basename $test): "
     start=`date +%s.%N`
-    g++ -std=c++14 -O2 $test && ./a.out
+    g++ -std=c++14 -O2 $test
+    retCode1=$?
+    ./a.out
     end=`date +%s.%N`
-    retCode=$?
-    if (($retCode != 0)); then
+    retCode2=$?
+    if (($retCode1 != 0 || $retCode2 != 0)); then
         echo "Failed with $retCode"
         fail+=1
         failTests="$failTests$test\n"

@@ -5,7 +5,6 @@ typedef long long ll;
 using namespace std;
 
 #define rep(i, a, b) for (int i = a; i < (b); ++i)
-#define trav(a, x) for (auto &a : x)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
 typedef long long ll;
@@ -87,8 +86,8 @@ namespace approximate {
 double polygonUnion(vector<vector<P>> &polygons, int lim) {
     int cnt = 0;
     int total = 0;
-    for (double y = -lim + 1e-5; y < lim; y += lim / 200.0) {
-        for (double x = -lim + 1.1e-5; x < lim; x += lim / 200.0) {
+    for (double y = -lim + 1e-5; y < lim; y += lim / 500.0) {
+        for (double x = -lim + 1.1e-5; x < lim; x += lim / 500.0) {
             total++;
             for (auto &i : polygons) {
                 if (inPolygon(i, P(x, y))) {
@@ -213,7 +212,7 @@ void testRandom(int n, int numPts = 10, int lim = 5) {
         cout << val1 << ' ' << val2 << ' ' << endl;
         if (abs(val1 - val2) > 1e-8) {
             rep(i,0,n) {
-                trav(x, polygons[i]) {
+                for(auto &x: polygons[i]) {
                     cout << x << ' ';
                 }
                 cout << endl;
@@ -224,18 +223,20 @@ void testRandom(int n, int numPts = 10, int lim = 5) {
 }
 
 int main() {
-    int s = (int)time(0);
-    // s = 1572890368;
+    // int s = (int)time(0);
+    int s = 1;
     // cout << "seed " << s << endl;
     srand(s);
     for (int i = 0; i < 100; i++) {
-        // cerr << i << ' ';
+        cerr << i << ' ';
         testRandom(2, 5, 5);
     }
     for (int i = 0; i < 100; i++) {
+        cerr << i << ' ';
         testRandom(2, 10, 2);
     }
     for (int i = 0; i < 100; i++) {
+        cerr << i << ' ';
         testRandom(5, 100, 5);
     }
     cout << "Tests passed!" << endl;

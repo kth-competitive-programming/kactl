@@ -45,7 +45,7 @@ int main1() {
 			}
 			return true;
 		};
-		trav(c, cl) {
+		for(auto &c: cl) {
 			assert(isClique(c));
 		}
 
