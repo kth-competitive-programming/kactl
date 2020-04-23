@@ -51,7 +51,7 @@ int hopcroftKarp(vector<vi>& g, vi& btoa) {
 			}
 			if (islast) break;
 			if (next.empty()) return res;
-			trav(a, next) A[a] = lay;
+			for(auto a: next) A[a] = lay;
 			cur.swap(next);
 		}
 		/// Use DFS to scan for augmenting paths.

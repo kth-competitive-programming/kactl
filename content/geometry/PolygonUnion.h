@@ -37,7 +37,7 @@ double polyUnion(vector<vector<P>>& poly) {
 			}
 		}
 		sort(all(segs));
-		trav(s,segs) s.first = min(max(s.first, 0.0), 1.0);
+		for(auto &s: segs) s.first = min(max(s.first, 0.0), 1.0);
 		double sum = 0;
 		int cnt = segs[0].second;
 		rep(j,1,sz(segs)) {
