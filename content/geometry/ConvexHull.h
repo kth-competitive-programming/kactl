@@ -13,7 +13,7 @@ Points on the edge of the hull between two other points are not considered part 
 \includegraphics[width=\textwidth]{content/geometry/ConvexHull}
 \vspace{-6mm}
 \end{minipage}
- * Status: tested with Kattis problems convexhull
+ * Status: stress-tested, tested with Kattis problems convexhull
  * Time: O(n \log n)
 */
 #pragma once
@@ -27,7 +27,7 @@ vector<P> convexHull(vector<P> pts) {
 	vector<P> h(sz(pts)+1);
 	int s = 0, t = 0;
 	for (int it = 2; it--; s = --t, reverse(all(pts)))
-		trav(p, pts) {
+		for (P p : pts) {
 			while (t >= s + 2 && h[t-2].cross(h[t-1], p) <= 0) t--;
 			h[t++] = p;
 		}

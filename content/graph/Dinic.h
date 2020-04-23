@@ -41,7 +41,7 @@ struct Dinic {
 			int qi = 0, qe = lvl[s] = 1;
 			while (qi < qe && !lvl[t]) {
 				int v = q[qi++];
-				trav(e, adj[v])
+				for (Edge e : adj[v])
 					if (!lvl[e.to] && e.c >> (30 - L))
 						q[qe++] = e.to, lvl[e.to] = lvl[v] + 1;
 			}

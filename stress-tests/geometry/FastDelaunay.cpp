@@ -93,7 +93,7 @@ int main1() {
 
 		auto fail = [&]() {
 			cout << "Points:" << endl;
-			trav(p, ps) {
+			for(auto &p: ps) {
 				cout << p.x << ' ' << p.y << endl;
 			}
 

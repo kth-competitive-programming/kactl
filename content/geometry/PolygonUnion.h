@@ -6,9 +6,8 @@
  * Description: Calculates the area of the union of $n$ polygons (not necessarily
  * convex). The points within each polygon must be given in CCW order.
  * (Epsilon checks may optionally be added to sideOf/sgn, but shouldn't be needed.)
- * Status: Submitted on ECNA 2017 Problem A, fuzz-tested
+ * Status: stress-tested, Submitted on ECNA 2017 Problem A
  * Time: $O(N^2)$, where $N$ is the total number of points
- * Usage:
  */
 #pragma once
 
@@ -37,7 +36,7 @@ double polyUnion(vector<vector<P>>& poly) {
 			}
 		}
 		sort(all(segs));
-		trav(s,segs) s.first = min(max(s.first, 0.0), 1.0);
+		for (auto& s : segs) s.first = min(max(s.first, 0.0), 1.0);
 		double sum = 0;
 		int cnt = segs[0].second;
 		rep(j,1,sz(segs)) {

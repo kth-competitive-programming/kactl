@@ -59,7 +59,7 @@ int test2() {
 			rep(j,0,K) v[j] = max(v[j], k*x[j] + m);
 		}
 // cerr << mh.eval(x) << ' ' << v << endl;
-// trav(li, mh) cerr << li.k << ' ' << li.m << ' ' << li.p << endl;
+// for(auto &li: mh) cerr << li.k << ' ' << li.m << ' ' << li.p << endl;
 		rep(j,0,K)
 			assert(mh.query(x[j]) == v[j]);
 	}

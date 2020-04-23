@@ -56,9 +56,9 @@ struct MCMF {
 		while (!q.empty()) {
 			s = q.top().second; q.pop();
 			seen[s] = 1; di = dist[s] + pi[s];
-			trav(i, ed[s]) if (!seen[i])
+			for (int i : ed[s]) if (!seen[i])
 				relax(i, cap[s][i] - flow[s][i], cost[s][i], 1);
-			trav(i, red[s]) if (!seen[i])
+			for (int i : red[s]) if (!seen[i])
 				relax(i, flow[i][s], -cost[i][s], 0);
 		}
 		rep(i,0,N) pi[i] = min(pi[i] + dist[i], INF);
@@ -85,7 +85,7 @@ struct MCMF {
 		int it = N, ch = 1; ll v;
 		while (ch-- && it--)
 			rep(i,0,N) if (pi[i] != INF)
-				trav(to, ed[i]) if (cap[i][to])
+				for (int to : ed[i]) if (cap[i][to])
 					if ((v = pi[i] + cost[i][to]) < pi[to])
 						pi[to] = v, ch = 1;
 		assert(it >= 0); // negative cost cycle

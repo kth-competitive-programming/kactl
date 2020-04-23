@@ -8,7 +8,7 @@ int no_vertices, no_components;
 template<class G> void dfs(int j, G &g) {
 	low[j] = orig[j] = no_vertices++;
 	comp[j] = -2; z.push_back(j);
-	trav(e,g[j])
+	for(auto &e:g[j])
 		if (comp[e] == -1) {
 			dfs(e, g);
 			low[j] = min(low[j], low[e]);
@@ -37,7 +37,7 @@ template<class G> vi scc(G &g) {
 
 int main() {
 	unsigned r = 1;
-	for (int N = 0; N <= 5; N++) {
+	for (int N = 0; N <= 4; N++) {
 		// cout << "N = " << N << endl;
 		vector<vi> mat(N, vi(N)), adj(N);
 		vi compsize(N), seen(N);
@@ -61,17 +61,17 @@ int main() {
 				compsize[ncomps] = sz(v);
 			});
 			if (comp != comp2) {
-				trav(x, comp) cout << x << ' ';
+				for(auto &x: comp) cout << x << ' ';
 				cout << endl;
-				trav(x, comp2) cout << x << ' ';
+				for(auto &x: comp2) cout << x << ' ';
 				cout << endl;
 			}
 			rep(i,0,N) assert(comp[i] >= 0 && comp[i] < ncomps);
-			rep(i,0,N) trav(j, adj[i]) assert(comp[j] <= comp[i]);
+			rep(i,0,N) for(auto &j: adj[i]) assert(comp[j] <= comp[i]);
 			rep(i,0,N) {
 				seen.assign(N, 0); seen[i] = 1;
 				rep(it,0,N) {
-					rep(j,0,N) if (seen[j]) trav(k, adj[j]) seen[k] = 1;
+					rep(j,0,N) if (seen[j]) for(auto &k: adj[j]) seen[k] = 1;
 				}
 				rep(j,0,N) {
 					if (seen[j]) assert(comp[j] <= comp[i]);

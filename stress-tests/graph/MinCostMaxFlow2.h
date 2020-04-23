@@ -34,7 +34,7 @@ pair<Flow, Flow> aug(G &g, int s, int t) {
 	bool changed = true; mindist[s] = 0;
 	for (int i = 1; !(changed = !changed); ++i)
 		for (int v = 0; v < n; ++v) if (mindist[v] != inf)
-			trav(e, g[v]) {
+			for(auto &e: g[v]) {
 				Flow dist = mindist[v] + (e.f<0 ? -e.cost : e.cost);
 				if (e.r() > 0 && dist < mindist[e.dest]) {
 					if (i >= n) assert(0);// negative cycle! shouldn't be

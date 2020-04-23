@@ -3,6 +3,7 @@
 // Translated from Python code posted here: https://codeforces.com/blog/entry/63058?#comment-472788
 // May generate polygons with colinear points. Won't generate polygons with duplicate points. No guarantee of the direction of the polygon.
 #include "../../content/geometry/Point.h"
+#include "../../content/geometry/PolygonArea.h"
 #include "random.h"
 
 template<class P> pair<bool, vector<P>> conquer(vector<P> pts, int depth) {
@@ -41,7 +42,8 @@ template<class P> pair<bool, vector<P>> conquer(vector<P> pts, int depth) {
     pa.second.insert(pa.second.end(), all(pb.second));
     return pa;
 }
-template<class P> vector<P> genPolygon(vector<P> pts) {
+template<class P> vector<P> genPolygon(vector<P> pts, int depth=0) {
+    if (depth>100) return {P(0,0), P(1,0), P(0,1)};
     sort(all(pts));
     pts.resize(unique(all(pts)) - pts.begin());
     shuffle_vec(pts);
@@ -60,7 +62,7 @@ template<class P> vector<P> genPolygon(vector<P> pts) {
     auto tb = conquer(S[1],0);
     auto pa=ta.second, pb=tb.second;
     if (!ta.first || !tb.first) {
-        return genPolygon(pts);
+        return genPolygon(pts, depth+1);
     }
     pa.erase(pa.begin());
     pb.erase(pb.begin());

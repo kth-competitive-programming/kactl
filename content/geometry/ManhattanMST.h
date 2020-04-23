@@ -22,7 +22,7 @@ vector<array<int, 3>> manhattanMST(vector<P> ps) {
 		sort(all(id), [&](int i, int j) {
 		     return (ps[i]-ps[j]).x < (ps[j]-ps[i]).y;});
 		map<int, int> sweep;
-		trav(i,id) {
+		for (int i : id) {
 			for (auto it = sweep.lower_bound(-ps[i].y);
 				        it != sweep.end(); sweep.erase(it++)) {
 				int j = it->second;
@@ -32,8 +32,7 @@ vector<array<int, 3>> manhattanMST(vector<P> ps) {
 			}
 			sweep[-ps[i].y] = i;
 		}
-		if (k & 1) trav(p,ps) p.x = -p.x;
-		else trav(p,ps) swap(p.x, p.y);
+		for (P& p : ps) if (k & 1) p.x = -p.x; else swap(p.x, p.y);
 	}
 	return edges;
 }

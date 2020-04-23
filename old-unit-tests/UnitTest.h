@@ -70,7 +70,7 @@ private:
 		ostringstream oss;
 
 		oss << "{ ";
-		trav(it, data)
+		for(auto &it: data)
 			oss << convertToString(it) << " ";
 		oss << "}";
 

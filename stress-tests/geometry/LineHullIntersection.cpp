@@ -87,7 +87,7 @@ int main() {
 
 		auto fail = [&](int line) {
 			cerr << sz(ps) << endl;
-			trav(p, ps) cout << p<<' ';
+			for(auto &p: ps) cout << p<<' ';
 			cout<<endl;
 			cout << "line: "<<p<<' '<<q<<endl;
 			cout << "-> " << r.first << ' ' << r.second << endl;

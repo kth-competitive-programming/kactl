@@ -29,7 +29,7 @@ fail:;
 }
 
 int main() {
-	// string str; cin >> str; trav(x, pi(str)) cout << x; cout << endl;
+	// string str; cin >> str; for(auto &x: pi(str)) cout << x; cout << endl;
 	// test ~3^12 strings
 	rep(n,0,13) {
 		string s(n, 'x');

@@ -14,7 +14,7 @@
 
 vector<pii> generalMatching(int N, vector<pii>& ed) {
 	vector<vector<ll>> mat(N, vector<ll>(N)), A;
-	trav(pa, ed) {
+	for (pii pa : ed) {
 		int a = pa.first, b = pa.second, r = rand() % mod;
 		mat[a][b] = r, mat[b][a] = (mod - r) % mod;
 	}

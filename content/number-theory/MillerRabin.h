@@ -6,6 +6,7 @@
  * Description: Deterministic Miller-Rabin primality test.
  * Guaranteed to work for numbers up to $2^{63}$; for larger numbers, extend A randomly.
  * Time: 7 times the complexity of $a^b \mod c$.
+ * Status: Stress-tested
  */
 #pragma once
 
@@ -15,7 +16,7 @@ bool isPrime(ull n) {
 	if (n < 2 || n % 6 % 4 != 1) return (n | 1) == 3;
 	ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022},
 	    s = __builtin_ctzll(n-1), d = n >> s;
-	trav(a, A) {   // ^ count trailing zeroes
+	for (ull a : A) {   // ^ count trailing zeroes
 		ull p = modpow(a%n, d, n), i = s;
 		while (p != 1 && p != n - 1 && a % n && i--)
 			p = modmul(p, p, n);

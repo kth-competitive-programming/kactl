@@ -7,13 +7,13 @@ vi coverHK(vector<vi>& g, int n, int m) {
 	vi match(m, -1);
 	int res = hopcroftKarp(g, match);
 	vector<bool> lfound(n, true), seen(m);
-	trav(it, match) if (it != -1) lfound[it] = false;
+	for(auto &it: match) if (it != -1) lfound[it] = false;
 	vi q, cover;
 	rep(i,0,n) if (lfound[i]) q.push_back(i);
 	while (!q.empty()) {
 		int i = q.back(); q.pop_back();
 		lfound[i] = 1;
-		trav(e, g[i]) if (!seen[e] && match[e] != -1) {
+		for(auto &e: g[i]) if (!seen[e] && match[e] != -1) {
 			seen[e] = true;
 			q.push_back(match[e]);
 		}
@@ -34,17 +34,17 @@ int main() {
 			gr[i].push_back(j);
 		}
 		auto verify = [&](vi& cover) {
-			trav(x, cover) {
+			for(auto &x: cover) {
 				if (x < N) left[x] = 1;
 				else right[x - N] = 1;
 			}
-			rep(i,0,N) if (!left[i]) trav(j,gr[i]) {
+			rep(i,0,N) if (!left[i]) for(auto &j:gr[i]) {
 				assert(right[j]);
 				/* if (!right[j]) {
 					cout << N << ' ' << M << endl;
-					rep(i,0,N) trav(j, gr[i]) cout << i << " - " << j << endl;
+					rep(i,0,N) for(auto &j: gr[i]) cout << i << " - " << j << endl;
 					cout << "yields " << sz(cover) << endl;
-					trav(x, cover) cout << x << endl;
+					for(auto &x: cover) cout << x << endl;
 					abort();
 				} */
 			}

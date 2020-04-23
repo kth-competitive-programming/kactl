@@ -5,8 +5,8 @@
 int main() {
 	rep(k,0,10) {
 		vi a(1 << k), b = a, c = a, target = a;
-		trav(x, a) x = rand() % 6 - 2;
-		trav(x, b) x = rand() % 6 - 2;
+		for(auto &x: a) x = rand() % 6 - 2;
+		for(auto &x: b) x = rand() % 6 - 2;
 		rep(i,0,1 << k) rep(j,0,1 << k) target[i & j] += a[i] * b[j];
 		// rep(i,0,1 << k) cout << a[i] << ' '; cout << endl;
 		// rep(i,0,1 << k) cout << b[i] << ' '; cout << endl;
