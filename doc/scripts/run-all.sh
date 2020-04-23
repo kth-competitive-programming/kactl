@@ -8,18 +8,16 @@ ulimit -s 524288 # For 2-sat test
 for test in $tests; do
     echo "$(basename $test): "
     start=`date +%s.%N`
-    g++ -std=c++14 -O2 $test
-    retCode1=$?
-    ./a.out
-    end=`date +%s.%N`
-    retCode2=$?
-    if (($retCode1 != 0 || $retCode2 != 0)); then
+    g++ -std=c++14 -O2 $test && ./a.out
+    retCode=$?
+    if (($retCode != 0)); then
         echo "Failed with $retCode"
         fail+=1
         failTests="$failTests$test\n"
     else
         pass+=1
     fi
+    end=`date +%s.%N`
     runtime=$( echo "$end - $start" | bc -l )
     echo "Took $runtime seconds"
     rm -f a.out
