@@ -6,7 +6,7 @@
 ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 int afactors[] = {2, 3, 5, 13, 19, 73, 193, 407521, 299210837};
 
-const ull LIM = 1ULL << 63;
+const ull LIM = 3ULL << 61;
 
 // Accurate for arbitrary 64-bit numbers
 ull int128_mod_mul(ull a, ull b, ull m) { return (ull)((__uint128_t)a * b % m); }
