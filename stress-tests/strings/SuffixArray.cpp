@@ -35,7 +35,7 @@ struct VecSuffixArray {
 
 string display(const string& s) {
 	string ret;
-	trav(x, s) ret += (char)('a' + x - 1);
+	for(auto &x: s) ret += (char)('a' + x - 1);
 	return ret;
 }
 

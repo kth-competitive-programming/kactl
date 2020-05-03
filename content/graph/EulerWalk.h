@@ -26,6 +26,6 @@ vi eulerWalk(vector<vector<pii>>& gr, int nedges, int src=0) {
 			D[x]--, D[y]++;
 			eu[e] = 1; s.push_back(y);
 		}}
-	trav(x, D) if (x < 0 || sz(ret) != nedges+1) return {};
+	for (int x : D) if (x < 0 || sz(ret) != nedges+1) return {};
 	return {ret.rbegin(), ret.rend()};
 }

@@ -34,6 +34,6 @@ vi eratosthenes() {
 		rep(i,0,min(S, R - L))
 			if (!block[i]) pr.push_back((L + i) * 2 + 1);
 	}
-	trav(i,pr) isPrime[i] = 1;
+	for(auto i: pr) isPrime[i] = 1;
 	return pr;
 }

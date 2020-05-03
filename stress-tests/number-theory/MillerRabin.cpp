@@ -1,7 +1,9 @@
 #include "../utilities/template.h"
 
 #include "../../content/number-theory/MillerRabin.h"
+namespace sieve {
 #include "../../content/number-theory/Eratosthenes.h"
+}
 
 ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 int afactors[] = {2, 3, 5, 13, 19, 73, 193, 407521, 299210837};
@@ -49,10 +51,10 @@ void rec(ull div, ll num, int ind, int factors) {
 
 const int MAXPR = 1e6;
 int main() {
-	auto prs = eratosthenes();
+	auto prs = sieve::eratosthenes();
 	vector<bool> isprime(MAXPR);
 	for (auto i: prs) isprime[i] = true;
-	trav(a, A) rec(1, a, 0, 0);
+	for(auto &a: A) rec(1, a, 0, 0);
 
 	rep(n,0,MAXPR) {
 		if (isPrime(n) != isprime[n]) {

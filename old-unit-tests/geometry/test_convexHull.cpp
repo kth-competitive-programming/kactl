@@ -7,7 +7,7 @@ typedef Point<double> P;
 template<class T>
 ostream & operator<<(ostream & os, const vector<T> p) {
 	os << "[ ";
-	trav(it,p) os << it << " ";
+	for(auto &it:p) os << it << " ";
 	os << "]";
 	return os;
 }

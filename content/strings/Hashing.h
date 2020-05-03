@@ -51,4 +51,4 @@ vector<H> getHashes(string& str, int length) {
 	return ret;
 }
 
-H hashString(string& s) { H h{}; trav(c,s) h=h*C+c; return h; }
+H hashString(string& s){H h{}; for(char c:s) h=h*C+c;return h;}

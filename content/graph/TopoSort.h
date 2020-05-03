@@ -12,14 +12,14 @@
 
 vi topoSort(const vector<vi>& gr) {
 	vi indeg(sz(gr)), ret;
-	trav(li, gr) trav(x, li) indeg[x]++;
+	for (auto& li : gr) for (int x : li) indeg[x]++;
 	queue<int> q; // use priority queue for lexic. smallest ans.
 	rep(i,0,sz(gr)) if (indeg[i] == 0) q.push(-i);
 	while (!q.empty()) {
 		int i = -q.front(); // top() for priority queue
 		ret.push_back(i);
 		q.pop();
-		trav(x, gr[i])
+		for (int x : gr[i])
 			if (--indeg[x] == 0) q.push(-x);
 	}
 	return ret;

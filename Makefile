@@ -13,6 +13,7 @@ help:
 	@echo "	make test		- to run all the stress tests in stress-tests/"
 	@echo "	make test-compiles	- to test compiling all headers"
 	@echo "	make help		- to show this information"
+	@echo "	make showexcluded	- to show files that are not included in the doc"
 	@echo ""
 	@echo "For more information see the file 'doc/README'"
 

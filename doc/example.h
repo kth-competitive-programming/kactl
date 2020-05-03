@@ -30,7 +30,7 @@ int exampleFunction1(vi mice, int* cats, int catsCount) {
 
 	rep(i, 1, catsCount) {
 		// This comment will be kept!
-		trav(it, mice) {
+		for (auto it : mice) {
 			/// This will be removed.
 			// And this kept.
 			sum += cats[i] * it;

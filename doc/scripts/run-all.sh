@@ -9,7 +9,6 @@ for test in $tests; do
     echo "$(basename $test): "
     start=`date +%s.%N`
     g++ -std=c++14 -O2 $test && ./a.out
-    end=`date +%s.%N`
     retCode=$?
     if (($retCode != 0)); then
         echo "Failed with $retCode"
@@ -18,6 +17,7 @@ for test in $tests; do
     else
         pass+=1
     fi
+    end=`date +%s.%N`
     runtime=$( echo "$end - $start" | bc -l )
     echo "Took $runtime seconds"
     rm -f a.out

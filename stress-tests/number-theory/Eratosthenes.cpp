@@ -47,9 +47,9 @@ int main() {
 	for (int lim=121; lim<1000; lim++) {
 		ll s = 0, s2 = 0;
 		vi pr = prime_sieve(lim);
-		trav(i,pr) s += i;
+		for (auto i: pr) s += i;
 		vi r = dynamic::eratosthenes(lim);
-		trav(x, r) s2 += x;
+		for(auto x: r) s2 += x;
 		assert(s==s2);
 	}
 	cout<<"Tests passed!"<<endl;

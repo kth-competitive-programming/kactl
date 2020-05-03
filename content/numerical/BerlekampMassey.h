@@ -33,6 +33,6 @@ vector<ll> berlekampMassey(vector<ll> s) {
 	}
 
 	C.resize(L + 1); C.erase(C.begin());
-	trav(x, C) x = (mod - x) % mod;
+	for (ll& x : C) x = (mod - x) % mod;
 	return C;
 }
