@@ -34,23 +34,20 @@ vi eratosthenes(int LIM) {
 	return pr;
 }
 }
-#include "../../content/number-theory/Eratosthenes.h"
+#include "../../content/number-theory/FastEratosthenes.h"
 
 
 int main() {
 	vi pr1 = prime_sieve(LIM);
 	vi pr2 = eratosthenes();
-	assert(pr1.size() == pr2.size());
-	for (int i=0; i<pr1.size(); i++)
-		assert(pr1[i] == pr2[i]);
+	assert(pr1 == pr2);
 
 	for (int lim=121; lim<1000; lim++) {
 		ll s = 0, s2 = 0;
 		vi pr = prime_sieve(lim);
 		for (auto i: pr) s += i;
 		vi r = dynamic::eratosthenes(lim);
-		for(auto x: r) s2 += x;
-		assert(s==s2);
+		assert(pr == r);
 	}
 	cout<<"Tests passed!"<<endl;
 }
