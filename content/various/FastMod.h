@@ -18,6 +18,6 @@ struct FastMod {
 	FastMod(ull b) : b(b), m(ull((L(1) << 64) / b)) {}
 	ull reduce(ull a) {
 		ull q = (ull)((L(m) * a) >> 64), r = a - q * b;
-		return r >= b ? r - b : r;
+		return r - (r >= b) * b;
 	}
 };
