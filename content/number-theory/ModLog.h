@@ -3,8 +3,9 @@
  * Date: 2020-06-03
  * License: CC0
  * Source: own work
- * Description: Returns the smallest $x > 0$ s.t. $a^x = b \pmod m$. 
- * Note that Modlog(a,1,m) can be used to calculate the order of $a$.
+ * Description: Returns the smallest $x > 0$ s.t. $a^x = b \pmod m$, or
+ * $-1$ if no such $x$ exists. Note that Modlog(a,1,m) can be used to 
+ * calculate the order of $a$.
  * Time: $O(\sqrt m)$
  * Status: tested for all 0 <= a,x < 500 and 0 < m < 500.
  *
@@ -40,5 +41,5 @@ ll modLog(ll a, ll b, ll m) {
 	if (__gcd(m, e) == __gcd(m, b)) 
 		rep(i,2,n+2) if (A.count(e = e * f % m))
 			return n * i - A[e];
-	return LLONG_MAX;
+	return -1;
 }

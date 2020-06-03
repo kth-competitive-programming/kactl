@@ -14,13 +14,10 @@ int main() {
 			}
 			rep(b,0,m) {
 				ll res = modLog(a, b, m);
-				if (ans[b] == -1) assert(res == LLONG_MAX);
-				else {
-					if (ans[b] != res) {
-						cerr << "FAIL" << endl;
-						cerr << "Expected log(" << a << ", " << b << ", " << m << ") = " << ans[b] << ", found " << res << endl;
-						return 1;
-					}
+				if (ans[b] != res) {
+					cerr << "FAIL" << endl;
+					cerr << "Expected log(" << a << ", " << b << ", " << m << ") = " << ans[b] << ", found " << res << endl;
+					return 1;
 				}
 			}
 		}
