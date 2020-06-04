@@ -23,10 +23,9 @@ struct GC {
 	}
 } gc;
 int readInt() {
-	char c;
-	while ((c = gc()) < 40);
-	if (c == '-') return -readInt();
-	int a = c - '0';
-	while (isdigit(c = gc())) a = a * 10 + c -'0';
-	return a;
+	int a, c;
+	while ((a = gc()) < 40);
+	if (a == '-') return -readInt();
+	while ((c = gc()) >= 48) a = a * 10 + c - 480;
+	return a - 48;
 }
