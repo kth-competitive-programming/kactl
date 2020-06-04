@@ -4,7 +4,7 @@
  * License: CC0
  * Source: own work
  * Description: Returns the smallest $x > 0$ s.t. $a^x = b \pmod m$, or
- * $-1$ if no such $x$ exists. Note that Modlog(a,1,m) can be used to 
+ * $-1$ if no such $x$ exists. modLog(a,1,m) can be used to
  * calculate the order of $a$.
  * Time: $O(\sqrt m)$
  * Status: tested for all 0 <= a,x < 500 and 0 < m < 500.
@@ -21,8 +21,8 @@
  *	 1. b is divisible by p^x
  *	 2. b is divisible only by some p^y, 0<y<x
  *	 3. b is not divisible by p
- * The important thing to note is that in case 2, modLog(a,b,m) (if 
- * it exists) cannot be > sqrt(m), (technically it cannot be >= log2(m)). 
+ * The important thing to note is that in case 2, modLog(a,b,m) (if
+ * it exists) cannot be > sqrt(m), (technically it cannot be >= log2(m)).
  * So once all exponenents of a that are <= sqrt(m) has been checked, you
  * cannot have case 2. Case 2 is the only tricky case.
  *
