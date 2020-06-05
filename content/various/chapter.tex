@@ -23,6 +23,7 @@
 	\end{itemize}
 
 \section{Optimization tricks}
+	\verb@__builtin_ia32_ldmxcsr(40896);@ disables denormals (which make floats 20x slower near their minimum value).
 	\subsection{Bit hacks}
 		\begin{itemize}
 			\item \verb@x & -x@ is the least bit in \texttt{x}.
