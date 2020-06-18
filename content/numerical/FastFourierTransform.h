@@ -13,6 +13,8 @@
    Otherwise, use long doubles/NTT/FFTMod.
  * Time: O(N \log N) with $N = |A|+|B|$ ($\tilde 1s$ for $N=2^{22}$)
  * Status: somewhat tested
+ * Details: An in-depth examination of precision for both FFT and FFTMod can be found
+ * here (https://github.com/simonlindholm/fft-precision/blob/master/fft-precision.md)
  */
 #pragma once
 
