@@ -43,9 +43,7 @@ int main() {
 	assert(pr1 == pr2);
 
 	for (int lim=121; lim<1000; lim++) {
-		ll s = 0, s2 = 0;
 		vi pr = prime_sieve(lim);
-		for (auto i: pr) s += i;
 		vi r = dynamic::eratosthenes(lim);
 		assert(pr == r);
 	}
