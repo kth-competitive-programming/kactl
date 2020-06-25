@@ -7,11 +7,11 @@ namespace ignore {
 ll modpow(ll a, ll e);
 #include "../../content/numerical/NumberTheoreticTransform.h"
 ll modpow(ll a, ll e) {
-	if (e == 0) return 1;
-	ll x = modpow(a * a % mod, e >> 1);
-	return e & 1 ? x * a % mod : x;
+    if (e == 0)
+        return 1;
+    ll x = modpow(a * a % mod, e >> 1);
+    return e & 1 ? x * a % mod : x;
 }
-
 
 vl simpleConv(vl a, vl b) {
 	int s = sz(a) + sz(b) - 1;
@@ -24,11 +24,11 @@ vl simpleConv(vl a, vl b) {
 }
 
 int ra() {
-	static unsigned X;
-	X *= 123671231;
-	X += 1238713;
-	X ^= 1237618;
-	return (X >> 1);
+    static unsigned X;
+    X *= 123671231;
+    X += 1238713;
+    X ^= 1237618;
+    return (X >> 1);
 }
 
 int main() {
@@ -42,6 +42,14 @@ int main() {
 		for(auto &x: b) x = (ra() % 100 - 50+mod)%mod;
 		for(auto &x: simpleConv(a, b)) res += (ll)x * ind++ % mod;
 		for(auto &x: conv(a, b)) res2 += (ll)x * ind2++ % mod;
+		a.resize(16);
+        vl a2 = a;
+        ntt(a2);
+        rep(k, 0, sz(a2)) {
+            ll sum = 0;
+            rep(x, 0, sz(a2)) { sum = (sum + a[x] * modpow(root, k * x * (mod - 1) / sz(a))) % mod; }
+            assert(sum == a2[k]);
+        }
 	}
 	assert(res==res2);
 	cout<<"Tests passed!"<<endl;

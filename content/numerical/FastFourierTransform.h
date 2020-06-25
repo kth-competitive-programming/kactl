@@ -4,13 +4,14 @@
  * License: CC0
  * Source: http://neerc.ifmo.ru/trains/toulouse/2017/fft2.pdf (do read, it's excellent)
    Accuracy bound from http://www.daemonology.net/papers/fft.pdf
- * Description: fft(a) computes $\hat f(k) = \sum_x a[x] \exp(2\pi i \cdot k x / N)$ for all $k$. Useful for convolution:
+ * Description: fft(a) computes $\hat f(k) = \sum_x a[x] \exp(2\pi i \cdot k x / N)$ for all $k$. N must be a power of 2.
+   Useful for convolution:
    \texttt{conv(a, b) = c}, where $c[x] = \sum a[i]b[x-i]$.
    For convolution of complex numbers or more than two vectors: FFT, multiply
    pointwise, divide by n, reverse(start+1, end), FFT back.
    Rounding is safe if $(\sum a_i^2 + \sum b_i^2)\log_2{N} < 9\cdot10^{14}$
    (in practice $10^{16}$; higher for random inputs).
-   Otherwise, use long doubles/NTT/FFTMod.
+   Otherwise, use NTT/FFTMod.
  * Time: O(N \log N) with $N = |A|+|B|$ ($\tilde 1s$ for $N=2^{22}$)
  * Status: somewhat tested
  * Details: An in-depth examination of precision for both FFT and FFTMod can be found
