@@ -1,53 +1,38 @@
 #include "../utilities/template.h"
 
-struct prime_sieve {
-	typedef unsigned char uchar;
-	typedef unsigned int uint;
-	static const int pregen = 3*5*7*11*13;
-	uint n, sqrtn;
-	uchar *isprime;
-	int *prime, primes; // prime[i] is i:th prime
-
-	bool is_prime(int n) { // primality check
-		if(n%2==0 || n<=2) return n==2;
-		return isprime[(n-3)>>4] & 1 << ((n-3) >> 1&7);
+namespace dynamic {
+vi eratosthenes(int LIM) {
+	const int S = round(sqrt(LIM)), R = LIM / 2;
+	vi pr({2}), sieve(S + 1); pr.reserve(LIM / (int)log(LIM));
+	vector<array<int, 2>> cp;
+	for (int i = 3; i <= S; i += 2) if (!sieve[i]) {
+		cp.push_back({i, i * i / 2});
+		for (int j = i * i; j <= S; j += 2 * i) sieve[j] = 1;
 	}
-
-	prime_sieve(int _n) : n(_n), sqrtn((int)ceil(sqrt(1.0*n))) {
-		int n0 = max(n>>4, (uint)pregen) + 1;
-		prime = new int[max(2775, (int)(1.12*n/log(1.0*n)))];
-		prime[0]=2; prime[1]=3; prime[2]=5;
-		prime[3]=7; prime[4]=11; prime[5]=13;
-		primes=6;
-		isprime = new uchar[n0];
-		memset(isprime, 255, n0);
-
-		for(int j=1,p=prime[j];j<6;p=prime[++j])
-			for(int i=(p*p-3)>>4,s=(p*p-3)>>1&7;
-				i<=pregen; i+= (s+=p)>>3, s&=7)
-					isprime[i] &= (uchar)~(1<<s);
-		for(int d=pregen, b=pregen+1; b<n0; b+=d,d<<=1)
-			memcpy(isprime+b,isprime+1,(n0<b+d)?n0-b:d);
-		for(uint p=17,i=0,s=7; p<n; p+=2, i+= ++s>>3, s&=7)
-			if(isprime[i]&1<<s) {
-				prime[primes++] = p;
-				if(p<sqrtn) {
-					int ii=i, ss=s+(p-1)*p/2;
-					for(uint pp=p*p; pp<n; pp+=p<<1, ss+=p) {
-						ii += ss>>3;
-						ss &=7;
-						isprime[ii] &= (uchar)~(1<<ss);
-}	}		}	}	};
+	for (int L = 1; L <= R; L += S) {
+		vector<bool> block(S);
+		// array<bool, S> block{};
+		for (auto &[p, idx] : cp)
+			for (int i=idx; i < S+L; idx = (i+=p)) block[i-L] = 1;
+		rep(i,0,min(S, R - L))
+			if (!block[i]) pr.push_back((L + i) * 2 + 1);
+	}
+	return pr;
+}
+}
+#include "../../content/number-theory/FastEratosthenes.h"
+#include "../../content/number-theory/Eratosthenes.h"
 
 
-#include "../../content/number-theory/eratosthenes.h"
+int main() {
+	vi pr1 = eratosthenesSieve(LIM);
+	vi pr2 = eratosthenes();
+	assert(pr1 == pr2);
 
-int main(int argc, char** argv) {
-	ll s = 0, s2 = 0;
-	prime_sieve ps(MAX_PR);
-	rep(i,0,ps.primes) s += ps.prime[i];
-	vi r = eratosthenesSieve(MAX_PR);
-	for(auto &x: r) s2 += x;
-	assert(s==s2);
+	for (int lim=121; lim<1000; lim++) {
+		vi pr = eratosthenesSieve(lim);
+		vi r = dynamic::eratosthenes(lim);
+		assert(pr == r);
+	}
 	cout<<"Tests passed!"<<endl;
 }
