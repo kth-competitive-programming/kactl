@@ -14,15 +14,6 @@ ll modpow(ll a, ll e) {
 }
 
 vl simpleConv(vl a, vl b) {
-<<<<<<< HEAD
-    int s = sz(a) + sz(b) - 1;
-    if (a.empty() || b.empty())
-        return {};
-    vl c(s);
-    rep(i, 0, sz(a)) rep(j, 0, sz(b)) c[i + j] = (c[i + j] + (ll)a[i] * b[j]) % mod;
-    trav(x, c) if (x < 0) x += mod;
-    return c;
-=======
 	int s = sz(a) + sz(b) - 1;
 	if (a.empty() || b.empty()) return {};
 	vl c(s);
@@ -30,7 +21,6 @@ vl simpleConv(vl a, vl b) {
 		c[i+j] = (c[i+j] + (ll)a[i] * b[j]) % mod;
 	for(auto &x: c) if (x < 0) x += mod;
 	return c;
->>>>>>> 0897eb95366aa3ddd4b4ce43b6367a3a37c2df46
 }
 
 int ra() {
