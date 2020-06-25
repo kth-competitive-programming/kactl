@@ -7,7 +7,10 @@
  * N must be a power of 2.
  * Useful for convolution modulo specific nice primes of the form $2^a b+1$,
  * where the convolution result has size at most $2^a$. For arbitrary modulo, see FFTMod.
- * See FFT for more details.
+ * Useful for convolution:
+   \texttt{conv(a, b) = c}, where $c[x] = \sum a[i]b[x-i]$.
+   For manual convolution: NTT, multiply
+   pointwise, divide by n, reverse(start+1, end), NTT back.
  * Inputs must be in [0, mod).
  * Time: O(N \log N)
  * Status: stress-tested
