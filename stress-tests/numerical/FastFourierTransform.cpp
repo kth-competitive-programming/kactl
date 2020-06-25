@@ -19,8 +19,8 @@ int main() {
 	}
 
 	vd A(4), B(6);
-	trav(x, A) x = rand() / (RAND_MAX + 1.0) * 10 - 5;
-	trav(x, B) x = rand() / (RAND_MAX + 1.0) * 10 - 5;
+	for(auto &x: A) x = rand() / (RAND_MAX + 1.0) * 10 - 5;
+	for(auto &x: B) x = rand() / (RAND_MAX + 1.0) * 10 - 5;
 	vd C = conv(A, B);
 	rep(i,0,sz(A) + sz(B) - 1) {
 		double sum = 0;

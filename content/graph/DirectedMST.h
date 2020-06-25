@@ -37,7 +37,7 @@ void pop(Node*& a) { a->prop(); a = merge(a->l, a->r); }
 ll dmst(int n, int r, vector<Edge>& g) {
 	UF uf(n);
 	vector<Node*> heap(n);
-	trav(e, g) heap[e.b] = merge(heap[e.b], new Node{e});
+	for (Edge e : g) heap[e.b] = merge(heap[e.b], new Node{e});
 	ll res = 0;
 	vi seen(n, -1), path(n);
 	seen[r] = r;

@@ -14,6 +14,8 @@
    Otherwise, use NTT/FFTMod.
  * Time: O(N \log N) with $N = |A|+|B|$ ($\tilde 1s$ for $N=2^{22}$)
  * Status: somewhat tested
+ * Details: An in-depth examination of precision for both FFT and FFTMod can be found
+ * here (https://github.com/simonlindholm/fft-precision/blob/master/fft-precision.md)
  */
 #pragma once
 
@@ -48,7 +50,7 @@ vd conv(const vd& a, const vd& b) {
 	copy(all(a), begin(in));
 	rep(i,0,sz(b)) in[i].imag(b[i]);
 	fft(in);
-	trav(x, in) x *= x;
+	for (C& x : in) x *= x;
 	rep(i,0,n) out[i] = in[-i & (n - 1)] - conj(in[i]);
 	fft(out);
 	rep(i,0,sz(res)) res[i] = imag(out[i]) / (4 * n);

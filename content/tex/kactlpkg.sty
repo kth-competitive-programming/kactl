@@ -41,7 +41,7 @@
 }
 
 \newcommand{\enablecolors}{
-	\lstset{basicstyle=\scriptsize\ttfamily\color{mygreen}}
+	\lstset{basicstyle=\footnotesize\ttfamily\color{mygreen}}
 	\lstset{commentstyle=\color{darkgray}\normalfont\itshape}
 	\lstset{keywordstyle=\color{myblue}}
 	\lstset{identifierstyle=\color{black}}
@@ -57,9 +57,9 @@
 
 \renewcommand{\maketitle}[2]{
 	\begin{center}
-		{\LARGE \@title}\\
-		{\Large \@subtitle{} version #2}\\[0.1cm]
-		{\LARGE \textsc{#1}}
+		{\Huge \@title}\\
+		{\huge \@subtitle{} version #2}\\[0.1cm]
+		{\Huge \textsc{#1}}
 	\end{center}
 }
 
@@ -122,9 +122,9 @@
 
 	\parindent \z@ \raggedright \normalfont
 		\interlinepenalty\@M
-	{\underline{\Large \bfseries #1} }
+	{\underline{\huge \bfseries #1} }
 	\ifnum \c@secnumdepth >\m@ne
-		{\Large\bfseries (\thechapter) \par\nobreak }
+		{\huge\bfseries (\thechapter) \par\nobreak }
 	\fi
 	\startcontents[chapters]
 }
@@ -132,29 +132,30 @@
 \renewcommand\section{\@startsection {section}{1}{\z@}%
                                    {-0.5ex \@plus -1ex \@minus -.2ex}%
                                    {.4ex}%
-                                   {\normalfont\large\bfseries}}
+                                   {\normalfont\LARGE\bfseries}}
 
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}
 	{1ex\@plus -1ex \@minus -.3ex}
 	{.2ex}
-	{\normalfont\bfseries}}
+	{\normalfont\large\bfseries}}
 
 \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}
 	{1ex\@plus -1ex \@minus -.3ex}
 	{1ex \@plus .2ex}
-	{\normalfont\normalsize\bfseries}}
+	{\normalfont\large\bfseries}}
 
 % Styles for local toc
-\titlecontents{localsection}[1.5em]{\footnotesize}{}
-	{\footnotesize}{\titlerule*[0.8em]{.}\contentspage}
-\titlecontents{localsubsection}[3.8em]{\footnotesize}{}
-	{\footnotesize}{\titlerule*[0.8em]{.}\contentspage}
+\titlecontents{localsection}[1.5em]{\small}{}
+	{\small}{\titlerule*[0.8em]{.}\contentspage}
+\titlecontents{localsubsection}[3.8em]{\small}{}
+	{\small}{\titlerule*[0.8em]{.}\contentspage}
 
 % Styles for main toc
 \renewcommand{\chaptermark}[1]{\markboth{\emph{ #1}}{}}
-\renewcommand{\cftbeforetoctitleskip}{-50pt}
+\renewcommand{\cftbeforetoctitleskip}{-45pt}
 \renewcommand{\cftaftertoctitleskip}{10pt}
-\renewcommand{\cftbeforechapskip}{10pt}
+\renewcommand{\cftbeforechapskip}{11pt}
+\renewcommand\cftchapfont{\large\bfseries}
 \renewcommand{\cftdotsep}{4.5}
 
 % Proper carets and tildes
@@ -179,7 +180,7 @@
 \lstset{tabsize=2}
 \lstset{showstringspaces=false}
 \lstset{breaklines=true}
-\lstset{basicstyle=\scriptsize\ttfamily}
+\lstset{basicstyle=\footnotesize\ttfamily}
 \lstset{commentstyle=\normalfont\itshape}
 \lstset{literate={^}{\caret}{1} {~}{\tilde}{1}}
 \lstset{emptylines=*1}
@@ -201,14 +202,14 @@
 		\strut % Magic
 		\vspace{3cm}\\
 		\includegraphics[width=3cm]{\@unilogo}\\
-		{\Huge \@unilong\\}
+		{\fontsize{25}{30}\selectfont \@unilong\\}
 		{\fontsize{60}{60}\selectfont \@teamname\\}
 		\vspace{0.5cm}
-		{\Large \@teammembers\\}
+		{\huge \@teammembers\\}
 		\vfill
-		{\huge \@contestname}\\
+		{\fontsize{21}{25}\selectfont \@contestname}\\
 		\vspace{0.5cm}
-		{\Large \@contestdate}\\
+		{\huge \@contestdate}\\
 		\vspace{1cm}
 	\end{center}
 	\clearpage
@@ -247,7 +248,7 @@
 	\setboolean{hasleftcaption}{false}
 	\myneedspace{3\baselineskip}
 	\penalty-100
-	#2
+	{\large #2}
 	\immediate\write18{rm -f \@builddir/kactl.tmp} % Don't include old kactl.tmp on failure.
 	\immediate\write18{python2 content/tex/preprocessor.py -i "\@kactldir/#2" -o \@builddir/kactl.tmp #1}
 	\immediate\input{\@builddir/kactl.tmp}
@@ -324,7 +325,7 @@
 
 
 \newcommand{\codeheader}[2]{
-	{\par\noindent\scriptsize{\textbf{#1:} #2\par}}
+	{\par\noindent\footnotesize{\textbf{#1:} #2\par}}
 }
 
 \long\def\@makecaption#1#2{

@@ -26,7 +26,7 @@ int main() {
 		rep(it,0,1000000) {
 			int n = rand() % 7;
 			vi v(n);
-			trav(x, v) x = rand() % 4;
+			for(auto &x: v) x = rand() % 4;
 			vi inds = weak ? lisWeak(v) : lis(v);
 			rep(i,0,sz(inds)-1) {
 				assert(lt(v[inds[i]], v[inds[i+1]]));
@@ -40,7 +40,7 @@ int main() {
 					prev = v[i];
 				}
 				cout << "exists lis of size " << si << " but found only " << sz(inds) << endl;
-				trav(x, v) cout << x << ' ';
+				for(auto &x: v) cout << x << ' ';
 				cout << endl;
 				abort();
 	next:;

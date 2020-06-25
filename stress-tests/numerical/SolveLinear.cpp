@@ -1,7 +1,7 @@
 #include "../utilities/template.h"
 
 const int mod = 3;
-const int nmax = 4, mmax = 4, nmmax = 12;
+const int nmax = 4, mmax = 4, nmmax = 10;
 
 const int lut[9] = {-4,-2,-3,-1,-100,1,3,2,4};
 

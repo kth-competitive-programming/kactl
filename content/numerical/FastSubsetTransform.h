@@ -20,7 +20,7 @@ void FST(vi& a, bool inv) {
 				// pii(u + v, u - v);                   // XOR /// include-line
 		}
 	}
-	// if (inv) trav(x, a) x /= sz(a); // XOR only /// include-line
+	// if (inv) for (int& x : a) x /= sz(a); // XOR only /// include-line
 }
 vi conv(vi a, vi b) {
 	FST(a, 0); FST(b, 0);

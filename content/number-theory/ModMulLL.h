@@ -1,19 +1,21 @@
 /**
- * Author: chilli, Ramchandra Apte, Noam527
+ * Author: chilli, Ramchandra Apte, Noam527, Simon Lindholm
  * Date: 2019-04-24
  * License: CC0
- * Source: https://github.com/RamchandraApte/OmniTemplate/blob/master/modulo.h
- * Proof of correctness is in doc/modmul-proof.md.
- * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for $0 \le a, b < c < 2^{63}$.
- * Time: O(1) for \texttt{mod\_mul}, O(\log b) for \texttt{mod\_pow}
+ * Source: https://github.com/RamchandraApte/OmniTemplate/blob/master/modulo.hpp
+ * Description: Calculate $a\cdot b\bmod c$ (or $a^b \bmod c$) for $0 \le a, b \le c \le 7.2\cdot 10^{18}$.
+ * Time: O(1) for \texttt{modmul}, O(\log b) for \texttt{modpow}
  * Status: stress-tested, proven correct
+ * Details:
+ * This runs ~2x faster than the naive (__int128_t)a * b % M.
+ * A proof of correctness is in doc/modmul-proof.tex. An earlier version of the proof,
+ * from when the code used a * b / (long double)M, is in doc/modmul-proof.md.
  */
 #pragma once
 
 typedef unsigned long long ull;
-typedef long double ld;
 ull modmul(ull a, ull b, ull M) {
-	ll ret = a * b - M * ull(ld(a) * ld(b) / ld(M));
+	ll ret = a * b - M * ull(1.L / M * a * b);
 	return ret + M * (ret < 0) - M * (ret >= (ll)M);
 }
 ull modpow(ull b, ull e, ull mod) {

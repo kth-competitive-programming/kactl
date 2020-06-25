@@ -44,7 +44,7 @@ int main() {
 		}
 		int last = -1;
 		int ct = 0;
-		trav(pa, iv) {
+		for(auto &pa: iv) {
 			assert(0 <= pa.first && pa.second <= N);
 			assert(pa.first < pa.second);
 			assert(last < pa.first);

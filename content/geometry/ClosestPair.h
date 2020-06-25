@@ -18,7 +18,7 @@ pair<P, P> closest(vector<P> v) {
 	sort(all(v), [](P a, P b) { return a.y < b.y; });
 	pair<ll, pair<P, P>> ret{LLONG_MAX, {P(), P()}};
 	int j = 0;
-	trav(p, v) {
+	for (P p : v) {
 		P d{1 + (ll)sqrt(ret.first), 0};
 		while (v[j].y <= p.y - d.x) S.erase(v[j++]);
 		auto lo = S.lower_bound(p - d), hi = S.upper_bound(p + d);

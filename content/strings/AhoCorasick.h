@@ -27,7 +27,7 @@ struct AhoCorasick {
 	void insert(string& s, int j) {
 		assert(!s.empty());
 		int n = 0;
-		trav(c, s) {
+		for (char c : s) {
 			int& m = N[n].next[c - first];
 			if (m == -1) { n = m = sz(N); N.emplace_back(-1); }
 			else n = m;
@@ -62,7 +62,7 @@ struct AhoCorasick {
 	vi find(string word) {
 		int n = 0;
 		vi res; // ll count = 0;
-		trav(c, word) {
+		for (char c : word) {
 			n = N[n].next[c - first];
 			res.push_back(N[n].end);
 			// count += N[n].nmatches;

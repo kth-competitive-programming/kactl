@@ -38,7 +38,7 @@ struct PushRelabel {
 		int v = sz(g); H[s] = v; ec[t] = 1;
 		vi co(2*v); co[0] = v-1;
 		rep(i,0,v) cur[i] = g[i].data();
-		trav(e, g[s]) addFlow(e, e.c);
+		for (Edge& e : g[s]) addFlow(e, e.c);
 
 		for (int hi = 0;;) {
 			while (hs[hi].empty()) if (!hi--) return -ec[s];
@@ -46,7 +46,7 @@ struct PushRelabel {
 			while (ec[u] > 0)  // discharge u
 				if (cur[u] == g[u].data() + sz(g[u])) {
 					H[u] = 1e9;
-					trav(e, g[u]) if (e.c && H[u] > H[e.dest]+1)
+					for (Edge& e : g[u]) if (e.c && H[u] > H[e.dest]+1)
 						H[u] = H[e.dest]+1, cur[u] = &e;
 					if (++co[H[u]], !--co[hi] && hi < v)
 						rep(i,0,v) if (hi < H[i] && H[i] < v)

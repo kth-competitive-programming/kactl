@@ -26,7 +26,7 @@ struct LCA {
             if (d) ret.emplace_back(d, p);
             time[v] = T++;
             dist[v] = di;
-            trav(e, C[v]) if (e.first != p)
+            for(auto &e: C[v]) if (e.first != p)
                 q.emplace_back(e.first, v, d+1, di + e.second);
         }
         return ret;

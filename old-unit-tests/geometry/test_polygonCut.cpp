@@ -15,7 +15,7 @@ public:
 	string str(vector<P> p, int n) {
 		stringstream ss;
 		ss << n << " : ";
-		trav(i,p) ss << i;
+		for(auto &i:p) ss << i;
 		return ss.str();
 	}
 

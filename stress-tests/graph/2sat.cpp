@@ -94,9 +94,9 @@ int main() {
 		assert(ts.solve());
 		int to = 0;
 		rep(i,0,N) to += (ts.values[i] == v[i]);
-		trav(r, atm) {
+		for(auto &r: atm) {
 			int co = 0;
-			trav(x, r) co += (ts.values[max(x, ~x)] == (x >= 0));
+			for(auto &x: r) co += (ts.values[max(x, ~x)] == (x >= 0));
 			assert(co <= 1);
 		}
 	}
