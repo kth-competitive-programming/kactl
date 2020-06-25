@@ -1,19 +1,5 @@
 #include "../utilities/template.h"
 
-vi prime_sieve(int _n)  {
-	vi pr;
-	vector<char> sieve(_n);
-	for (int i=2; i<_n; i++) {
-		if (sieve[i]) continue;
-		// cout<<i<<endl;
-		pr.push_back(i);
-		for (int j= i; j<_n; j+=i)
-			sieve[j] = true;
-	}
-	return pr;
-}
-
-
 namespace dynamic {
 vi eratosthenes(int LIM) {
 	const int S = round(sqrt(LIM)), R = LIM / 2;
@@ -35,15 +21,16 @@ vi eratosthenes(int LIM) {
 }
 }
 #include "../../content/number-theory/FastEratosthenes.h"
+#include "../../content/number-theory/Eratosthenes.h"
 
 
 int main() {
-	vi pr1 = prime_sieve(LIM);
+	vi pr1 = eratosthenesSieve(LIM);
 	vi pr2 = eratosthenes();
 	assert(pr1 == pr2);
 
 	for (int lim=121; lim<1000; lim++) {
-		vi pr = prime_sieve(lim);
+		vi pr = eratosthenesSieve(lim);
 		vi r = dynamic::eratosthenes(lim);
 		assert(pr == r);
 	}
