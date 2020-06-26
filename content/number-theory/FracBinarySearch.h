@@ -8,7 +8,7 @@
  * in which case $N$ can be removed.
  * Usage: fracBS([](Frac f) { return f.p>=3*f.q; }, 10); // {1,3}
  * Time: O(\log(N))
- * Status: fuzz-tested for n <= 300
+ * Status: stress-tested for n <= 300
  */
 
 struct Frac { ll p, q; };

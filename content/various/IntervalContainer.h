@@ -4,7 +4,7 @@
  * Description: Add and remove intervals from a set of disjoint intervals.
  * Will merge the added interval with any overlapping intervals in the set when adding.
  * Intervals are [inclusive, exclusive).
- * Status: fuzz-tested
+ * Status: stress-tested
  * Time: O(\log N)
  */
 #pragma once

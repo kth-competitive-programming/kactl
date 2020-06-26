@@ -1,8 +1,9 @@
 #!/usr/bin/env python2
 # encoding: utf-8
 
-# Source code preprocessor for KACTL building process.
-# Written by Håkan Terelius, 2008-11-24
+# Source code preprocessor for KACTL build process. Compatible with both Python 2 and 3;
+# currently 2 is used because it has better startup overhead (5% faster builds).
+# License: CC0
 
 from __future__ import print_function
 import sys
@@ -69,7 +70,7 @@ def find_start_comment(source, start=None):
     return first
 
 def processwithcomments(caption, instream, outstream, listingslang):
-    knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage']
+    knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage', 'Details']
     requiredcommands = ['Author', 'Description']
     includelist = []
     error = ""
@@ -126,7 +127,7 @@ def processwithcomments(caption, instream, outstream, listingslang):
                 cline = cline[1:].strip()
                 allow_command = True
             ind = cline.find(':')
-            if allow_command and ind != -1 and ' ' not in cline[:ind]:
+            if allow_command and ind != -1 and ' ' not in cline[:ind] and cline[0].isalpha() and cline[0].isupper():
                 if command:
                     if command not in knowncommands:
                         error = error + "Unknown command: " + command + ". "
@@ -268,9 +269,9 @@ def main():
             print_header(print_header_value, outstream)
             return
         print(" * \x1b[1m{}\x1b[0m".format(caption))
-        if language == "cpp" or language == "cc" or language == "c" or language == "h" or language == "hpp":
+        if language in ["cpp", "cc", "c", "h", "hpp"]:
             processwithcomments(caption, instream, outstream, 'C++')
-        elif language == "java":
+        elif language in ["java", "kt"]:
             processwithcomments(caption, instream, outstream, 'Java')
         elif language == "ps":
             processraw(caption, instream, outstream) # PostScript was added in listings v1.4

@@ -57,7 +57,7 @@ vector<F> hull3d(const vector<P3>& A) {
 			C(a, b, c); C(a, c, b); C(b, c, a);
 		}
 	}
-	trav(it, FS) if ((A[it.b] - A[it.a]).cross(
+	for (F& it : FS) if ((A[it.b] - A[it.a]).cross(
 		A[it.c] - A[it.a]).dot(it.q) <= 0) swap(it.c, it.b);
 	return FS;
 };

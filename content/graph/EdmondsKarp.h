@@ -5,7 +5,7 @@
  * Source: N/A
  * Description: Flow algorithm with guaranteed complexity $O(VE^2)$. To get edge flow values, compare
  * capacities before and after, and take the positive values only.
- * Status: Working
+ * Status: stress-tested
  */
 #pragma once
 
@@ -22,7 +22,7 @@ template<class T> T edmondsKarp(vector<unordered_map<int, T>>& graph, int source
 
 		rep(i,0,ptr) {
 			int x = q[i];
-			trav(e, graph[x]) {
+			for (auto e : graph[x]) {
 				if (par[e.first] == -1 && e.second > 0) {
 					par[e.first] = x;
 					q[ptr++] = e.first;

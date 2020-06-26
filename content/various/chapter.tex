@@ -11,7 +11,6 @@
 
 \section{Dynamic programming}
 	\kactlimport{KnuthDP.h}
-	\newpage
 	\kactlimport{DivideAndConquerDP.h}
 
 \section{Debugging tricks}
@@ -23,6 +22,7 @@
 	\end{itemize}
 
 \section{Optimization tricks}
+	\verb@__builtin_ia32_ldmxcsr(40896);@ disables denormals (which make floats 20x slower near their minimum value).
 	\subsection{Bit hacks}
 		\begin{itemize}
 			\item \verb@x & -x@ is the least bit in \texttt{x}.
@@ -32,13 +32,14 @@
 		\end{itemize}
 	\subsection{Pragmas}
 		\begin{itemize}
-			\item \lstinline{#pragma GCC optimize ("Ofast")} will make GCC auto-vectorize for loops and optimizes floating points better (assumes associativity and turns off denormals).
-			\item \lstinline{#pragma GCC target ("avx,avx2")} can double performance of vectorized code, but causes crashes on old machines.
+			\item \lstinline{#pragma GCC optimize ("Ofast")} will make GCC auto-vectorize loops and optimizes floating points better.
+			\item \lstinline{#pragma GCC target ("avx2")} can double performance of vectorized code, but causes crashes on old machines.
 			\item \lstinline{#pragma GCC optimize ("trapv")} kills the program on integer overflows (but is really slow).
 		\end{itemize}
 	\kactlimport{FastMod.h}
+	\kactlimport{FastInput.h}
 	\kactlimport{BumpAllocator.h}
 	\kactlimport{SmallPtr.h}
 	\kactlimport{BumpAllocatorSTL.h}
-	\kactlimport{Unrolling.h}
+	% \kactlimport{Unrolling.h}
 	\kactlimport{SIMD.h}

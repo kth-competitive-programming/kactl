@@ -34,11 +34,28 @@
 		\end{tabular}
 		\end{center}
 
+	\subsection{Lucas' Theorem}
+		Let $n,m$ be non-negative integers and $p$ a prime. Write $n=n_kp^k+...+n_1p+n_0$ and $m=m_kp^k+...+m_1p+m_0$. Then $\binom{n}{m} \equiv \prod_{i=0}^k\binom{n_i}{m_i} \pmod{p}$.
+
 	\subsection{Binomials}
-		\kactlimport{binomialModPrime.h}
 		\kactlimport{multinomial.h}
 
 \section{General purpose numbers}
+	\subsection{Bernoulli numbers}
+		EGF of Bernoulli numbers is $B(t)=\frac{t}{e^t-1}$ (FFT-able).
+		$B[0,\ldots] = [1, -\frac{1}{2}, \frac{1}{6}, 0, -\frac{1}{30}, 0, \frac{1}{42}, \ldots]$
+
+		Sums of powers:
+		\small
+		\[ \sum_{i=1}^n n^m = \frac{1}{m+1} \sum_{k=0}^m \binom{m+1}{k} B_k \cdot (n+1)^{m+1-k} \]
+		\normalsize
+
+		Euler-Maclaurin formula for infinite sums:
+		\small
+		\[ \sum_{i=m}^{\infty} f(i) = \int_m^\infty f(x) dx - \sum_{k=1}^\infty \frac{B_k}{k!}f^{(k-1)}(m) \]
+		\[ \approx \int_{m}^\infty f(x)dx + \frac{f(m)}{2} - \frac{f'(m)}{12} + \frac{f'''(m)}{720} + O(f^{(5)}(m)) \]
+		\normalsize
+
 	\subsection{Stirling numbers of the first kind}
 		Number of permutations on $n$ items with $k$ cycles.
 		\begin{align*}
@@ -64,6 +81,11 @@
 		Total number of partitions of $n$ distinct elements. $B(n) =$
 		$1, 1, 2, 5, 15, 52, 203, 877, 4140, 21147, \dots$. For $p$ prime,
 		\[ B(p^m+n)\equiv mB(n)+B(n+1) \pmod{p} \]
+
+	\subsection{Labeled unrooted trees}
+		\# on $n$ vertices: $n^{n-2}$ \\
+		\# on $k$ existing trees of size $n_i$: $n_1n_2\cdots n_k n^{k-2}$ \\
+		\# with degrees $d_i$: $(n-2)! / ((d_1-1)! \cdots (d_n-1)!)$
 
 	\subsection{Catalan numbers}
 		\[ C_n=\frac{1}{n+1}\binom{2n}{n}= \binom{2n}{n}-\binom{2n}{n+1} = \frac{(2n)!}{(n+1)!n!} \]

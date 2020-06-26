@@ -7,7 +7,9 @@
  * as long as $N\log_2N\cdot \text{mod} < 8.6 \cdot 10^{14}$ (in practice $10^{16}$ or higher).
  * Inputs must be in $[0, \text{mod})$.
  * Time: O(N \log N), where $N = |A|+|B|$ (twice as slow as NTT or FFT)
- * Status: somewhat tested
+ * Status: stress-tested
+ * Details: An in-depth examination of precision for both FFT and FFTMod can be found
+ * here (https://github.com/simonlindholm/fft-precision/blob/master/fft-precision.md)
  */
 #pragma once
 

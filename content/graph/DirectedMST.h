@@ -6,7 +6,7 @@
  * Description: Edmonds' algorithm for finding the weight of the minimum spanning
  * tree/arborescence of a directed graph, given a root node. If no MST exists, returns -1.
  * Time: O(E \log V)
- * Status: Fuzz-tested, also tested on NWERC 2018 fastestspeedrun
+ * Status: Stress-tested, also tested on NWERC 2018 fastestspeedrun
  */
 #pragma once
 
@@ -37,7 +37,7 @@ void pop(Node*& a) { a->prop(); a = merge(a->l, a->r); }
 ll dmst(int n, int r, vector<Edge>& g) {
 	UF uf(n);
 	vector<Node*> heap(n);
-	trav(e, g) heap[e.b] = merge(heap[e.b], new Node{e});
+	for (Edge e : g) heap[e.b] = merge(heap[e.b], new Node{e});
 	ll res = 0;
 	vi seen(n, -1), path(n);
 	seen[r] = r;

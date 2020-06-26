@@ -25,7 +25,7 @@ int Time;
 template<class F>
 int dfs(int at, int par, F& f) {
 	int me = num[at] = ++Time, e, y, top = me;
-	trav(pa, ed[at]) if (pa.second != par) {
+	for (auto pa : ed[at]) if (pa.second != par) {
 		tie(y, e) = pa;
 		if (num[y]) {
 			top = min(top, num[y]);

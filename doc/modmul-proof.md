@@ -5,7 +5,7 @@ typedef uint64_t u64;
 typedef int64_t i64;
 typedef long double ld;
 
-u64 mod_mul(u64 a, u64 b, u64 c) {
+u64 modmul(u64 a, u64 b, u64 c) {
     i64 ret = a * b - M * u64(ld(a) * ld(b) / ld(c));
     return ret + c * (ret < 0) - c * (ret >= (i64)c);
 }

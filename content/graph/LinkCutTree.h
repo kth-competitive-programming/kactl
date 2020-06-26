@@ -6,7 +6,7 @@
  * edges (as long as the result is still a forest), and check whether
  * two nodes are in the same tree.
  * Time: All operations take amortized O(\log N).
- * Status: Fuzz-tested a bit for N <= 20
+ * Status: Stress-tested a bit for N <= 20
  */
 #pragma once
 
@@ -19,7 +19,7 @@ struct Node { // Splay tree. Root's pp contains tree's parent.
 		if (c[1]) c[1]->p = this;
 		// (+ update sum of subtree elements etc. if wanted)
 	}
-	void push_flip() {
+	void pushFlip() {
 		if (!flip) return;
 		flip = 0; swap(c[0], c[1]);
 		if (c[0]) c[0]->flip ^= 1;
@@ -41,16 +41,16 @@ struct Node { // Splay tree. Root's pp contains tree's parent.
 		swap(pp, y->pp);
 	}
 	void splay() { /// Splay this up to the root. Always finishes without flip set.
-		for (push_flip(); p; ) {
-			if (p->p) p->p->push_flip();
-			p->push_flip(); push_flip();
+		for (pushFlip(); p; ) {
+			if (p->p) p->p->pushFlip();
+			p->pushFlip(); pushFlip();
 			int c1 = up(), c2 = p->up();
 			if (c2 == -1) p->rot(c1, 2);
 			else p->p->rot(c2, c1 != c2);
 		}
 	}
 	Node* first() { /// Return the min element of the subtree rooted at this, splayed to the top.
-		push_flip();
+		pushFlip();
 		return c[0] ? c[0]->first() : (splay(), this);
 	}
 };
@@ -61,12 +61,12 @@ struct LinkCut {
 
 	void link(int u, int v) { // add an edge (u, v)
 		assert(!connected(u, v));
-		make_root(&node[u]);
+		makeRoot(&node[u]);
 		node[u].pp = &node[v];
 	}
 	void cut(int u, int v) { // remove an edge (u, v)
 		Node *x = &node[u], *top = &node[v];
-		make_root(top); x->splay();
+		makeRoot(top); x->splay();
 		assert(top == (x->pp ?: x->c[0]));
 		if (x->pp) x->pp = 0;
 		else {
@@ -78,7 +78,7 @@ struct LinkCut {
 		Node* nu = access(&node[u])->first();
 		return nu == access(&node[v])->first();
 	}
-	void make_root(Node* u) { /// Move u to root of represented tree.
+	void makeRoot(Node* u) { /// Move u to root of represented tree.
 		access(u);
 		u->splay();
 		if(u->c[0]) {

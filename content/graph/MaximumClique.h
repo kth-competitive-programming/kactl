@@ -8,7 +8,7 @@
  * set by finding a clique of the complement graph.
  * Time: Runs in about 1s for n=155 and worst case random graphs (p=.90). Runs
  * faster for sparse graphs.
- * Status: fuzz-tested
+ * Status: stress-tested
  */
 typedef vector<bitset<200>> vb;
 struct Maxclique {
@@ -20,8 +20,8 @@ struct Maxclique {
 	vector<vi> C;
 	vi qmax, q, S, old;
 	void init(vv& r) {
-		trav(v,r) v.d = 0;
-		trav(v, r) trav(j, r) v.d += e[v.i][j.i];
+		for (auto& v : r) v.d = 0;
+		for (auto& v : r) for (auto j : r) v.d += e[v.i][j.i];
 		sort(all(r), [](auto a, auto b) { return a.d > b.d; });
 		int mxD = r[0].d;
 		rep(i,0,sz(r)) r[i].d = min(i, mxD) + 1;
@@ -33,12 +33,12 @@ struct Maxclique {
 			if (sz(q) + R.back().d <= sz(qmax)) return;
 			q.push_back(R.back().i);
 			vv T;
-			trav(v,R) if (e[R.back().i][v.i]) T.push_back({v.i});
+			for(auto v:R) if (e[R.back().i][v.i]) T.push_back({v.i});
 			if (sz(T)) {
 				if (S[lev]++ / ++pk < limit) init(T);
 				int j = 0, mxk = 1, mnk = max(sz(qmax) - sz(q) + 1, 1);
 				C[1].clear(), C[2].clear();
-				trav(v, T) {
+				for (auto v : T) {
 					int k = 1;
 					auto f = [&](int i) { return e[v.i][i]; };
 					while (any_of(all(C[k]), f)) k++;
@@ -47,7 +47,7 @@ struct Maxclique {
 					C[k].push_back(v.i);
 				}
 				if (j > 0) T[j - 1].d = 0;
-				rep(k,mnk,mxk + 1) trav(i, C[k])
+				rep(k,mnk,mxk + 1) for (int i : C[k])
 					T[j].i = i, T[j++].d = k;
 				expand(T, lev + 1);
 			} else if (sz(q) > sz(qmax)) qmax = q;

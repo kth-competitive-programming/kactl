@@ -8,7 +8,7 @@
  */
 #pragma once
 
-pair<int, vi> GetMinCut(vector<vi>& weights) {
+pair<int, vi> getMinCut(vector<vi>& weights) {
 	int N = sz(weights);
 	vi used(N), cut, best_cut;
 	int best_weight = -1;

@@ -3,7 +3,7 @@
  * Date: Unknown
  * Source: Stanford Notebook
  * Description: KD-tree (2d, can be extended to 3d)
- * Status: Untested, but works for Stanford
+ * Status: Tested on excellentengineers
  */
 #pragma once
 
@@ -33,7 +33,7 @@ struct Node {
 			y0 = min(y0, p.y); y1 = max(y1, p.y);
 		}
 		if (vp.size() > 1) {
-			// split on x if the box is wider than high (not best heuristic...)
+			// split on x if width >= height (not ideal...)
 			sort(all(vp), x1 - x0 >= y1 - y0 ? on_x : on_y);
 			// divide by taking half the array for each child (not
 			// best performance with many duplicates in the middle)

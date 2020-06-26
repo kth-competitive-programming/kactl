@@ -5,25 +5,28 @@
  * Source: own work
  * Description: Various self-explanatory methods for string hashing.
  * Use on Codeforces, which lacks 64-bit support and where solutions can be hacked.
- * Status: somewhat tested
+ * Status: stress-tested
  */
 #pragma once
 
-typedef long long H;
-static const H M = INT_MAX;
-static H C; // initialized below
+typedef uint64_t ull;
+static int C; // initialized below
 
-// Arithmetic mod M. "typedef H K;" instead if you think
-// test data is random. (Haha, good luck.)
-struct K {
-	H x; K(H x=0) : x(x) {}
-	K operator+(K o) { H y = x + o.x; return y - (y >= M) * M; }
-	K operator*(K o) { return x*o.x % M; }
-	H operator-(K o) { H y = x - o.x; return y + (y < 0) * M; }
+// Arithmetic mod two primes and 2^32 simultaneously.
+// "typedef uint64_t H;" instead if Thue-Morse does not apply.
+template<int M, class B>
+struct A {
+	int x; B b; A(int x=0) : x(x), b(x) {}
+	A(int x, B b) : x(x), b(b) {}
+	A operator+(A o){int y = x+o.x; return{y - (y>=M)*M, b+o.b};}
+	A operator-(A o){int y = x-o.x; return{y + (y< 0)*M, b-o.b};}
+	A operator*(A o) { return {(int)(1LL*x*o.x % M), b*o.b}; }
+	explicit operator ull() { return x ^ (ull) b << 21; }
 };
+typedef A<1000000007, A<1000000009, unsigned>> H;
 
 struct HashInterval {
-	vector<K> ha, pw;
+	vector<H> ha, pw;
 	HashInterval(string& str) : ha(sz(str)+1), pw(ha) {
 		pw[0] = 1;
 		rep(i,0,sz(str))
@@ -37,28 +40,23 @@ struct HashInterval {
 
 vector<H> getHashes(string& str, int length) {
 	if (sz(str) < length) return {};
-	K h = 0, pw = 1;
+	H h = 0, pw = 1;
 	rep(i,0,length)
 		h = h * C + str[i], pw = pw * C;
-	vector<H> ret = {h - 0};
-	ret.reserve(sz(str) - length + 1);
+	vector<H> ret = {h};
 	rep(i,length,sz(str)) {
-		ret.push_back(h * C + str[i] - pw * str[i-length]);
-		h = ret.back();
+		ret.push_back(h = h * C + str[i] - pw * str[i-length]);
 	}
 	return ret;
 }
 
-H hashString(string& s) {
-	K h = 0;
-	trav(c, s) h = h * C + c;
-	return h - 0;
-}
+H hashString(string& s){H h{}; for(char c:s) h=h*C+c;return h;}
 
 #include <sys/time.h>
 int main() {
 	timeval tp;
 	gettimeofday(&tp, 0);
-	C = tp.tv_usec;
+	C = (int)tp.tv_usec; // (less than modulo)
+	assert((ull)(H(1)*2+1-3) == 0);
 	// ...
 }

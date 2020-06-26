@@ -10,14 +10,14 @@
  * or $-1$ if it's not matched.
  * Usage: vi btoa(m, -1); hopcroftKarp(g, btoa);
  * Time: O(\sqrt{V}E)
- * Status: fuzz-tested by MinimumVertexCover, and tested on oldkattis.adkbipmatch and SPOJ:MATCHING
+ * Status: stress-tested by MinimumVertexCover, and tested on oldkattis.adkbipmatch and SPOJ:MATCHING
  */
 #pragma once
 
 bool dfs(int a, int L, vector<vi>& g, vi& btoa, vi& A, vi& B) {
 	if (A[a] != L) return 0;
 	A[a] = -1;
-	trav(b, g[a]) if (B[b] == L + 1) {
+	for (int b : g[a]) if (B[b] == L + 1) {
 		B[b] = 0;
 		if (btoa[b] == -1 || dfs(btoa[b], L + 1, g, btoa, A, B))
 			return btoa[b] = a, 1;
@@ -33,13 +33,13 @@ int hopcroftKarp(vector<vi>& g, vi& btoa) {
 		fill(all(B), 0);
 		/// Find the starting nodes for BFS (i.e. layer 0).
 		cur.clear();
-		trav(a, btoa) if(a != -1) A[a] = -1;
+		for (int a : btoa) if(a != -1) A[a] = -1;
 		rep(a,0,sz(g)) if(A[a] == 0) cur.push_back(a);
 		/// Find all layers using bfs.
 		for (int lay = 1;; lay++) {
 			bool islast = 0;
 			next.clear();
-			trav(a, cur) trav(b, g[a]) {
+			for (int a : cur) for (int b : g[a]) {
 				if (btoa[b] == -1) {
 					B[b] = lay;
 					islast = 1;
@@ -51,7 +51,7 @@ int hopcroftKarp(vector<vi>& g, vi& btoa) {
 			}
 			if (islast) break;
 			if (next.empty()) return res;
-			trav(a, next) A[a] = lay;
+			for (int a : next) A[a] = lay;
 			cur.swap(next);
 		}
 		/// Use DFS to scan for augmenting paths.

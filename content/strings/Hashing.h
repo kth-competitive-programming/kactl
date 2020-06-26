@@ -4,7 +4,7 @@
  * License: CC0
  * Source: own work
  * Description: Self-explanatory methods for string hashing.
- * Status: tested
+ * Status: stress-tested
  */
 #pragma once
 
@@ -53,4 +53,4 @@ vector<H> getHashes(string& str, int length) {
 	return ret;
 }
 
-H hashString(string& s) { H h{}; trav(c,s) h=h*C+c; return h; }
+H hashString(string& s){H h{}; for(char c:s) h=h*C+c;return h;}

@@ -7,7 +7,7 @@
  * $\displaystyle c[z] = \sum\nolimits_{z = x \oplus y} a[x] \cdot b[y]$,
  * where $\oplus$ is one of AND, OR, XOR. The size of $a$ must be a power of two.
  * Time: O(N \log N)
- * Status: tested
+ * Status: stress-tested
  */
 #pragma once
 
@@ -20,7 +20,7 @@ void FST(vi& a, bool inv) {
 				// pii(u + v, u - v);                   // XOR /// include-line
 		}
 	}
-	// if (inv) trav(x, a) x /= sz(a); // XOR only /// include-line
+	// if (inv) for (int& x : a) x /= sz(a); // XOR only /// include-line
 }
 vi conv(vi a, vi b) {
 	FST(a, 0); FST(b, 0);
