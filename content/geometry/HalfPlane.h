@@ -25,46 +25,23 @@ bool cmp(Line a, Line b) {
 	auto s = angDiff(a, b);
 	return s == 0 ? sideOf(sp(b), a[0]) >= 0 : s < 0;
 }
-std::random_device rd;
-std::mt19937 e2(rd());
-vector<P> halfPlaneIntersection(vector<Line> vs, const double EPS=1e-8) {
+vector<P> halfPlaneIntersection(vector<Line> vs) {
+	const double EPS = sqrt(2) * 1e-8;
 	sort(all(vs), cmp);
-	// for (auto l: vs) {
-	// 	cout<<l[0]<<" -> "<<l[1]<<endl;
-	// }
 	vector<Line> deq(sz(vs) + 5);
 	vector<P> ans(sz(vs) + 5);
 	deq[0] = vs[0];
 	int ah = 0, at = 0, n = sz(vs);
 	rep(i,1,n+1) {
 		if (i == n) vs.push_back(deq[ah]);
-		if (angDiff(vs[i], vs[i - 1]) == 0) {
-			continue;
-		}
-const double mult = 1.414;
-std::uniform_real_distribution<> dist(-EPS, EPS);
-while (ah<at && sideOf(sp(vs[i]),ans[at-1], mult*EPS) < 0) at--;
-while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah], mult*EPS)<0) ah++;
-auto res = lineInter(sp(vs[i]), sp(deq[at]));
-res.second = res.second + P(dist(e2), dist(e2));
-		if (res.first != 1) {
-			// cout<<"46"<<endl;
-			continue;
-		}
+		if (angDiff(vs[i], vs[i - 1]) == 0) continue;
+		while (ah<at && sideOf(sp(vs[i]), ans[at-1], EPS) < 0)
+			at--;
+		while (i!=n && ah<at && sideOf(sp(vs[i]),ans[ah],EPS)<0)
+			ah++;
+		auto res = lineInter(sp(vs[i]), sp(deq[at]));
+		if (res.first != 1) continue;
 		ans[at++] = res.second, deq[at] = vs[i];
-		// cout<<"i: "<<i<<endl;
-		// cout<<"ans: ";
-		// cout<<ah<<' '<<at<<endl;
-		// for (int j=ah; j<at; j++) {
-		// 	cout<<ans[j]<<" ";
-		// }
-		// cout<<endl;
-		// cout<<"deq: ";
-		// for(int j=ah; j<=at; j++) {
-		// 	cout<<deq[j][0]<<"-> "<<deq[j][1]<<' ';
-		// }
-		// cout<<endl;
-		// cout<<endl;
 	}
 	if (at - ah <= 2) return {};
 	return {ans.begin() + ah, ans.begin() + at};

@@ -23,15 +23,6 @@ Products of three coordinates are used in intermediate steps so watch out for ov
 
 #include "Point.h"
 
-// template<class P>
-// pair<int, P> lineInter(P s1, P e1, P s2, P e2) {
-// 	auto d = (e1-s1).cross(e2-s2);
-// 	if (d == 0)  //if parallel
-// 		return {-((e1-s1).cross(s2-s1)==0 || s2==e2), P(0,0)};
-// 	else
-// 		return {1, s2-(e2-s2)*(e1-s1).cross(s2-s1)/d};
-// }
-
 template<class P>
 pair<int, P> lineInter(P s1, P e1, P s2, P e2) {
 	auto d = (e1 - s1).cross(e2 - s2);

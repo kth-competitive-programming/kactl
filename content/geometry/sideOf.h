@@ -19,11 +19,5 @@ template<class P>
 int sideOf(const P& s, const P& e, const P& p, double eps) {
 	auto a = (e-s).cross(p-s);
 	double l = (e-s).dist()*eps;
-	if (a<=l && a>=-l) {
-		return 0;
-	} else if (a > l) {
-		return 1;
-	} else {
-		return -1;
-	}
+	return (a > l) - (a < -l);
 }
