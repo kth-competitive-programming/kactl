@@ -5,6 +5,8 @@
  * Source: https://github.com/zimpha/algorithmic-library/blob/master/computational-geometry/polygon.cc
  * Description: Computes the intersection of a set of half-planes. Input is given as a set of planes, facing left.
  * Output is the convex polygon representing the intersection. The points may have duplicates and be collinear.
+ * Will not fail catastrophically if `eps > sqrt(2)(line intersection error)`. Likely to work for more ranges if
+ * 3 half planes are never guaranteed to intersect at the same point.
  * Time: O(n \log n)
  * Status: fuzz-tested, submitted on https://maps19.kattis.com/problems/marshlandrescues
  * Usage:
