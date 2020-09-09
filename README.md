@@ -3,8 +3,7 @@
 This repo hosts KACTL, [KTH](https://en.wikipedia.org/wiki/KTH_Royal_Institute_of_Technology)'s ICPC team reference document.
 It consists of 25 pages of copy-pasteable C++ code, for use in ICPC-style programming competitions.
 
-See [kactl.pdf](https://github.com/kth-competitive-programming/kactl/blob/master/kactl.pdf) for the final, browsable version,
-and [content/](https://github.com/kth-competitive-programming/kactl/tree/master/content) for raw source code.
+See [kactl.pdf](./kactl.pdf) for the final, browsable version, and [content/](./content/) for raw source code.
 
 ## Aspirations
 
@@ -44,7 +43,7 @@ hashing ignores whitespace and comments.
 ## Coding style
 
 KACTL uses a relatively terse coding style, with a handful of macros/typedefs defined in the
-[template](https://github.com/kth-competitive-programming/kactl/blob/master/content/contest/template.cpp) that help shorten the code.
+[template](./content/contest/template.cpp) that help shorten the code.
 Line width is 63 chars, with tabs for indentation (tab = 2 spaces in the pdf).
 
 Each algorithm contains a header with the author of the code, the date it
