@@ -24,8 +24,8 @@ template <bool VALS_EDGES> struct HLD {
 	Node *tree;
 	HLD(vector<vi> adj_)
 		: N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1), depth(N),
-		  rt(N),pos(N),tree(new Node(0, N)){ dfsSz(),dfsHld();}
-	void dfsSz(int v = 0) {
+		  rt(N),pos(N),tree(new Node(0, N)){ dfsSz(0); dfsHld(0); }
+	void dfsSz(int v) {
 		if (par[v] != -1) adj[v].erase(find(all(adj[v]), par[v]));
 		for (int& u : adj[v]) {
 			par[u] = v, depth[u] = depth[v] + 1;
@@ -34,7 +34,7 @@ template <bool VALS_EDGES> struct HLD {
 			if (siz[u] > siz[adj[v][0]]) swap(u, adj[v][0]);
 		}
 	}
-	void dfsHld(int v = 0) {
+	void dfsHld(int v) {
 		pos[v] = tim++;
 		for (int u : adj[v]) {
 			rt[u] = (u == adj[v][0] ? rt[v] : u);
@@ -52,7 +52,7 @@ template <bool VALS_EDGES> struct HLD {
 	void modifyPath(int u, int v, int val) {
 		process(u, v, [&](int l, int r) { tree->add(l, r, val); });
 	}
-	int queryPath(int u, int v) { // Modify depending on query
+	int queryPath(int u, int v) { // Modify depending on problem
 		int res = -1e9;
 		process(u, v, [&](int l, int r) {
 				res = max(res, tree->query(l, r));
