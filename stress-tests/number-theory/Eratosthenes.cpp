@@ -2,7 +2,7 @@
 
 namespace dynamic {
 vi eratosthenes(int LIM) {
-	const int S = round(sqrt(LIM)), R = LIM / 2;
+	const int S = (int)round(sqrt(LIM)), R = LIM / 2;
 	vi pr({2}), sieve(S + 1); pr.reserve(LIM / (int)log(LIM));
 	vector<array<int, 2>> cp;
 	for (int i = 3; i <= S; i += 2) if (!sieve[i]) {
