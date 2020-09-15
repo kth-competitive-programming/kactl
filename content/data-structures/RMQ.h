@@ -1,5 +1,5 @@
 /**
- * Author: Johan Sannemo
+ * Author: Johan Sannemo, pajenegod
  * Date: 2015-02-06
  * License: CC0
  * Source: Folklore
