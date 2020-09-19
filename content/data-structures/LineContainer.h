@@ -22,7 +22,7 @@ struct LineContainer : multiset<Line, less<>> {
 	ll div(ll a, ll b) { // floored division
 		return a / b - ((a ^ b) < 0 && a % b); }
 	bool isect(iterator x, iterator y) {
-		if (y == end()) { x->p = inf; return false; }
+		if (y == end()) return x->p = inf, 0;
 		if (x->k == y->k) x->p = x->m > y->m ? inf : -inf;
 		else x->p = div(y->m - x->m, x->k - y->k);
 		return x->p >= y->p;
