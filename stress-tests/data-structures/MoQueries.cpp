@@ -83,7 +83,7 @@ void add(int i, int end) {
 	if (end == 0) path.push_front(i);
 	else path.push_back(i);
 }
-void rem(int i, int end) {
+void del(int i, int end) {
 	sum -= vals[i];
 	ops++;
 	assert(!path.empty());
@@ -115,7 +115,7 @@ vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
 	sort(all(s), [&](int s, int t){ return K(Q[s]) < K(Q[t]); });
 	for (int qi : s) rep(end,0,2) {
 		int &a = pos[end], b = Q[qi][end], i = 0;
-#define step(c) { if (inc[c]) rem(a, end), inc[a] = 0; \
+#define step(c) { if (inc[c]) del(a, end), inc[a] = 0; \
                   else add(c, end), inc[c] = 1; a = c; }
 		while (!(L[b] <= L[a] && R[a] <= R[b]))
 			I[i++] = b, b = par[b];
