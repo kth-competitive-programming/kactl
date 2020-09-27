@@ -20,7 +20,7 @@ vi mo(vector<pii> Q) {
 #define K(x) pii(x.first/blk, x.second ^ -(x.first/blk & 1))
 	iota(all(s), 0);
 	sort(all(s), [&](int s, int t){ return K(Q[s]) < K(Q[t]); });
-	trav(qi, s) {
+	for (int qi : s) {
 		pii q = Q[qi];
 		while (L > q.first) add(--L, 0);
 		while (R < q.second) add(R++, 1);
@@ -39,7 +39,7 @@ vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
 		par[x] = p;
 		L[x] = T;
 		if (dep & 1) I[x] = T++;
-		trav(y, ed[x]) if (y != p) f(y, x, dep + 1, f);
+		for (int y : ed[x]) if (y != p) f(y, x, dep + 1, f);
 		if (!(dep & 1)) I[x] = T++;
 		R[x] = T;
 	};
@@ -47,7 +47,7 @@ vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
 #define K(x) pii(I[x[0]] / blk, I[x[1]] ^ -(I[x[0]] / blk & 1))
 	iota(all(s), 0);
 	sort(all(s), [&](int s, int t){ return K(Q[s]) < K(Q[t]); });
-	trav(qi, s) rep(end,0,2) {
+	for (int qi : s) rep(end,0,2) {
 		int &a = pos[end], b = Q[qi][end], i = 0;
 #define step(c) { if (inc[c]) rem(a, end), inc[a] = 0; \
                   else add(c, end), inc[c] = 1; a = c; }
