@@ -98,16 +98,16 @@ void del(int i, int end) {
 int calc() { return sum; }
 
 vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
-	int N = sz(ed), T = 0, pos[2] = {};
+	int N = sz(ed), pos[2] = {};
 	vi s(sz(Q)), res = s, I(N), L(N), R(N), inc(N), par(N);
 	add(0, 0), inc[0] = 1;
 	auto dfs = [&](int x, int p, int dep, auto& f) -> void {
 		par[x] = p;
-		L[x] = T;
-		if (dep) I[x] = T++;
+		L[x] = N;
+		if (dep) I[x] = N++;
 		for (int y : ed[x]) if (y != p) f(y, x, !dep, f);
-		if (!dep) I[x] = T++;
-		R[x] = T;
+		if (!dep) I[x] = N++;
+		R[x] = N;
 	};
 	dfs(root, -1, 0, dfs);
 #define K(x) pii(I[x[0]] / blk, I[x[1]] ^ -(I[x[0]] / blk & 1))
