@@ -104,9 +104,9 @@ vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
 	auto dfs = [&](int x, int p, int dep, auto& f) -> void {
 		par[x] = p;
 		L[x] = T;
-		if (dep & 1) I[x] = T++;
-		for (int y : ed[x]) if (y != p) f(y, x, dep + 1, f);
-		if (!(dep & 1)) I[x] = T++;
+		if (dep) I[x] = T++;
+		for (int y : ed[x]) if (y != p) f(y, x, !dep, f);
+		if (!dep) I[x] = T++;
 		R[x] = T;
 	};
 	dfs(root, -1, 0, dfs);
