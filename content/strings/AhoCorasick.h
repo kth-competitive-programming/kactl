@@ -3,27 +3,29 @@
  * Date: 2015-02-18
  * License: CC0
  * Source: marian's (TC) code
- * Description: Aho-Corasick tree is used for multiple pattern matching.
- * Initialize the tree with create(patterns). find(word) returns for each position
- * the index of the longest word that ends there, or -1 if none. findAll(\_, word) finds all words
- * (up to $N \sqrt N$ many if no duplicate patterns) that start at each position (shortest first).
+ * Description: Aho-Corasick automaton, used for multiple pattern matching.
+ * Initialize with AhoCorasick ac(patterns); the automaton start node will be at index 0.
+ * find(word) returns for each position the index of the longest word that ends there, or -1 if none.
+ * findAll($-$, word) finds all words (up to $N \sqrt N$ many if no duplicate patterns)
+ * that start at each position (shortest first).
  * Duplicate patterns are allowed; empty patterns are not.
  * To find the longest words that start at each position, reverse all input.
- * Time: create is $O(26N)$ where $N$ is the sum of length of patterns.
- * find is $O(M)$ where $M$ is the length of the word. findAll is $O(NM)$.
+ * For large alphabets, split each symbol into chunks, with sentinel bits for symbol boundaries.
+ * Time: construction takes $O(26N)$, where $N =$ sum of length of patterns.
+ * find(x) is $O(N)$, where N = length of x. findAll is $O(NM)$.
  * Status: lightly tested
  */
 #pragma once
 
 struct AhoCorasick {
-	enum {alpha = 26, first = 'A'};
+	enum {alpha = 26, first = 'A'}; // change this!
 	struct Node {
 		// (nmatches is optional)
 		int back, next[alpha], start = -1, end = -1, nmatches = 0;
 		Node(int v) { memset(next, v, sizeof(next)); }
 	};
 	vector<Node> N;
-	vector<int> backp;
+	vi backp;
 	void insert(string& s, int j) {
 		assert(!s.empty());
 		int n = 0;
@@ -37,8 +39,7 @@ struct AhoCorasick {
 		N[n].end = j;
 		N[n].nmatches++;
 	}
-	AhoCorasick(vector<string>& pat) {
-		N.emplace_back(-1);
+	AhoCorasick(vector<string>& pat) : N(1, -1) {
 		rep(i,0,sz(pat)) insert(pat[i], i);
 		N[0].back = sz(N);
 		N.emplace_back(0);
