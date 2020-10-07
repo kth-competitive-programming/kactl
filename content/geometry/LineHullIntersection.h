@@ -15,7 +15,7 @@
  *  The points are returned in the same order as the line hits the polygon.
  * \texttt{extrVertex} returns the point of a hull with the max projection onto a line.
  * Status: stress-tested
- * Time: O(N + Q \log n)
+ * Time: O(\log n)
  */
 #pragma once
 
@@ -37,7 +37,7 @@ template <class P> int extrVertex(vector<P>& poly, P dir) {
 
 #define cmpL(i) sgn(a.cross(poly[i], b))
 template <class P>
-array<int, 2> lineHull(P a, P b, vector<P> poly) {
+array<int, 2> lineHull(P a, P b, vector<P>& poly) {
 	int endA = extrVertex(poly, (a - b).perp());
 	int endB = extrVertex(poly, (b - a).perp());
 	if (cmpL(endA) < 0 || cmpL(endB) > 0)
