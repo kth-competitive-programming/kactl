@@ -8,7 +8,7 @@ ulimit -s 524288 # For 2-sat test
 for test in $tests; do
     echo "$(basename $test): "
     start=`date +%s.%N`
-    g++ -std=c++14 -O2 $test && ./a.out
+    g++ -std=c++17 -O2 $test && ./a.out
     retCode=$?
     if (($retCode != 0)); then
         echo "Failed with $retCode"
