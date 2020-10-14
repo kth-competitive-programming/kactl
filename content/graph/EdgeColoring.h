@@ -9,7 +9,7 @@
  * ($D$-coloring is NP-hard, but can be done for bipartite graphs by repeated matchings of
  * max-degree nodes.)
  * Time: O(NM)
- * Status: stress-tested
+ * Status: stress-tested, tested on kattis:gamescheduling
  */
 #pragma once
 
