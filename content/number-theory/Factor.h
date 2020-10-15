@@ -34,6 +34,8 @@
  * - prd starts off as 2 to handle the case n = 4; it's harmless for other n
  *   since we're guaranteed that n > 2. (Pollard rho has problems with prime
  *   powers in general, but all larger ones happen to work.)
+ * - t starts off as 30 to make the first gcd check come earlier, as an
+ *   optimization for small numbers.
  */
 #pragma once
 
@@ -42,7 +44,7 @@
 
 ull pollard(ull n) {
 	auto f = [n](ull x) { return modmul(x, x, n) + 1; };
-	ull x = 0, y = 0, t = 0, prd = 2, i = 1, q;
+	ull x = 0, y = 0, t = 30, prd = 2, i = 1, q;
 	while (t++ % 40 || __gcd(prd, n) == 1) {
 		if (x == y) x = ++i, y = f(x);
 		if ((q = modmul(prd, max(x,y) - min(x,y), n))) prd = q;
