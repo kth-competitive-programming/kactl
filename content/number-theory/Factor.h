@@ -24,7 +24,7 @@
  * This code can probably be sped up by using a faster mod mul - potentially
  * montgomery reduction on 128 bit integers.
  * Alternatively, one can use a quadratic sieve for an asymptotic improvement,
- * which starts being factor in practice around 1e13.
+ * which starts being faster in practice around 1e13.
  *
  * Brent's cycle finding algorithm was tested, but doesn't reduce modmul calls
  * significantly.
