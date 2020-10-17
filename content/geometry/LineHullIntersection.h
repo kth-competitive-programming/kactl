@@ -3,7 +3,7 @@
  * Date: 2019-05-07
  * License: Boost Software License
  * Source: https://github.com/AlCash07/ACTL/blob/master/include/actl/geometry/algorithm/intersect/line_convex_polygon.hpp
- * Description: Line-convex polygon intersection. The polygon must be ccw and have no colinear points.
+ * Description: Line-convex polygon intersection. The polygon must be ccw and have no collinear points.
  * lineHull(line, poly) returns a pair describing the intersection of a line with the polygon:
  *  \begin{itemize*}
  *    \item $(-1, -1)$ if no collision,
