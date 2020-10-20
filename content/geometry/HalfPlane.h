@@ -24,8 +24,8 @@ typedef array<P, 2> Line;
 
 int angDiff(Line a, Line b) { return sgn(ang(a) - ang(b)); }
 bool cmp(Line a, Line b) {
-	auto s = angDiff(a, b);
-	return s == 0 ? sideOf(sp(b), a[0]) >= 0 : s < 0;
+	int s = angDiff(a, b);
+	return (s ? s : sideOf(sp(a), b[0])) < 0;
 }
 vector<P> halfPlaneIntersection(vector<Line> vs) {
 	const double EPS = sqrt(2) * 1e-8;
