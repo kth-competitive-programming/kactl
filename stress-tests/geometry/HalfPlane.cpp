@@ -108,7 +108,7 @@ bool check(const Border &a, const Border &b, const Border &me) {
 void convexIntersection() {
     qh = qt = 0;
     sort(border, border + n);
-    n = unique(border, border + n) - border;
+    n = (int)(unique(border, border + n) - border);
     for (int i = 0; i < n; ++i) {
         Border cur = border[i];
         while (qh + 1 < qt && !check(que[qt - 2], que[qt - 1], cur))
@@ -141,7 +141,7 @@ T calcArea() {
         area += ps[i].det(ps[(i + 1) % cnt]);
     }
     area /= 2;
-    area = fabsl(area);
+    area = (T) fabsl(area);
     return area;
 }
 
@@ -205,7 +205,7 @@ bool cmp(Line a, Line b) { return mycmp(a.dir(), b.dir()); }
 
 double Intersection_Area(vector<Line> b) {
     sort(b.begin(), b.end(), cmp);
-    int n = b.size();
+    int n = (int) b.size();
     int q = 1, h = 0, i;
     vector<Line> ca(b.size() + 10);
     for (i = 0; i < n; i++) {
@@ -301,6 +301,9 @@ void testEmpty() {
     assert(sz(res) == 0);
 }
 void testRandom() {
+    auto toIntPoint = [&](P p) -> Point<int> {
+        return Point<int>((int)p.x, (int)p.y);
+    };
     int lim = 3;
     double mxDiff = 0;
     for (int i = 0; i < 10000000; i++) {
@@ -309,12 +312,12 @@ void testRandom() {
             Line cand{P(0, 0), P(0, 0)};
             while (cand[0] == cand[1])
                 cand = {randPt(lim), randPt(lim)};
-            Point<int> s1 = Point<int>(cand[0].x, cand[0].y);
-            Point<int> e1 = Point<int>(cand[1].x, cand[1].y);
+            Point<int> s1 = toIntPoint(cand[0]);
+            Point<int> e1 = toIntPoint(cand[1]);
             bool fail = false;
             for (auto j: t) {
-                Point<int> s2 = Point<int>(j[0].x, j[0].y);
-                Point<int> e2 = Point<int>(j[1].x, j[1].y);
+                Point<int> s2 = toIntPoint(j[0]);
+                Point<int> e2 = toIntPoint(j[1]);
                 if (lineInter(s1, e1, s2, e2).first == -1) {
                     fail = false;
                     break;
