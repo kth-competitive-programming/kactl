@@ -20,7 +20,7 @@
 typedef Point<double> P;
 typedef array<P, 2> Line;
 #define sp(a) a[0], a[1]
-#define ang(a) atan2((a[1] - a[0]).y, (a[1] - a[0]).x)
+#define ang(a) (a[1] - a[0]).angle()
 
 int angDiff(Line a, Line b) { return sgn(ang(a) - ang(b)); }
 bool cmp(Line a, Line b) {
