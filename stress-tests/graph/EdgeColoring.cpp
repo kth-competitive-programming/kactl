@@ -1,5 +1,7 @@
 #include <random>
 #include "../utilities/template.h"
+#include "../utilities/genGraph.h"
+#include "../utilities/random.h"
 
 #include "../../content/graph/EdgeColoring.h"
 
@@ -20,20 +22,7 @@ void test(int n, const vector<pii>& ed) {
 	}
 }
 
-vector<pii> randomGraph(int n, int m, mt19937& rng) {
-	vector<pii> ed;
-	set<pii> seen;
-	rep(i,0,m) {
-		int a = (int)(rng() % n);
-		int b = (int)(rng() % n);
-		if (a == b) continue;
-		if (!seen.insert(minmax(a, b)).second) continue;
-		ed.push_back({a,b});
-	}
-	return ed;
-}
-
-void testCorrect(mt19937& rng) {
+void testCorrect() {
 	rep(n,0,7) {
 		rep(edbits,0,(1 << (n*(n-1)/2))) {
 			vector<pii> ed;
@@ -58,85 +47,50 @@ void testCorrect(mt19937& rng) {
 			} else {
 				int its = n == 5 ? 10 : 5;
 				rep(it,0,its) {
-					shuffle(all(ed), rng);
-					for (auto& e : ed) if (rng() & 128) swap(e.first, e.second);
+					shuffle_vec(ed);
+					for (auto& e : ed) if (randBool()) swap(e.first, e.second);
 					test(n, ed);
 				}
 			}
 		}
 	}
 	rep(n,10,30) rep(it,0,200) {
-		int m = (int)(rng() % (n*n));
-		vector<pii> ed = randomGraph(n, m, rng);
+		int m = randIncl(n * (n-1) / 2);
+		vector<pii> ed = randomSimpleGraphAsEdgeList(n, m);
 		test(n, ed);
 	}
 	for (int n = 1; n <= 1000000; n *= 2) {
-		int m = 1000000 / n;
-		auto ed = randomGraph(n, m, rng);
+		int m = (int) min(1000000LL / n, (ll)n * (n-1) / 2);
+		auto ed = randomSimpleGraphAsEdgeList(n, m);
 		test(n, ed);
 	}
 	cout << "Tests passed!" << endl;
 }
 
-void testPerfRandom(mt19937& rng) {
+void testPerfRandom() {
 	rep(i,0,100) {
 		int n = 1000;
 		int m = 20000;
-		auto ed = randomGraph(n, m, rng);
+		auto ed = randomSimpleGraphAsEdgeList(n, m);
 		edgeColoring(n, ed);
 	}
 }
 
-void testPerfRegular(mt19937& rng) {
+void testPerfRegular() {
 	int n = 3000;
 	int k = 30;
 	// m = 45000
-	vector<pii> ed;
-	vi cands(n), rem(n, k);
-	rep(i,0,n) cands[i] = i;
-	int failures = 0;
-	set<pii> seen;
-	while (!cands.empty()) {
-		if (sz(cands) == 1) goto fail;
-		int ai = (int)(rng() % sz(cands));
-		int bi = (int)(rng() % sz(cands));
-		int a = cands[ai], b = cands[bi];
-		if (a == b) continue;
-		if (!seen.insert(minmax(a, b)).second) {
-			if (failures++ > 10) goto fail;
-			continue;
-		}
-		failures = 0;
-		ed.push_back({a, b});
-		--rem[a], --rem[b];
-		if (ai < bi) swap(ai, bi), swap(a, b);
-		if (rem[a] == 0) {
-			swap(cands[ai], cands.back());
-			cands.pop_back();
-		}
-		if (rem[b] == 0) {
-			swap(cands[bi], cands.back());
-			cands.pop_back();
-		}
-	}
-	assert(sz(ed) == n * k / 2);
-	if (0) {
-fail:
-		cout << "failed" << endl;
-		testPerfRegular(rng);
-		return;
-	}
-
+	vector<pii> ed = randomRegularGraphAsEdgeList(n, k);
 	rep(i,0,100) edgeColoring(n, ed);
 }
 
 int main(int argc, char** argv) {
-	std::mt19937 rng(2);
+	srand(2);
 	string arg = argc == 1 ? "" : argv[1];
-	if (arg == "random") testPerfRandom(rng);
-	else if (arg == "regular") testPerfRegular(rng);
+	if (arg == "random") testPerfRandom();
+	else if (arg == "regular") testPerfRegular();
 	else {
 		assert(argc == 1);
-		testCorrect(rng);
+		testCorrect();
 	}
 }
