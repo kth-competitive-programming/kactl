@@ -8,7 +8,7 @@ int randRange(int hi) {
 }
 
 bool randBool() {
-	return randRange(2);
+	return !!(rand() & 128);
 }
 
 // returns random int in [lo, hi), like Python's random.randrange

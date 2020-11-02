@@ -7,6 +7,7 @@
  * If there are cycles, the returned list will have size smaller than $n$ -- nodes reachable
  * from cycles will not be returned.
  * Time: $O(|V|+|E|)$
+ * Status: stress-tested
  */
 #pragma once
 
