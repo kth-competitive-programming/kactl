@@ -3,7 +3,6 @@
  * Date: 2015-02-06
  * License: CC0
  * Source: Folklore
- * Status: Tested at Petrozavodsk
  * Description: Range Minimum Queries on an array. Returns
  * min(V[a], V[a + 1], ... V[b - 1]) in constant time.
  * Usage:

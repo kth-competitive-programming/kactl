@@ -5,7 +5,7 @@
  * Source: tinyKACTL
  * Description: Returns twice the signed area of a polygon.
  *  Clockwise enumeration gives negative area. Watch out for overflow if using int as T!
- * Status: Tested with unitTest, Kattis problems polygonarea and wrapping and UVa Online Judge Problem: 109 - SCUD Busters
+ * Status: Stress-tested and tested on kattis:polygonarea
  */
 #pragma once
 

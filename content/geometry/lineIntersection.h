@@ -13,11 +13,11 @@ Products of three coordinates are used in intermediate steps so watch out for ov
 \begin{minipage}{15mm}
 \includegraphics[width=\textwidth]{content/geometry/lineIntersection}
 \end{minipage}
- * Status: stress-tested, and tested through half-plane tests
  * Usage:
  * 	auto res = lineInter(s1,e1,s2,e2);
  * 	if (res.first == 1)
  * 		cout << "intersection point at " << res.second << endl;
+ * Status: stress-tested, and tested through half-plane tests
  */
 #pragma once
 

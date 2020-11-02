@@ -4,8 +4,8 @@
  * License: CC0
  * Source: folklore
  * Description: Calculates determinant of a matrix. Destroys the matrix.
- * Status: somewhat tested
  * Time: $O(N^3)$
+ * Status: somewhat tested
  */
 #pragma once
 

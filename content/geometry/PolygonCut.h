@@ -12,10 +12,10 @@
 \includegraphics[width=\textwidth]{content/geometry/PolygonCut}
 \vspace{-6mm}
 \end{minipage}
- * Status: tested but not extensively
  * Usage:
  * 	vector<P> p = ...;
  * 	p = polygonCut(p, P(0,0), P(1,0));
+ * Status: tested but not extensively
  */
 #pragma once
 

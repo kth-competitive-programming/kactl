@@ -1,5 +1,5 @@
 /**
- * Author: Benjamin Qi, Chilli
+ * Author: Benjamin Qi, chilli
  * Date: 2020-04-04
  * License: CC0
  * Source: https://github.com/bqi343/USACO/blob/master/Implementations/content/graphs%20(12)/Matching/Hungarian.h

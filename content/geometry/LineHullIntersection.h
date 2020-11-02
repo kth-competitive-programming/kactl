@@ -14,8 +14,8 @@
  *  In the last case, if a corner $i$ is crossed, this is treated as happening on side $(i, i+1)$.
  *  The points are returned in the same order as the line hits the polygon.
  * \texttt{extrVertex} returns the point of a hull with the max projection onto a line.
- * Status: stress-tested
  * Time: O(\log n)
+ * Status: stress-tested
  */
 #pragma once
 

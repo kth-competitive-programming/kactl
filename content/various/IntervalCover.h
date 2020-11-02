@@ -5,7 +5,7 @@
  * Intervals should be [inclusive, exclusive). To support [inclusive, inclusive],
  * change (A) to add \texttt{|| R.empty()}. Returns empty set on failure (or if G is empty).
  * Time: O(N \log N)
- * Status: Tested on Kattis, intervalcover
+ * Status: Tested on kattis:intervalcover
  */
 #pragma once
 

@@ -11,10 +11,10 @@ Returns the shortest distance between point p and the line segment from point s 
 \vspace{-10mm}
 \includegraphics[width=\textwidth]{content/geometry/SegmentDistance}
 \end{minipage}
- * Status: tested
  * Usage: 
  * 	Point<double> a, b(2,2), p(1,1);
  * 	bool onSegment = segDist(a,b,p) < 1e-10;
+ * Status: tested
  */
 #pragma once
 

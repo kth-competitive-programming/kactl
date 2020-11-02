@@ -2,8 +2,8 @@
  * Author: Johan Sannemo
  * License: CC0
  * Description: Compute indices for the longest increasing subsequence.
- * Status: Tested on Kattis, longincsubseq, stress-tested
  * Time: $O(N \log N)$
+ * Status: Tested on kattis:longincsubseq, stress-tested
  */
 #pragma once
 

@@ -1,14 +1,14 @@
 /**
- * Date: 2014-11-28
  * Author: Johan Sannemo
+ * Date: 2014-11-28
  * License: CC0
  * Source: Folklore
- * Status: Tested on Kattis
  * Description: Calculate submatrix sums quickly, given upper-left and lower-right corners (half-open).
  * Usage:
  * SubMatrix<int> m(matrix);
  * m.sum(0, 0, 2, 2); // top left 4 elements
  * Time: O(N^2 + Q)
+ * Status: Tested on Kattis
  */
 #pragma once
 

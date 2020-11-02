@@ -13,8 +13,8 @@ Points on the edge of the hull between two other points are not considered part 
 \includegraphics[width=\textwidth]{content/geometry/ConvexHull}
 \vspace{-6mm}
 \end{minipage}
- * Status: stress-tested, tested with Kattis problems convexhull
  * Time: O(n \log n)
+ * Status: stress-tested, tested with kattis:convexhull
 */
 #pragma once
 
