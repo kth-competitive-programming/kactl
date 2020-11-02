@@ -2,26 +2,24 @@
  * Author: chilli
  * License: CC0
  * Source: Own work
- * Description: Returns an integer. Usage requires your program to pipe in
- * input from file. Can replace calls to gc() with getchar\_unlocked() if extra
- * speed isn't necessary (60\% slowdown).
+ * Description: Read an integer from stdin. Usage requires your program to pipe in
+ * input from file.
  * Usage: ./a.out < input.txt
  * Time: About 5x as fast as cin/scanf.
  * Status: tested on SPOJ INTEST, unit tested
  */
 #pragma once
 
-struct GC {
-	char buf[1 << 16];
-	size_t bc = 0, be = 0;
-	char operator()() {
-		if (bc >= be) {
-			buf[0] = 0, bc = 0;
-			be = fread(buf, 1, sizeof(buf), stdin);
-		}
-		return buf[bc++]; // returns 0 on EOF
+inline char gc() { // like getchar()
+	static char buf[1 << 16];
+	static size_t bc, be;
+	if (bc >= be) {
+		buf[0] = 0, bc = 0;
+		be = fread(buf, 1, sizeof(buf), stdin);
 	}
-} gc;
+	return buf[bc++]; // returns 0 on EOF
+}
+
 int readInt() {
 	int a, c;
 	while ((a = gc()) < 40);
