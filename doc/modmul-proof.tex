@@ -29,7 +29,8 @@ ull mod_mul(ull a, ull b, ull c) {
 \end{lstlisting}
 
 \noindent
-It assumes an x86 or x86\_64 processor, and runs about 2 times faster than the naive expression \lstinline{(__int128_t)a * b % c}.
+It assumes an x86 or x86\_64 processor with long doubles compiled to use 80-bit x87 float registers (as on e.g. GCC),
+and runs about 2 times faster than the naive expression \lstinline{(__int128_t)a * b % c}.
 This paper shows why it works.
 
 On a historical note, an earlier version of KACTL included the same algorithm but with the slightly modified expression \texttt{ull((long double)a * b / c)}. This can be shown precise all the way up to $c < 2^{63}$; however, it is slightly longer and slightly slower in the common case of performing several modular multiplications with the same $c$, due to the division.
@@ -50,7 +51,7 @@ The second one of these will be where the bound comes from.
 
 When performing a basic arithmetic operation (addition, subtraction, multiplication, division) $\oplus$ on two long doubles $a$, $b$, the resulting long double will be $r(a \oplus b)$, where $r(x)$ denotes rounding $x$ to the nearest long double, with ties broken in favor of the one with a trailing zero in the bit representation.
 
-80-bit x86 long doubles are represented with a sign bit, a 15-bit exponent, and a 64-bit mantissa, of which the topmost bit is always 1.
+80-bit x87 long doubles are represented with a sign bit, a 15-bit exponent, and a 64-bit mantissa, of which the topmost bit is always 1.
 It can represent the integers $0, 1, \dots, 2^{64}$ perfectly, but the next representable integer after that is $2^{64} + 2$.
 Thus, for $x$ in $[2^{64}, 2^{65})$, the difference between $x$ and $r(x)$ is at most $1$, and this rescales similarly to other powers of two in the exponent range that we will be working with. In particular, we have the inequality $|x - r(x)| \le x \cdot 2^{-64}$. By abuse of notation, we will write this as $r(x) = x \cdot (1 \pm 2^{-64})$, with $\pm a$ representing any number in the range $[-a, a]$.
 
