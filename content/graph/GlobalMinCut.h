@@ -10,7 +10,9 @@
 
 pair<int, vi> getMinCut(vector<vi>& weights) {
 	int N = sz(weights);
-	vi used(N), cut, best_cut;
+	vi used(N), best_cut;
+	vector<vi> cuts(N);
+	rep(i,0,N) cuts[i] = {i};
 	int best_weight = -1;
 
 	for (int phase = N-1; phase >= 0; phase--) {
@@ -25,9 +27,9 @@ pair<int, vi> getMinCut(vector<vi>& weights) {
 				rep(j,0,N) weights[prev][j] += weights[k][j];
 				rep(j,0,N) weights[j][prev] = weights[prev][j];
 				used[k] = true;
-				cut.push_back(k);
+				copy(all(cuts[k]), back_inserter(cuts[prev]));
 				if (best_weight == -1 || w[k] < best_weight) {
-					best_cut = cut;
+					best_cut = cuts[k];
 					best_weight = w[k];
 				}
 			} else {
