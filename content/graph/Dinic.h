@@ -18,7 +18,7 @@ struct Dinic {
 	vi lvl, ptr, q;
 	vector<vector<Edge>> adj;
 	Dinic(int n) : lvl(n), ptr(n), q(n), adj(n) {}
-	void addEdge(int a, int b, ll c, int rcap = 0) {
+	void addEdge(int a, int b, ll c, ll rcap = 0) {
 		adj[a].push_back({b, sz(adj[b]), c, c});
 		adj[b].push_back({a, sz(adj[a]) - 1, rcap, rcap});
 	}
