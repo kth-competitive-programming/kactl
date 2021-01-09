@@ -52,7 +52,7 @@ void test(int N, int mxFlow, int iters) {
                 minCut = min(minCut, e[2]);
             }
             auto mat2 = mat;
-            auto pa = getMinCut(mat2);
+            auto pa = globalMinCut(mat2);
             assert(pa.first == minCut);
             vi inCut(n);
             assert(sz(pa.second) != 0);

@@ -1,43 +1,31 @@
 /**
- * Author: Stanford
- * Date: Unknown
- * Source: Stanford Notebook, http://www.cs.tau.ac.il/~zwick/grad-algo-08/gmc.pdf
+ * Author: Simon Lindholm
+ * Date: 2021-01-09
+ * Source: https://en.wikipedia.org/wiki/Stoer%E2%80%93Wagner_algorithm
  * Description: Find a global minimum cut in an undirected graph, as represented by an adjacency matrix.
  * Time: O(V^3)
  * Status: Stress-tested together with GomoryHu
  */
 #pragma once
 
-pair<int, vi> getMinCut(vector<vi>& weights) {
-	int N = sz(weights);
-	vi used(N), best_cut;
-	vector<vi> cuts(N);
-	rep(i,0,N) cuts[i] = {i};
-	int best_weight = -1;
-
-	for (int phase = N-1; phase >= 0; phase--) {
-		vi w = weights[0], added = used;
-		int prev, k = 0;
-		rep(i,0,phase){
-			prev = k;
-			k = -1;
-			rep(j,1,N)
-				if (!added[j] && (k == -1 || w[j] > w[k])) k = j;
-			if (i == phase-1) {
-				rep(j,0,N) weights[prev][j] += weights[k][j];
-				rep(j,0,N) weights[j][prev] = weights[prev][j];
-				used[k] = true;
-				copy(all(cuts[k]), back_inserter(cuts[prev]));
-				if (best_weight == -1 || w[k] < best_weight) {
-					best_cut = cuts[k];
-					best_weight = w[k];
-				}
-			} else {
-				rep(j,0,N)
-					w[j] += weights[k][j];
-				added[k] = true;
-			}
+pair<int, vi> globalMinCut(vector<vi> mat) {
+	pair<int, vi> best = {INT_MAX, {}};
+	int n = sz(mat);
+	vector<vi> co(n);
+	rep(i,0,n) co[i] = {i};
+	rep(ph,0,n-1) {
+		vi w = mat[0];
+		size_t s = 0, t = 0;
+		rep(it,0,n-1-ph) { // O(V^2) -> O(E log V) with prio. queue
+			w[t] = INT_MIN;
+			s = t, t = max_element(all(w)) - w.begin();
+			rep(i,0,n) w[i] += mat[t][i];
 		}
+		best = min(best, {w[t] - mat[t][t], co[t]});
+		co[s].insert(co[s].end(), all(co[t]));
+		rep(i,0,n) mat[s][i] += mat[t][i];
+		rep(i,0,n) mat[i][s] = mat[s][i];
+		mat[0][t] = INT_MIN;
 	}
-	return {best_weight, best_cut};
+	return best;
 }
