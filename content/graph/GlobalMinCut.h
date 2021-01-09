@@ -1,6 +1,7 @@
 /**
  * Author: Simon Lindholm
  * Date: 2021-01-09
+ * License: CC0
  * Source: https://en.wikipedia.org/wiki/Stoer%E2%80%93Wagner_algorithm
  * Description: Find a global minimum cut in an undirected graph, as represented by an adjacency matrix.
  * Time: O(V^3)
