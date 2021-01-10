@@ -14,10 +14,10 @@ pair<int, vi> globalMinCut(vector<vi> mat) {
 	int n = sz(mat);
 	vector<vi> co(n);
 	rep(i,0,n) co[i] = {i};
-	rep(ph,0,n-1) {
+	rep(ph,1,n) {
 		vi w = mat[0];
 		size_t s = 0, t = 0;
-		rep(it,0,n-1-ph) { // O(V^2) -> O(E log V) with prio. queue
+		rep(it,0,n-ph) { // O(V^2) -> O(E log V) with prio. queue
 			w[t] = INT_MIN;
 			s = t, t = max_element(all(w)) - w.begin();
 			rep(i,0,n) w[i] += mat[t][i];
