@@ -169,6 +169,25 @@
 }
 \renewcommand*{\tilde}{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}
 
+% Fatter {} which are more distinguishable from ()
+% Makes pdf compile time 5-10% slower, but probably worth it still?
+\newcommand*{\nicelbrace}{%
+  \begingroup
+    \fontencoding{T1}%
+    \fontfamily{pcr}% Courier
+    \selectfont
+	\scalebox{1.5}[1]{\color{black!80}{\{}}%
+  \endgroup
+}
+\newcommand*{\nicerbrace}{%
+  \begingroup
+    \fontencoding{T1}%
+    \fontfamily{pcr}% Courier
+    \selectfont
+	\scalebox{1.5}[1]{\color{black!80}{\}}}%
+  \endgroup
+}
+
 \definecolor{mygreen}{HTML}{007000}
 \definecolor{myblue}{HTML}{0000dd}
 
@@ -182,7 +201,7 @@
 \lstset{breaklines=true}
 \lstset{basicstyle=\footnotesize\ttfamily}
 \lstset{commentstyle=\normalfont\itshape}
-\lstset{literate={^}{\caret}{1} {~}{\tilde}{1}}
+\lstset{literate={^}{\caret}{1} {~}{\tilde}{1} {\{}{\nicelbrace}{1} {\}}{\nicerbrace}{1}}
 \lstset{emptylines=*1}
 \lstset{inputencoding=utf8}
 \lstset{aboveskip=3pt}
