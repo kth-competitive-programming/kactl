@@ -92,6 +92,9 @@ def processwithcomments(caption, instream, outstream, listingslang):
         # Remove '#pragma once' lines
         if line == "#pragma once":
             continue
+        # Remove imports
+        if listingslang == 'Java' and line.startswith("import"):
+            continue
         if had_comment and not line:
             continue
         # Check includes
@@ -293,3 +296,4 @@ def main():
 
 if __name__ == "__main__":
     exit(main())
+
