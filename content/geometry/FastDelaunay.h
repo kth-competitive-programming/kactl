@@ -19,11 +19,10 @@
 typedef Point<ll> P;
 typedef struct Quad* Q;
 typedef __int128_t lll; // (can be ll if coords are < 2e4)
-P arb(LLONG_MAX,LLONG_MAX); // not equal to any other point
 
 struct Quad {
-	bool mark; Q o, rot; P p;
-	P F() { return r()->p; }
+	bool mark; Q o, rot; int p;
+	int F() { return r()->p; }
 	Q r() { return rot->rot; }
 	Q prev() { return rot->o->rot; }
 	Q next() { return r()->prev(); }
@@ -34,9 +33,9 @@ bool circ(P p, P a, P b, P c) { // is p in the circumcircle?
 	    B = b.dist2()-p2, C = c.dist2()-p2;
 	return p.cross(a,b)*C + p.cross(b,c)*A + p.cross(c,a)*B > 0;
 }
-Q makeEdge(P orig, P dest) {
-	Q q[] = {new Quad{0,0,0,orig}, new Quad{0,0,0,arb},
-	         new Quad{0,0,0,dest}, new Quad{0,0,0,arb}};
+Q makeEdge(int orig, int dest) {
+	Q q[] = {new Quad{0,0,0,orig}, new Quad{0,0,0,-1},
+	         new Quad{0,0,0,dest}, new Quad{0,0,0,-1}};
 	rep(i,0,4)
 		q[i]->o = q[-i & 3], q[i]->rot = q[(i+1) & 3];
 	return *q;
@@ -51,33 +50,35 @@ Q connect(Q a, Q b) {
 	return q;
 }
 
-pair<Q,Q> rec(const vector<P>& s) {
-	if (sz(s) <= 3) {
-		Q a = makeEdge(s[0], s[1]), b = makeEdge(s[1], s.back());
-		if (sz(s) == 2) return { a, a->r() };
+pair<Q,Q> rec(int l, int r, const vi& ind, const vector<P>& s) {
+	if (r - l <= 3) {
+		Q a = makeEdge(ind[l], ind[l + 1]);
+		if (r - l == 2) return { a, a->r() };
+		Q b = makeEdge(ind[l + 1], ind[l + 2]);
 		splice(a->r(), b);
-		auto side = s[0].cross(s[1], s[2]);
+		auto side = s[ind[l]].cross(s[ind[l + 1]], s[ind[l + 2]]);
 		Q c = side ? connect(b, a) : 0;
 		return {side < 0 ? c->r() : a, side < 0 ? c : b->r() };
 	}
 
-#define H(e) e->F(), e->p
-#define valid(e) (e->F().cross(H(base)) > 0)
+#define H(e) s[e->F()], s[e->p]
+#define valid(e) (s[e->F()].cross(H(base)) > 0)
 	Q A, B, ra, rb;
-	int half = sz(s) / 2;
-	tie(ra, A) = rec({all(s) - half});
-	tie(B, rb) = rec({sz(s) - half + all(s)});
-	while ((B->p.cross(H(A)) < 0 && (A = A->next())) ||
-	       (A->p.cross(H(B)) > 0 && (B = B->r()->o)));
+	int m = l + r >> 1;
+	tie(ra, A) = rec(l, m, ind, s);
+	tie(B, rb) = rec(m, r, ind, s);
+	while ((s[B->p].cross(H(A)) < 0 && (A = A->next())) ||
+	       (s[A->p].cross(H(B)) > 0 && (B = B->r()->o)));
 	Q base = connect(B->r(), A);
 	if (A->p == ra->p) ra = base->r();
 	if (B->p == rb->p) rb = base;
 
 #define DEL(e, init, dir) Q e = init->dir; if (valid(e)) \
-		while (circ(e->dir->F(), H(base), e->F())) { \
+		while (circ(s[e->dir->F()], H(base), s[e->F()])) { \
 			Q t = e->dir; \
 			splice(e, e->prev()); \
 			splice(e->r(), e->r()->prev()); \
+			delete e->rot->rot->rot, delete e->rot->rot, delete e->rot, delete e; \
 			e = t; \
 		}
 	for (;;) {
@@ -91,16 +92,24 @@ pair<Q,Q> rec(const vector<P>& s) {
 	return { ra, rb };
 }
 
-vector<P> triangulate(vector<P> pts) {
-	sort(all(pts));  assert(unique(all(pts)) == pts.end());
+vector<array<int, 3>> triangulate(const vector<P> &pts) {
+	vi ind(sz(pts)); iota(all(ind), 0);
+	sort(all(ind), [&](int i, int j){ return pts[i] < pts[j]; });
+	assert(unique(all(ind), [&](int i, int j){ return pts[i] == pts[j]; }) == ind.end());
 	if (sz(pts) < 2) return {};
-	Q e = rec(pts).first;
-	vector<Q> q = {e};
+	Q e = rec(0, sz(pts), ind, pts).first;
+	vector<Q> q = {e}, rem; vector<int> temp;
+	q.reserve(3 * sz(pts)), rem.reserve(3 * sz(pts)), temp.reserve(3 * sz(pts));
 	int qi = 0;
-	while (e->o->F().cross(e->F(), e->p) < 0) e = e->o;
-#define ADD { Q c = e; do { c->mark = 1; pts.push_back(c->p); \
-	q.push_back(c->r()); c = c->next(); } while (c != e); }
-	ADD; pts.clear();
+	while (pts[e->o->F()].cross(pts[e->F()], pts[e->p]) < 0) e = e->o;
+#define ADD { Q c = e; do { c->mark = 1; temp.push_back(c->p); \
+	q.push_back(c->r()); rem.push_back(c); c = c->next(); } while (c != e); }
+	ADD; temp.clear();
 	while (qi < sz(q)) if (!(e = q[qi++])->mark) ADD;
-	return pts;
+	assert((int)temp.size() % 3 == 0);
+	for(auto e: rem) delete e->rot, delete e;
+	vector<array<int, 3>> res;
+	for(int i = 0; i < sz(temp); i += 3) if(pts[temp[i]].cross(pts[temp[i + 1]], pts[temp[i + 2]]) > 0)
+		res.push_back({temp[i], temp[i + 1], temp[i + 2]});
+	return res;
 }
