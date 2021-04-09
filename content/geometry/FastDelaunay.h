@@ -22,9 +22,9 @@ typedef __int128_t lll; // (can be ll if coords are < 2e4)
 P arb(LLONG_MAX,LLONG_MAX); // not equal to any other point
 
 struct Quad {
-	bool mark = 0; Q o, rot; P p;
+	Q rot, o; P p = arb; bool mark;
 	P& F() { return r()->p; }
-	Q r() { return rot->rot; }
+	Q& r() { return rot->rot; }
 	Q prev() { return rot->o->rot; }
 	Q next() { return r()->prev(); }
 } *H;
@@ -35,7 +35,8 @@ int circ(P p, P a, P b, P c) { // is p in the circumcircle?
 	return p.cross(a,b)*C + p.cross(b,c)*A + p.cross(c,a)*B > 0;
 }
 Q makeEdge(P orig, P dest) {
-	Q r = H; H = r->o;
+	Q r = H ? H : new Quad{new Quad{new Quad{new Quad{0}}}};
+	H = r->o; r->r()->r() = r;
 	rep(i,0,4) r = r->rot, r->p = arb, r->o = i & 1 ? r : r->r();
 	r->p = orig; r->F() = dest;
 	return r;
@@ -93,11 +94,9 @@ pair<Q,Q> rec(const vector<P>& s) {
 vector<P> triangulate(vector<P> pts) {
 	sort(all(pts));  assert(unique(all(pts)) == pts.end());
 	if (sz(pts) < 2) return {};
-	int qi = 0, cap = sz(pts) * 16 + 60;
-	H = new Quad[cap + 4] + 4;
-	rep(i,0,cap) H[i - 4].o = H[i ^ ((2*i+3) & 3)].rot = H + i;
 	Q e = rec(pts).first;
 	vector<Q> q = {e};
+	int qi = 0;
 	while (e->o->F().cross(e->F(), e->p) < 0) e = e->o;
 #define ADD { Q c = e; do { c->mark = 1; pts.push_back(c->p); \
 	q.push_back(c->r()); c = c->next(); } while (c != e); }

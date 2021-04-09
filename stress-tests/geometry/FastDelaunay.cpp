@@ -30,7 +30,10 @@ struct Bumpalloc {
 
 // When not testing perf, we don't want to leak memory
 #ifndef TEST_PERF
-#define bool void* operator new[](size_t size) { return bumpalloc.alloc(size); } bool
+#define bool \
+	void* operator new[](size_t size) { return bumpalloc.alloc(size); } \
+	void* operator new(size_t size) { return bumpalloc.alloc(size); } \
+	bool
 #undef assert
 #define assert(x) do { if (!(x)) { cout << "Assertion failed: " << #x << endl; abort(); } } while (0)
 #endif
