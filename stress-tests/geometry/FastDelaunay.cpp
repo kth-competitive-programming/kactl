@@ -30,11 +30,13 @@ struct Bumpalloc {
 
 // When not testing perf, we don't want to leak memory
 #ifndef TEST_PERF
-#define new bumpalloc =
+#define bool void* operator new[](size_t size) { return bumpalloc.alloc(size); } bool
+#undef assert
+#define assert(x) do { if (!(x)) { cout << "Assertion failed: " << #x << endl; abort(); } } while (0)
 #endif
 #include "../../content/geometry/FastDelaunay.h"
 #ifndef TEST_PERF
-#undef new
+#undef bool
 #endif
 
 template<class A, class F>

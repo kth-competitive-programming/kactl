@@ -22,24 +22,24 @@ typedef __int128_t lll; // (can be ll if coords are < 2e4)
 P arb(LLONG_MAX,LLONG_MAX); // not equal to any other point
 
 struct Quad {
-	bool mark; Q o, rot; P p;
-	P F() { return r()->p; }
-	Q r() { return rot->rot; }
+	bool mark = 0; Q o, rot; P p;
+	P& F() { return r()->p; }
+	Q& r() { return rot->rot; }
 	Q prev() { return rot->o->rot; }
 	Q next() { return r()->prev(); }
-};
+} *head;
 
-bool circ(P p, P a, P b, P c) { // is p in the circumcircle?
+int circ(P p, P a, P b, P c) { // is p in the circumcircle?
 	lll p2 = p.dist2(), A = a.dist2()-p2,
 	    B = b.dist2()-p2, C = c.dist2()-p2;
 	return p.cross(a,b)*C + p.cross(b,c)*A + p.cross(c,a)*B > 0;
 }
 Q makeEdge(P orig, P dest) {
-	Q q[] = {new Quad{0,0,0,orig}, new Quad{0,0,0,arb},
-	         new Quad{0,0,0,dest}, new Quad{0,0,0,arb}};
-	rep(i,0,4)
-		q[i]->o = q[-i & 3], q[i]->rot = q[(i+1) & 3];
-	return *q;
+	Q r = head; head = r->r()->r();
+	r->r()->r() = r;
+	rep(i,0,4) r = r->rot, r->p = arb, r->o = i & 1 ? r : r->r();
+	r->p = orig; r->F() = dest;
+	return r;
 }
 void splice(Q a, Q b) {
 	swap(a->o->rot->o, b->o->rot->o); swap(a->o, b->o);
@@ -78,7 +78,7 @@ pair<Q,Q> rec(const vector<P>& s) {
 			Q t = e->dir; \
 			splice(e, e->prev()); \
 			splice(e->r(), e->r()->prev()); \
-			e = t; \
+			e->r()->r() = head; head = e; e = t; \
 		}
 	for (;;) {
 		DEL(LC, base->r(), o);  DEL(RC, base, prev());
@@ -94,9 +94,11 @@ pair<Q,Q> rec(const vector<P>& s) {
 vector<P> triangulate(vector<P> pts) {
 	sort(all(pts));  assert(unique(all(pts)) == pts.end());
 	if (sz(pts) < 2) return {};
+	int qi = 0, cap = sz(pts) * 16 + 60;
+	head = new Quad[cap];
+	rep(i,0,cap) head[i].rot = head + i + 1;
 	Q e = rec(pts).first;
 	vector<Q> q = {e};
-	int qi = 0;
 	while (e->o->F().cross(e->F(), e->p) < 0) e = e->o;
 #define ADD { Q c = e; do { c->mark = 1; pts.push_back(c->p); \
 	q.push_back(c->r()); c = c->next(); } while (c != e); }
