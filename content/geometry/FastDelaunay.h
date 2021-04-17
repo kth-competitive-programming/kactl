@@ -29,7 +29,7 @@ struct Quad {
 	Q next() { return r()->prev(); }
 } *H;
 
-int circ(P p, P a, P b, P c) { // is p in the circumcircle?
+bool circ(P p, P a, P b, P c) { // is p in the circumcircle?
 	lll p2 = p.dist2(), A = a.dist2()-p2,
 	    B = b.dist2()-p2, C = c.dist2()-p2;
 	return p.cross(a,b)*C + p.cross(b,c)*A + p.cross(c,a)*B > 0;
