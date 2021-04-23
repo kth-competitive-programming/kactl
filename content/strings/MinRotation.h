@@ -1,5 +1,6 @@
 /**
  * Author: Stjepan Glavina
+ * License: Unlicense
  * Source: https://github.com/stjepang/snippets/blob/master/min_rotation.cpp
  * Description: Finds the lexicographically smallest rotation of a string.
  * Time: O(N)
