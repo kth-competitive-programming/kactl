@@ -7,7 +7,7 @@
  */
 #pragma once
 
-vi Z(string S) {
+vi Z(const string& S) {
 	vi z(sz(S));
 	int l = -1, r = -1;
 	rep(i,1,sz(S)) {
