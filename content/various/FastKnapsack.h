@@ -10,18 +10,17 @@
 #pragma once
 
 int knapsack(vi w, int t) {
-	int a = 0, b = 0, j;
+	int a = 0, b = 0;
 	while (b < sz(w) && a + w[b] <= t) a += w[b++];
 	if (b == sz(w)) return a;
 	int m = *max_element(all(w));
-	vi u(m*2+1, -1), v = u;
-	u[a+m-t] = b+1;
+	vi v(m*2+1, -1), u;
+	v[a+m-t] = b;
 	rep(i,b,sz(w)) {
+		u = v;
 		rep(x,0,m) v[x+w[i]] = max(v[x+w[i]], u[x]);
 		for (int x = 2*m; x > m; x--)
-			for(j = v[x]; j --> max(0,u[x]);)
-				v[x-w[j]] = max(v[x-w[j]], j);
-		u = v;
+			rep(j,max(0,u[x]),v[x]) v[x-w[j]] = max(v[x-w[j]], j);
 	}
 	for (int i = t; i > a; i--)
 		if (v[i+m-t] >= 0) return i;
