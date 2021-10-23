@@ -24,7 +24,7 @@ struct PalinTree {
     nxt.resize(sz(s) + 2);
     n = cur = fail[0] = fail[1] = 0;
     addNode(-1, -1), addNode(0, 0);
-    for(int i = 0; i < sz(s); ++i) addChar(i, s[i]);
+    rep(i, 0, sz(s)) addChar(i, s[i]);
     propagate();
   }
  
