@@ -8,7 +8,7 @@
  * nodes are in two matchings and the sum of the edge weights is minimal. Takes
  * cost[N][M], where cost[i][j] = cost for L[i] to be matched with R[j] and
  * returns (min cost, match), where L[i] is matched with
- * R[match[i]]. Negate costs for max cost.
+ * R[match[i]]. Negate costs for max cost. Requires $N \le M$.
  * Time: O(N^2M)
  * Status: Tested on kattis:cordonbleu, stress-tested
  */
