@@ -6,7 +6,7 @@
  * Status: stress-tested
  */
 #pragma once
-vi z-value(string &s) {
+vi zvalue(string &s) {
 	int n = sz(s);
 	vi z(n, 0);
 	int l = 1, r = 0;
