@@ -13,7 +13,7 @@ template <class F> void gen(string &s, int at, int alpha, F f) {
     }
 }
 
-void test(const string &s) {
+void test(string &s) {
     int n = sz(s);
     vi found = zvalue(s);
     vi expected(n, 0);
