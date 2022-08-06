@@ -14,18 +14,7 @@ void gen(string& s, int at, int alpha, F f) {
 }
 
 void test(const string& s) {
-	vi p = pi(s);
-	rep(i,0,sz(s)) {
-		int maxlen = -1;
-		rep(len,0,i+1) {
-			rep(j,0,len) {
-				if (s[j] != s[i+1 - len + j]) goto fail;
-			}
-			maxlen = len;
-fail:;
-		}
-		assert(maxlen == p[i]);
-	}
+
 }
 
 int main() {

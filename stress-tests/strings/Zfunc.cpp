@@ -15,7 +15,7 @@ template <class F> void gen(string &s, int at, int alpha, F f) {
 
 void test(const string &s) {
     int n = sz(s);
-    vi found = Z(s);
+    vi found = zvalue(s);
     vi expected(n, 0);
     rep(i, 1, n) { // exclude index 0 (!)
         int j = 0;
