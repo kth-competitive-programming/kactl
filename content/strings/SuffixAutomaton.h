@@ -11,11 +11,11 @@ struct SAM {
 		map<char, int> ch;
 	};
 	const int P = 100000;
-	vector<state> st(P * 2);
+	vector<state> st;
 	int sz, last;
 	void init_() {
 		last = 0, sz = 1;
-		st[0] = {0, -1, {}};
+		st.assign(P * 2, {0, -1, {}});
 	}
 	void extend(char c) {
 		int cur = sz ++;
@@ -33,14 +33,15 @@ struct SAM {
 				int cl = sz ++;
 				st[cl] = st[q];
 				st[cl].len = st[p].len + 1;
-				
+
 				while(p != -1) {
 					st[p].ch[c] = cl;
 					p = st[p].link;
 				}
-				st[q].line = st[cur].link = cl;
+				st[q].link = st[cur].link = cl;
 			}
 		}
 		last = cur;
 	}
 };
+
