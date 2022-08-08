@@ -13,3 +13,12 @@
 	- 到底在幹嘛
 - Pragma
 - 圓方樹
+- Strings
+	- Trie
+	- Suffix-Automaton
+	- Palindromic tree
+	- Add stress tests
+		- KMP.h
+		- Manacher.h
+		- Suffix-Automaton
+
