@@ -10,7 +10,7 @@
  * 	Smallest cyclic shift (S + S). 
  * 	Number of occurrences. 
  * 	Shortest non-appearing string. 
- * 	LCS of multiple strings.
+ * 	LCS (substring)  of multiple strings.
  * Time: $O(|S|)$
  * Status: Not tested
  */
