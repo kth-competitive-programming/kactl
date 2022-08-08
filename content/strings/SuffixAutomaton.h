@@ -2,6 +2,15 @@
  * Author: hhhhaura
  * Date: 2022/08/06
  * Description: 
+ * 	Compressed form of all substrings of string S.
+ * 	link -- the longest suffix of current substring with different endpos.
+ * 	Follow link from last to obtain all terminal states.
+ * Usage: 
+ * 	Number of different substrings. 
+ * 	Smallest cyclic shift (S + S). 
+ * 	Number of occurrences. 
+ * 	Shortest non-appearing string. 
+ * 	LCS of multiple strings.
  * Time: $O(|S|)$
  * Status: Not tested
  */
