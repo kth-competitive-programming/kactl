@@ -22,3 +22,13 @@ jobs:
       run: make test-compiles
     - name: Run stress tests
       run: make test
+    - name: Trust Directory
+      run: |
+        git config --global --add safe.directory ${GITHUB_WORKSPACE}
+      # https://github.com/actions/checkout/issues/760
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: auto build - ${{ github.sha }}
+        branch: build
+        create_branch: true
+        push_options: -f
