@@ -15,39 +15,37 @@
  * Status: Not tested
  */
 struct SAM {
-	struct state {
-		int len, link;
-		map<char, int> ch;
-	};
 	const int P = 100000;
-	vector<state> st;
+	vector<map<char, int>> ch;
+	vector<int> len, link;
 	int sz, last;
-	void init_() {
-		last = 0, sz = 1;
-		st.assign(P * 2, {0, -1, {}});
+	void init_() { 
+		sz = 1, last = 0;
+		ch.assign(P * 2, map<char, int>());
+		len.assign(P * 2, 0);
+		link.assign(P * 2, -1);
 	}
 	void extend(char c) {
 		int cur = sz ++;
-		st[cur].len = st[last].len + 1;
+		len[cur] = len[last] + 1;
 		int p = last;
-		while(p != -1 && !st[p].ch.count(c)) {
-			st[p].ch[c] = cur;
-			p = st[p].link;
+		while(p != -1 && !ch[p].count(c)) {
+			ch[p][c] = cur;
+			p = link[p];
 		}
-		if(p == -1) st[cur].link = 0;
+		if(p == -1) link[cur] = 0;
 		else {
-			int q = st[p].ch[c];
-			if(st[p].len + 1 == st[q].len) st[cur].link = q;
+			int q = ch[p][c];
+			if(len[p] + 1 == len[q]) link[cur] = q;
 			else {
 				int cl = sz ++;
-				st[cl] = st[q];
-				st[cl].len = st[p].len + 1;
-
-				while(p != -1) {
-					st[p].ch[c] = cl;
-					p = st[p].link;
+				ch[cl] = ch[q];
+				len[cl] = len[p] + 1;
+				link[cl] = link[q];
+				while(p != -1 && ch[p].count(c) && ch[p][c] == q) {
+					ch[p][c] = cl, p = link[p];
 				}
-				st[q].link = st[cur].link = cl;
+				link[q] = link[cur] = cl;
 			}
 		}
 		last = cur;
