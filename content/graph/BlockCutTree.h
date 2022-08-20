@@ -4,7 +4,7 @@
  * Source: USACO guide
  * Description: Can deal with non-simple graphs. save normal edge
  * Time: Construction takes O(N).
- * status: untested
+ * Status: untested
  */
 struct BlockCutTree {
 	int n, timestamp, id, ii;
