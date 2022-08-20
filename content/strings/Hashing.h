@@ -3,7 +3,7 @@
  * Date: 2015-03-15
  * License: CC0
  * Source: own work
- * Description: Self-explanatory methods for string hashing.
+ * Description: Airthmetic mod 2^64-1. 
  * Status: stress-tested
  */
 #pragma once
