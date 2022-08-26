@@ -1,7 +1,7 @@
 # TODO
 
-- 對拍雞
-- miller rabin
+- [x] 對拍雞
+- [ ] miller rabin
 - flow
 	- dinic
 	- MCMF?
