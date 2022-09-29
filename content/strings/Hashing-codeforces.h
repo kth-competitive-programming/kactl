@@ -22,6 +22,8 @@ struct A {
 	A operator-(A o){int y = x-o.x; return{y + (y< 0)*M, b-o.b};}
 	A operator*(A o) { return {(int)(1LL*x*o.x % M), b*o.b}; }
 	explicit operator ull() { return x ^ (ull) b << 21; }
+	bool operator==(A o) const { return (ull)*this == (ull)o; }
+	bool operator<(A o) const { return (ull)*this < (ull)o; }
 };
 typedef A<1000000007, A<1000000009, unsigned>> H;
 

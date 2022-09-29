@@ -6,6 +6,7 @@
  * Description: Returns the two points with max distance on a convex hull (ccw,
  * no duplicate/collinear points).
  * Status: stress-tested, tested on kattis:roberthood
+ * Time: O(n)
  */
 #pragma once
 #include "Point.h"
