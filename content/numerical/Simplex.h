@@ -1,85 +1,83 @@
 /**
- * Author: Stanford
- * Source: Stanford Notebook
+ * Author: Unknown
+ * Source: Unknown
  * License: MIT
  * Description: Solves a general linear maximization problem: maximize $c^T x$ subject to $Ax \le b$, $x \ge 0$.
  * Returns -inf if there is no solution, inf if there are arbitrarily good solutions, or the maximum value of $c^T x$ otherwise.
  * The input vector is set to an optimal $x$ (or in the unbounded case, an arbitrary solution fulfilling the constraints).
  * Numerical stability is not guaranteed. For better performance, define variables such that $x = 0$ is viable.
  * Usage:
- * vvd A = {{1,-1}, {-1,1}, {-1,-2}};
- * vd b = {1,1,-4}, c = {-1,-1}, x;
- * T val = LPSolver(A, b, c).solve(x);
+ * simplex.init(n, m);
+ * simplex.a[i][j] = aij;
+ * int val = simplex.solve();
  * Time: O(NM * \#pivots), where a pivot may be e.g. an edge relaxation. O(2^n) in the general case.
- * Status: seems to work?
+ * Status: fixed ig
  */
 #pragma once
 
-typedef double T; // long double, Rational, double + mod<P>...
-typedef vector<T> vd;
-typedef vector<vd> vvd;
+static constexpr long double eps = 1e-7;
+template <class T = double>
+struct Simplex {
+	int n, m;
+	vector<int> l, d;
+	vector<vector<T>> a;
+	vector<T> b, c, sol;
+	T v;
 
-const T eps = 1e-8, inf = 1/.0;
-#define MP make_pair
-#define ltj(X) if(s == -1 || MP(X[j],N[j]) < MP(X[s],N[s])) s=j
+	bool eq(T a, T b) { return fabs(a - b) < eps;  }
+	bool ls(T a, T b) { return a < b && !eq(a, b); }
 
-struct LPSolver {
-	int m, n;
-	vi N, B;
-	vvd D;
-
-	LPSolver(const vvd& A, const vd& b, const vd& c) :
-		m(sz(b)), n(sz(c)), N(n+1), B(m), D(m+2, vd(n+2)) {
-			rep(i,0,m) rep(j,0,n) D[i][j] = A[i][j];
-			rep(i,0,m) { B[i] = n+i; D[i][n] = -1; D[i][n+1] = b[i];}
-			rep(j,0,n) { N[j] = j; D[m][j] = -c[j]; }
-			N[n] = -1; D[m+1][n] = 1;
-		}
-
-	void pivot(int r, int s) {
-		T *a = D[r].data(), inv = 1 / a[s];
-		rep(i,0,m+2) if (i != r && abs(D[i][s]) > eps) {
-			T *b = D[i].data(), inv2 = b[s] * inv;
-			rep(j,0,n+2) b[j] -= a[j] * inv2;
-			b[s] = a[s] * inv2;
-		}
-		rep(j,0,n+2) if (j != s) D[r][j] *= inv;
-		rep(i,0,m+2) if (i != r) D[i][s] *= -inv;
-		D[r][s] = inv;
-		swap(B[r], N[s]);
+	void init(int p, int q) {
+		n = p; m = q; v = 0;
+		l.assign(m, 0); b = l;
+		d.assign(n, 0); c = sol = d;
+		a.assign(m, vector<T>(n, 0));
 	}
 
-	bool simplex(int phase) {
-		int x = m + phase - 1;
-		for (;;) {
-			int s = -1;
-			rep(j,0,n+1) if (N[j] != -phase) ltj(D[x]);
-			if (D[x][s] >= -eps) return true;
-			int r = -1;
-			rep(i,0,m) {
-				if (D[i][s] <= eps) continue;
-				if (r == -1 || MP(D[i][n+1] / D[i][s], B[i])
-				             < MP(D[r][n+1] / D[r][s], B[r])) r = i;
-			}
-			if (r == -1) return false;
-			pivot(r, s);
+	void pivot(int x,int y) {
+		swap(l[x], d[y]);
+		T k = a[x][y]; a[x][y] = 1;
+		vector<int> nz;
+		rep (i, 0, n) {
+				a[x][i] /= k;
+				if(!eq(a[x][i], 0)) nz.push_back(i);
 		}
+		b[x] /= k;
+		rep (i, 0, m) {
+				if(i == x || eq(a[i][y], 0)) continue;
+				k = a[i][y]; a[i][y] = 0;
+				b[i] -= k*b[x];
+				for(int j : nz) a[i][j] -= k * a[x][j];
+		}
+		if(eq(c[y], 0)) return;
+		k = c[y]; c[y] = 0;
+		v += k * b[x];
+		for(int i : nz) c[i] -= k * a[x][i];
 	}
 
-	T solve(vd &x) {
-		int r = 0;
-		rep(i,1,m) if (D[i][n+1] < D[r][n+1]) r = i;
-		if (D[r][n+1] < -eps) {
-			pivot(r, n);
-			if (!simplex(2) || D[m+1][n+1] < -eps) return -inf;
-			rep(i,0,m) if (B[i] == -1) {
-				int s = 0;
-				rep(j,1,n+1) ltj(D[i]);
-				pivot(i, s);
-			}
+	// 0: found solution, 1: no feasible solution, 2: unbounded
+	int solve() {
+		rep (i, 0, n) d[i] = i;
+		rep (i, 0, m) l[i] = n+i;
+		while(1) { // Eliminating negative b[i]
+				int x = -1, y = -1;
+				rep (i, 0, m) if (ls(b[i], 0) && (x == -1 || b[i] < b[x])) x = i;
+				if(x == -1) break;
+				rep (i, 0, n) if (ls(a[x][i], 0) && (y == -1 || a[x][i] < a[x][y])) y = i;
+				if(y == -1) return 1;
+				pivot(x, y);
 		}
-		bool ok = simplex(1); x = vd(n);
-		rep(i,0,m) if (B[i] < n) x[B[i]] = D[i][n+1];
-		return ok ? D[m][n+1] : inf;
+		while(1) {
+				int x = -1, y = -1;
+				rep (i, 0, n)
+						if (ls(0, c[i]) && (y == -1 || c[i] > c[y])) y = i;
+				if(y == -1) break;
+				rep (i, 0, m)
+						if (ls(0, a[i][y]) && (x == -1 || b[i]/a[i][y] < b[x]/a[x][y])) x = i;
+				if(x == -1) return 2;
+				pivot(x, y);
+		}
+		rep (i, 0, m) if(l[i] < n) sol[l[i]] = b[i];
+		return 0;
 	}
 };
