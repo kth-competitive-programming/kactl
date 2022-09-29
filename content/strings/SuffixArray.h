@@ -12,7 +12,7 @@
  * neighbouring strings in the suffix array:
  * \texttt{lcp[i] = lcp(sa[i], sa[i-1])}, \texttt{lcp[0] = 0}.
  * The input string must not contain any zero bytes.
- * Time: O(n \log n)
+ * Time: O(N \log N)
  * Status: stress-tested
  */
 #pragma once
@@ -40,3 +40,4 @@ struct SuffixArray {
 					s[i + k] == s[j + k]; k++);
 	}
 };
+
