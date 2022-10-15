@@ -4,7 +4,7 @@
  * License: CC0
  * Source: Folklore
  * Description: Range Minimum Queries on an array. Returns
- * min(V[a], V[a + 1], ... V[b - 1]) in constant time.
+ * min(V[a], V[a + 1], ... V[b]) in constant time.
  * Usage:
  *  RMQ rmq(values);
  *  rmq.query(inclusive, exclusive);
@@ -24,8 +24,8 @@ struct RMQ {
 		}
 	}
 	T query(int a, int b) {
-		assert(a < b); // or return inf if a == b
-		int dep = 31 - __builtin_clz(b - a);
-		return min(jmp[dep][a], jmp[dep][b - (1 << dep)]);
+		assert(a <= b); // tie(a, b) = minimax(a, b)
+		int dep = 31 - __builtin_clz(b-a+1);
+		return min(jmp[dep][a], jmp[dep][b - (1 << dep) + 1]);
 	}
 };
