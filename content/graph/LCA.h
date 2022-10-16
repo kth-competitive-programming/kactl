@@ -5,7 +5,7 @@
  * Source: Folklore
  * Description: Data structure for computing lowest common ancestors in a tree
  * (with 0 as root). C should be an adjacency list of the tree, either directed
- * or undirected.
+ * or undirected. Also supports path dist. and isAncestor queries in constant time.
  * Time: $O(N \log N + Q)$
  * Status: stress-tested
  */
@@ -14,23 +14,24 @@
 #include "../data-structures/RMQ.h"
 
 struct LCA {
-	int T = 0;
-	vi time, path, ret;
-	RMQ<int> rmq;
-
-	LCA(vector<vi>& C) : time(sz(C)), rmq((dfs(C,0,-1), ret)) {}
-	void dfs(vector<vi>& C, int v, int par) {
-		time[v] = T++;
-		for (int y : C[v]) if (y != par) {
-			path.push_back(v), ret.push_back(time[v]);
-			dfs(C, y, v);
-		}
-	}
-
-	int lca(int a, int b) {
-		if (a == b) return a;
-		tie(a, b) = minmax(time[a], time[b]);
-		return path[rmq.query(a, b)];
-	}
-	//dist(a,b){return depth[a] + depth[b] - 2*depth[lca(a,b)];}
+    int T = 0;
+    vi st, path, ret; vi en, d;
+    RMQ<int> rmq;
+    LCA(vector<vi>& C) : st(sz(C)), en(sz(C)), d(sz(C)), rmq((dfs(C,0,-1), ret)) {}
+    void dfs(vvi &adj, int v, int par) {
+        st[v] = T++;
+        for (auto to : adj[v]) if (to != par) {
+            path.pb(v), ret.pb(st[v]);
+            d[to] = d[v] + 1;
+            dfs(adj, to, v);
+        }
+        en[v] = T;
+    }
+    bool anc(int p, int c) { return st[p] <= st[c] and en[p] >= en[c]; }
+    int lca(int a, int b) {
+        if (a == b) return a;
+        tie(a, b) = minmax(st[a], st[b]);
+        return path[rmq.query(a, b-1)];
+    }
+    int dist(int a, int b) { return d[a] + d[b] - 2*d[lca(a,b)]; }
 };
