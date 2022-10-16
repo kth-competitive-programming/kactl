@@ -25,7 +25,7 @@ struct LCA {
             d[to] = d[v] + 1;
             dfs(adj, to, v);
         }
-        en[v] = T;
+        en[v] = T-1;
     }
     bool anc(int p, int c) { return st[p] <= st[c] and en[p] >= en[c]; }
     int lca(int a, int b) {
