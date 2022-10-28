@@ -231,7 +231,7 @@ def print_header(data, outstream):
     with open('header.tmp', 'w') as f:
         for line in lines[ind:]:
             f.write(line + "\n")
-        f.write("- \thepage")
+        f.write("- \\thepage")
 
 def main():
     language = None
