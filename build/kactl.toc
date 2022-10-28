@@ -75,8 +75,9 @@
 \contentsline {chapter}{\numberline {10}Various}{22}{chapter.10}%
 \contentsline {section}{\numberline {10.1}Intervals}{22}{section.10.1}%
 \contentsline {section}{\numberline {10.2}Misc. algorithms}{22}{section.10.2}%
-\contentsline {section}{\numberline {10.3}Dynamic programming}{23}{section.10.3}%
+\contentsline {section}{\numberline {10.3}Dynamic programming}{22}{section.10.3}%
 \contentsline {section}{\numberline {10.4}Optimization tricks}{23}{section.10.4}%
 \contentsline {subsection}{\numberline {10.4.1}Bit hacks}{23}{subsection.10.4.1}%
 \contentsline {subsection}{\numberline {10.4.2}Pragmas}{23}{subsection.10.4.2}%
+\contentsline {section}{\numberline {10.5}Hashing}{23}{section.10.5}%
 \contentsfinish 
