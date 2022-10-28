@@ -208,8 +208,7 @@
 \contentsline {section}{\texttt {MinRotation.h}\hspace {0.2em}}{21}{lstnumber.9.3.13}%
 \contentsline {section}{\texttt {SuffixArray.h}\hspace {0.2em}}{21}{lstnumber.9.4.8}%
 \contentsline {section}{\texttt {SuffixTree.h}\hspace {0.2em}}{21}{lstnumber.9.5.23}%
-\contentsline {section}{\texttt {Hashing.h}\hspace {0.2em}}{21}{lstnumber.9.6.50}%
-\contentsline {section}{\texttt {AhoCorasick.h}\hspace {0.2em}}{22}{lstnumber.9.7.44}%
+\contentsline {section}{\texttt {AhoCorasick.h}\hspace {0.2em}}{21}{lstnumber.9.6.50}%
 \contentsline {chapter}{\numberline {10}Various}{22}{chapter.10}%
 \ttl@stoptoc {chapters@9}
 \ttl@starttoc {chapters@10}
@@ -219,13 +218,14 @@
 \contentsline {subsection}{\texttt {ConstantIntervals.h}\hspace {0.2em}}{22}{lstnumber.10.2.19}%
 \contentsline {section}{\numberline {10.2}Misc. algorithms}{22}{section.10.2}%
 \contentsline {subsection}{\texttt {TernarySearch.h}\hspace {0.2em}}{22}{section.10.2}%
-\contentsline {subsection}{\texttt {FastKnapsack.h}\hspace {0.2em}}{23}{lstnumber.10.4.11}%
-\contentsline {section}{\numberline {10.3}Dynamic programming}{23}{section.10.3}%
-\contentsline {subsection}{\texttt {KnuthDP.h}\hspace {0.2em}}{23}{section.10.3}%
+\contentsline {subsection}{\texttt {FastKnapsack.h}\hspace {0.2em}}{22}{lstnumber.10.4.11}%
+\contentsline {section}{\numberline {10.3}Dynamic programming}{22}{section.10.3}%
+\contentsline {subsection}{\texttt {KnuthDP.h}\hspace {0.2em}}{22}{section.10.3}%
 \contentsline {subsection}{\texttt {DivideAndConquerDP.h}\hspace {0.2em}}{23}{lstnumber.10.6.1}%
 \contentsline {section}{\numberline {10.4}Optimization tricks}{23}{section.10.4}%
 \contentsline {subsection}{\numberline {10.4.1}Bit hacks}{23}{subsection.10.4.1}%
 \contentsline {subsection}{\numberline {10.4.2}Pragmas}{23}{subsection.10.4.2}%
 \contentsline {subsection}{\texttt {FastMod.h}\hspace {0.2em}}{23}{subsection.10.4.2}%
 \contentsline {subsection}{\texttt {FastInput.h}\hspace {0.2em}}{23}{lstnumber.10.8.8}%
+\contentsline {section}{\numberline {10.5}Hashing}{23}{section.10.5}%
 \contentsfinish 
