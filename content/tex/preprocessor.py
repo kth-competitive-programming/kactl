@@ -222,16 +222,15 @@ def print_header(data, outstream):
     def adjust(name):
         return name if name.startswith('.') else name.split('.')[0]
     output = r"\enspace{}".join(map(adjust, lines[:ind]))
-    font_size = 9
+    font_size = 10
     if header_length > 150:
-        font_size = 7
+        font_size = 8
     output = r"\hspace{3mm}\textbf{" + output + "}"
     output = "\\fontsize{%d}{%d}" % (font_size, font_size) + output
     print(output, file=outstream)
     with open('header.tmp', 'w') as f:
         for line in lines[ind:]:
             f.write(line + "\n")
-        f.write("- \\thepage")
 
 def main():
     language = None
