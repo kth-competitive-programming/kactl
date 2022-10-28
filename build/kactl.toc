@@ -5,7 +5,7 @@
 \contentsline {section}{\numberline {2.3}Trigonometry}{1}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Geometry}{1}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Triangles}{1}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Quadrilaterals}{1}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.2}Quadrilaterals}{2}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Spherical coordinates}{2}{subsection.2.4.3}%
 \contentsline {section}{\numberline {2.5}Derivatives/Integrals}{2}{section.2.5}%
 \contentsline {section}{\numberline {2.6}Sums}{2}{section.2.6}%
@@ -19,11 +19,11 @@
 \contentsline {subsubsection}{Uniform distribution}{2}{section*.4}%
 \contentsline {subsubsection}{Exponential distribution}{2}{section*.5}%
 \contentsline {subsubsection}{Normal distribution}{2}{section*.6}%
-\contentsline {section}{\numberline {2.9}Markov chains}{2}{section.2.9}%
+\contentsline {section}{\numberline {2.9}Markov chains}{3}{section.2.9}%
 \contentsline {chapter}{\numberline {3}Data structures}{3}{chapter.3}%
 \contentsline {chapter}{\numberline {4}Numerical}{5}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Polynomials and recurrences}{5}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Optimization}{5}{section.4.2}%
+\contentsline {section}{\numberline {4.2}Optimization}{6}{section.4.2}%
 \contentsline {section}{\numberline {4.3}Matrices}{6}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Fourier transforms}{7}{section.4.4}%
 \contentsline {chapter}{\numberline {5}Number theory}{8}{chapter.5}%
@@ -48,7 +48,7 @@
 \contentsline {subsection}{\numberline {6.2.3}Binomials}{10}{subsection.6.2.3}%
 \contentsline {section}{\numberline {6.3}General purpose numbers}{10}{section.6.3}%
 \contentsline {subsection}{\numberline {6.3.1}Bernoulli numbers}{10}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Stirling numbers of the first kind}{10}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.2}Stirling numbers of the first kind}{11}{subsection.6.3.2}%
 \contentsline {subsection}{\numberline {6.3.3}Eulerian numbers}{11}{subsection.6.3.3}%
 \contentsline {subsection}{\numberline {6.3.4}Stirling numbers of the second kind}{11}{subsection.6.3.4}%
 \contentsline {subsection}{\numberline {6.3.5}Bell numbers}{11}{subsection.6.3.5}%
@@ -66,8 +66,8 @@
 \contentsline {subsection}{\numberline {7.8.1}Number of Spanning Trees}{16}{subsection.7.8.1}%
 \contentsline {subsection}{\numberline {7.8.2}Erdős–Gallai theorem}{16}{subsection.7.8.2}%
 \contentsline {chapter}{\numberline {8}Geometry}{16}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Geometric primitives}{16}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Circles}{17}{section.8.2}%
+\contentsline {section}{\numberline {8.1}Geometric primitives}{17}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Circles}{18}{section.8.2}%
 \contentsline {section}{\numberline {8.3}Polygons}{18}{section.8.3}%
 \contentsline {section}{\numberline {8.4}Misc. Point Set Problems}{19}{section.8.4}%
 \contentsline {section}{\numberline {8.5}3D}{20}{section.8.5}%
@@ -75,7 +75,7 @@
 \contentsline {chapter}{\numberline {10}Various}{22}{chapter.10}%
 \contentsline {section}{\numberline {10.1}Intervals}{22}{section.10.1}%
 \contentsline {section}{\numberline {10.2}Misc. algorithms}{22}{section.10.2}%
-\contentsline {section}{\numberline {10.3}Dynamic programming}{22}{section.10.3}%
+\contentsline {section}{\numberline {10.3}Dynamic programming}{23}{section.10.3}%
 \contentsline {section}{\numberline {10.4}Debugging tricks}{23}{section.10.4}%
 \contentsline {section}{\numberline {10.5}Optimization tricks}{23}{section.10.5}%
 \contentsline {subsection}{\numberline {10.5.1}Bit hacks}{23}{subsection.10.5.1}%
