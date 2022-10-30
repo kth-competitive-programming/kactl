@@ -1,3 +1,18 @@
+/**
+ * Author: Netanya Robinson
+ * Date: 2022-10-30
+ * License: CC0
+ * Source: own work
+ * Description:
+ * Edmonds-Karp Max Flow
+ * Usage:
+	int res = maxFlow(source, sink);
+ * Time: Refer to other MaxFlow implementation
+ * Status: tested
+ */
+
+#pragma once
+
 ll N, M, cap[MAXN][MAXN], res[MAXN][MAXN];
 vector<ll> adj[MAXN];
  
