@@ -1,10 +1,10 @@
 \contentsline {chapter}{\numberline {1}Contest}{2}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Mathematics}{2}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Equations}{2}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Recurrences}{3}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Trigonometry}{3}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Geometry}{3}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Triangles}{3}{subsection.2.4.1}%
+\contentsline {section}{\numberline {2.2}Recurrences}{2}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Trigonometry}{2}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Geometry}{2}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Triangles}{2}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Quadrilaterals}{3}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Spherical coordinates}{3}{subsection.2.4.3}%
 \contentsline {section}{\numberline {2.5}Derivatives/Integrals}{3}{section.2.5}%
@@ -14,15 +14,15 @@
 \contentsline {subsection}{\numberline {2.8.1}Discrete distributions}{3}{subsection.2.8.1}%
 \contentsline {subsubsection}{Binomial distribution}{3}{section*.1}%
 \contentsline {subsubsection}{First success distribution}{3}{section*.2}%
-\contentsline {subsubsection}{Poisson distribution}{4}{section*.3}%
-\contentsline {subsection}{\numberline {2.8.2}Continuous distributions}{4}{subsection.2.8.2}%
-\contentsline {subsubsection}{Uniform distribution}{4}{section*.4}%
-\contentsline {subsubsection}{Exponential distribution}{4}{section*.5}%
-\contentsline {subsubsection}{Normal distribution}{4}{section*.6}%
+\contentsline {subsubsection}{Poisson distribution}{3}{section*.3}%
+\contentsline {subsection}{\numberline {2.8.2}Continuous distributions}{3}{subsection.2.8.2}%
+\contentsline {subsubsection}{Uniform distribution}{3}{section*.4}%
+\contentsline {subsubsection}{Exponential distribution}{3}{section*.5}%
+\contentsline {subsubsection}{Normal distribution}{3}{section*.6}%
 \contentsline {section}{\numberline {2.9}Markov chains}{4}{section.2.9}%
 \contentsline {chapter}{\numberline {3}Data structures}{4}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Numerical}{6}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Polynomials and recurrences}{6}{section.4.1}%
+\contentsline {chapter}{\numberline {4}Numerical}{5}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Polynomials and recurrences}{5}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Optimization}{6}{section.4.2}%
 \contentsline {section}{\numberline {4.3}Matrices}{7}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Fourier transforms}{8}{section.4.4}%
@@ -33,12 +33,12 @@
 \contentsline {subsection}{\numberline {5.3.1}Bézout's identity}{10}{subsection.5.3.1}%
 \contentsline {section}{\numberline {5.4}Fractions}{10}{section.5.4}%
 \contentsline {section}{\numberline {5.5}Pythagorean Triples}{10}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Primes}{11}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Estimates}{11}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Mobius Function}{11}{section.5.8}%
-\contentsline {chapter}{\numberline {6}Combinatorial}{11}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Permutations}{11}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Factorial}{11}{subsection.6.1.1}%
+\contentsline {section}{\numberline {5.6}Primes}{10}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Estimates}{10}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Mobius Function}{10}{section.5.8}%
+\contentsline {chapter}{\numberline {6}Combinatorial}{10}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Permutations}{10}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Factorial}{10}{subsection.6.1.1}%
 \contentsline {subsection}{\numberline {6.1.2}Cycles}{11}{subsection.6.1.2}%
 \contentsline {subsection}{\numberline {6.1.3}Derangements}{11}{subsection.6.1.3}%
 \contentsline {subsection}{\numberline {6.1.4}Burnside's lemma}{11}{subsection.6.1.4}%
@@ -52,16 +52,16 @@
 \contentsline {subsection}{\numberline {6.3.3}Eulerian numbers}{11}{subsection.6.3.3}%
 \contentsline {subsection}{\numberline {6.3.4}Stirling numbers of the second kind}{11}{subsection.6.3.4}%
 \contentsline {subsection}{\numberline {6.3.5}Bell numbers}{11}{subsection.6.3.5}%
-\contentsline {subsection}{\numberline {6.3.6}Labeled unrooted trees}{12}{subsection.6.3.6}%
-\contentsline {subsection}{\numberline {6.3.7}Catalan numbers}{12}{subsection.6.3.7}%
-\contentsline {chapter}{\numberline {7}Graph}{12}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Fundamentals}{12}{section.7.1}%
+\contentsline {subsection}{\numberline {6.3.6}Labeled unrooted trees}{11}{subsection.6.3.6}%
+\contentsline {subsection}{\numberline {6.3.7}Catalan numbers}{11}{subsection.6.3.7}%
+\contentsline {chapter}{\numberline {7}Graph}{11}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Fundamentals}{11}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Network flow}{12}{section.7.2}%
 \contentsline {section}{\numberline {7.3}Matching}{13}{section.7.3}%
 \contentsline {section}{\numberline {7.4}DFS algorithms}{14}{section.7.4}%
 \contentsline {section}{\numberline {7.5}Coloring}{15}{section.7.5}%
 \contentsline {section}{\numberline {7.6}Heuristics}{15}{section.7.6}%
-\contentsline {section}{\numberline {7.7}Trees}{16}{section.7.7}%
+\contentsline {section}{\numberline {7.7}Trees}{15}{section.7.7}%
 \contentsline {section}{\numberline {7.8}Math}{17}{section.7.8}%
 \contentsline {subsection}{\numberline {7.8.1}Number of Spanning Trees}{17}{subsection.7.8.1}%
 \contentsline {subsection}{\numberline {7.8.2}Erdős–Gallai theorem}{17}{subsection.7.8.2}%
@@ -74,8 +74,8 @@
 \contentsline {chapter}{\numberline {9}Strings}{22}{chapter.9}%
 \contentsline {chapter}{\numberline {10}Various}{23}{chapter.10}%
 \contentsline {section}{\numberline {10.1}Intervals}{23}{section.10.1}%
-\contentsline {section}{\numberline {10.2}Misc. algorithms}{24}{section.10.2}%
-\contentsline {section}{\numberline {10.3}Dynamic programming}{24}{section.10.3}%
+\contentsline {section}{\numberline {10.2}Misc. algorithms}{23}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Dynamic programming}{23}{section.10.3}%
 \contentsline {section}{\numberline {10.4}Optimization tricks}{24}{section.10.4}%
 \contentsline {subsection}{\numberline {10.4.1}Bit hacks}{24}{subsection.10.4.1}%
 \contentsline {subsection}{\numberline {10.4.2}Pragmas}{24}{subsection.10.4.2}%
