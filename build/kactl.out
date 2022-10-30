@@ -1,10 +1,52 @@
 \BOOKMARK [0][-]{chapter.1}{Contest}{}% 1
 \BOOKMARK [0][-]{chapter.2}{Mathematics}{}% 2
-\BOOKMARK [0][-]{chapter.3}{Data structures}{}% 3
-\BOOKMARK [0][-]{chapter.4}{Numerical}{}% 4
-\BOOKMARK [0][-]{chapter.5}{Number theory}{}% 5
-\BOOKMARK [0][-]{chapter.6}{Combinatorial}{}% 6
-\BOOKMARK [0][-]{chapter.7}{Graph}{}% 7
-\BOOKMARK [0][-]{chapter.8}{Geometry}{}% 8
-\BOOKMARK [0][-]{chapter.9}{Strings}{}% 9
-\BOOKMARK [0][-]{chapter.10}{Various}{}% 10
+\BOOKMARK [1][-]{section.2.1}{Equations}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Recurrences}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.3}{Trigonometry}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.4}{Geometry}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.5}{Derivatives/Integrals}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.6}{Sums}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.7}{Series}{chapter.2}% 9
+\BOOKMARK [1][-]{section.2.8}{Probability theory}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.9}{Markov chains}{chapter.2}% 11
+\BOOKMARK [0][-]{chapter.3}{Data structures}{}% 12
+\BOOKMARK [0][-]{chapter.4}{Numerical}{}% 13
+\BOOKMARK [1][-]{section.4.1}{Polynomials and recurrences}{chapter.4}% 14
+\BOOKMARK [1][-]{section.4.2}{Optimization}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.3}{Matrices}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.4}{Fourier transforms}{chapter.4}% 17
+\BOOKMARK [0][-]{chapter.5}{Number theory}{}% 18
+\BOOKMARK [1][-]{section.5.1}{Modular arithmetic}{chapter.5}% 19
+\BOOKMARK [1][-]{section.5.2}{Primality}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.3}{Divisibility}{chapter.5}% 21
+\BOOKMARK [1][-]{section.5.4}{Fractions}{chapter.5}% 22
+\BOOKMARK [1][-]{section.5.5}{Pythagorean Triples}{chapter.5}% 23
+\BOOKMARK [1][-]{section.5.6}{Primes}{chapter.5}% 24
+\BOOKMARK [1][-]{section.5.7}{Estimates}{chapter.5}% 25
+\BOOKMARK [1][-]{section.5.8}{Mobius Function}{chapter.5}% 26
+\BOOKMARK [0][-]{chapter.6}{Combinatorial}{}% 27
+\BOOKMARK [1][-]{section.6.1}{Permutations}{chapter.6}% 28
+\BOOKMARK [1][-]{section.6.2}{Partitions and subsets}{chapter.6}% 29
+\BOOKMARK [1][-]{section.6.3}{General purpose numbers}{chapter.6}% 30
+\BOOKMARK [0][-]{chapter.7}{Graph}{}% 31
+\BOOKMARK [1][-]{section.7.1}{Fundamentals}{chapter.7}% 32
+\BOOKMARK [1][-]{section.7.2}{Network flow}{chapter.7}% 33
+\BOOKMARK [1][-]{section.7.3}{Matching}{chapter.7}% 34
+\BOOKMARK [1][-]{section.7.4}{DFS algorithms}{chapter.7}% 35
+\BOOKMARK [1][-]{section.7.5}{Coloring}{chapter.7}% 36
+\BOOKMARK [1][-]{section.7.6}{Heuristics}{chapter.7}% 37
+\BOOKMARK [1][-]{section.7.7}{Trees}{chapter.7}% 38
+\BOOKMARK [1][-]{section.7.8}{Math}{chapter.7}% 39
+\BOOKMARK [0][-]{chapter.8}{Geometry}{}% 40
+\BOOKMARK [1][-]{section.8.1}{Geometric primitives}{chapter.8}% 41
+\BOOKMARK [1][-]{section.8.2}{Circles}{chapter.8}% 42
+\BOOKMARK [1][-]{section.8.3}{Polygons}{chapter.8}% 43
+\BOOKMARK [1][-]{section.8.4}{Misc. Point Set Problems}{chapter.8}% 44
+\BOOKMARK [1][-]{section.8.5}{3D}{chapter.8}% 45
+\BOOKMARK [0][-]{chapter.9}{Strings}{}% 46
+\BOOKMARK [0][-]{chapter.10}{Various}{}% 47
+\BOOKMARK [1][-]{section.10.1}{Intervals}{chapter.10}% 48
+\BOOKMARK [1][-]{section.10.2}{Misc. algorithms}{chapter.10}% 49
+\BOOKMARK [1][-]{section.10.3}{Dynamic programming}{chapter.10}% 50
+\BOOKMARK [1][-]{section.10.4}{Optimization tricks}{chapter.10}% 51
+\BOOKMARK [1][-]{section.10.5}{Prime List}{chapter.10}% 52
