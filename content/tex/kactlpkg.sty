@@ -82,7 +82,7 @@
 \headheight 25pt
 \lhead{\@unishort}
 \chead{}
-\rhead{\immediate\write18{python2 content/tex/preprocessor.py --print-header "\splitbotmarks\hdrmark|\botmarks\hdrmark" -o \@builddir/header2.tmp}\immediate\input{\@builddir/header2.tmp}\thepage}
+\rhead{\immediate\write18{python2 content/tex/preprocessor.py --print-header "\splitbotmarks\hdrmark|\botmarks\hdrmark" -o \@builddir/header2.tmp}\immediate\input{\@builddir/header2.tmp} - \thepage}
 %\lhead{}\chead{\thepage}\rhead{}
 \lfoot{}\cfoot{}\rfoot{}
 \fancyheadoffset{0pt}
