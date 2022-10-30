@@ -79,5 +79,5 @@
 \contentsline {section}{\numberline {10.4}Optimization tricks}{24}{section.10.4}%
 \contentsline {subsection}{\numberline {10.4.1}Bit hacks}{24}{subsection.10.4.1}%
 \contentsline {subsection}{\numberline {10.4.2}Pragmas}{24}{subsection.10.4.2}%
-\contentsline {section}{\numberline {10.5}Prime List}{24}{section.10.5}%
+\contentsline {section}{\numberline {10.5}Prime List}{25}{section.10.5}%
 \contentsfinish 
