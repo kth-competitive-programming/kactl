@@ -42,15 +42,16 @@
 #include "ModMulLL.h"
 #include "MillerRabin.h"
 
+mt19937_64 mt((unsigned) chrono::system_clock::now().time_since_epoch().count());
 ull pollard(ull n) {
-	auto f = [n](ull x) { return modmul(x, x, n) + 1; };
-	ull x = 0, y = 0, t = 30, prd = 2, i = 1, q;
-	while (t++ % 40 || __gcd(prd, n) == 1) {
-		if (x == y) x = ++i, y = f(x);
-		if ((q = modmul(prd, max(x,y) - min(x,y), n))) prd = q;
-		x = f(x), y = f(f(y));
+	ull c = 1, p = 2, q, x = 2, y = 2, t = 0;
+	auto f = [&c,n](ull x) { return modmul(x, x, n) + c; };
+	while (t ++ % 128 or __gcd(p, n) == 1) {
+		if (x == y) c = mt() % (n - 1) + 1, y = f(x = 2);
+		if (q = modmul(p, x > y ? x - y : y - x, n)) p = q;
+		x = f(x); y = f(f(y));
 	}
-	return __gcd(prd, n);
+	return __gcd(p, n);
 }
 vector<ull> factor(ull n) {
 	if (n == 1) return {};
