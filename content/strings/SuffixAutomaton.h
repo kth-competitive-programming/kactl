@@ -4,6 +4,8 @@
  * Description: 
  * 	Compressed form of all substrings of string S.
  * 	link -- the longest suffix of current substring with different endpos.
+ * 	endpos(t) -- the set of all positions in the string $s$ 
+ * 	, in which the occurrences of  $t$ end. 
  * 	Follow link from last to obtain all terminal states.
  * Usage: 
  * 	Number of different substrings. 
