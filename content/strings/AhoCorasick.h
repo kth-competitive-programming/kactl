@@ -87,4 +87,3 @@ struct AhoCorasick {
 		return ans[p];
 	}
 };
-
