@@ -4,7 +4,7 @@
  * License: CC0
  * Source: cheissmart
  * Description: Given n segments (s, t), return the polygon of the area of the intersection of the left of the n segments.
- * Status: Tested with Big Brother on Kattix.
+ * Status: Tested with Big Brother on Kattis.
  */
 #pragma once
 
