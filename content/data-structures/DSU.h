@@ -18,7 +18,7 @@ struct DSU{
     int operator[](int i){ return parent(i); }
     void unify(int a, int b){
         a = parent(a), b = parent(b);
-        if(e[a] > e[b]) swap(a, b);
-        if(a!=b) dsu[b] = a, dsu[a] += dsu[b], num_comps--;
+        if(dsu[a] > dsu[b]) swap(a, b);
+        if(a!=b) dsu[a] += dsu[b], dsu[b] = a, num_comps--;
     }
 };
