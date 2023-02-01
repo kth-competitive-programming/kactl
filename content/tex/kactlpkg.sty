@@ -81,7 +81,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \headheight 25pt
 \lhead{\@unishort}
-\chead{\immediate\write18{python2 content/tex/preprocessor.py --print-header "\splitbotmarks\hdrmark|\botmarks\hdrmark" -o \@builddir/header2.tmp}\immediate\input{\@builddir/header2.tmp}}
+\chead{\immediate\write18{python3 content/tex/preprocessor.py --print-header "\splitbotmarks\hdrmark|\botmarks\hdrmark" -o \@builddir/header2.tmp}\immediate\input{\@builddir/header2.tmp}}
 \rhead{\thepage}
 %\lhead{}\chead{\thepage}\rhead{}
 \lfoot{}\cfoot{}\rfoot{}
@@ -269,7 +269,7 @@
 	\penalty-100
 	{\large #2}
 	\immediate\write18{rm -f \@builddir/kactl.tmp} % Don't include old kactl.tmp on failure.
-	\immediate\write18{python2 content/tex/preprocessor.py -i "\@kactldir/#2" -o \@builddir/kactl.tmp #1}
+	\immediate\write18{python3 content/tex/preprocessor.py -i "\@kactldir/#2" -o \@builddir/kactl.tmp #1}
 	\immediate\input{\@builddir/kactl.tmp}
 }
 
