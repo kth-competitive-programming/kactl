@@ -44,13 +44,13 @@ struct LazySegmentTree {
             lazy[v] = l_id; mset[v] = nop;
         }
     }
-    template <class F> void process(int l, int r, int msk, int k, F op){
-        int l0=l, r0=r; assert(l <= r);
+    template <class B> void process(int l, int r, int msk, B op){
+        int l0=l, r0=r, k=1; assert(l <= r);
         if(msk & (1 << 0)) push(l0), push(r0);
         for(l += n, r += n; l <= r; l>>=1, r>>=1, k<<=1) {
-            if(l==r) F(l, k);
-            if(l&1) F(l++, k);
-            if(!(r&1)) F(r++, k);
+            if(l==r) B(l, k);
+            if(l&1) B(l++, k);
+            if(!(r&1)) B(r++, k);
         }
         if(msk & (1 << 1)) pull(l0), pull(r0);
     }
@@ -58,8 +58,8 @@ struct LazySegmentTree {
         process(lr, rr, 0b11, [&](int v, int k){
             apply(v, l_id, val, 1<<k); });
     }
-    void update(int lr, int rr, T &val){ // order of ops does not matter, msk=0b10
-        process(lr, rr, 0b10, [&](int v, int k){
+    void update(int lr, int rr, T &val){ // order of ops does not matter => msk=0b10
+        process(lr, rr, 0b11, [&](int v, int k){ 
             apply(v, val, nop, 1<<k); });
     }
     T query(int lr, int rr){ // Does not work with commutative functions
