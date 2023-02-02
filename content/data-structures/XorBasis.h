@@ -1,3 +1,5 @@
+// Returns an xor basis of a, sorted by decreasing first set bit;
+// Each vector will be the only vector that has its first set bit set. 
 vector<ll> xor_basis(vector<ll>& a){
     vector<ll> basis(64, 0);
     for(auto x : a){
