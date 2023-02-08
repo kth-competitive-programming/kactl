@@ -4,23 +4,26 @@
  * License: CC0
  * Source: https://codeforces.com/blog/entry/18051
  * Description: A fully modular iterative lazy segment tree. 
+ * Note: C++ isn't good at inlining this code for some reason, if harsh TL manually inline merge, mapping and compose. 
+ *          Can also inline the calls to process to make it even faster.
  * Time: O(\log N).
- * Usage: TBD
- * Status: Needs more testing. Especially range set and sum queries.
+ * Usage: Modify merge, mapping and compose as required. Default is range add, range set and max queries.
+ * Status: Tested.
  */
 
 template<typename T, typename L> // merge, lazy
 struct LazySegmentTree {
-    const int n, h;
+    int n, h;
     T m_id; vector<T> tree, mset;
     L l_id; vector<L> lazy;
     T nop = numeric_limits<T>::min(); // change if T is not numeric
 
-    function<T(T&, T&)> merge = [&](T &a, T &b){ return max(a, b); };
-    function<T(T, T&, L&, int)> mapping = [&](T v, T &vset, L &val, int len) { 
-        return (vset == nop) ? v+val : vset; };
-    function<void(T&, L&, T&, L&, int)> compose = [&](T &cset, L &cl, T &uset, L &ul, int len){ 
-        (uset == nop) ? cl += ul : cset = uset; };
+    T merge(T a, T b) { return max(a, b); }
+    T mapping(T v, T vset, L val, int len) { return (vset == nop) ? v+val : vset*len; }
+    void compose(T &cset, L &cl, T &uset, L &ul, int len){
+        if(uset == nop) cl += ul;
+        else cset = uset;
+    }
 
     void apply(int v, L upd, T vset, int len){
         tree[v] = mapping(tree[v], vset, upd, len);
