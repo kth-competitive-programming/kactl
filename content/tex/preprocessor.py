@@ -1,11 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # encoding: utf-8
 
-# Source code preprocessor for KACTL build process. Compatible with both Python 2 and 3;
-# currently 2 is used because it has better startup overhead (5% faster builds).
+# Source code preprocessor for KACTL build process.
 # License: CC0
 
-from __future__ import print_function
 import sys
 import getopt
 import subprocess
@@ -80,6 +78,7 @@ def processwithcomments(caption, instream, outstream, listingslang):
         lines = instream.readlines()
     except:
         error = "Could not read source."
+        lines = []
     nlines = list()
     for line in lines:
         if 'exclude-line' in line:
@@ -148,7 +147,7 @@ def processwithcomments(caption, instream, outstream, listingslang):
 
     if listingslang in ['C++', 'Java']:
         hash_script = 'hash'
-        p = subprocess.Popen(['sh', 'content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        p = subprocess.Popen(['sh', 'content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding="utf-8")
         hsh, _ = p.communicate(nsource)
         hsh = hsh.split(None, 1)[0]
         hsh = hsh + ', '
