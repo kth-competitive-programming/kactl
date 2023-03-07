@@ -9,6 +9,8 @@
  * Time: $O(n \log |n|)$
  * Status: Tested at CodeChef
  */
+#pragma once
+
 #include <../data-structures/DSU.h>
 
 struct Edge { int u, v, w; };
@@ -25,32 +27,27 @@ struct EdgeDecompositionTree {
         sort(all(ord), [&](int i, int j) { return cmp(e[i], e[j]); });
         reverse(all(ord));
         DSU dsu(n);
-        auto add_edge = [&](int v, int p){
-            adj[p].pb(v); adj[v].pb(p); 
-            par[v] = p; };
+        auto add_edge = [&](int v, int p){ adj[p].pb(v); adj[v].pb(p); par[v] = p; };
         for(auto &eid : ord){
             int u = dsu[e[eid].u], v = dsu[e[eid].v];
             dsu.unify(u, v);
             add_edge(head[u], eid + n); add_edge(head[v], eid + n);
             head[dsu[u]] = eid + n;
         }
-        root = n + ord.back();
-        par[root] = root;
+        root = n + ord.back(), par[root] = root;
     }
-    pair<vi, vii> flatten(){
+    vii flatten(){
         int t = 0;
-        vi flat(n);
         vii r(2*n, {INT_MAX, INT_MIN});
         function<void(int,int)> dfs = [&](int v, int p){
-            if(v < n) r[v] = {t, t}, flat[t++] = v;
-            for(auto &to : adj[v]){
-                if(to == p) continue;
+            if(v < n) r[v] = {t, t}, t++;
+            for(auto &to : adj[v]) if(to != p) {
                 dfs(to, v);
                 r[v].ff = min(r[v].ff, r[to].ff);
                 r[v].ss = max(r[v].ss, r[to].ss);
             }
         };
         dfs(root, -1);
-        return {flat, r};
+        return r;
     }
 };
