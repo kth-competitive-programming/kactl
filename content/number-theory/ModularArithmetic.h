@@ -8,7 +8,7 @@
  */
 #pragma once
 
-template<constexpr int mod>
+template<const int mod>
 struct mint {
     constexpr mint(int x = 0) : val((x % mod + mod) % mod) {}
     mint& operator+=(const mint &b) { val += b.val; val -= mod * (val >= mod); return *this; }
