@@ -18,7 +18,7 @@ struct DP{
         int mid = (l + r) >> 1;
         pii best = {INT_MAX, -1};
         rep (k, optl, min(mid, optr)+1)
-            best = max(best, {C(k, mid, ind), k});
+            best = min(best, {C(k, mid, ind), k});
         dp[ind][mid] = best.ff;
         rec(l, mid-1, optl, best.ss, ind), rec(mid+1, r, best.ss, optr, ind);
     }
