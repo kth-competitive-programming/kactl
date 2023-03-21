@@ -12,7 +12,7 @@ struct DP{
     int n, m;
     vi dp[2];
     DP (int n, int m) : n(n), m(m), dp{vi(n), vi(n)}{}
-    int C(int i, int j, int ind) {return (i ? dp[ind^1][i-1] : 0));}
+    int C(int i, int j, int ind) {return (i ? dp[ind^1][i-1] : 0);}
     void rec(int l, int r, int optl, int optr, int ind) {
         if (l > r) return;
         int mid = (l + r) >> 1;
