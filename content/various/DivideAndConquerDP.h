@@ -16,7 +16,7 @@ struct DP{
     void rec(int l, int r, int optl, int optr, int ind) {
         if (l > r) return;
         int mid = (l + r) >> 1;
-        pii best = {-1, -1};
+        pii best = {INT_MAX, -1};
         rep (k, optl, min(mid, optr)+1)
             best = max(best, {C(k, mid, ind), k});
         dp[ind][mid] = best.ff;
