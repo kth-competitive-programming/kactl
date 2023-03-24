@@ -32,7 +32,7 @@ vi mo(vector<pii> Q) {
 	return res;
 }
 
-vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
+vi moTree(vector<array<int, 2>> Q, vvi& ed, int root=0){
 	int N = sz(ed), pos[2] = {}, blk = 350; // ~N/sqrt(Q)
 	vi s(sz(Q)), res = s, I(N), L(N), R(N), in(N), par(N);
 	add(0, 0), in[0] = 1;
