@@ -1,14 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define MOD 1000000007
+using ll = long long;
+using dbl = long double;
+//#define int ll
+
+using pii = pair<int, int>;
+using vi = vector<int>;
+using vvi = vector<vi>;
+using vii = vector<pii>;
+using vvii = vector<vii>;
+using vll = vector<ll>;
+
+#define ff first
+#define ss second
+#define pb push_back
 #define rep(i, a, b) for(int i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
+#define tc int t; cin>>t; while(t--)
+#define fightFight cin.tie(0) -> sync_with_stdio(0)
 
-int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	cin.exceptions(cin.failbit);
+void solve(){}
+signed main(){
+    fightFight;
+    solve();   
 }

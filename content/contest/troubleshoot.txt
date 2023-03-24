@@ -1,31 +1,31 @@
 Pre-submit:
 Write a few simple test cases if sample is not enough.
-Are time limits close? If so, generate max cases.
-Is the memory usage fine?
 Could anything overflow?
+Is the memory usage fine?
+Are time limits close? If so, generate max cases.
 Make sure to submit the right file.
 
 Wrong answer:
 Print your solution! Print debug output, as well.
-Are you clearing all data structures between test cases?
-Can your algorithm handle the whole range of input?
-Read the full problem statement again.
+Create some testcases to run your algorithm on.
 Do you handle all corner cases correctly?
-Have you understood the problem correctly?
-Any uninitialized variables?
 Any overflows?
 Confusing N and M, i and j, etc.?
+Is your output format correct? (including whitespace)
+Read the full problem statement again.
+Have you understood the problem correctly?
 Are you sure your algorithm works?
 What special cases have you not thought of?
+Go through the algorithm for a simple case.
+Any uninitialized variables?
+Are you clearing all data structures between test cases?
+Can your algorithm handle the whole range of input?
 Are you sure the STL functions you use work as you think?
 Add some assertions, maybe resubmit.
-Create some testcases to run your algorithm on.
-Go through the algorithm for a simple case.
 Go through this list again.
 Explain your algorithm to a teammate.
 Ask the teammate to look at your code.
 Go for a small walk, e.g. to the toilet.
-Is your output format correct? (including whitespace)
 Rewrite your solution from the start or let a teammate do it.
 
 Runtime error:
@@ -40,11 +40,11 @@ Are you using too much memory?
 Debug with resubmits (e.g. remapped signals, see Various).
 
 Time limit exceeded:
-Do you have any possible infinite loops?
 What is the complexity of your algorithm?
+How big is the input and output? (consider scanf/fastinput)
+Avoid vector, map, set. (use arrays/unordered_map/sorting)
 Are you copying a lot of unnecessary data? (References)
-How big is the input and output? (consider scanf)
-Avoid vector, map. (use arrays/unordered_map)
+Do you have any possible infinite loops?
 What do your teammates think about your algorithm?
 
 Memory limit exceeded:
