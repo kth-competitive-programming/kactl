@@ -3,8 +3,11 @@
  * Date: 2022-10-15
  * License: CC0
  * Source: https://codeforces.com/blog/entry/18051
- * Description: modular iterative range update tree. Inclusive bounds [L, R]. Pass merge function as lambda.
- * Time: O(\log N)
+ * ExtDesc: modular iterative range update tree. Inclusive bounds [L, R]. Pass merge function as lambda. O(\log N)
+ * Description: Operation must be commutative
+ * Usage: 
+ * auto merge = [&](int a, int b) { return min(a, b); };
+ * RangeUpdateTree<int, decltype(merge)> st(arr, INT_MAX, merge);
  * Status: stress-tested
  */
 #pragma once
@@ -30,7 +33,3 @@ struct RangeUpdateTree{
         return res;
     }
 };
-
-// Usage
-auto merge = [&](int a, int b) { return min(a, b); };
-RangeUpdateTree<int, decltype(merge)> st(arr, INT_MAX, merge);

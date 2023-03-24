@@ -3,15 +3,12 @@
  * Date: 2022-02-02
  * License: CC0
  * Source: https://codeforces.com/blog/entry/18051
- * Description: A fully modular iterative lazy segment tree. 
- * Note: C++ isn't good at inlining this code for some reason, if harsh TL manually inline merge, mapping and compose. 
- *          Can also inline the calls to process to make it even faster.
- * Time: O(\log N).
- * Usage: Modify merge, mapping and compose as required. Default is range add, and max queries.
+ * ExtDesc: An iterative lazy segment tree implementation. O(\log N).
+ * Description: If harsh TL manually inline merge, mapping, compose and process. Segtree of vector faster than vector of segtree.
  * Status: Needs testing.
  */
 
-template<typename T, typename L> // merge, lazy
+template<typename T, typename L>
 struct LazySegmentTree {
     int n, h;
     T m_id; vector<T> tree;
@@ -53,14 +50,12 @@ struct LazySegmentTree {
         }
         if(msk & (1 << 1)) pull(l0), pull(r0);
     }
-    void update(int lr, int rr, L val){ // order of ops does not matter => msk=0b10
-        process(lr, rr, 0b11, [&](int v, int k){ 
-            apply(v, val, k); });
+    void update(int lr, int rr, L val){ // Commutatvie upd => msk=0b10
+        process(lr, rr, 0b11, [&](int v, int k){ apply(v, val, k); });
     }
     T query(int lr, int rr){ // Does not work with commutative functions
         T ret = m_id; 
-        process(lr, rr, 0b1, [&](int v, int k){
-            ret = merge(ret, tree[v]); }); 
+        process(lr, rr, 0b1, [&](int v, int k){ ret = merge(ret, tree[v]); }); 
         return ret;
     }
 };

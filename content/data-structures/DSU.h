@@ -3,9 +3,8 @@
  * Date: 2022-10-15
  * License: CC0
  * Source: folklore
- * Description: Disjoint-set data structure. 
- * dsu[v] holds -size(v) if v is parent, else contains parent id
- * Time: $O(\alpha(N))$
+ * ExtDesc: Disjoint-set data structure. $O(\alpha(N))$
+ * Description: dsu[v] holds -size(v) if v is parent, else contains parent id
  */
 #pragma once
 
