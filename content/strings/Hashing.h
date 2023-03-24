@@ -4,13 +4,13 @@
  * License: CC0
  * Source: own work
  * Description: Methods for n-hashing a string. Provides all necessary overloads for performing arithmetic 
- * 		with n-ary tuples of varied-mod ints. Also compute p^i and invp^i in linear time. Only modify values
+ * 		with n-ary tuples of varied-mod ints. Also compute $p^i$ and $invp^i$ in linear time. Only modify values
  * 		with a "// *" next to them to play with the hashes or increase precomputation length.
  * Status: stress-tested
  */
 #pragma once
 
-#include <../number-theory/ModularArithmetic,h>
+#include "../number-theory/ModularArithmetic.h"
 
 template<typename... Ts, size_t... Is, typename F>
 void __op(index_sequence<Is...>, tuple<Ts...>& a, const tuple<Ts...>& b, F op) { ((get<Is>(a) = op(get<Is>(a), get<Is>(b))), ...); }
