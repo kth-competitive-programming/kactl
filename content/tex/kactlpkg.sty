@@ -41,10 +41,11 @@
 }
 
 \newcommand{\enablecolors}{
-	\lstset{basicstyle=\footnotesize\ttfamily\color{mygreen}}
+	\lstset{basicstyle=\footnotesize\ttfamily\color{darkgray}\bfseries}
 	\lstset{commentstyle=\color{darkgray}\normalfont\itshape}
-	\lstset{keywordstyle=\color{myblue}}
-	\lstset{identifierstyle=\color{black}}
+	\lstset{keywordstyle=\color{mypurple}\bfseries}
+	\lstset{identifierstyle=\color{myblue}\bfseries}
+	\lstset{emphstyle=\color{myred}\bfseries}
 }
 
 % Some default config
@@ -188,8 +189,10 @@
   \endgroup
 }
 
-\definecolor{mygreen}{HTML}{007000}
-\definecolor{myblue}{HTML}{0000dd}
+\definecolor{mygreen}{HTML}{98C379}
+\definecolor{myblue}{HTML}{1988e3}
+\definecolor{mypurple}{HTML}{C678DD}
+\definecolor{myred}{HTML}{E06C75}
 
 % Configure source code listings
 \lstset{language=C++}
