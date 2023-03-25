@@ -23,7 +23,4 @@ using vll = vector<ll>;
 #define fightFight cin.tie(0) -> sync_with_stdio(0)
 
 void solve(){}
-signed main(){
-    fightFight;
-    solve();   
-}
+signed main(){ fightFight; solve(); }
