@@ -29,8 +29,8 @@ struct DinicMatching {
     bool isRight(int v) { return (v > n and v <= n+m); }
 
     void __addEdge(int a, int b, ll c, int id = 0, ll rcap = 0) {
-        adj[a].push_back({b, sz(adj[b]), c, c, id});
-        adj[b].push_back({a, sz(adj[a]) - 1, rcap, rcap, id});
+        adj[a].pb({b, sz(adj[b]), c, c, id});
+        adj[b].pb({a, sz(adj[a]) - 1, rcap, rcap, id});
     }
     // ENSURE that id is non-zero, necessary for reachable_dfs to work
     void addEdge(int l, int r, int id = 1){

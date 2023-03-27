@@ -31,9 +31,9 @@ struct Maxclique {
 		old[lev] = S[lev - 1];
 		while (sz(R)) {
 			if (sz(q) + R.back().d <= sz(qmax)) return;
-			q.push_back(R.back().i);
+			q.pb(R.back().i);
 			vv T;
-			for(auto v:R) if (e[R.back().i][v.i]) T.push_back({v.i});
+			for(auto v:R) if (e[R.back().i][v.i]) T.pb({v.i});
 			if (sz(T)) {
 				if (S[lev]++ / ++pk < limit) init(T);
 				int j = 0, mxk = 1, mnk = max(sz(qmax) - sz(q) + 1, 1);
@@ -44,7 +44,7 @@ struct Maxclique {
 					while (any_of(all(C[k]), f)) k++;
 					if (k > mxk) mxk = k, C[mxk + 1].clear();
 					if (k < mnk) T[j++].i = v.i;
-					C[k].push_back(v.i);
+					C[k].pb(v.i);
 				}
 				if (j > 0) T[j - 1].d = 0;
 				rep(k,mnk,mxk + 1) for (int i : C[k])
@@ -56,6 +56,6 @@ struct Maxclique {
 	}
 	vi maxClique() { init(V), expand(V); return qmax; }
 	Maxclique(vb conn) : e(conn), C(sz(e)+1), S(sz(C)), old(S) {
-		rep(i,0,sz(e)) V.push_back({i});
+		rep(i,0,sz(e)) V.pb({i});
 	}
 };

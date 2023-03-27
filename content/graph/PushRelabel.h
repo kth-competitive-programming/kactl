@@ -24,13 +24,13 @@ struct PushRelabel {
 
 	void addEdge(int s, int t, ll cap, ll rcap=0) {
 		if (s == t) return;
-		g[s].push_back({t, sz(g[t]), 0, cap});
-		g[t].push_back({s, sz(g[s])-1, 0, rcap});
+		g[s].pb({t, sz(g[t]), 0, cap});
+		g[t].pb({s, sz(g[s])-1, 0, rcap});
 	}
 
 	void addFlow(Edge& e, ll f) {
 		Edge &back = g[e.dest][e.back];
-		if (!ec[e.dest] && f) hs[H[e.dest]].push_back(e.dest);
+		if (!ec[e.dest] && f) hs[H[e.dest]].pb(e.dest);
 		e.f += f; e.c -= f; ec[e.dest] += f;
 		back.f -= f; back.c += f; ec[back.dest] -= f;
 	}

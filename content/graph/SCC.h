@@ -18,7 +18,7 @@
 vi val, comp, z, cont;
 int Time, ncomps;
 template<class G, class F> int dfs(int j, G& g, F& f) {
-	int low = val[j] = ++Time, x; z.push_back(j);
+	int low = val[j] = ++Time, x; z.pb(j);
 	for (auto e : g[j]) if (comp[e] < 0)
 		low = min(low, val[e] ?: dfs(e,g,f));
 
@@ -26,7 +26,7 @@ template<class G, class F> int dfs(int j, G& g, F& f) {
 		do {
 			x = z.back(); z.pop_back();
 			comp[x] = ncomps;
-			cont.push_back(x);
+			cont.pb(x);
 		} while (x != j);
 		f(cont); cont.clear();
 		ncomps++;
