@@ -12,7 +12,7 @@
 #pragma once
 
 struct RollbackUF {
-	vi e; vector<pii> st;
+	vi e; vii st;
 	RollbackUF(int n) : e(n, -1) {}
 	int size(int x) { return -e[find(x)]; }
 	int find(int x) { return e[x] < 0 ? x : find(e[x]); }

@@ -3,8 +3,10 @@
  * Date: 2022-10-15
  * License: CC0
  * Source: https://codeforces.com/blog/entry/18051
- * Description: modular iterative segtree. Inclusive bounds [L, R]. Pass merge function as lambda.
- * Time: O(\log N)
+ * ExtDesc: modular iterative segtree. Inclusive bounds [L, R]. Pass merge function as lambda. O(\log N)
+ * Usage: 
+ * auto merge = [\&](int a, int b) { return min(a, b); }; 
+ * Segtree<int, decltype(merge)> st(arr, INT_MAX, merge);
  * Status: stress-tested
  */
 #pragma once
@@ -33,8 +35,3 @@ struct Segtree{
             tree[v>>1] = merge(tree[v], tree[v^1]);
     }
 };
-
-// Usage
-auto merge = [&](int a, int b) { return min(a, b); };
-Segtree<int, decltype(merge)> st(arr, INT_MAX, merge);
-

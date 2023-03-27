@@ -3,12 +3,9 @@
  * Date: 2015-02-06
  * License: CC0
  * Source: Folklore
- * Description: Range Minimum Queries on an array. Returns
- * min(V[a], V[a + 1], ... V[b]) in constant time.
- * Usage:
- *  RMQ rmq(values);
- *  rmq.query(inclusive, exclusive);
- * Time: $O(|V| \log |V| + Q)$
+ * ExtDesc: Range Minimum Queries on an array. Returns
+ * min(V[a], V[a + 1], ... V[b]) in constant time. 
+ * $O(|V| \log |V| + Q)$
  * Status: stress-tested
  */
 #pragma once
