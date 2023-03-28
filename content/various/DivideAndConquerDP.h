@@ -8,21 +8,23 @@
  */
 #pragma once
 
+template<typename T>
 struct DP{
     int n, m;
-    vi dp[2];
-    DP (int n, int m) : n(n), m(m), dp{vi(n), vi(n)}{}
-    int C(int i, int j, int ind) {return (i ? dp[ind^1][i-1] : 0);}
+	T id;
+    vector<T> dp[2];
+    DP (int n, int m, T id) : n(n), m(m), id(id), dp{vector<T>(n), vector<T>(n)}{}
+    T C(int i, int j, int ind) {return (i ? dp[ind^1][i-1] : 0);}
     void rec(int l, int r, int optl, int optr, int ind) {
         if (l > r) return;
         int mid = (l + r) >> 1;
-        pii best = {INT_MAX, -1};
+        pair<T,int> best = {id, optl};
         rep (k, optl, min(mid, optr)+1)
             best = min(best, {C(k, mid, ind), k});
         dp[ind][mid] = best.ff;
         rec(l, mid-1, optl, best.ss, ind), rec(mid+1, r, best.ss, optr, ind);
     }
-    int solve() {
+    T solve() {
         rep(i, 0, n)
             dp[0][i] = C(0, i, 0);
         rep(i, 1, m)
