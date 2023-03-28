@@ -1,0 +1,4 @@
+{	// add flags from cmake
+	"shell_cmd": "g++ ${file_name} -o ${file_base_name} -g && ./${file_base_name} < input.txt > output.txt",
+   	"working_dir": "${file_path}"
+}

@@ -3,7 +3,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define MOD 1000000007
+const int MOD = 1e9 + 7;
 using ll = long long;
 using dbl = long double;
 //#define int ll
@@ -26,3 +26,4 @@ using vll = vector<ll>;
 
 void solve(){}
 signed main(){ fightFight; solve(); }
+// a1a656

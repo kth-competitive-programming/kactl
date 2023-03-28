@@ -32,19 +32,18 @@ Runtime error:
 Have you tested all corner cases locally?
 Any uninitialized variables?
 Are you reading or writing outside the range of any vector?
+Invalidated pointers or iterators?
 Any assertions that might fail?
 Any possible division by 0? (mod 0 for example)
 Any possible infinite recursion?
-Invalidated pointers or iterators?
 Are you using too much memory?
-Debug with resubmits (e.g. remapped signals, see Various).
 
 Time limit exceeded:
 What is the complexity of your algorithm?
 How big is the input and output? (consider scanf/fastinput)
-Avoid vector, map, set. (use arrays/unordered_map/sorting)
+Avoid vector, map, set. (use arrays/unordered_map/sorting/pq)
 Are you copying a lot of unnecessary data? (References)
-Do you have any possible infinite loops?
+Do you have any possible infinite loops? (Ex: par[p] = p)
 What do your teammates think about your algorithm?
 
 Memory limit exceeded:
