@@ -2,8 +2,9 @@
  * Author: Vidit Jain
  * License: CC0
  * Source: CP-Algorithms
- * Description: Given $a[i] = \min_{lo(i) \le k < hi(i)}(f(i, k))$ where the (minimal) optimal $k$ increases with $i$, computes $a[i]$ for $i = L..R-1$.
- * Time: O((N + (hi-lo)) \log N)
+ * ExtDesc: Given $a[i] = \min_{lo(i) \le k < hi(i)}(f(i, k))$ where the (minimal) optimal $k$ increases with $i$, computes $a[i]$ for $i = L..R-1$.
+ * Description: Applicable if $(A[i][j] \leq A[i][j + 1])$. Quadrangle Inequality is also sufficient $(C[a][c] + C[b][d] \leq C[a][d] + C[b][c])$
+ * Time: O(kN\log N)
  * Status: tested on https://codeforces.com/contest/833/problem/B
  */
 #pragma once
@@ -11,7 +12,7 @@
 template<typename T>
 struct DP{
     int n, m;
-	T id;
+    T id;
     vector<T> dp[2];
     DP (int n, int m, T id) : n(n), m(m), id(id), dp{vector<T>(n), vector<T>(n)}{}
     T C(int i, int j, int ind) {return (i ? dp[ind^1][i-1] : 0);}
