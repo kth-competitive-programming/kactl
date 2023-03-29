@@ -4,7 +4,7 @@
  * License: Unknown
  * Source: Suffix array - a powerful tool for dealing with strings
  * (Chinese IOI National team training paper, 2009)
- * Description: Builds suffix array for a string.
+ * ExtDesc: Builds suffix array for a string.
  * \texttt{sa[i]} is the starting index of the suffix which
  * is $i$'th in the sorted suffix array.
  * The returned vector is of size $n+1$, and \texttt{sa[0] = n}.
@@ -12,6 +12,7 @@
  * neighbouring strings in the suffix array:
  * \texttt{lcp[i] = lcp(sa[i], sa[i-1])}, \texttt{lcp[0] = 0}.
  * The input string must not contain any zero bytes.
+ * Description: \texttt{sa[i]} stores starting index of the suffix in position $i$ when sorted (\texttt{sa[0] = n}). \texttt{lcp[i] = lcp(sa[i], sa[i - 1])}, \texttt{lcp[0] = 0}. Ensure no zero bytes in string.
  * Time: O(n \log n)
  * Status: stress-tested
  */
