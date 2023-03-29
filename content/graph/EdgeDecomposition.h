@@ -11,7 +11,7 @@
  */
 #pragma once
 
-#include <../data-structures/DSU.h>
+#include "../data-structures/DSU.h"
 
 struct Edge { int u, v, w; };
 

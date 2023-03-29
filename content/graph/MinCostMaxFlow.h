@@ -30,8 +30,8 @@ struct MCMF {
 	void addEdge(int from, int to, ll cap, ll cost) {
 		this->cap[from][to] = cap;
 		this->cost[from][to] = cost;
-		ed[from].push_back(to);
-		red[to].push_back(from);
+		ed[from].pb(to);
+		red[to].pb(from);
 	}
 
 	void path(int s) {

@@ -3,10 +3,11 @@
  * Date: 2016-12-15
  * License: CC0
  * Source: http://en.wikipedia.org/wiki/Floyd–Warshall_algorithm
- * Description: Calculates all-pairs shortest path in a directed graph that might have negative edge weights.
+ * ExtDesc: Calculates all-pairs shortest path in a directed graph that might have negative edge weights. 
+ * O(N^3)
  * Input is an distance matrix $m$, where $m[i][j] = \texttt{inf}$ if $i$ and $j$ are not adjacent.
  * As output, $m[i][j]$ is set to the shortest distance between $i$ and $j$, \texttt{inf} if no path, or \texttt{-inf} if the path goes through a negative-weight cycle.
- * Time: O(N^3)
+ * Description: $m[i][j] = \texttt{inf}$ if no edge $(i, j)$. Output $m[i][j] = \texttt{-inf}$ if path goes through negative weight cycle.
  * Status: slightly tested
  */
 #pragma once
