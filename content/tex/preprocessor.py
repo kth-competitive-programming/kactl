@@ -285,7 +285,7 @@ def main():
         elif language == "rawpy":
             processraw(caption, instream, outstream, 'Python')
         else:
-            raise ValueError("Unkown language: " + str(language))
+            raise ValueError("Unknown language: " + str(language))
     except (ValueError, getopt.GetoptError, IOError) as err:
         print(str(err), file=sys.stderr)
         print("\t for help use --help", file=sys.stderr)
