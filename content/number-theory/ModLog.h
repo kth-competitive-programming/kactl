@@ -26,7 +26,7 @@
  * So once all exponenents of a that are <= sqrt(m) has been checked, you
  * cannot have case 2. Case 2 is the only tricky case.
  *
- * So the modification allowing for non-coprime input invloves checking all
+ * So the modification allowing for non-coprime input involves checking all
  * exponents of a that are <= n, and then handling the non-tricky cases by
  * a simple gcd(a^n,m) == gcd(b,m) check.
  */
