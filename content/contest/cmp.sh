@@ -6,7 +6,7 @@
 source ~/.bashrc && shopt -s expand_aliases
 c gen.cpp -o g && c bru.cpp -o b && c sol.cpp -o s
 for i in {1..100000}; do
-	./g>i && ./b<i>a && ./s<i>o && diff -y a o
+	echo $i && ./g>i && ./b<i>a && ./s<i>o && diff -y a o
 	if [ $? == 1 ]; then echo $i; cat i; break; fi
 done
 echo Done.
