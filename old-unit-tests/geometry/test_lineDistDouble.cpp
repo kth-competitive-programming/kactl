@@ -38,7 +38,7 @@ public:
 		stringstream ss;
 		ss << p1 << " " << p2 << " " << p3;
 		double r = lineDist(p1,p2,p3);
-		ss << " expected " << a << " recieved " << r;
+		ss << " expected " << a << " received " << r;
 		if (abs(r-a) > 1e-3)
 			fail(ss.str());
 	}
