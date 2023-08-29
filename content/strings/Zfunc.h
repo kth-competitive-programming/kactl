@@ -7,7 +7,7 @@
  */
 #pragma once
 
-vi Z(const string &s) {
+vi Zfunc(const string &s) {
 	int n = sz(s), l = 1, r = 0;
 	vi z(n, n);
 	rep(i, 1, n) {
