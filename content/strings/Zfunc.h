@@ -6,17 +6,14 @@
  * Status: stress-tested
  */
 #pragma once
+
 vi Z(const string &s) {
-	int n = sz(s);
-	vi z(n, 0);
-	int l = 1, r = 0;
-	rep(i, 1, n - 1) {
+	int n = sz(s), l = 1, r = 0;
+	vi z(n, n);
+	rep(i, 1, n) {
 		z[i] = max(0, min(z[i - l], r - i + 1));
-		while(i + z[i] < n && s[i + z[i]] == s[z[i]]) {
-			l = i, r = i + z[i], z[i] ++;
-		}
+		while(i + z[i] < n && s[i + z[i]] == s[z[i]])
+			l = i, r = i + z[i], z[i]++;
 	}
 	return z;
 }
-
-
