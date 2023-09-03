@@ -8,8 +8,6 @@ import sys
 import getopt
 import subprocess
 
-from datetime import datetime
-
 def escape(input):
     input = input.replace('<', r'\ensuremath{<}')
     input = input.replace('>', r'\ensuremath{>}')
@@ -173,7 +171,7 @@ def processwithcomments(caption, instream, outstream, listingslang):
         if includelist:
             out.append(r"\leftcaption{%s}" % pathescape(", ".join(includelist)))
         if nsource:
-            out.append(r"\rightcaption{%s, %s%d lines}" % (datetime.today().strftime('%Y-%m-%d'), hsh, len(nsource.split("\n"))))
+            out.append(r"\rightcaption{%s%d lines}" % (hsh, len(nsource.split("\n"))))
         langstr = ", language="+listingslang
         out.append(r"\begin{lstlisting}[caption={%s}%s]" % (pathescape(caption), langstr))
         out.append(nsource)
@@ -186,7 +184,7 @@ def processraw(caption, instream, outstream, listingslang = 'raw'):
     try:
         source = instream.read().strip()
         addref(caption, outstream)
-        print(r"\rightcaption{%s, %d lines}" % (datetime.today().strftime('%Y-%m-%d'), len(source.split("\n"))), file=outstream)
+        print(r"\rightcaption{%d lines}" % len(source.split("\n")), file=outstream)
         print(r"\begin{lstlisting}[language=%s,caption={%s}]" % (listingslang, pathescape(caption)), file=outstream)
         print(source, file=outstream)
         print(r"\end{lstlisting}", file=outstream)
