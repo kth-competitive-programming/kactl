@@ -11,7 +11,6 @@
 - HLD
 - Centroid Decomp.
 - rope
-- Working lazy sgt.
 
 ## Missing but not important
 - KDTree

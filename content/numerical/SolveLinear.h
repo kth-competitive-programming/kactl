@@ -9,7 +9,7 @@
  */
 #pragma once
 
-typedef vector<double> vd;
+typedef vector<T> v;
 const double eps = 1e-12;
 
 int solveLinear(vector<vd>& A, vd& b, vd& x) {
