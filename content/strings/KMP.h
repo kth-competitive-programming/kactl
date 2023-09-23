@@ -11,7 +11,7 @@
 vi fail_function(string &s) {
 	int n = sz(s);
 	vi f(n, -1); // leave an additional space
-	rep(i, 1, n - 1) {
+	rep(i, 1, n) {
 		int cur = f[i - 1];
 		while(cur != -1 && s[cur + 1] != s[i]) cur = f[cur];
 		cur += (s[cur + 1] == s[i]);
@@ -22,7 +22,7 @@ vi fail_function(string &s) {
 int KMP(string &a, string &b) {
 	vi f = fail_function(b);
 	int j = -1, ans = 0;
-	rep(i, 0, sz(a) - 1) {
+	rep(i, 0, sz(a)) {
 		while(j != -1 && b[j + 1] != a[i]) j = f[j];
 		j += (b[j + 1] == a[i]);
 		ans += (j == sz(b));
