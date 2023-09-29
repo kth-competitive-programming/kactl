@@ -1,44 +1,48 @@
 /**
  * Author: FHVirus
- * Date: 2022-11-18
+ * Date: 2023-09-29
  * License: CC0
- * Source: cheissmart
- * Description: Given n segments (s, t), return the polygon of the area of the intersection of the left of the n segments.
+ * Source: cheissmart & baluteshih (8BQube's codebook)
+ * Description: Given n segments (s, t), returns polygon sides
+ * representing the intersection of left side of the segments.
  * Status: Tested with Big Brother on Kattis.
  */
 #pragma once
 
 #include "Point.h"
-#include "sideOf.h"
 
-typedef Point<double> P;
-typedef pair<P, P> S;
-P interp(const S& a, const S& b) {
-	double ax = (a.second - a.first).cross(b.first - a.first);
-	double ay = (b.second - a.first).cross(a.second - a.first);
-	return (b.first * ay + b.second * ax) / (ax + ay);
+template <class P> struct Seg { P s, t; };
+template <class S>
+bool xleft(const S& o, const S& a, const S& b) {
+  auto [o3, o4] = make_pair(o.s.cross(o.t, b.s),
+      o.s.cross(o.t, b.t)); // C^2
+  auto [a3, a4] = make_pair(a.s.cross(a.t, b.s),
+      a.s.cross(a.t, b.t));
+  if (a3 - a4 < 0) a3 *= -1, a4 *= -1;
+  return (__int128) o4 * a3 - (__int128) o3 * a4 > 0; // C^4
 }
-bool cmp(const S& a, const S& b) {
-	static const P o(0, 0);
-	P va = a.second - a.first, vb = b.second - b.first;
-	if (sgn(va.cross(vb)) == 0 and sgn(va.dot(vb)) >= 0)
-		return sideOf(b.first, b.second, a.first) > 0;
-	bool ba = (o < va), bb = (o < vb);
-	if (ba xor bb) return ba > bb;
-	return sgn(va.cross(vb)) > 0;
+template <class P>
+int cmp(const P& a, const P& b, const bool same = true) {
+  int na = (a < P(0, 0)), nb = (b < P(0, 0));
+  if (na != nb) return na < nb;
+  if (sgn(a.cross(b)) != 0) return sgn(a.cross(b)) > 0;
+  return same ? a.dist2() < b.dist2() : -1;
 }
-vector<P> halfPlaneInter(vector<S> ss) {
-	int n = sz(ss), qh = 0, qt = 0;
-	sort(all(ss), cmp);
-	vector<P> in(n);
-	vector<S> dq(n);
-	rep (i, 0, n) {
-		while (qt - qh > 1 and sideOf(ss[i].first, ss[i].second, in[qt - 2]) <= 0) --qt;
-		while (qt - qh > 1 and sideOf(ss[i].first, ss[i].second, in[qh]) <= 0) ++qh;
-		dq[qt++] = ss[i];
-		if (qt - qh > 1) in[qt - 2] = interp(dq[qt - 2], dq[qt - 1]);
-	}
-	while (qt - qh > 1 and sideOf(dq[qh].first, dq[qh].second, in[qt - 2]) <= 0) --qt;
-	in[qt - 1] = interp(dq[qh], dq[qt - 1]);
-	return {begin(in) + qh, begin(in) + qt};
+template<class S>
+vector<S> halfPlaneInter(vector<S> ss) {
+  sort(all(ss), [&](S a, S b) -> int {
+    int t = cmp(a.t - a.s, b.t - b.s, 0);
+    return (t != -1 ? t : sgn(a.s.cross(a.t, b.s)) < 0);
+  });
+  int n = sz(ss), qh = 0, qt = 1;
+  vector<S> dq(n); dq[0] = ss[0];
+  rep(i, 1, n) {
+    if ((ss[i-1].t - ss[i-1].s).cross(ss[i].t - ss[i].s) == 0)
+      continue;
+    while (qt-qh>1 and !xleft(ss[i], dq[qt-2], dq[qt-1])) --qt;
+    while (qt-qh>1 and !xleft(ss[i], dq[qh], dq[qh+1])) ++qh;
+    dq[qt++] = ss[i];
+  }
+  while (qt-qh>2 and !xleft(dq[qh], dq[qt-2], dq[qt-1])) --qt;
+  return {begin(dq) + qh, begin(dq) + qt};
 }
