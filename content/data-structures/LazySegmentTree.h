@@ -3,10 +3,10 @@
  * Date: 2023-08-29
  * License: CC0
  * Source: ac-library & https://omeletwithoutegg.github.io/2019/12/07/Iterative-SegmentTree/
- * Description: ZKW implementation with ACL style nodes.
+ * Description: ZKW implementation with ACL style nodes. [l, r).
  * Time: O(N + Q \log N).
  * Usage: SGT<Val, Tag> sgt(n);
- * Status: tested on Library Checker
+ * Status: tested @ yosupo/range_affine_range_sum
  */
 #pragma once
 
