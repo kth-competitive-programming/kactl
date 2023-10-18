@@ -1,30 +1,33 @@
 /**
- * Author: Lukas Polacek
- * Date: 2009-09-28
+ * Author: Lukas Polacek, FHVirus
+ * Date: 2023-10-12
  * License: CC0
- * Source: folklore
- * Description: Operators for modular arithmetic. You need to set {\tt mod} to
- * some number first and then you can use the structure.
+ * Source: folklore, old KACTL
+ * Description: Operators for modular arithmetic.
  */
 #pragma once
 
-#include "euclid.h"
-const ll mod = 17; // change to something else
+#include "Euclid.h"
+template <class T, T mod>
 struct mint {
-    ll x;
-    mint(ll x = 0) : x(x){}
-    mint operator+(mint b) { return mint(x + b.x >= mod ? x + b.x - mod : x + b.x); }
-    mint operator-(mint b) { return mint(x - b.x < 0 ? x - b.x + mod : x - b.x); }
-    mint operator*(mint b) { return mint(x * b.x % mod); }
-    mint operator/(mint b) { return *this * invert(b); }
-    mint invert(mint a) {
-        ll x, y, g = euclid(a.x, mod, x, y);
-        assert(g == 1); return mint(x < 0 ? x + mod : x);
-    }
-    mint operator^(ll e) {
-        if(!e) return mint(1);
-        mint r = *this ^ (e / 2); r = r * r;
-        return e&1 ? *this * r : r;
-    }
-    ll val() { return x; }
+  // static int MOD = mod; for dynamic mod
+  T v;
+  mint(T v = 0) : v(v + ((v < 0) - (v >= mod)) * mod) {}
+  mint operator+(mint o) { return mint(v + o.v); }
+  mint operator-(mint o) { return mint(v - o.v); }
+  mint operator*(mint o) // maybe __int128_t
+  { return mint((T) ((ll) v * o.v % mod)); }
+  mint operator/(mint o) { return *this * o.inv(); }
+  mint inv() {
+    T x, y, g = euclid(v, mod, x, y);
+    assert(g == 1); return mint(x);
+  }
+  mint pow(ll e) {
+    mint r(1), x(*this);
+    for (; e; e >>= 1, x = x * x)
+      if (e & 1) r = r * x;
+    return r;
+  }
+  T val() { return v; }
 };
+using mi = mint<int, 998244353>;

@@ -12,7 +12,7 @@
 #pragma once
 
 #include "Point.h"
-#include "sideOf.h"
+#include "SideOf.h"
 
 typedef Point<double> P;
 double rat(P a, P b) { return sgn(b.x) ? a.x/b.x : a.y/b.y; }

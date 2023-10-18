@@ -48,7 +48,7 @@ ull pollard(ull n) {
 	auto f = [&c,n](ull x) { return modmul(x, x, n) + c; };
 	while (t ++ % 128 or __gcd(p, n) == 1) {
 		if (x == y) c = mt() % (n - 1) + 1, y = f(x = 2);
-		if (q = modmul(p, x > y ? x - y : y - x, n)) p = q;
+		if ((q = modmul(p, x > y ? x - y : y - x, n))) p = q;
 		x = f(x); y = f(f(y));
 	}
 	return __gcd(p, n);

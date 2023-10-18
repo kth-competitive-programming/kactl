@@ -11,7 +11,7 @@
 #pragma once
 
 #include "Point.h"
-#include "3dHull.h"
+#include "3DHull.h"
 
 template<class P, class F>
 void delaunay(vector<P>& ps, F trifun) {

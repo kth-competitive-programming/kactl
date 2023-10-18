@@ -43,7 +43,7 @@ void ntt(vl &a) {
 vl conv(const vl &a, const vl &b) {
 	if (a.empty() || b.empty()) return {};
 	int s = sz(a) + sz(b) - 1, B = 32 - __builtin_clz(s), n = 1 << B;
-	int inv = modpow(n, mod - 2);
+	ll inv = modpow(n, mod - 2);
 	vl L(a), R(b), out(n);
 	L.resize(n), R.resize(n);
 	ntt(L), ntt(R);

@@ -13,7 +13,7 @@
 #pragma once
 
 #include "Point.h"
-#include "sideOf.h"
+#include "SideOf.h"
 #include "OnSegment.h"
 
 typedef Point<ll> P;

@@ -1,7 +1,7 @@
 #include "../utilities/template.h"
 
 #include "../../content/geometry/LineProjectionReflection.h"
-#include "../../content/geometry/lineDistance.h"
+#include "../../content/geometry/LineDistance.h"
 
 typedef Point<double> P;
 int main() {

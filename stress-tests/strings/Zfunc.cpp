@@ -1,6 +1,6 @@
 #include "../utilities/template.h"
 
-#include "../../content/strings/Zfunc.h"
+#include "../../content/strings/ZFunc.h"
 
 template <class F> void gen(string &s, int at, int alpha, F f) {
   if (at == sz(s)) f();
@@ -15,7 +15,7 @@ template <class F> void gen(string &s, int at, int alpha, F f) {
 void test(string &s) {
   int n = sz(s);
   vi found = Zfunc(s);
-  vi expected(n, 0);
+  vi expected(n, n);
   rep(i, 1, n) { // exclude index 0 (!)
     int j = 0;
     while (i + j < n && s[i + j] == s[j]) j++;

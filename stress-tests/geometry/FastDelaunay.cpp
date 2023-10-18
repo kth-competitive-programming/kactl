@@ -6,9 +6,10 @@
 #include "../../content/geometry/PolygonArea.h"
 
 #define P P2
-#include "../../content/geometry/circumcircle.h"
+#include "../../content/geometry/Circumcircle.h"
 #undef P
 
+template <class P>
 P2 top(P x) { return P2((double)x.x, (double)x.y); }
 
 struct Bumpalloc {

@@ -24,9 +24,9 @@ void test(int N, int mxFlow, int iters) {
         auto calc = [&](int s, int t) {
             Dinic flow(n);
             for (auto e : edges) {
-                flow.addEdge((int)e[0], (int)e[1], e[2], e[2]);
+                flow.add((int)e[0], (int)e[1], e[2], e[2]);
             }
-            return flow.calc(s, t);
+            return flow.flow(s, t);
         };
         vector<Edge> gomoryHuTree = gomoryHu(n, edges);
         vector<vector<array<int, 2>>> adj(n);

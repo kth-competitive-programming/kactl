@@ -28,7 +28,7 @@ pair<ll, ll> approximate(d x, ll N) {
 			return (abs(x - (d)NP / (d)NQ) < abs(x - (d)P / (d)Q)) ?
 				make_pair(NP, NQ) : make_pair(P, Q);
 		}
-		if (abs(y = 1/(y - (d)a)) > 3*N) {
+		if (abs(y = 1/(y - (d)a)) > 3*(d)N) {
 			return {NP, NQ};
 		}
 		LP = P; P = NP;

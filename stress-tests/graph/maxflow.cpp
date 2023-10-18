@@ -31,7 +31,7 @@ int main() {
 			int c = rand() % 4;
 			int d = rand() % 4 == 0 ? rand() % 3 + 1 : 0;
 			pr.addEdge(a, b, c, d);
-			dinic.addEdge(a, b, c, d);
+			dinic.add(a, b, c, d);
 			ek[a][b] += c;
 			ek[b][a] += d;
 		}
@@ -40,7 +40,7 @@ int main() {
 		ll flow = pr.calc(s, t);
 
 		// PushRelabel matches Dinic
-		ll dinicFlow = dinic.calc(s, t);
+		ll dinicFlow = dinic.flow(s, t);
 		assert(flow == dinicFlow);
 
 		// PushRelabel matches EdmondsKarp
@@ -63,7 +63,7 @@ int main() {
 		rep(i,0,n) for(auto &e: dinic.adj[i]) {
 			assert(e.flow() <= e.oc);
 			dinicFlows[i] += e.flow();
-			dinicFlows[e.to] -= e.flow();
+			dinicFlows[e.v] -= e.flow();
 		}
 		assert(flows == dinicFlows);
 

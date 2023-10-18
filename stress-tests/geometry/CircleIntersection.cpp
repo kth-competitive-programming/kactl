@@ -15,13 +15,12 @@ int main() {
 		double ra = rand() % 10;
 		double rb = rand() % 10;
 		if (a == b) continue;
-		pair<P, P> out;
-		bool ret = circleInter(a, b, ra, rb, &out);
-		if (ret) {
-			assert(abs((out.first - a).dist() - ra) < 1e-9);
-			assert(abs((out.second - a).dist() - ra) < 1e-9);
-			assert(abs((out.first - b).dist() - rb) < 1e-9);
-			assert(abs((out.second - b).dist() - rb) < 1e-9);
+    auto out = circleInter(a, b, ra, rb);
+		if (!out.empty()) {
+			assert(abs((out[0] - a).dist() - ra) < 1e-9);
+			assert(abs((out[1] - a).dist() - ra) < 1e-9);
+			assert(abs((out[0] - b).dist() - rb) < 1e-9);
+			assert(abs((out[1] - b).dist() - rb) < 1e-9);
 		}
 
 		// Hill-climb the answer
@@ -48,10 +47,10 @@ int main() {
 
 		if (abs((cur.second - a).dist() - ra) < 1e-9 &&
 		    abs((cur.second - b).dist() - rb) < 1e-9) {
-			assert(ret);
-			assert((out.first - cur.second).dist() < 1e-6 || (out.second - cur.second).dist() < 1e-6);
+			assert(!out.empty());
+			assert((out[0] - cur.second).dist() < 1e-6 || (out[1] - cur.second).dist() < 1e-6);
 		} else {
-			assert(!ret);
+			assert(out.empty());
 		}
 
 		// cerr << '.';

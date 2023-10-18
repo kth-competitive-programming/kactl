@@ -1,5 +1,7 @@
 # TODO
 
+- Fix / learn Aho-Corasik
+
 ## Data structures
 
 ### Missing

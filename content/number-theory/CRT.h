@@ -12,7 +12,7 @@
  */
 #pragma once
 
-#include "euclid.h"
+#include "Euclid.h"
 
 ll crt(ll a, ll m, ll b, ll n) {
 	if (n > m) swap(a, b), swap(m, n);

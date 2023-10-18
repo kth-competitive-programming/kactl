@@ -3,6 +3,8 @@
 #include "../../content/geometry/ConvexHull.h"
 #include "../utilities/bench.h"
 
+typedef Point<ll> P;
+
 namespace old {
 pair<vi, vi> ulHull(const vector<P>& S) {
 	vi Q(sz(S)), U, L;

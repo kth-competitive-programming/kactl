@@ -20,7 +20,11 @@ void assertValid(ull N, vector<ull> prFac){
 int main() {
     assert(factor(1).empty());
     assert(factor(2) == vector<ull>{2});
-    assert((factor(2299) == vector<ull>{11, 19, 11}));
+    {
+      auto res = factor(2299);
+      sort(all(res));
+      assert(res == vector<ull>({11, 11, 19}));
+    }
     rep(n,2,1e5) {
         auto res = factor(n);
         assertValid(n, res);

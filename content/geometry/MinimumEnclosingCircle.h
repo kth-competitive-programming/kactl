@@ -9,7 +9,7 @@
  */
 #pragma once
 
-#include "circumcircle.h"
+#include "Circumcircle.h"
 
 pair<P, double> mec(vector<P> ps) {
 	shuffle(all(ps), mt19937(time(0)));

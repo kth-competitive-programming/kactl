@@ -9,6 +9,7 @@
  */
 #pragma once
 
+// for double: (x > eps) - (x < -eps)
 template <class T> int sgn(T x) { return (x > 0) - (x < 0); }
 template<class T>
 struct Point {

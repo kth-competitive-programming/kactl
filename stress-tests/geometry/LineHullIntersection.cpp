@@ -2,6 +2,8 @@
 
 #include "../../content/geometry/Point.h"
 
+typedef Point<ll> P;
+
 template<>
 struct Point<double> {
 	typedef Point P;

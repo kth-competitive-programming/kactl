@@ -5,7 +5,7 @@
 #include "../../content/geometry/ConvexHull.h"
 #undef ll
 #include "../../content/geometry/PolygonArea.h"
-#include "../../content/geometry/circumcircle.h"
+#include "../../content/geometry/Circumcircle.h"
 
 typedef Point<double> P;
 int main() {

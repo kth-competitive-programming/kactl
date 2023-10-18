@@ -2,7 +2,7 @@
 
 #include "../../content/geometry/PolygonArea.h"
 #include "../../content/geometry/PolygonCut.h"
-#include "../../content/geometry/sideOf.h"
+#include "../../content/geometry/SideOf.h"
 #include "../../content/geometry/InsidePolygon.h"
 #include "../../content/geometry/SegmentIntersection.h"
 

@@ -13,19 +13,19 @@
  */
 #pragma once
 
-template<class T>
+template <class T>
 struct RMQ {
-	vector<vector<T>> jmp;
-	RMQ(const vector<T>& V) : jmp(1, V) {
-		for (int pw = 1, k = 1; pw * 2 <= sz(V); pw *= 2, ++k) {
-			jmp.emplace_back(sz(V) - pw * 2 + 1);
-			rep(j,0,sz(jmp[k]))
-				jmp[k][j] = min(jmp[k - 1][j], jmp[k - 1][j + pw]);
-		}
-	}
-	T query(int a, int b) {
-		assert(a < b); // or return inf if a == b
-		int dep = 31 - __builtin_clz(b - a);
-		return min(jmp[dep][a], jmp[dep][b - (1 << dep)]);
-	}
+  vector<vector<T>> a;
+  RMQ(const vector<T>& v) : a(1, v) {
+    for (int p = 1, k = 1; p * 2 <= sz(v); p *= 2, ++k) {
+      a.emplace_back(sz(v) - p * 2 + 1);
+      rep(j, 0, sz(a[k]))
+        a[k][j] = min(a[k - 1][j], a[k - 1][j + p]);
+    }
+  }
+  T query(int l, int r) {
+    assert(l < r);
+    int d = 31 - __builtin_clz(r - l);
+    return min(a[d][l], a[d][r - (1 << d)]);
+  }
 };
