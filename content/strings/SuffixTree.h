@@ -20,7 +20,7 @@ struct SuffixTree {
 	vector<vi> t = vector<vi>(N, vi(ALPHA, -1)); // transitions
 	// a[l[i]:r[i]] is substring on edge to i
 	vi r, l = vi(N), p = vi(N), s = vi(N, 0);
-	ll v = 0, q = 0, m = 2;
+	int v = 0, q = 0, m = 2;
 
 	void ukkadd(int i, int c) { suff:
 		if (r[v]<=q) {
