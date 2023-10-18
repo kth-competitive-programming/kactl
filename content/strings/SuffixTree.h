@@ -17,7 +17,10 @@ struct SuffixTree {
 	enum { N = 200010, ALPHA = 26 }; // N ~ 2*maxlen+10
 	int toi(char c) { return c - 'a'; }
 	string a; // v = cur node, q = cur position
-	int t[N][ALPHA],l[N],r[N],p[N],s[N],v=0,q=0,m=2;
+	vector<vi> t = vector<vi>(N, vi(ALPHA, -1)); // transitions
+	// a[l[i]:r[i]] is substring on edge to i
+	vi r, l = vi(N), p = vi(N), s = vi(N, 0);
+	ll v = 0, q = 0, m = 2;
 
 	void ukkadd(int i, int c) { suff:
 		if (r[v]<=q) {
@@ -36,11 +39,8 @@ struct SuffixTree {
 		}
 	}
 
-	SuffixTree(string a) : a(a) {
-		fill(r,r+N,sz(a));
-		memset(s, 0, sizeof s);
-		memset(t, -1, sizeof t);
-		fill(t[1],t[1]+ALPHA,0);
+	SuffixTree(string a) : a(a), r(N, sz(a)) {
+		t[1] = vi(ALPHA, 0);
 		s[0] = 1; l[0] = l[1] = -1; r[0] = r[1] = p[0] = p[1] = 0;
 		rep(i,0,sz(a)) ukkadd(i, toi(a[i]));
 	}
