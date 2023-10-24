@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # encoding: utf-8
 
 # Source code preprocessor for KACTL build process.
@@ -7,6 +6,7 @@
 import sys
 import getopt
 import subprocess
+import os
 
 
 def escape(input):
@@ -147,10 +147,12 @@ def processwithcomments(caption, instream, outstream, listingslang):
 
     if listingslang in ['C++', 'Java']:
         hash_script = 'hash'
-        p = subprocess.Popen(['sh', 'content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding="utf-8")
-        hsh, _ = p.communicate(nsource)
-        hsh = hsh.split(None, 1)[0]
-        hsh = hsh + ', '
+        #p = subprocess.Popen(['bash', 'content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding="utf-8", shell=True)
+        
+        #hsh, _ = p.communicate(nsource)
+        #hsh = hsh.split(None, 1)[0]
+        #hsh = hsh + ', '
+        hsh = ''
     else:
         hsh = ''
     # Produce output
@@ -240,6 +242,8 @@ def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption=", "print-header="])
         for option, value in opts:
+            if option in ("-o", "--output", "-i", "--input"):
+                value = os.path.dirname(os.path.realpath(__file__))[:-11] + value
             if option in ("-h", "--help"):
                 print("This is the help section for this program")
                 print()

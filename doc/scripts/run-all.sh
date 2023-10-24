@@ -3,7 +3,7 @@ DIR=${1:-.}
 
 # use a precompiled header for the template to improve perf
 g++ -Wall -Wfatal-errors -Wconversion -std=c++17 -O2 $DIR/stress-tests/utilities/template.h
-trap "rm -f $DIR/stress-tests/utilities/template.h.gch" EXIT
+trap "del -f $DIR/stress-tests/utilities/template.h.gch" EXIT
 
 tests="$(find $DIR/stress-tests -name '*.cpp')"
 declare -i pass=0
@@ -25,7 +25,7 @@ for test in $tests; do
     end=`date +%s.%N`
     runtime=$( echo "$end - $start" | bc -l )
     echo "Took $runtime seconds"
-    rm -f a.out
+    del -f a.out
     echo
 done
 echo "$pass/$(($pass+$fail)) tests passed"
