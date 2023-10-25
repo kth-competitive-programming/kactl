@@ -10,7 +10,7 @@ long double areaCT(P pa, P pb, long double r) {
 	if (sgn(pb.dist()) == 0) return 0;
 	long double a = pb.dist(), b = pa.dist(), c = (pb - pa).dist();
 	long double sinB = fabs(pb.cross(pb - pa) / a / c), cosB = pb.dot(pb - pa) / a / c,
-		   sinC = fabs(pa.cross(pb) / a / b), cosC = pa.dot(pb) / a / b;
+		sinC = fabs(pa.cross(pb) / a / b), cosC = pa.dot(pb) / a / b;
 	long double B = atan2(sinB, cosB), C = atan2(sinC, cosC);
 	if (a > r) {
 		long double S = C / 2 * r * r, h = a * b * sinC / c;
