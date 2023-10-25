@@ -26,17 +26,17 @@ vi convexHull(const vector<P>& S) {
 }
 
 int main() {
-    const int SZ = 1e2;
-    rep(t,0,100000) {
-        const int GRID=1e3;
-        vector<P> pts(SZ);
-        rep(i,0,SZ) pts[i] = P(rand()%GRID, rand()%GRID);
-        auto res = convexHull(pts);
-        auto res2 = old::convexHull(pts);
-        assert(sz(res) == sz(res2));
-        rep(i,0,sz(res2)) {
-            assert(pts[res2[i]] == res[i]);
-        }
-    }
-    cout<<"Tests passed!"<<endl;
+	const int SZ = 1e2;
+	rep(t,0,100000) {
+		const int GRID=1e3;
+		vector<P> pts(SZ);
+		rep(i,0,SZ) pts[i] = P(rand()%GRID, rand()%GRID);
+		auto res = convexHull(pts);
+		auto res2 = old::convexHull(pts);
+		assert(sz(res) == sz(res2));
+		rep(i,0,sz(res2)) {
+			assert(pts[res2[i]] == res[i]);
+		}
+	}
+	cout<<"Tests passed!"<<endl;
 }
