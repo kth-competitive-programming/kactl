@@ -44,3 +44,41 @@
 	\kactlimport{BumpAllocatorSTL.h}
 	% \kactlimport{Unrolling.h}
 	\kactlimport{SIMD.h}
+	
+\section{Techniques}
+\subsection{Problemas de Flujo}
+
+\ul{\textbf{Mínimo corte:}} El valor del mínimo corte es igual al del máximo flujo. Corriendo máximo flujo recupera un mínimo corte como el conjunto de los nodos alcanzables desde $s$ en la red residual, y su complemento.
+
+\ul{\textbf{Mínimo costo, cualquier flujo}}: Correr mincost-flow, terminar cuando el camino aumentante sea no negativo.
+    
+\ul{\textbf{Flujo con cotas inferiores/demandas}}: Sea $D = \sum_{(u\to v)\in E} d(u\to v)$ la suma de todas las demandas en $G = (V, E)$. Construir nueva red $G'$, con nuevos source y sink $s'$ y $t'$. Para cada $v \in V$ hacer capacidad $c'(s' \to v) = \sum_{u \in V} d(u\to v)$ (demandas que le entran) y $c'(v \to t') = \sum_{u \in v} d(v \to u)$ (demandas que le salen). Para cada $(u \to v) \in E$, $c'(u \to v) = c(u\to v) - d(u\to v)$. Adem\'as, $c'(t \to s) = \infty$. Existe un flujo válido ssi el maximo flujo en $G'$ es $D$.
+
+Para máximo flujo valido, hacer otra red; este es el flujo ya mandado por las demandas, sumado al flujo en otra red G''. Si $G'$ mandó $f'(u\to v)$ de flujo con $(u \to v) \in E$,  poner $c''(u \to v) = c(u \to v) - f'(u \to v)$, y en el reverso $c''(v \to u) = f'(u\to v) - d(u \to v)$, y resolver en esta red. Para m\'inimo costo, se debi\'o correr $G'$ con mincost-flow, para preservar que no haya ciclos negativos, y también hay que agregarle costo infinito a la arista auxiliar $(t \to s)$.
+    
+\ul{\textbf{Max-weight closure}}: Dado $G$ con pesos $w$ en nodos encontrar un subconjunto $V'\subseteq V$ cerrado (si algo de $V'$ alcanza un nodo, este también está en $V'$) de m\'aximo costo. Si $w(u) > 0$ se agrega $s \to u$ con capacidad $w(u)$, de otra manera, $u \to t$ con $-w(u)$. Para todo $(u \to v) \in E$ agregar $c(u\to v) = \infty$. El $w(V')$ óptimo es la suma de todo $w(u) > 0$ menos el minimo corte. Recuperar $V'$ como los nodos del lado de $s$ en el mincut.
+    
+\ul{\textbf{Dilworth (máxima anticadena, cubrir poset con min. num. cadenas)}}:
+Dado un poset, una cadena es un conjunto en el que cualquier par es comparable, y una anticadena es tal que ninguno lo es. El tamaño de la máxima anticadena es igual al mínimo número de cadenas para particionar al poset, y este valor se define como la longitud del poset.
+
+Duplicar nodos. Si $u < v$ agregar $u\to n + v$. Esto hace un grafo bipartito, y la longitud del poset es $n$ menos el máximo matching. Las aristas tomadas son aristas en las cadenas.
+
+Si $C$ es un vertex cover de cardinalidad máxima en este bipartito (veáse Konig), los nodos que \textbf{no} están presentes en $C$ (en ninguna de sus dos versiones) son una anticadena máxima.
+
+
+\ul{\textbf{Cubrir DAG en min. num. caminos}}:
+Hacer un grafo bipartito como el del punto anterior y correr matching, si los caminos son disjuntos en vértices. Si son disjuntos en aristas, hacer la cerradura transitiva (es un poset) antes de calcular el matching.
+
+   
+\ul{\textbf{Teorema de Mirsky}}: Dual de Dilworth. La cardinalidad máxima de una cadena es igual al mínimo número de anticadenas para cubrir a un poset.
+
+\subsubsection{Grafos bipartitos}
+\ul{\textbf{Konig's theorem}}: En un grafo bipartito la cardinalidad del maximum matching es igual a la cardinalidad del minimum vertex cover (conjunto de vertices que incluye al menos un extremo de cada arista).
+\begin{itemize}
+    \item \textbf{Construcción con flujo}: Sean $A, B$ las dos partes. Para $a \in A$, agregar $c(s\to a) = 1$, para $b \in B$, $c(b\to t) = 1$.
+    Si $(a\to b) \in E$ agregar $c(a\to b) = \infty$. El matching máximo, de tamaño $|M|$ corresponde a las aristas $a \to b$ tomadas por el máximo flujo. Sea $(S, T)$ un mínimo corte y $A = A_S \cup A_T$, $B = B_S \cup B_T$ de acuerdo a que lado están del corte. Entonces el corte tiene tamaño $|A_T| + |B_S| = |M|$ y $A_T \cup B_S$ es un vertex cover mínimo.
+    \item \textbf{Construcción con Kuhn}: En el arreglo $M$ queda almacenado el matching. $M[i]$ es el indice del conjunto $L$ con el que el nodo $i$ de $R$ esta matcheado o $-1$ si no esta con ninguno.
+        \item \textbf{Max. Indep. Set}: Tomar los nodos no tomados en el Máx. Vertex Cover.
+\item \textbf{Max Clique:} Construir la red del complemento de $G$ y tomar Max. Indep. Set.
+    \item \textbf{Min. Edge Cover:} Aristas del matching, más para los nodos no tomados en el matching, tomar cualquier arista.
+\end{itemize}
