@@ -11,18 +11,18 @@ import subprocess
 instream = sys.stdin
 outstream = sys.stdout
 
-def escape(input):
+def escape(input: str) -> str:
     input = input.replace('<', r'\ensuremath{<}')
     input = input.replace('>', r'\ensuremath{>}')
     return input
 
-def pathescape(input):
+def pathescape(input: str) -> str:
     input = input.replace('\\', r'\\')
     input = input.replace('_', r'\_')
     input = escape(input)
     return input
 
-def codeescape(input):
+def codeescape(input: str) -> str:
     input = input.replace('_', r'\_')
     input = input.replace('\n', '\\\\\n')
     input = input.replace('{', r'\{')
@@ -31,7 +31,7 @@ def codeescape(input):
     input = escape(input)
     return input
 
-def ordoescape(input, esc=True):
+def ordoescape(input: str, esc: bool = True) -> str:
     if esc:
         input = escape(input)
     start = input.find("O(")
@@ -48,7 +48,7 @@ def ordoescape(input, esc=True):
             return rf"{input[:start]}\bigo{{{input[start+2:end]}}}{ordoescape(input[end+1:], False)}"
     return input
 
-def addref(caption):
+def addref(caption: str):
     caption = pathescape(caption).strip()
     print(rf"\kactlref{{{caption}}}", file=outstream)
     with open('header.tmp', 'a') as f:
@@ -60,8 +60,8 @@ COMMENT_TYPES = [
     ('"""', '"""'),
 ]
 
-def find_start_comment(source, start=None):
-    first = (-1, -1, None)
+def find_start_comment(source: str, start: int | None = None) -> tuple[int, int, str]:
+    first = (-1, -1, "")
     for s, e in COMMENT_TYPES:
         i = source.find(s, start)
         if i != -1 and (i < first[0] or first[0] == -1):
@@ -69,10 +69,10 @@ def find_start_comment(source, start=None):
 
     return first
 
-def processwithcomments(caption, listingslang):
+def processwithcomments(caption: str, listingslang: str):
     knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage', 'Details']
     requiredcommands = ['Author', 'Description']
-    includelist = []
+    includelist: list[str] = []
     error = ""
     warning = ""
     # Read lines from source file
@@ -81,7 +81,7 @@ def processwithcomments(caption, listingslang):
     except:
         error = "Could not read source."
         lines = []
-    nlines = list()
+    nlines: list[str] = []
     for line in lines:
         if 'exclude-line' in line:
             continue
@@ -107,7 +107,7 @@ def processwithcomments(caption, listingslang):
     nsource = ''
     start, start2, end_str = find_start_comment(source)
     end = 0
-    commands = {}
+    commands: dict[str, str] = {}
     while start >= 0 and not error:
         nsource = nsource.rstrip() + source[end:start]
         end = source.find(end_str, start2)
@@ -156,7 +156,7 @@ def processwithcomments(caption, listingslang):
     else:
         hsh = ''
     # Produce output
-    out = []
+    out: list[str] = []
     if warning:
         out.append(rf"\kactlwarning{{{caption}: {warning}}}")
     if error:
@@ -183,7 +183,7 @@ def processwithcomments(caption, listingslang):
     for line in out:
         print(line, file=outstream)
 
-def processraw(caption, listingslang = 'raw'):
+def processraw(caption: str, listingslang: str = 'raw'):
     try:
         source = instream.read().strip()
         addref(caption)
@@ -192,21 +192,21 @@ def processraw(caption, listingslang = 'raw'):
         print(source, file=outstream)
         print(r"\end{lstlisting}", file=outstream)
     except:
-        print("\kactlerror{Could not read source.}", file=outstream)
+        print(r"\kactlerror{Could not read source.}", file=outstream)
 
-def parse_include(line):
+def parse_include(line: str) -> str | None:
     line = line.strip()
     if line.startswith("#include"):
         return line[8:].strip()
     return None
 
-def getlang(input):
+def getlang(input: str) -> str:
     return input.rsplit('.',1)[-1]
 
-def getfilename(input):
+def getfilename(input: str) -> str:
     return input.rsplit('/',1)[-1]
 
-def print_header(data):
+def print_header(data: str):
     parts = data.split('|')
     until = parts[0].strip() or parts[1].strip()
     if not until:
@@ -220,7 +220,7 @@ def print_header(data):
 
     ind = lines.index(until) + 1
     header_length = len("".join(lines[:ind]))
-    def adjust(name):
+    def adjust(name: str) -> str:
         return name if name.startswith('.') else name.split('.')[0]
     output = r"\enspace{}".join(map(adjust, lines[:ind]))
     font_size = 10
@@ -239,7 +239,7 @@ def main():
     global instream, outstream
     print_header_value = None
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption=", "print-header="])
+        opts, _ = getopt.getopt(sys.argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption=", "print-header="])
         for option, value in opts:
             if option in ("-h", "--help"):
                 print("This is the help section for this program")
@@ -268,6 +268,10 @@ def main():
         if print_header_value is not None:
             print_header(print_header_value)
             return
+        if language is None:
+            raise ValueError("No language given")
+        if caption is None:
+            raise ValueError("No caption given")
         print(f" * \x1b[1m{caption}\x1b[0m")
         if language in ["cpp", "cc", "c", "h", "hpp"]:
             processwithcomments(caption, 'C++')
