@@ -272,16 +272,14 @@ def main():
             processwithcomments(caption, instream, outstream, 'C++')
         elif language in ["java", "kt"]:
             processwithcomments(caption, instream, outstream, 'Java')
-        elif language == "ps":
+        elif language == "py":
+            processwithcomments(caption, instream, outstream, 'Python')
+        elif language in ["ps", "raw"]:
             processraw(caption, instream, outstream) # PostScript was added in listings v1.4
-        elif language == "raw":
-            processraw(caption, instream, outstream)
         elif language == "rawcpp":
             processraw(caption, instream, outstream, 'C++')
         elif language == "sh":
             processraw(caption, instream, outstream, 'bash')
-        elif language == "py":
-            processwithcomments(caption, instream, outstream, 'Python')
         elif language == "rawpy":
             processraw(caption, instream, outstream, 'Python')
         else:
