@@ -8,6 +8,8 @@ import sys
 import getopt
 import subprocess
 
+instream = sys.stdin
+outstream = sys.stdout
 
 def escape(input):
     input = input.replace('<', r'\ensuremath{<}')
@@ -46,7 +48,7 @@ def ordoescape(input, esc=True):
             return rf"{input[:start]}\bigo{{{input[start+2:end]}}}{ordoescape(input[end+1:], False)}"
     return input
 
-def addref(caption, outstream):
+def addref(caption):
     caption = pathescape(caption).strip()
     print(rf"\kactlref{{{caption}}}", file=outstream)
     with open('header.tmp', 'a') as f:
@@ -67,7 +69,7 @@ def find_start_comment(source, start=None):
 
     return first
 
-def processwithcomments(caption, instream, outstream, listingslang):
+def processwithcomments(caption, listingslang):
     knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage', 'Details']
     requiredcommands = ['Author', 'Description']
     includelist = []
@@ -160,7 +162,7 @@ def processwithcomments(caption, instream, outstream, listingslang):
     if error:
         out.append(rf"\kactlerror{{{caption}: {error}}}")
     else:
-        addref(caption, outstream)
+        addref(caption)
         if commands.get("Description"):
             out.append(rf"\defdescription{{{escape(commands['Description'])}}}")
         if commands.get("Usage"):
@@ -181,10 +183,10 @@ def processwithcomments(caption, instream, outstream, listingslang):
     for line in out:
         print(line, file=outstream)
 
-def processraw(caption, instream, outstream, listingslang = 'raw'):
+def processraw(caption, listingslang = 'raw'):
     try:
         source = instream.read().strip()
-        addref(caption, outstream)
+        addref(caption)
         print(rf"\rightcaption{{{len(source.splitlines())} lines}}", file=outstream)
         print(rf"\begin{{lstlisting}}[language={listingslang},caption={{{pathescape(caption)}}}]", file=outstream)
         print(source, file=outstream)
@@ -204,7 +206,7 @@ def getlang(input):
 def getfilename(input):
     return input.rsplit('/',1)[-1]
 
-def print_header(data, outstream):
+def print_header(data):
     parts = data.split('|')
     until = parts[0].strip() or parts[1].strip()
     if not until:
@@ -234,8 +236,7 @@ def print_header(data, outstream):
 def main():
     language = None
     caption = None
-    instream = sys.stdin
-    outstream = sys.stdout
+    global instream, outstream
     print_header_value = None
     try:
         opts, args = getopt.getopt(sys.argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption=", "print-header="])
@@ -265,23 +266,23 @@ def main():
             if option == "--print-header":
                 print_header_value = value
         if print_header_value is not None:
-            print_header(print_header_value, outstream)
+            print_header(print_header_value)
             return
         print(f" * \x1b[1m{caption}\x1b[0m")
         if language in ["cpp", "cc", "c", "h", "hpp"]:
-            processwithcomments(caption, instream, outstream, 'C++')
+            processwithcomments(caption, 'C++')
         elif language in ["java", "kt"]:
-            processwithcomments(caption, instream, outstream, 'Java')
+            processwithcomments(caption, 'Java')
         elif language == "py":
-            processwithcomments(caption, instream, outstream, 'Python')
+            processwithcomments(caption, 'Python')
         elif language in ["ps", "raw"]:
-            processraw(caption, instream, outstream) # PostScript was added in listings v1.4
+            processraw(caption) # PostScript was added in listings v1.4
         elif language == "rawcpp":
-            processraw(caption, instream, outstream, 'C++')
+            processraw(caption, 'C++')
         elif language == "sh":
-            processraw(caption, instream, outstream, 'bash')
+            processraw(caption, 'bash')
         elif language == "rawpy":
-            processraw(caption, instream, outstream, 'Python')
+            processraw(caption, 'Python')
         else:
             raise ValueError(f"Unknown language: {language}")
     except (ValueError, getopt.GetoptError, IOError) as err:
