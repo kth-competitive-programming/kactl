@@ -7,6 +7,7 @@
 import sys
 import getopt
 import subprocess
+import snippets
 
 instream = sys.stdin
 outstream = sys.stdout
@@ -69,7 +70,7 @@ def find_start_comment(source: str, start: int | None = None) -> tuple[int, int,
 
     return first
 
-def processwithcomments(caption: str, listingslang: str):
+def processwithcomments(caption: str, listingslang: str, make_snippets: bool = False):
     knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage', 'Details']
     requiredcommands = ['Author', 'Description']
     includelist: list[str] = []
@@ -146,6 +147,11 @@ def processwithcomments(caption: str, listingslang: str):
     if end>=0:
         nsource = nsource.rstrip() + source[end:]
     nsource = nsource.strip()
+
+    # create snippet
+    if make_snippets:
+        snippets.build(caption, commands, nsource, listingslang)
+        return
 
     if listingslang in ['C++', 'Java']:
         hash_script = 'hash'
@@ -238,8 +244,9 @@ def main():
     caption = None
     global instream, outstream
     print_header_value = None
+    make_snippets = False
     try:
-        opts, _ = getopt.getopt(sys.argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption=", "print-header="])
+        opts, _ = getopt.getopt(sys.argv[1:], "ho:i:l:c:s", ["help", "output=", "input=", "language=", "caption=", "print-header=", "snippet"])
         for option, value in opts:
             if option in ("-h", "--help"):
                 print("This is the help section for this program")
@@ -249,6 +256,7 @@ def main():
                 print("\t -h --help")
                 print("\t -i --input")
                 print("\t -l --language")
+                print("\t -s --snippet")
                 print("\t --print-header")
                 return
             if option in ("-o", "--output"):
@@ -265,6 +273,8 @@ def main():
                 caption = value
             if option == "--print-header":
                 print_header_value = value
+            if option in ("-s", "--snippet"):
+                make_snippets = True
         if print_header_value is not None:
             print_header(print_header_value)
             return
@@ -274,11 +284,11 @@ def main():
             raise ValueError("No caption given")
         print(f" * \x1b[1m{caption}\x1b[0m")
         if language in ["cpp", "cc", "c", "h", "hpp"]:
-            processwithcomments(caption, 'C++')
+            processwithcomments(caption, 'C++', make_snippets)
         elif language in ["java", "kt"]:
-            processwithcomments(caption, 'Java')
+            processwithcomments(caption, 'Java', make_snippets)
         elif language == "py":
-            processwithcomments(caption, 'Python')
+            processwithcomments(caption, 'Python', make_snippets)
         elif language in ["ps", "raw"]:
             processraw(caption) # PostScript was added in listings v1.4
         elif language == "rawcpp":
