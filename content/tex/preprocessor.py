@@ -7,19 +7,23 @@
 import sys
 import getopt
 import subprocess
+import snippets
 
-def escape(input):
+instream = sys.stdin
+outstream = sys.stdout
+
+def escape(input: str) -> str:
     input = input.replace('<', r'\ensuremath{<}')
     input = input.replace('>', r'\ensuremath{>}')
     return input
 
-def pathescape(input):
+def pathescape(input: str) -> str:
     input = input.replace('\\', r'\\')
     input = input.replace('_', r'\_')
     input = escape(input)
     return input
 
-def codeescape(input):
+def codeescape(input: str) -> str:
     input = input.replace('_', r'\_')
     input = input.replace('\n', '\\\\\n')
     input = input.replace('{', r'\{')
@@ -28,7 +32,7 @@ def codeescape(input):
     input = escape(input)
     return input
 
-def ordoescape(input, esc=True):
+def ordoescape(input: str, esc: bool = True) -> str:
     if esc:
         input = escape(input)
     start = input.find("O(")
@@ -42,14 +46,14 @@ def ordoescape(input, esc=True):
             elif input[end] == ')':
                 bracketcount = bracketcount - 1
         if bracketcount == 0:
-            return r"%s\bigo{%s}%s" % (input[:start], input[start+2:end], ordoescape(input[end+1:], False))
+            return rf"{input[:start]}\bigo{{{input[start+2:end]}}}{ordoescape(input[end+1:], False)}"
     return input
 
-def addref(caption, outstream):
+def addref(caption: str):
     caption = pathescape(caption).strip()
-    print(r"\kactlref{%s}" % caption, file=outstream)
+    print(rf"\kactlref{{{caption}}}", file=outstream)
     with open('header.tmp', 'a') as f:
-        f.write(caption + "\n")
+        f.write(f"{caption}\n")
 
 COMMENT_TYPES = [
     ('/**', '*/'),
@@ -57,8 +61,8 @@ COMMENT_TYPES = [
     ('"""', '"""'),
 ]
 
-def find_start_comment(source, start=None):
-    first = (-1, -1, None)
+def find_start_comment(source: str, start: int | None = None) -> tuple[int, int, str]:
+    first = (-1, -1, "")
     for s, e in COMMENT_TYPES:
         i = source.find(s, start)
         if i != -1 and (i < first[0] or first[0] == -1):
@@ -66,10 +70,10 @@ def find_start_comment(source, start=None):
 
     return first
 
-def processwithcomments(caption, instream, outstream, listingslang):
+def processwithcomments(caption: str, listingslang: str, make_snippets: bool = False):
     knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage', 'Details']
     requiredcommands = ['Author', 'Description']
-    includelist = []
+    includelist: list[str] = []
     error = ""
     warning = ""
     # Read lines from source file
@@ -78,7 +82,7 @@ def processwithcomments(caption, instream, outstream, listingslang):
     except:
         error = "Could not read source."
         lines = []
-    nlines = list()
+    nlines: list[str] = []
     for line in lines:
         if 'exclude-line' in line:
             continue
@@ -104,12 +108,12 @@ def processwithcomments(caption, instream, outstream, listingslang):
     nsource = ''
     start, start2, end_str = find_start_comment(source)
     end = 0
-    commands = {}
+    commands: dict[str, str] = {}
     while start >= 0 and not error:
         nsource = nsource.rstrip() + source[end:start]
         end = source.find(end_str, start2)
         if end<start:
-            error = "Invalid %s %s comments." % (source[start:start2], end_str)
+            error = f"Invalid {source[start:start2]} {end_str} comments."
             break
         comment = source[start2:end].strip()
         end += len(end_str)
@@ -128,82 +132,87 @@ def processwithcomments(caption, instream, outstream, listingslang):
             if allow_command and ind != -1 and ' ' not in cline[:ind] and cline[0].isalpha() and cline[0].isupper():
                 if command:
                     if command not in knowncommands:
-                        error = error + "Unknown command: " + command + ". "
+                        error = f"{error}Unknown command: {command}. "
                     commands[command] = value.lstrip()
                 command = cline[:ind]
                 value = cline[ind+1:].strip()
             else:
-                value = value + '\n' + cline
+                value = f"{value}\n{cline}"
         if command:
             if command not in knowncommands:
-                error = error + "Unknown command: " + command + ". "
+                error = f"{error}Unknown command: {command}. "
             commands[command] = value.lstrip()
     for rcommand in sorted(set(requiredcommands) - set(commands)):
-        error = error + "Missing command: " + rcommand + ". "
+        error = f"{error}Missing command: {rcommand}. "
     if end>=0:
         nsource = nsource.rstrip() + source[end:]
     nsource = nsource.strip()
 
+    # create snippet
+    if make_snippets:
+        snippets.build(caption, commands, nsource, listingslang)
+        return
+
     if listingslang in ['C++', 'Java']:
         hash_script = 'hash'
-        p = subprocess.Popen(['sh', 'content/contest/%s.sh' % hash_script], stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding="utf-8")
+        p = subprocess.Popen(['sh', f'content/contest/{hash_script}.sh'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding="utf-8")
         hsh, _ = p.communicate(nsource)
         hsh = hsh.split(None, 1)[0]
-        hsh = hsh + ', '
+        hsh = f"{hsh}, "
     else:
         hsh = ''
     # Produce output
-    out = []
+    out: list[str] = []
     if warning:
-        out.append(r"\kactlwarning{%s: %s}" % (caption, warning))
+        out.append(rf"\kactlwarning{{{caption}: {warning}}}")
     if error:
-        out.append(r"\kactlerror{%s: %s}" % (caption, error))
+        out.append(rf"\kactlerror{{{caption}: {error}}}")
     else:
-        addref(caption, outstream)
+        addref(caption)
         if commands.get("Description"):
-            out.append(r"\defdescription{%s}" % escape(commands["Description"]))
+            out.append(rf"\defdescription{{{escape(commands['Description'])}}}")
         if commands.get("Usage"):
-            out.append(r"\defusage{%s}" % codeescape(commands["Usage"]))
+            out.append(rf"\defusage{{{codeescape(commands['Usage'])}}}")
         if commands.get("Time"):
-            out.append(r"\deftime{%s}" % ordoescape(commands["Time"]))
+            out.append(rf"\deftime{{{ordoescape(commands['Time'])}}}")
         if commands.get("Memory"):
-            out.append(r"\defmemory{%s}" % ordoescape(commands["Memory"]))
+            out.append(rf"\defmemory{{{ordoescape(commands['Memory'])}}}")
         if includelist:
-            out.append(r"\leftcaption{%s}" % pathescape(", ".join(includelist)))
+            out.append(rf"\leftcaption{{{pathescape(', '.join(includelist))}}}")
         if nsource:
-            out.append(r"\rightcaption{%s%d lines}" % (hsh, len(nsource.split("\n"))))
-        langstr = ", language="+listingslang
-        out.append(r"\begin{lstlisting}[caption={%s}%s]" % (pathescape(caption), langstr))
+            out.append(rf"\rightcaption{{{hsh}{len(nsource.splitlines())} lines}}")
+        langstr = f", language={listingslang}"
+        out.append(rf"\begin{{lstlisting}}[caption={{{pathescape(caption)}}}{langstr}]")
         out.append(nsource)
         out.append(r"\end{lstlisting}")
 
     for line in out:
         print(line, file=outstream)
 
-def processraw(caption, instream, outstream, listingslang = 'raw'):
+def processraw(caption: str, listingslang: str = 'raw'):
     try:
         source = instream.read().strip()
-        addref(caption, outstream)
-        print(r"\rightcaption{%d lines}" % len(source.split("\n")), file=outstream)
-        print(r"\begin{lstlisting}[language=%s,caption={%s}]" % (listingslang, pathescape(caption)), file=outstream)
+        addref(caption)
+        print(rf"\rightcaption{{{len(source.splitlines())} lines}}", file=outstream)
+        print(rf"\begin{{lstlisting}}[language={listingslang},caption={{{pathescape(caption)}}}]", file=outstream)
         print(source, file=outstream)
         print(r"\end{lstlisting}", file=outstream)
     except:
-        print("\kactlerror{Could not read source.}", file=outstream)
+        print(r"\kactlerror{Could not read source.}", file=outstream)
 
-def parse_include(line):
+def parse_include(line: str) -> str | None:
     line = line.strip()
     if line.startswith("#include"):
         return line[8:].strip()
     return None
 
-def getlang(input):
+def getlang(input: str) -> str:
     return input.rsplit('.',1)[-1]
 
-def getfilename(input):
+def getfilename(input: str) -> str:
     return input.rsplit('/',1)[-1]
 
-def print_header(data, outstream):
+def print_header(data: str):
     parts = data.split('|')
     until = parts[0].strip() or parts[1].strip()
     if not until:
@@ -217,27 +226,27 @@ def print_header(data, outstream):
 
     ind = lines.index(until) + 1
     header_length = len("".join(lines[:ind]))
-    def adjust(name):
+    def adjust(name: str) -> str:
         return name if name.startswith('.') else name.split('.')[0]
     output = r"\enspace{}".join(map(adjust, lines[:ind]))
     font_size = 10
     if header_length > 150:
         font_size = 8
-    output = r"\hspace{3mm}\textbf{" + output + "}"
-    output = "\\fontsize{%d}{%d}" % (font_size, font_size) + output
+    output = rf"\hspace{{3mm}}\textbf{{{output}}}"
+    output = f"\\fontsize{{{font_size}}}{{{font_size}}}{output}"
     print(output, file=outstream)
     with open('header.tmp', 'w') as f:
         for line in lines[ind:]:
-            f.write(line + "\n")
+            f.write(f"{line}\n")
 
 def main():
     language = None
     caption = None
-    instream = sys.stdin
-    outstream = sys.stdout
+    global instream, outstream
     print_header_value = None
+    make_snippets = False
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ho:i:l:c:", ["help", "output=", "input=", "language=", "caption=", "print-header="])
+        opts, _ = getopt.getopt(sys.argv[1:], "ho:i:l:c:s", ["help", "output=", "input=", "language=", "caption=", "print-header=", "snippet"])
         for option, value in opts:
             if option in ("-h", "--help"):
                 print("This is the help section for this program")
@@ -247,6 +256,7 @@ def main():
                 print("\t -h --help")
                 print("\t -i --input")
                 print("\t -l --language")
+                print("\t -s --snippet")
                 print("\t --print-header")
                 return
             if option in ("-o", "--output"):
@@ -263,28 +273,32 @@ def main():
                 caption = value
             if option == "--print-header":
                 print_header_value = value
+            if option in ("-s", "--snippet"):
+                make_snippets = True
         if print_header_value is not None:
-            print_header(print_header_value, outstream)
+            print_header(print_header_value)
             return
-        print(" * \x1b[1m{}\x1b[0m".format(caption))
+        if language is None:
+            raise ValueError("No language given")
+        if caption is None:
+            raise ValueError("No caption given")
+        print(f" * \x1b[1m{caption}\x1b[0m")
         if language in ["cpp", "cc", "c", "h", "hpp"]:
-            processwithcomments(caption, instream, outstream, 'C++')
+            processwithcomments(caption, 'C++', make_snippets)
         elif language in ["java", "kt"]:
-            processwithcomments(caption, instream, outstream, 'Java')
-        elif language == "ps":
-            processraw(caption, instream, outstream) # PostScript was added in listings v1.4
-        elif language == "raw":
-            processraw(caption, instream, outstream)
-        elif language == "rawcpp":
-            processraw(caption, instream, outstream, 'C++')
-        elif language == "sh":
-            processraw(caption, instream, outstream, 'bash')
+            processwithcomments(caption, 'Java', make_snippets)
         elif language == "py":
-            processwithcomments(caption, instream, outstream, 'Python')
+            processwithcomments(caption, 'Python', make_snippets)
+        elif language in ["ps", "raw"]:
+            processraw(caption) # PostScript was added in listings v1.4
+        elif language == "rawcpp":
+            processraw(caption, 'C++')
+        elif language == "sh":
+            processraw(caption, 'bash')
         elif language == "rawpy":
-            processraw(caption, instream, outstream, 'Python')
+            processraw(caption, 'Python')
         else:
-            raise ValueError("Unknown language: " + str(language))
+            raise ValueError(f"Unknown language: {language}")
     except (ValueError, getopt.GetoptError, IOError) as err:
         print(str(err), file=sys.stderr)
         print("\t for help use --help", file=sys.stderr)

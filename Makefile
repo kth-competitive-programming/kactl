@@ -8,6 +8,7 @@ help:
 	@echo "Available commands are:"
 	@echo "	make fast		- to build KACTL, quickly (only runs LaTeX once)"
 	@echo "	make kactl		- to build KACTL"
+	@echo "	make snippets	- to build VSCode snippets"
 	@echo "	make clean		- to clean up the build process"
 	@echo "	make veryclean		- to clean up and remove kactl.pdf"
 	@echo "	make test		- to run all the stress tests in stress-tests/"
@@ -30,8 +31,9 @@ clean:
 
 veryclean: clean
 	rm -f kactl.pdf test-session.pdf
+	rm -rf snippets
 
-.PHONY: help fast kactl clean veryclean
+.PHONY: help fast kactl clean veryclean format snippets
 
 build:
 	mkdir -p build/
@@ -49,3 +51,9 @@ test-session.pdf: content/test-session/test-session.tex content/test-session/cha
 showexcluded: build
 	grep -RoPh '^\s*\\kactlimport{\K.*' content/ | sed 's/.$$//' > build/headers_included
 	find ./content -name "*.h" -o -name "*.py" -o -name "*.java" | grep -vFf build/headers_included
+
+snippets:
+	find content/ -type f -name "*.*" ! -name "*.tex" ! -name "*.txt" ! -name "*.pdf" ! -path "*/tex/*" ! -path "*/contest/*" -print0 \
+		| xargs -0 -n 1 -I{} sh -c \
+			'python3 content/tex/preprocessor.py -s -i {} > /dev/null || exit 0'
+	python3 content/tex/snippets.py

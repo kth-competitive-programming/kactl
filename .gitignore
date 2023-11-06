@@ -1,7 +1,10 @@
 /build/
+/snippets/
 *.aux
 *.log
 *.gch
 a.out
 header.tmp
 .vscode
+__pycache__
+
