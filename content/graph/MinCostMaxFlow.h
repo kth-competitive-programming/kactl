@@ -1,93 +1,99 @@
 /**
- * Author: Stanford
- * Date: Unknown
- * Source: Stanford Notebook
- * Description: Min-cost max-flow. cap[i][j] != cap[j][i] is allowed; double edges are not.
- *  If costs can be negative, call setpi before maxflow, but note that negative cost cycles are not supported.
- *  To obtain the actual flow, look at positive values only.
- * Status: Tested on kattis:mincostmaxflow, stress-tested against another implementation
- * Time: Approximately O(E^2)
+ * Author: koosaga
+ * Description: Set MAXN. Overflow is not checked.
+ * Usage: MCMF g; g.add_edge(s, e, cap, cost); g.solve(src, sink, total_size);
+ * Time: 216ms on almost $K_n$ graph, for $n = 300$.
  */
 #pragma once
 
-// #include <bits/extc++.h> /// include-line, keep-include
-
-const ll INF = numeric_limits<ll>::max() / 4;
-typedef vector<ll> VL;
+// https://github.com/koosaga/olympiad/blob/master/Library/codes/combinatorial_optimization/flow_cost_dijkstra.cpp
+const int MAXN = 800 + 5;
 
 struct MCMF {
-	int N;
-	vector<vi> ed, red;
-	vector<VL> cap, flow, cost;
-	vi seen;
-	VL dist, pi;
-	vector<pii> par;
+    struct Edge{ int pos, cap, rev; ll cost; };
+    vector<Edge> gph[MAXN];
+    void clear(){
+        for(int i=0; i<MAXN; i++) gph[i].clear();
+    }
+    void add_edge(int s, int e, int x, ll c){
+        gph[s].push_back({e, x, (int)gph[e].size(), c});
+        gph[e].push_back({s, 0, (int)gph[s].size()-1, -c});
+    }
+    ll dist[MAXN];
+    int pa[MAXN], pe[MAXN];
+    bool inque[MAXN];
+    bool spfa(int src, int sink, int n){
+        memset(dist, 0x3f, sizeof(dist[0]) * n);
+        memset(inque, 0, sizeof(inque[0]) * n);
+        queue<int> que;
+        dist[src] = 0;
+        inque[src] = 1;
+        que.push(src);
+        bool ok = 0;
+        while(!que.empty()){
+            int x = que.front();
+            que.pop();
+            if(x == sink) ok = 1;
+            inque[x] = 0;
+            for(int i=0; i<gph[x].size(); i++){
+                Edge e = gph[x][i];
+                if(e.cap > 0 && dist[e.pos] > dist[x] + e.cost){
+                    dist[e.pos] = dist[x] + e.cost;
+                    pa[e.pos] = x;
+                    pe[e.pos] = i;
+                    if(!inque[e.pos]){
+                        inque[e.pos] = 1;
+                        que.push(e.pos);
+                    }
+                }
+            }
+        }
+        return ok;
+    }
+    ll new_dist[MAXN];
+    pair<bool, ll> dijkstra(int src, int sink, int n){
+        priority_queue<pii, vector<pii>, greater<pii> > pq;
+        memset(new_dist, 0x3f, sizeof(new_dist[0]) * n);
+        new_dist[src] = 0;
+        pq.emplace(0, src);
+        bool isSink = 0;
+        while(!pq.empty()) {
+            auto tp = pq.top(); pq.pop();
+            if(new_dist[tp.second] != tp.first) continue;
+            int v = tp.second;
+            if(v == sink) isSink = 1;
+            for(int i = 0; i < gph[v].size(); i++){
+                Edge e = gph[v][i];
+                ll new_weight = e.cost + dist[v] - dist[e.pos];
+                if(e.cap > 0 && new_dist[e.pos] > new_dist[v] + new_weight){
+                    new_dist[e.pos] = new_dist[v] + new_weight;
+                    pa[e.pos] = v;
+                    pe[e.pos] = i;
+                    pq.emplace(new_dist[e.pos], e.pos);
+                }
+            }
+        }
+        return make_pair(isSink, new_dist[sink]);
+    }
 
-	MCMF(int N) :
-		N(N), ed(N), red(N), cap(N, VL(N)), flow(cap), cost(cap),
-		seen(N), dist(N), pi(N), par(N) {}
-
-	void addEdge(int from, int to, ll cap, ll cost) {
-		this->cap[from][to] = cap;
-		this->cost[from][to] = cost;
-		ed[from].push_back(to);
-		red[to].push_back(from);
-	}
-
-	void path(int s) {
-		fill(all(seen), 0);
-		fill(all(dist), INF);
-		dist[s] = 0; ll di;
-
-		__gnu_pbds::priority_queue<pair<ll, int>> q;
-		vector<decltype(q)::point_iterator> its(N);
-		q.push({0, s});
-
-		auto relax = [&](int i, ll cap, ll cost, int dir) {
-			ll val = di - pi[i] + cost;
-			if (cap && val < dist[i]) {
-				dist[i] = val;
-				par[i] = {s, dir};
-				if (its[i] == q.end()) its[i] = q.push({-dist[i], i});
-				else q.modify(its[i], {-dist[i], i});
-			}
-		};
-
-		while (!q.empty()) {
-			s = q.top().second; q.pop();
-			seen[s] = 1; di = dist[s] + pi[s];
-			for (int i : ed[s]) if (!seen[i])
-				relax(i, cap[s][i] - flow[s][i], cost[s][i], 1);
-			for (int i : red[s]) if (!seen[i])
-				relax(i, flow[i][s], -cost[i][s], 0);
-		}
-		rep(i,0,N) pi[i] = min(pi[i] + dist[i], INF);
-	}
-
-	pair<ll, ll> maxflow(int s, int t) {
-		ll totflow = 0, totcost = 0;
-		while (path(s), seen[t]) {
-			ll fl = INF;
-			for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
-				fl = min(fl, r ? cap[p][x] - flow[p][x] : flow[x][p]);
-			totflow += fl;
-			for (int p,r,x = t; tie(p,r) = par[x], x != s; x = p)
-				if (r) flow[p][x] += fl;
-				else flow[x][p] -= fl;
-		}
-		rep(i,0,N) rep(j,0,N) totcost += cost[i][j] * flow[i][j];
-		return {totflow, totcost};
-	}
-
-	// If some costs can be negative, call this before maxflow:
-	void setpi(int s) { // (otherwise, leave this out)
-		fill(all(pi), INF); pi[s] = 0;
-		int it = N, ch = 1; ll v;
-		while (ch-- && it--)
-			rep(i,0,N) if (pi[i] != INF)
-				for (int to : ed[i]) if (cap[i][to])
-					if ((v = pi[i] + cost[i][to]) < pi[to])
-						pi[to] = v, ch = 1;
-		assert(it >= 0); // negative cost cycle
-	}
+    pair<ll, ll> solve(int src, int sink, int n){
+        spfa(src, sink, n);
+        pair<bool, ll> path;
+        pair<ll,ll> ret = {0,0};
+        while((path = dijkstra(src, sink, n)).first){
+            for(int i = 0; i < n; i++) dist[i] += min(ll(2e15), new_dist[i]);
+            ll cap = 1e18;
+            for(int pos = sink; pos != src; pos = pa[pos]){
+                cap = min(cap, (ll)gph[pa[pos]][pe[pos]].cap);
+            }
+            ret.first += cap;
+            ret.second += cap * (dist[sink] - dist[src]);
+            for(int pos = sink; pos != src; pos = pa[pos]){
+                int rev = gph[pa[pos]][pe[pos]].rev;
+                gph[pa[pos]][pe[pos]].cap -= cap;
+                gph[pos][rev].cap += cap;
+            }
+        }
+        return ret;
+    }
 };

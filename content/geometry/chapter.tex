@@ -1,5 +1,20 @@
 \chapter{Geometry}
 
+\section{Analytic Geometry}
+Area $A = \sqrt{p(p-a)(p-b)(p-c)}$ when $p = (a+b+c)/2$ \\
+Circumscribed circle $R = abc/4A$, inscribed circle $r = A/p$ \\ 
+Middle line length $m_a = \sqrt{2b^2+2c^2-a^2}/2$ \\
+Bisector line length $s_a=\sqrt{bc[1-(\frac{a}{b+c})^2]}$ \\
+\begin{tabular}{|c|c|c|c|c|}
+    Name & $\alpha$ & $\beta$ & $\gamma$ & \\ \hline
+    R & $a^2\mathcal{A}$ & $b^2\mathcal{B}$ & $c^2\mathcal{C}$ & $\mathcal{A}=b^2+c^2-a^2$ \\
+    r & $a$ & $b$ & $c$ & $\mathcal{B} = a^2 + c^2 - b^2$ \\
+    G & $1$ & $1$ & $1$ & $\mathcal{C} = a^2 + b^2 - c^2$ \\
+    H & $\mathcal{BC}$ & $\mathcal{CA}$ & $\mathcal{AB}$ & \\
+    Excircle(A) & $-a$ & $b$ & $c$ & 
+\end{tabular}
+$HG:GO=1:2$. H of triangle made by middle point on arc of circumscribed circle is equal to inscribed circle center of original triangle. \\
+
 \section{Geometric primitives}
 	\kactlimport{Point.h}
 	\kactlimport{lineDistance.h}

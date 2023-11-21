@@ -1,32 +1,32 @@
 /**
- * Author: Simon Lindholm
- * Date: 2021-01-09
- * License: CC0
- * Source: https://en.wikipedia.org/wiki/Stoer%E2%80%93Wagner_algorithm
- * Description: Find a global minimum cut in an undirected graph, as represented by an adjacency matrix.
- * Time: O(V^3)
- * Status: Stress-tested together with GomoryHu
+ * Author:
+ * Description: Undirected graph with adj matrix. No edge means $adj[i][j] = 0$.
+ * 0-based index, and expect $N \times N$ adj matrix.
+ * Time: O(V^3), $\sum V^3 = 5.5 \times 10^8$ in 640ms.
  */
 #pragma once
 
-pair<int, vi> globalMinCut(vector<vi> mat) {
-	pair<int, vi> best = {INT_MAX, {}};
-	int n = sz(mat);
-	vector<vi> co(n);
-	rep(i,0,n) co[i] = {i};
-	rep(ph,1,n) {
-		vi w = mat[0];
-		size_t s = 0, t = 0;
-		rep(it,0,n-ph) { // O(V^2) -> O(E log V) with prio. queue
-			w[t] = INT_MIN;
-			s = t, t = max_element(all(w)) - w.begin();
-			rep(i,0,n) w[i] += mat[t][i];
-		}
-		best = min(best, {w[t] - mat[t][t], co[t]});
-		co[s].insert(co[s].end(), all(co[t]));
-		rep(i,0,n) mat[s][i] += mat[t][i];
-		rep(i,0,n) mat[i][s] = mat[s][i];
-		mat[0][t] = INT_MIN;
-	}
-	return best;
+const int INF = 1e9;
+int getMinCut(vector<vector<int>> &adj) {
+    int n = adj.size();
+    vector<int> used(n);
+    int ret = INF;
+    for (int ph=n-1; ph>=0; --ph) {
+        vector<int> w = adj[0], added = used;
+        int prev, k = 0;
+        for (int i=0; i<ph; ++i) {
+            prev = k;
+            k = -1;
+            for (int j = 1; j < n; j++) {
+                if (!added[j] && (k == -1 || w[j] > w[k])) k = j;
+            }
+            if (i+1 == ph) break;
+            for (int j = 0; j < n; j++) w[j] += adj[k][j];
+            added[k] = 1;
+        }
+        for (int i=0; i<n; ++i) adj[i][prev] = (adj[prev][i] += adj[k][i]);
+        used[k] = 1;
+        ret = min(ret, w[k]);
+    }
+    return ret;
 }
