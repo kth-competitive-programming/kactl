@@ -1,75 +1,95 @@
 /**
- * Author: chilli, Takanori MAEHARA, Benq, Simon Lindholm
- * Date: 2019-05-10
- * License: CC0
- * Source: https://github.com/spaghetti-source/algorithm/blob/master/graph/arborescence.cc
- * and https://github.com/bqi343/USACO/blob/42d177dfb9d6ce350389583cfa71484eb8ae614c/Implementations/content/graphs%20(12)/Advanced/DirectedMST.h for the reconstruction
- * Description: Finds a minimum spanning
- * tree/arborescence of a directed graph, given a root node. If no MST exists, returns -1.
- * Time: O(E \log V)
- * Status: Stress-tested, also tested on NWERC 2018 fastestspeedrun
+ * Author:
+ * Description: Directed MST for given root node. If no MST exists, returns -1.
+ * Usage: 0-base index. Vertex is 0 to n-1. typedef ll cost_t.
+ * Time: O(E \log V), $V = E = 2 \times 10^5$ in 90ms at yosupo.
  */
 #pragma once
 
-#include "../data-structures/UnionFindRollback.h"
-
-struct Edge { int a, b; ll w; };
-struct Node { /// lazy skew heap node
-	Edge key;
-	Node *l, *r;
-	ll delta;
-	void prop() {
-		key.w += delta;
-		if (l) l->delta += delta;
-		if (r) r->delta += delta;
-		delta = 0;
-	}
-	Edge top() { prop(); return key; }
+struct Edge{
+    int s, e; cost_t x;
+    Edge() = default;
+    Edge(int s, int e, cost_t x) : s(s), e(e), x(x) {}
+    bool operator < (const Edge &t) const { return x < t.x; }
 };
-Node *merge(Node *a, Node *b) {
-	if (!a || !b) return a ?: b;
-	a->prop(), b->prop();
-	if (a->key.w > b->key.w) swap(a, b);
-	swap(a->l, (a->r = merge(b, a->r)));
-	return a;
+struct UnionFind{
+    vector<int> P, S;
+    vector<pair<int, int>> stk;
+    UnionFind(int n) : P(n), S(n, 1) { iota(P.begin(), P.end(), 0); }
+    int find(int v) const { return v == P[v] ? v : find(P[v]); }
+    int time() const { return stk.size(); }
+    void rollback(int t){
+        while(stk.size() > t){
+            auto [u,v] = stk.back(); stk.pop_back();
+            P[u] = u; S[v] -= S[u];
+        }
+    }
+    bool merge(int u, int v){
+        u = find(u); v = find(v);
+        if(u == v) return false;
+        if(S[u] > S[v]) swap(u, v);
+        stk.emplace_back(u, v);
+        S[v] += S[u]; P[u] = v;
+        return true;
+    }
+};
+struct Node{
+    Edge key;
+    Node *l, *r;
+    cost_t lz;
+    Node() : Node(Edge()) {}
+    Node(const Edge &edge) : key(edge), l(nullptr), r(nullptr), lz(0) {}
+    void push(){
+        key.x += lz;
+        if(l) l->lz += lz;
+        if(r) r->lz += lz;
+        lz = 0;
+    }
+    Edge top(){ push(); return key; }
+};
+Node* merge(Node *a, Node *b){
+    if(!a || !b) return a ? a : b;
+    a->push(); b->push();
+    if(b->key < a->key) swap(a, b);
+    swap(a->l, (a->r = merge(b, a->r)));
+    return a;
 }
-void pop(Node*& a) { a->prop(); a = merge(a->l, a->r); }
+void pop(Node* &a){ a->push(); a = merge(a->l, a->r); }
 
-pair<ll, vi> dmst(int n, int r, vector<Edge>& g) {
-	RollbackUF uf(n);
-	vector<Node*> heap(n);
-	for (Edge e : g) heap[e.b] = merge(heap[e.b], new Node{e});
-	ll res = 0;
-	vi seen(n, -1), path(n), par(n);
-	seen[r] = r;
-	vector<Edge> Q(n), in(n, {-1,-1}), comp;
-	deque<tuple<int, int, vector<Edge>>> cycs;
-	rep(s,0,n) {
-		int u = s, qi = 0, w;
-		while (seen[u] < 0) {
-			if (!heap[u]) return {-1,{}};
-			Edge e = heap[u]->top();
-			heap[u]->delta -= e.w, pop(heap[u]);
-			Q[qi] = e, path[qi++] = u, seen[u] = s;
-			res += e.w, u = uf.find(e.a);
-			if (seen[u] == s) { /// found cycle, contract
-				Node* cyc = 0;
-				int end = qi, time = uf.time();
-				do cyc = merge(cyc, heap[w = path[--qi]]);
-				while (uf.join(u, w));
-				u = uf.find(u), heap[u] = cyc, seen[u] = -1;
-				cycs.push_front({u, time, {&Q[qi], &Q[end]}});
-			}
-		}
-		rep(i,0,qi) in[uf.find(Q[i].b)] = Q[i];
-	}
-
-	for (auto& [u,t,comp] : cycs) { // restore sol (optional)
-		uf.rollback(t);
-		Edge inEdge = in[u];
-		for (auto& e : comp) in[uf.find(e.b)] = e;
-		in[uf.find(inEdge.b)] = inEdge;
-	}
-	rep(i,0,n) par[i] = in[i].a;
-	return {res, par};
+// 0-based
+pair<cost_t, vector<int>> DirectMST(int n, int rt, vector<Edge> &edges){
+    vector<Node*> heap(n);
+    UnionFind uf(n);
+    for(const auto &i : edges) heap[i.e] = merge(heap[i.e], new Node(i));
+    cost_t res = 0;
+    vector<int> seen(n, -1), path(n), par(n);
+    seen[rt] = rt;
+    vector<Edge> Q(n), in(n, {-1,-1, 0}), comp;
+    deque<tuple<int, int, vector<Edge>>> cyc;
+    for(int s=0; s<n; s++){
+        int u = s, qi = 0, w;
+        while(seen[u] < 0){
+            if(!heap[u]) return {-1, {}};
+            Edge e = heap[u]->top();
+            heap[u]->lz -= e.x; pop(heap[u]);
+            Q[qi] = e; path[qi++] = u; seen[u] = s;
+            res += e.x; u = uf.find(e.s);
+            if(seen[u] == s){ // found cycle, contract
+                Node* nd = 0;
+                int end = qi, time = uf.time();
+                do nd = merge(nd, heap[w = path[--qi]]); while(uf.merge(u, w));
+                u = uf.find(u); heap[u] = nd; seen[u] = -1;
+                cyc.emplace_front(u, time, vector<Edge>{&Q[qi], &Q[end]});
+            }
+        }
+        for(int i=0; i<qi; i++) in[uf.find(Q[i].e)] = Q[i];
+    }
+    for(auto& [u,t,comp] : cyc){
+        uf.rollback(t);
+        Edge inEdge = in[u];
+        for (auto& e : comp) in[uf.find(e.e)] = e;
+        in[uf.find(inEdge.e)] = inEdge;
+    }
+    for(int i=0; i<n; i++) par[i] = in[i].s;
+    return {res, par};
 }
