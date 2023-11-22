@@ -1,54 +1,42 @@
 /**
- * Author: Simon Lindholm
- * Date: 2017-04-17
- * License: CC0
- * Source: folklore
- * Description: Finds all biconnected components in an undirected graph, and
- *  runs a callback for the edges in each. In a biconnected component there
- *  are at least two distinct paths between any two nodes. Note that a node can
- *  be in several components. An edge which is not in a component is a bridge,
- *  i.e., not part of any cycle.
- * Usage:
- *  int eid = 0; ed.resize(N);
- *  for each edge (a,b) {
- *    ed[a].emplace_back(b, eid);
- *    ed[b].emplace_back(a, eid++); }
- *  bicomps([\&](const vi\& edgelist) {...});
- * Time: O(E + V)
- * Status: tested during MIPT ICPC Workshop 2017
+ * Author:
+ * Description: Find all biconnected component made by cutting bridge. Hence each bcc is maximal biconnected component. Arctic edges are every bcc that its size equals to 2. Arctic nodes are every node that it belongs to at least 2 different rbcc.
+ * Usage: 1-base index (0 use as dummy parent). if (!dfn[i]) dfs(i, 0); bcc[color] stores nodes contained in that bcc. Valid bcc number is [1, c].
+ * Time: O(V+E), $V = E = 5 \times 10^5$ in 500ms at yosupo, $V = 10^5, E = 10^6$ in 216ms at BOJ.
  */
 #pragma once
 
-vi num, st;
-vector<vector<pii>> ed;
-int Time;
-template<class F>
-int dfs(int at, int par, F& f) {
-	int me = num[at] = ++Time, e, y, top = me;
-	for (auto pa : ed[at]) if (pa.second != par) {
-		tie(y, e) = pa;
-		if (num[y]) {
-			top = min(top, num[y]);
-			if (num[y] < me)
-				st.push_back(e);
-		} else {
-			int si = sz(st);
-			int up = dfs(y, e, f);
-			top = min(top, up);
-			if (up == me) {
-				st.push_back(e);
-				f(vi(st.begin() + si, st.end()));
-				st.resize(si);
-			}
-			else if (up < me) st.push_back(e);
-			else { /* e is a bridge */ }
-		}
-	}
-	return top;
-}
+const int MAX_N = 5e5 + 1;
 
-template<class F>
-void bicomps(F f) {
-	num.assign(sz(ed), 0);
-	rep(i,0,sz(ed)) if (!num[i]) dfs(i, -1, f);
+vector<int> adj[MAX_N];
+vector<int> bcc[MAX_N];
+vector<int> st;
+int low[MAX_N], dfn[MAX_N];
+int piv = 0, c = 0;
+
+void dfs(int x, int p){
+    if (adj[x].empty()) {
+        bcc[++c].push_back(x);
+        return;
+    }
+    
+    dfn[x] = low[x] = ++piv;
+    st.push_back(x);
+    for (auto v: adj[x]) {
+        if (!dfn[v]) {
+            dfs(v, x);
+            low[x] = min(low[x], low[v]);
+            if (low[v] >= dfn[x]) {
+                bcc[++c].push_back(x);
+                while (!st.empty()) {
+                    int tmp = st.back();
+                    bcc[c].push_back(tmp);
+                    st.pop_back();
+                    if (tmp == v) break;
+                }
+            }
+        } else {
+            low[x] = min(low[x], dfn[v]);
+        }
+    }
 }

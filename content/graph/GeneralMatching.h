@@ -1,54 +1,101 @@
 /**
- * Author: Simon Lindholm
- * Date: 2016-12-09
- * License: CC0
- * Source: http://www.mimuw.edu.pl/~mucha/pub/mucha_sankowski_focs04.pdf
+ * Author:
  * Description: Matching for general graphs.
- * Fails with probability $N / mod$.
- * Time: O(N^3)
- * Status: not very well tested
+ * Usage: 1-base index. match[] has real matching (maybe). GeneralMatching g(n); g.add_edge(a, b); int ret = g.run(void);
+ * Time: O(N^3), $N = 500$ in 20ms.
  */
 #pragma once
 
-#include "../numerical/MatrixInverse-mod.h"
+const int MAX_N = 500 + 1;
 
-vector<pii> generalMatching(int N, vector<pii>& ed) {
-	vector<vector<ll>> mat(N, vector<ll>(N)), A;
-	for (pii pa : ed) {
-		int a = pa.first, b = pa.second, r = rand() % mod;
-		mat[a][b] = r, mat[b][a] = (mod - r) % mod;
-	}
+struct GeneralMatching {
+    int n, cnt;
+    int match[MAX_N], par[MAX_N], chk[MAX_N], prv[MAX_N], vis[MAX_N];
+    vector<int> g[MAX_N];
+    GeneralMatching(int n): n(n) {
+        // init
+        cnt = 0;
+        for (int i=0; i<=n; ++i) g[i].clear();
+        memset(match, 0, sizeof match);
+        memset(vis, 0, sizeof vis);
+        memset(prv, 0, sizeof prv);
+    }
 
-	int r = matInv(A = mat), M = 2*N - r, fi, fj;
-	assert(r % 2 == 0);
+    int find(int x) { return x == par[x] ? x : par[x] = find(par[x]); }
 
-	if (M != N) do {
-		mat.resize(M, vector<ll>(M));
-		rep(i,0,N) {
-			mat[i].resize(M);
-			rep(j,N,M) {
-				int r = rand() % mod;
-				mat[i][j] = r, mat[j][i] = (mod - r) % mod;
-			}
-		}
-	} while (matInv(A = mat) != M);
+    int lca(int u, int v) { 
+        for (cnt++; vis[u] != cnt; swap(u, v)) {
+            if (u) vis[u] = cnt, u = find(prv[match[u]]);
+        }
+        return u;
+    }
 
-	vi has(M, 1); vector<pii> ret;
-	rep(it,0,M/2) {
-		rep(i,0,M) if (has[i])
-			rep(j,i+1,M) if (A[i][j] && mat[i][j]) {
-				fi = i; fj = j; goto done;
-		} assert(0); done:
-		if (fj < N) ret.emplace_back(fi, fj);
-		has[fi] = has[fj] = 0;
-		rep(sw,0,2) {
-			ll a = modpow(A[fi][fj], mod-2);
-			rep(i,0,M) if (has[i] && A[i][fj]) {
-				ll b = A[i][fj] * a % mod;
-				rep(j,0,M) A[i][j] = (A[i][j] - A[fi][j] * b) % mod;
-			}
-			swap(fi,fj);
-		}
-	}
-	return ret;
-}
+    void add_edge(int u, int v) {
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    void blossom(int u, int v, int rt, queue<int> &q) {
+        for (; find(u) != rt; u = prv[v]) {
+            prv[u] = v; 
+            par[u] = par[v = match[u]] = rt; 
+            if (chk[v] & 1) q.push(v), chk[v] = 2;
+        }
+    }
+
+    bool augment(int u) {
+        iota(par, par + MAX_N, 0); 
+        memset(chk, 0, sizeof chk); 
+        queue<int> q; 
+        q.push(u); 
+        chk[u] = 2;
+    
+        while (!q.empty()) {
+            u = q.front(); 
+            q.pop();
+            for (auto v : g[u]) {
+                if (chk[v] == 0) {
+                    prv[v] = u; 
+                    chk[v] = 1; 
+                    q.push(match[v]); 
+                    chk[match[v]] = 2;
+                    if (!match[v]) { 
+                        for (; u; v = u) {
+                            u = match[prv[v]]; 
+                            match[match[v] = prv[v]] = v; 
+                        }
+                        return true;
+                    }
+                } else if (chk[v] == 2) {
+                    int l = lca(u, v); 
+                    blossom(u, v, l, q);
+                    blossom(v, u, l, q); 
+                }
+            }
+        }
+        return false;
+    }
+
+    int run() {
+        int ret = 0;
+        vector<int> tmp(n-1); // not necessary, just for constant optimization
+        iota(tmp.begin(), tmp.end(), 0);
+        shuffle(tmp.begin(), tmp.end(), mt19937(0x1557));
+        for (auto x: tmp) {
+            if (!match[x]) {
+                for (auto y: g[x]) {
+                    if (!match[y]) {
+                        match[x] = y;
+                        match[y] = x;
+                        ret++;
+                        break;
+                    }
+                }
+            }
+        }
+        for (int i=1; i<=n; i++) { 
+            if (!match[i]) ret += augment(i);
+        }
+        return ret;
+    }
+};
