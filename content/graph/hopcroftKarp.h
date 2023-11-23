@@ -1,61 +1,100 @@
 /**
- * Author: Chen Xing
- * Date: 2009-10-13
- * License: CC0
- * Source: N/A
- * Description: Fast bipartite matching algorithm. Graph $g$ should be a list
- * of neighbors of the left partition, and $btoa$ should be a vector full of
- * -1's of the same size as the right partition. Returns the size of
- * the matching. $btoa[i]$ will be the match for vertex $i$ on the right side,
- * or $-1$ if it's not matched.
- * Usage: vi btoa(m, -1); hopcroftKarp(g, btoa);
- * Time: O(\sqrt{V}E)
- * Status: stress-tested by MinimumVertexCover, and tested on oldkattis.adkbipmatch and SPOJ:MATCHING
+ * Author:
+ * Description: It contains several application of bipartite matching. 
+ * Usage: Both left and right side of node number starts with 0. HopcraftKarp(n, m); g.add_edge(s, e);
+ * Time: O(E \sqrt{V}), min path cover $V = 10^4, E = 10^5$ in 20ms.
  */
 #pragma once
 
-bool dfs(int a, int L, vector<vi>& g, vi& btoa, vi& A, vi& B) {
-	if (A[a] != L) return 0;
-	A[a] = -1;
-	for (int b : g[a]) if (B[b] == L + 1) {
-		B[b] = 0;
-		if (btoa[b] == -1 || dfs(btoa[b], L + 1, g, btoa, A, B))
-			return btoa[b] = a, 1;
-	}
-	return 0;
-}
-
-int hopcroftKarp(vector<vi>& g, vi& btoa) {
-	int res = 0;
-	vi A(g.size()), B(btoa.size()), cur, next;
-	for (;;) {
-		fill(all(A), 0);
-		fill(all(B), 0);
-		/// Find the starting nodes for BFS (i.e. layer 0).
-		cur.clear();
-		for (int a : btoa) if(a != -1) A[a] = -1;
-		rep(a,0,sz(g)) if(A[a] == 0) cur.push_back(a);
-		/// Find all layers using bfs.
-		for (int lay = 1;; lay++) {
-			bool islast = 0;
-			next.clear();
-			for (int a : cur) for (int b : g[a]) {
-				if (btoa[b] == -1) {
-					B[b] = lay;
-					islast = 1;
-				}
-				else if (btoa[b] != a && !B[b]) {
-					B[b] = lay;
-					next.push_back(btoa[b]);
-				}
-			}
-			if (islast) break;
-			if (next.empty()) return res;
-			for (int a : next) A[a] = lay;
-			cur.swap(next);
-		}
-		/// Use DFS to scan for augmenting paths.
-		rep(a,0,sz(g))
-			res += dfs(a, 0, g, btoa, A, B);
-	}
-}
+struct HopcroftKarp{
+    int n, m;
+    vector<vector<int>> g;
+    vector<int> dst, le, ri;
+    vector<char> visit, track;
+    HopcroftKarp(int n, int m) : n(n), m(m), g(n), dst(n), le(n, -1), ri(m, -1), visit(n), track(n+m) {}
+    
+    void add_edge(int s, int e){ g[s].push_back(e); }
+    bool bfs(){
+        bool res = false; queue<int> que;
+        fill(dst.begin(), dst.end(), 0);
+        for(int i=0; i<n; i++)if(le[i] == -1)que.push(i),dst[i]=1;
+        while(!que.empty()){
+            int v = que.front(); que.pop();
+            for(auto i : g[v]){
+                if(ri[i] == -1) res = true;
+                else if(!dst[ri[i]])dst[ri[i]]=dst[v]+1,que.push(ri[i]);
+            }
+        }
+        return res;
+    }
+    bool dfs(int v){
+        if(visit[v]) return false; visit[v] = 1;
+        for(auto i : g[v]){
+            if(ri[i] == -1 || !visit[ri[i]] && dst[ri[i]] == dst[v] + 1 && dfs(ri[i])){
+                le[v] = i; ri[i] = v; return true;
+            }
+        }
+        return false;
+    }
+    int maximum_matching(){
+        int res = 0; fill(le.begin(), le.end(), -1); fill(ri.begin(), ri.end(), -1);
+        while(bfs()){
+            fill(visit.begin(), visit.end(), 0);
+            for(int i=0; i<n; i++) if(le[i] == -1) res += dfs(i);
+        }
+        return res;
+    }
+    vector<pair<int,int>> maximum_matching_edges(){
+        int matching = maximum_matching();
+        vector<pair<int,int>> edges; edges.reserve(matching);
+        for(int i=0; i<n; i++) if(le[i] != -1) edges.emplace_back(i, le[i]);
+        return edges;
+    }
+    void dfs_track(int v){
+        if(track[v]) return; track[v] = 1;
+        for(auto i : g[v]) track[n+i] = 1, dfs_track(ri[i]);
+    }
+    tuple<vector<int>, vector<int>, int> minimum_vertex_cover(){
+        int matching = maximum_matching(); vector<int> lv, rv;
+        fill(track.begin(), track.end(), 0);
+        for(int i=0; i<n; i++) if(le[i] == -1) dfs_track(i);
+        for(int i=0; i<n; i++) if(!track[i]) lv.push_back(i);
+        for(int i=0; i<m; i++) if(track[n+i]) rv.push_back(i);
+        return {lv, rv, lv.size() + rv.size()}; // s(lv)+s(rv)=mat
+    }
+    tuple<vector<int>, vector<int>, int> maximum_independent_set(){
+        auto [a,b,matching] = minimum_vertex_cover();
+        vector<int> lv, rv; lv.reserve(n-a.size()); rv.reserve(m-b.size());
+        for(int i=0, j=0; i<n; i++){
+            while(j < a.size() && a[j] < i) j++;
+            if(j == a.size() || a[j] != i) lv.push_back(i);
+        }
+        for(int i=0, j=0; i<m; i++){
+            while(j < b.size() && b[j] < i) j++;
+            if(j == b.size() || b[j] != i) rv.push_back(i);
+        } // s(lv)+s(rv)=n+m-mat
+        return {lv, rv, lv.size() + rv.size()};
+    }
+    vector<vector<int>> minimum_path_cover(){ // n == m
+        int matching = maximum_matching();
+        vector<vector<int>> res; res.reserve(n - matching);
+        fill(track.begin(), track.end(), 0);
+        auto get_path = [&](int v) -> vector<int> {
+            vector<int> path{v}; // ri[v] == -1
+            while(le[v] != -1) path.push_back(v=le[v]);
+            return path;
+        };
+        for(int i=0; i<n; i++) if(!track[n+i] && ri[i] == -1) res.push_back(get_path(i));
+        return res; // sz(res) = n-mat
+    }
+    vector<int> maximum_anti_chain(){ // n = m
+        auto [a,b,matching] = minimum_vertex_cover();
+        vector<int> res; res.reserve(n - a.size() - b.size());
+        for(int i=0, j=0, k=0; i<n; i++){
+            while(j < a.size() && a[j] < i) j++;
+            while(k < b.size() && b[k] < i) k++;
+            if((j == a.size() || a[j] != i) && (k == b.size() || b[k] != i)) res.push_back(i);
+        }
+        return res; // sz(res) = n-mat
+    }
+};

@@ -1,66 +1,72 @@
 \chapter{Graph}
 
 \section{Fundamentals}
-	%\kactlimport{BellmanFord.h}
-	%\kactlimport{FloydWarshall.h}
-	%\kactlimport{TopoSort.h}
-        \kactlimport{Bridge.h}
-        \kactlimport{KthShortestPath.h}
-        \kactlimport{TreeIsomorphism.h}
-        
+%\kactlimport{BellmanFord.h}
+%\kactlimport{FloydWarshall.h}
+%\kactlimport{TopoSort.h}
+\kactlimport{Bridge.h}
+\kactlimport{KthShortestPath.h}
+\kactlimport{TreeIsomorphism.h}
+
 \section{Network flow}
-	% \kactlimport{PushRelabel.h}
-        \kactlimport{MinCostMaxFlow.h}
-	%\kactlimport{EdmondsKarp.h}
-	\kactlimport{Dinic.h}
-        \kactlimport{Hungarian.h}
-	%\kactlimport{MinCut.h}
-	\kactlimport{GlobalMinCut.h}
-	\kactlimport{GomoryHu.h}
+% \kactlimport{PushRelabel.h}
+\kactlimport{MinCostMaxFlow.h}
+%\kactlimport{EdmondsKarp.h}
+\kactlimport{Dinic.h}
+\kactlimport{Hungarian.h}
+%\kactlimport{MinCut.h}
+\kactlimport{GlobalMinCut.h}
+\kactlimport{GomoryHu.h}
 
 \section{Matching}
-	%\kactlimport{hopcroftKarp.h}
-	%\kactlimport{DFSMatching.h}
-	%\kactlimport{MinimumVertexCover.h}
-	%\kactlimport{WeightedMatching.h}
-        \kactlimport{GeneralMatching.h}
-        \kactlimport{GeneralWeightedMatching.h}
+\subsection{Random notes on matching (and bipartite)}
+In general graph, complement of independent set is vertex cover, and reverse holds too. \\
+In bipartite graph, cardinality of minimum vertex cover is equal to card of maximum matching (konig). \\
+In poset (DAG), card of maximum anti chain is equal to minimum path cover (dilworth). \\
+Poset is DAG which satisfy i->j and j->k edge means i->k (transitivity).
+
+\kactlimport{hopcroftKarp.h}
+%\kactlimport{DFSMatching.h}
+%\kactlimport{MinimumVertexCover.h}
+%\kactlimport{WeightedMatching.h}
+\kactlimport{GeneralMatching.h}
+\kactlimport{GeneralWeightedMatching.h}
 
 \section{DFS algorithms}
-	%\kactlimport{SCC.h}
-	%\kactlimport{BiconnectedComponents.h}
-	\kactlimport{2sat.h}
-	%\kactlimport{EulerWalk.h}
+%\kactlimport{SCC.h}
+%\kactlimport{BiconnectedComponents.h}
+\kactlimport{2sat.h}
+%\kactlimport{EulerWalk.h}
 
 \section{Coloring}
-	\kactlimport{EdgeColoring.h}
+\kactlimport{EdgeColoring.h}
 
 \section{Heuristics}
-	%\kactlimport{MaximalCliques.h}
-	%\kactlimport{MaximumClique.h}
-	%\kactlimport{MaximumIndependentSet.h}
+%\kactlimport{MaximalCliques.h}
+%\kactlimport{MaximumClique.h}
+%\kactlimport{MaximumIndependentSet.h}
 
 \section{Trees}
-        %\kactlimport{BinaryLifting.h}
-	%\kactlimport{LCA.h}
-	%\kactlimport{CompressTree.h}
-	\kactlimport{HLD.h}
-	%\kactlimport{LinkCutTree.h}
-	\kactlimport{DirectedMST.h}
-        \kactlimport{ManhattanMST.h}
+%\kactlimport{BinaryLifting.h}
+%\kactlimport{LCA.h}
+%\kactlimport{CompressTree.h}
+%\kactlimport{HLD.h}
+%\kactlimport{LinkCutTree.h}
+\kactlimport{DirectedMST.h}
+\kactlimport{ManhattanMST.h}
 
 \section{Math}
-	\subsection{Number of Spanning Trees}
-		% I.e. matrix-tree theorem.
-		% Source: https://en.wikipedia.org/wiki/Kirchhoff%27s_theorem
-		% Test: stress-tests/graph/matrix-tree.cpp
-		Create an $N\times N$ matrix \texttt{mat}, and for each edge $a \rightarrow b \in G$, do
-		\texttt{mat[a][b]--, mat[b][b]++} (and \texttt{mat[b][a]--, mat[a][a]++} if $G$ is undirected).
-		Remove the $i$th row and column and take the determinant; this yields the number of directed spanning trees rooted at $i$
-		(if $G$ is undirected, remove any row/column).
+\subsection{Number of Spanning Trees}
+% I.e. matrix-tree theorem.
+% Source: https://en.wikipedia.org/wiki/Kirchhoff%27s_theorem
+% Test: stress-tests/graph/matrix-tree.cpp
+Create an $N\times N$ matrix \texttt{mat}, and for each edge $a \rightarrow b \in G$, do
+\texttt{mat[a][b]--, mat[b][b]++} (and \texttt{mat[b][a]--, mat[a][a]++} if $G$ is undirected).
+Remove the $i$th row and column and take the determinant; this yields the number of directed spanning trees rooted at $i$
+(if $G$ is undirected, remove any row/column).
 
-	\subsection{Erdős–Gallai theorem}
-		% Source: https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93Gallai_theorem
-		% Test: stress-tests/graph/erdos-gallai.cpp
-		A simple graph with node degrees $d_1 \ge \dots \ge d_n$ exists iff $d_1 + \dots + d_n$ is even and for every $k = 1\dots n$,
-		\[ \sum _{i=1}^{k}d_{i}\leq k(k-1)+\sum _{i=k+1}^{n}\min(d_{i},k). \]
+\subsection{Erdős–Gallai theorem}
+% Source: https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93Gallai_theorem
+% Test: stress-tests/graph/erdos-gallai.cpp
+A simple graph with node degrees $d_1 \ge \dots \ge d_n$ exists iff $d_1 + \dots + d_n$ is even and for every $k = 1\dots n$,
+\[ \sum _{i=1}^{k}d_{i}\leq k(k-1)+\sum _{i=k+1}^{n}\min(d_{i},k). \]

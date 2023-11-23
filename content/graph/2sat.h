@@ -1,5 +1,5 @@
 /**
- * Author: sharaelong
+ * Author:
  * Description: Every variable x is encoded to 2i, $!x$ is 2i+1. n of TwoSAT means number of variables.
  * Usage:
  * TwoSat g(number of vars);
