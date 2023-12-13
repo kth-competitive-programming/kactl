@@ -33,9 +33,9 @@ struct Node { // Splay tree. Root's pp contains tree's parent.
 		c[i] = z->c[i ^ 1];
 		if (b < 2) {
 			x->c[h] = y->c[h ^ 1];
-			z->c[h ^ 1] = b ? x : this;
+			y->c[h ^ 1] = x;
 		}
-		y->c[i ^ 1] = b ? this : x;
+		z->c[i ^ 1] = this;
 		fix(); x->fix(); y->fix();
 		if (p) p->fix();
 		swap(pp, y->pp);
