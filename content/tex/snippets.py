@@ -29,11 +29,14 @@ def remove_extension(filename: str) -> str:
 
 # create a snippet for a single file, and put it in snippets/lang/name.json
 # called from the preprocessor
-def build(filename: str, commands: dict[str, str], nsource: str, lang: str):
+def build(filename: str, commands: dict[str, str], nsource: str, comment : str, lang: str):
 
     # do not make the snippet if it's not code
     if lang not in langs:
         return
+
+    if lang == 'C++':
+        nsource = f"/*{comment}\n */\n{nsource}"
 
     name = remove_extension(filename)
 

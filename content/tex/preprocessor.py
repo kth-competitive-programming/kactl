@@ -150,7 +150,7 @@ def processwithcomments(caption: str, listingslang: str, make_snippets: bool = F
 
     # create snippet
     if make_snippets:
-        snippets.build(caption, commands, nsource, listingslang)
+        snippets.build(caption, commands, nsource, comment, listingslang)
         return
 
     if listingslang in ['C++', 'Java']:
