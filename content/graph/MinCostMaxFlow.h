@@ -2,7 +2,7 @@
  * Author: Stanford
  * Date: Unknown
  * Source: Stanford Notebook
- * Description: Min-cost max-flow. cap[i][j] != cap[j][i] is allowed; double edges are not.
+ * Description: Min-cost max-flow. Double edges are allowed.
  *  If costs can be negative, call setpi before maxflow, but note that negative cost cycles are not supported.
  *  To obtain the actual flow, look at positive values only.
  * Status: Tested on kattis:mincostmaxflow, stress-tested against another implementation
@@ -13,7 +13,6 @@
 // #include <bits/extc++.h> /// include-line, keep-include
 
 const ll INF = numeric_limits<ll>::max() / 4;
-typedef vector<ll> VL;
 
 struct MCMF {
 	struct edge
@@ -24,7 +23,7 @@ struct MCMF {
 	int N;
 	vector<vector<edge>> ed;
 	vi seen, ind;
-	vi dist, pi;
+	vector<ll> dist, pi;
 	vector<edge*> par;
 
 	MCMF(int N) :
@@ -38,10 +37,9 @@ struct MCMF {
 
 	void path(int s) {
 		fill(all(seen), 0);
-		fill(all(dist), inf);
+		fill(all(dist), INF);
 		dist[s] = 0; ll di;
 
-		//priority_queue<pair<ll, int>> q;
 		__gnu_pbds::priority_queue<pair<ll, int>> q;
 		vector<decltype(q)::point_iterator> its(N);
 		q.push({ 0, s });
@@ -60,13 +58,13 @@ struct MCMF {
 				}
 			}
 		}
-		rep(i, 0, N) pi[i] = min(pi[i] + dist[i], inf);
+		rep(i, 0, N) pi[i] = min(pi[i] + dist[i], INF);
 	}
 
 	pair<ll, ll> maxflow(int s, int t) {
 		ll totflow = 0, totcost = 0;
 		while (path(s), seen[t]) {
-			ll fl = inf;
+			ll fl = INF;
 			for (int p, x = t; par[x] && (p = par[x]->from, x != s); x = p)
 				fl = min(fl, par[x]->cap - par[x]->flow);
 
@@ -83,10 +81,10 @@ struct MCMF {
 
 	// If some costs can be negative, call this before maxflow:
 	void setpi(int s) { // (otherwise, leave this out)
-		fill(all(pi), inf); pi[s] = 0;
+		fill(all(pi), INF); pi[s] = 0;
 		int it = N, ch = 1; ll v;
 		while (ch-- && it--)
-			rep(i, 0, N) if (pi[i] != inf)
+			rep(i, 0, N) if (pi[i] != INF)
 				for (edge& e : ed[i]) if (e.cap)
 					if ((v = pi[i] + e.cost) < pi[e.to])
 						pi[e.to] = v, ch = 1;
