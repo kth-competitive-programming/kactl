@@ -76,7 +76,7 @@ struct MCMF {
 			}
 		}
 		rep(i,0,N) for (edge& e : ed[i]) totcost += e.cost * e.flow;
-		return { totflow, totcost/2 };
+		return {totflow, totcost/2};
 	}
 
 	// If some costs can be negative, call this before maxflow:
