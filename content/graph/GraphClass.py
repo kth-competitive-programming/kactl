@@ -4,6 +4,7 @@
 """
 from collections import defaultdict
 
+
 class Graph:
     def __init__(self, v, egdes=None):
         self.v = v
@@ -14,7 +15,6 @@ class Graph:
 
     def add_edge(self, u, v, w):
         self.edges[u][v] = w
-        self.edges[v][u] = w
 
     def get_neighbors(self, u):
         neighbors = []
@@ -25,8 +25,6 @@ class Graph:
     def get_edge(self, u, v):
         if v in self.edges[u]:
             return self.edges[u][v]
-        if u in self.edges[v]:
-            return self.edges[v][u]
         return None
 
     def get_edges(self):
@@ -35,6 +33,3 @@ class Graph:
             for v in self.edges[u].keys():
                 edges.append((u, v))
         return edges
-
-
-
