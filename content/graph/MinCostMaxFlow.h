@@ -67,8 +67,7 @@ struct MCMF {
 				fl = min(fl, par[x]->cap - par[x]->flow);
 
 			totflow += fl;
-			for (int p, x = t; par[x] && (p = par[x]->from, x != s); x = p)
-			{
+			for (int p, x = t; par[x] && (p = par[x]->from, x != s); x = p) {
 				par[x]->flow += fl;
 				ed[par[x]->to][par[x]->rev].flow -= fl;
 			}
