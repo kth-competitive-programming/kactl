@@ -26,8 +26,7 @@ struct MCMF {
 	vector<ll> dist, pi;
 	vector<edge*> par;
 
-	MCMF(int N) :
-		N(N), ed(N), seen(N), dist(N), pi(N), par(N) {}
+	MCMF(int N) : N(N), ed(N), seen(N), dist(N), pi(N), par(N) {}
 
 	void addEdge(int from, int to, ll cap, ll cost) {
 		if (from == to) return;
