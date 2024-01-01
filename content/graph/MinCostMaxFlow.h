@@ -6,7 +6,7 @@
  *  If costs can be negative, call setpi before maxflow, but note that negative cost cycles are not supported.
  *  To obtain the actual flow, look at positive values only.
  * Status: Tested on kattis:mincostmaxflow, stress-tested against another implementation
- * Time: $O(F \cdot Elog(N))$ if all costs are positive, where F is max flow. Otherwise $O(F \cdot Elog(N)+VE)$
+ * Time: $O(F \cdot Elog(V))$ if all costs are positive, where F is max flow. Otherwise $O(F \cdot Elog(V)+VE)$
  */
 #pragma once
 
@@ -22,7 +22,7 @@ struct MCMF {
 	};
 	int N;
 	vector<vector<edge>> ed;
-	vi seen, ind;
+	vi seen;
 	vector<ll> dist, pi;
 	vector<edge*> par;
 
