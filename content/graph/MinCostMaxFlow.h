@@ -46,8 +46,7 @@ struct MCMF {
 		while (!q.empty()) {
 			s = q.top().second; q.pop();
 			seen[s] = 1; di = dist[s] + pi[s];
-			for (edge& e : ed[s]) if (!seen[e.to])
-			{
+			for (edge& e : ed[s]) if (!seen[e.to]) {
 				ll val = di - pi[e.to] + e.cost;
 				if (e.cap - e.flow > 0 && val < dist[e.to]) {
 					dist[e.to] = val;
