@@ -2,7 +2,8 @@
  * Author: Simon Lindholm
  * License: CC0
  * Source: Codeforces
- * Description: Given $a[i] = \min_{lo(i) \le k < hi(i)}(f(i, k))$ where the (minimal) optimal $k$ increases with $i$, computes $a[i]$ for $i = L..R-1$.
+ * Description: Given $a[i] = \min_{lo(i) \le k < hi(i)}(f(i, k))$ where the (minimal)
+ * optimal $k$ increases with $i$, computes $a[i]$ for $i = L..R-1$.
  * Time: O((N + (hi-lo)) \log N)
  * Status: tested on http://codeforces.com/contest/321/problem/E
  */
