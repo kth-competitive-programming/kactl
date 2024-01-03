@@ -2,11 +2,11 @@
  * Author: Stanford
  * Date: Unknown
  * Source: Stanford Notebook
- * Description: Min-cost max-flow. Double edges are allowed.
+ * Description: Min-cost max-flow.
  *  If costs can be negative, call setpi before maxflow, but note that negative cost cycles are not supported.
  *  To obtain the actual flow, look at positive values only.
  * Status: Tested on kattis:mincostmaxflow, stress-tested against another implementation
- * Time: $O(F \cdot Elog(V))$ if all costs are positive, where F is max flow. Otherwise $O(F \cdot Elog(V)+VE)$
+ * Time: $O(F \cdot E \log(V))$ where F is max flow. $O(VE)$ for setpi.
  */
 #pragma once
 
@@ -15,8 +15,7 @@
 const ll INF = numeric_limits<ll>::max() / 4;
 
 struct MCMF {
-	struct edge
-	{
+	struct edge {
 		int from, to, rev;
 		ll cap, cost, flow;
 	};
