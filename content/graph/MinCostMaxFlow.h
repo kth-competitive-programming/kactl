@@ -6,7 +6,7 @@
  *  If costs can be negative, call setpi before maxflow, but note that negative cost cycles are not supported.
  *  To obtain the actual flow, look at positive values only.
  * Status: Tested on kattis:mincostmaxflow, stress-tested against another implementation
- * Time: $O(F \cdot E \log(V))$ where F is max flow. $O(VE)$ for setpi.
+ * Time: $O(F E \log(V))$ where F is max flow. $O(VE)$ for setpi.
  */
 #pragma once
 
@@ -73,7 +73,7 @@ struct MCMF {
 				ed[x->to][x->rev].flow -= fl;
 			}
 		}
-		rep(i,0,N) for(edge& e : ed[i]) totcost += e.cost*e.flow;
+		rep(i,0,N) for(edge& e : ed[i]) totcost += e.cost * e.flow;
 		return {totflow, totcost/2};
 	}
 
@@ -82,7 +82,7 @@ struct MCMF {
 		fill(all(pi), INF); pi[s] = 0;
 		int it = N, ch = 1; ll v;
 		while (ch-- && it--)
-			rep(i, 0, N) if (pi[i] != INF)
+			rep(i,0,N) if (pi[i] != INF)
 			  for (edge& e : ed[i]) if (e.cap)
 				  if ((v = pi[i] + e.cost) < pi[e.to])
 					  pi[e.to] = v, ch = 1;
