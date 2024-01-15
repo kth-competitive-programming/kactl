@@ -164,8 +164,10 @@ void testMatching() {
 }
 
 void testNeg() {
+	const int ITS = 1000000;
 	int ed[100][100];
-	rep(it,0,1000000) {
+	int negs = 0;
+	rep(it,0,ITS) {
 		size_t lasti = ::i;
 		int N = rand() % 7 + 2;
 		int M = rand() % 17;
@@ -173,6 +175,7 @@ void testNeg() {
 		MCMF mcmf(N);
 		MCMF2 mcmf2(N);
 		rep(i,0,N) rep(j,0,N) ed[i][j] = 0;
+		bool anyneg = false;
 		rep(eid,0,M) {
 			int i = rand() % N, j = rand() % N;
 			if (i != j && !ed[i][j]) {
@@ -181,15 +184,20 @@ void testNeg() {
 				int co = rand() % 11 - 3;
 				mcmf.addEdge(i, j, fl, co);
 				mcmf2.addEdge(i, j, fl, co);
+				if (co < 0) anyneg = true;
 			}
 		}
-		if (!mcmf.setpi(S))  // has negative loops
-			continue;
+		negs += anyneg;
+		if (anyneg || rand() % 3 == 0) {
+			if (!mcmf.setpi(S))  // has negative loops
+				continue;
+		}
 		auto pa = mcmf.maxflow(S, T);
 		auto pa2 = mcmf2.maxflow(S, T);
 		assert(pa == pa2);
 		::i = lasti;
 	}
+	// cerr << negs << "/" << ITS << " graphs with negative edge costs" << endl;
 	cout<<"Tests passed!"<<endl;
 }
 
