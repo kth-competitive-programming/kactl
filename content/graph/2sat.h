@@ -4,7 +4,8 @@
  * License: CC0
  * Source: folklore
  * Description: Calculates a valid assignment to boolean variables a, b, c,... to a 2-SAT problem,
- * so that an expression of the type $(a\|\|b)\&\&(!a\|\|c)\&\&(d\|\|!b)\&\&...$ becomes true, or reports that it is unsatisfiable.
+ * so that an expression of the type $(a||b)\&\&(!a||c)\&\&(d||!b)\&\&...$
+ * becomes true, or reports that it is unsatisfiable.
  * Negated variables are represented by bit-inversions (\texttt{\tilde{}x}).
  * Usage:
  *  TwoSat ts(number of boolean variables);
