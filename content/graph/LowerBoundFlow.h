@@ -1,9 +1,12 @@
 /**
  * Date: 2024-02-08
- * Source:
- * Some NWERC solution
+ * Author: Idek
+ * Source: Some NWERC solution
  * Description: Dinic to run flows, has a lower bound option too.
  */
+
+#pragma once
+
 template <typename C, typename R = C, bool lb = false> struct dinic {
   typedef C flow_type;
   typedef R result_type;
