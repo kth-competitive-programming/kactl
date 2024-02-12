@@ -5,25 +5,29 @@
  * Source: https://github.com/Bathlamos/delaunay-triangulation/
  * Description: NlogN Halfplane intersection
  * Time: O(n \log n)
- * Status: proof at ______ (insert link)
+ * Status: proof at https://codeforces.com/gym/104011
  */
 #pragma once
 
 #include "Point.h"
+#include <vector>
+#include <deque>
 
-const long double eps = 1e-9, inf = 1e9;
+using namespace std;
+
+const long double eps = 1e-9, inf = 1e9; 
+
 template <class T>
 struct Halfplane {
-    typedef Point Point<T>;
-    Point p, pq;
+    Point<T> p, pq;
     long double angle;
 
     Halfplane() {}
-    Halfplane(const Point& a, const Point& b) : p(a), pq(b - a) {
+    Halfplane(const Point<T>& a, const Point<T>& b) : p(a), pq(b - a) {
         angle = atan2l(pq.y, pq.x);
     }
 
-    bool out(const Point& r) {
+    bool out(const Point<T>& r) {
         return pq.cross(r - p) < -eps;
     }
 
@@ -31,7 +35,7 @@ struct Halfplane {
         return angle < e.angle;
     }
 
-    friend Point_inter(const Halfplane& s, const Halfplane& t) {
+    friend Point<T> inter(const Halfplane& s, const Halfplane& t) {
         long double alpha = (t.p - s.p).cross(t.pq) / s.pq.cross(t.pq);
         return s.p + (s.pq * alpha);
     }
@@ -39,13 +43,14 @@ struct Halfplane {
 };
 
 template <class T>
-vector<Point<T>> hp_intersect(vector<Halfplane> &H) {
-    typedef Point Point<T>;
-    Point box[4] = {
-        Point(inf, inf),
-        Point(-inf, inf),
-        Point(-inf, -inf),
-        Point(inf, -inf);
+vector<Point<T>> hp_intersect(vector<Halfplane<T>> &H) {
+    using P = Point<T>;
+    using Halfplane = Halfplane<T>;
+    P box[4] = {
+        P(inf, inf),
+        P(-inf, inf),
+        P(-inf, -inf),
+        P(inf, -inf)
     };
 
     for (int i = 0; i < 4; i++) {
@@ -66,9 +71,9 @@ vector<Point<T>> hp_intersect(vector<Halfplane> &H) {
             --len;
         }
 
-        if (len > 0 && fabsl(cross(H[i].pq, dq[len - 1].pq)) < eps) {
-            if (dot(H[i].pq, dp[len - 1].pq) < 0.0) {
-                return vector<Point>();
+        if (len > 0 && fabsl(H[i].pq.cross(dq[len - 1].pq)) < eps) {
+            if (H[i].pq.dot(dq[len - 1].pq) < 0.0) {
+                return vector<P>();
             }
 
             if (H[i].out(dq[len - 1].p)) {
@@ -90,12 +95,12 @@ vector<Point<T>> hp_intersect(vector<Halfplane> &H) {
         --len;
     }
 
-    if (len < 3) return vector<Point>();
+    if (len < 3) return vector<P>();
 
-    vector<Point> ret(len);
+    vector<P> ret(len);
     for (int i = 0; i + 1 < len; i++) {
         ret[i] = inter(dq[i], dq[i + 1]);
     }
-    ret.back() = inter(deq[len - 1], dq[0]);
+    ret.back() = inter(dq[len - 1], dq[0]);
     return ret;
 }
