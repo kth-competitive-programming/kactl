@@ -5,7 +5,7 @@
  * Source: https://github.com/Bathlamos/delaunay-triangulation/
  * Description: NlogN Halfplane intersection
  * Time: O(n \log n)
- * Status: proof at https://codeforces.com/gym/104011
+ * Status: proof at https://codeforces.com/gym/104011 and https://open.kattis.com/problems/bigbrother 
  */
 #pragma once
 
@@ -19,6 +19,8 @@ const long double eps = 1e-9, inf = 1e9;
 
 template <class T>
 struct Halfplane {
+    // the halfplane determined by p and pq takes all points that are _counterclockwise_ 
+    // wrt p -> (p + pq) vector
     Point<T> p, pq;
     long double angle;
 
