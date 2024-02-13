@@ -7,13 +7,17 @@
  * 	T can be e.g. double or long long. (Avoid int.)
  * Status: Works fine, used a lot
  */
+#include <iostream>
+#include <math.h>
 #pragma once
+
 
 template <class T> int sgn(T x) { return (x > 0) - (x < 0); }
 template<class T>
 struct Point {
 	typedef Point P;
 	T x, y;
+	// operators imply that point should be IN FRONT of the class it passes in
 	explicit Point(T x=0, T y=0) : x(x), y(y) {}
 	bool operator<(P p) const { return tie(x,y) < tie(p.x,p.y); }
 	bool operator==(P p) const { return tie(x,y)==tie(p.x,p.y); }
@@ -34,6 +38,6 @@ struct Point {
 	// returns point rotated 'a' radians ccw around the origin
 	P rotate(double a) const {
 		return P(x*cos(a)-y*sin(a),x*sin(a)+y*cos(a)); }
-	friend ostream& operator<<(ostream& os, P p) {
+	friend std::ostream& operator<<(std::ostream& os, P p) {
 		return os << "(" << p.x << "," << p.y << ")"; }
 };
