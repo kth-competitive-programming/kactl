@@ -73,6 +73,8 @@ def find_start_comment(source: str, start: int | None = None) -> tuple[int, int,
 def processwithcomments(caption: str, listingslang: str, make_snippets: bool = False):
     knowncommands = ['Author', 'Date', 'Description', 'Source', 'Time', 'Memory', 'License', 'Status', 'Usage', 'Details']
     requiredcommands = ['Author', 'Description']
+    if listingslang not in ['C++', 'Java']:
+        requiredcommands = []
     includelist: list[str] = []
     error = ""
     warning = ""

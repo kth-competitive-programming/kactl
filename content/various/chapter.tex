@@ -37,6 +37,10 @@
 			\item \lstinline{#pragma GCC target ("avx2")} can double performance of vectorized code, but causes crashes on old machines.
 			\item \lstinline{#pragma GCC optimize ("trapv")} kills the program on integer overflows (but is really slow).
 		\end{itemize}
+	\subsection{Other}
+		\begin{itemize}
+			\item \lstinline{cin.exceptions(cin.failbit);} will make \lstinline{cin} throw on bad input.
+		\end{itemize}
 	\kactlimport{FastMod.h}
 	\kactlimport{FastInput.h}
 	\kactlimport{BumpAllocator.h}
