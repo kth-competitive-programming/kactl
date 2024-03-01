@@ -2,7 +2,7 @@
 
 #include "../../content/numerical/FastSubsetTransform.h"
 
-ll main() {
+int main() {
 	rep(k,0,10) {
 		vi a(1 << k), b = a, c = a, target = a;
 		for(auto &x: a) x = rand() % 6 - 2;

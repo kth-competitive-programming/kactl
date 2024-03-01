@@ -16,7 +16,7 @@ typedef pair<ll, ll> ii;
 typedef pair<ll, ll> pii;
 typedef vector<ll> vi;
 
-ll main() {
+int main() {
 	cin.tie(0)->sync_with_stdio(0);
 
 }

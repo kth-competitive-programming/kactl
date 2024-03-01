@@ -63,7 +63,7 @@ double closestpair(It begin, It end, It &i1, It &i2 ) {
 }
 }
 
-ll main() {
+int main() {
 	// Compare against the old code
 	ll sum = 0;
 	ll mode = 1;

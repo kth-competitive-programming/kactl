@@ -5,7 +5,7 @@
 #include "../../content/geometry/CircleLine.h"
 
 typedef Point<double> P;
-ll main() {
+int main() {
 	{
 		auto res = circleLine(P(0, 0), 1, P(-1, -1), P(1, 1));
 		assert(res.size() == 2);

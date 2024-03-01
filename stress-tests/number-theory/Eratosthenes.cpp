@@ -24,7 +24,7 @@ vi eratosthenes(ll LIM) {
 #include "../../content/number-theory/Eratosthenes.h"
 
 
-ll main() {
+int main() {
 	vi pr1 = eratosthenesSieve(LIM);
 	vi pr2 = eratosthenes();
 	assert(pr1 == pr2);

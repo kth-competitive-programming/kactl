@@ -39,7 +39,7 @@ ll solve_linear(vector<vd>& A, vd& b, vd& x) {
 	return YES;
 }
 
-ll main() {
+int main() {
 	const ll n = 1000;
 	vector<vd> A(n, vd(n));
 	rep(i,0,n) rep(j,0,n) A[i][j] = rand() * 1000.0 / RAND_MAX;

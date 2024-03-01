@@ -15,7 +15,7 @@ ll main2() {
 	return 0;
 }
 
-ll main() {
+int main() {
 	// return main2();
 	const ll N = 10;
 	const ll iters = 10000000;

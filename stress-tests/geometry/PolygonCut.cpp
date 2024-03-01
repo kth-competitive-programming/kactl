@@ -7,7 +7,7 @@
 #include "../../content/geometry/SegmentIntersection.h"
 
 typedef Point<double> P;
-ll main() {
+int main() {
 	rep(it,0,500) {
 		ll N = rand() % 10 + 3;
 		vector<P> ps;

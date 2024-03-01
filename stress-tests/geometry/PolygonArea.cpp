@@ -4,7 +4,7 @@
 #include "../../content/geometry/PolygonCenter.h"
 #include "../../content/geometry/InsidePolygon.h"
 
-ll main() {
+int main() {
 	srand(0);
 	typedef Point<double> P;
 	vector<P> ps = {P{0,0}, P{6,4}, P{0,9}};

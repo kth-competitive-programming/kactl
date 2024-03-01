@@ -34,7 +34,7 @@ void test(ull lim, bool expectSuccess, bool useDoubles) {
 	}
 }
 
-ll main() {
+int main() {
 	const ull limDoubles = 1ULL << 52;
 	test(limDoubles, true, true);
 	test((ull)(limDoubles * 1.02L), false, true);

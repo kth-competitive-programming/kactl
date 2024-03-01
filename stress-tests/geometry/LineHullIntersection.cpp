@@ -63,7 +63,7 @@ ll segmentIntersection(const P& s1, const P& e1,
 	return 1;
 }
 
-ll main() {
+int main() {
 	srand(2);
 	rep(it,0,1000000) {
 		// cout<<endl;

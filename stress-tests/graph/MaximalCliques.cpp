@@ -81,4 +81,4 @@ ll main2() {
 #ifndef target
 #define target main1
 #endif
-ll main() { target(); }
+int main() { target(); }

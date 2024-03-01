@@ -101,7 +101,7 @@ ll Directed_MST(ll root, ll NV, ll NE) {
 }
 
 ll adj[105][105];
-ll main() {
+int main() {
 	rep(it,0,50000) {
 		bumpalloc.reset();
 		ll n = (rand()%20)+1;

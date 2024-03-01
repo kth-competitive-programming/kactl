@@ -10,7 +10,7 @@ ll ra() {
 }
 
 volatile ll res;
-ll main() {
+int main() {
 	ll N = 10;
 	vi v(N);
 	iota(all(v), 0);

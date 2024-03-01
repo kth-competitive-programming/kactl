@@ -15,7 +15,7 @@ ll naive(vi w, ll t) {
 	assert(false);
 }
 
-ll main() {
+int main() {
 	const ll MAX_N = 10;
 	const ll MAX_W = 10;
 	const ll iters = 1000000;

@@ -25,7 +25,7 @@ vi convexHull(const vector<P>& S) {
 }
 }
 
-ll main() {
+int main() {
 	const ll SZ = 1e2;
 	rep(t,0,100000) {
 		const ll GRID=1e3;

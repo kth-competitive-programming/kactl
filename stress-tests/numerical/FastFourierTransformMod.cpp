@@ -22,7 +22,7 @@ ll ra() {
 	return (X >> 1);
 }
 
-ll main() {
+int main() {
 	vl a, b;
 	rep(it,0,6000) {
 		a.resize(ra() % 100);

@@ -20,7 +20,7 @@ void testPerf() {
 	cout << minRotation(s) << endl;
 }
 
-ll main() {
+int main() {
 	rep(it,0,1000000) {
 		ll n = rand() % 10;
 		string v;

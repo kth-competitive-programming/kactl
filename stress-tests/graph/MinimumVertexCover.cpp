@@ -24,7 +24,7 @@ vi coverHK(vector<vi>& g, ll n, ll m) {
 	return cover;
 }
 
-ll main() {
+int main() {
 	rep(it,0,300000) {
 		ll N = rand() % 20, M = rand() % 20;
 		ll prop = rand();

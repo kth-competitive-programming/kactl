@@ -55,7 +55,7 @@ vector<H> getHashes(string& str, ll length) {
 H hashString(string& s){H h{}; for(char c:s) h=h*C+c;return h;}
 
 #include <sys/time.h>
-ll main() {
+int main() {
 	timeval tp;
 	gettimeofday(&tp, 0);
 	C = (ll)tp.tv_usec; // (less than modulo)

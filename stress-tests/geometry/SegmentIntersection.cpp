@@ -35,7 +35,7 @@ typedef Point<double> P;
 bool eq(P a, P b) {
 	return (a-b).dist()<1e-8;
 }
-ll main() {
+int main() {
 	rep(t,0,1000000) {
 		const ll GRID=6;
 		P a(rand()%GRID, rand()%GRID), b(rand()%GRID, rand()%GRID), c(rand()%GRID, rand()%GRID), d(rand()%GRID, rand()%GRID);

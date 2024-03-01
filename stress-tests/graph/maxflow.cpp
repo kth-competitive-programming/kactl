@@ -13,7 +13,7 @@ void* operator new(size_t s) {
 }
 void operator delete(void*) {}
 
-ll main() {
+int main() {
 	rep(it,0,500000) {
 		bufi = sizeof buf;
 		ll n = 2 + rand() % 10;

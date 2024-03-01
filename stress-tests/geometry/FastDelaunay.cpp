@@ -155,7 +155,7 @@ ll main2() {
 }
 
 #ifdef TEST_PERF
-ll main() { return main2(); }
+int main() { return main2(); }
 #else
-ll main() { return main1(); }
+int main() { return main1(); }
 #endif

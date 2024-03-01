@@ -201,7 +201,7 @@ void testNeg() {
 	cout<<"Tests passed!"<<endl;
 }
 
-ll main() {
+int main() {
 	testMatching();
 	testNeg();
 }

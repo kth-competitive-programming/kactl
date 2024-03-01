@@ -60,7 +60,7 @@ void compare2() {
 	}
 }
 
-ll main() {
+int main() {
 	compare(); compare2();
 	assert(modsum((ll)1e18, 1, 2, 3) == (ll)1e18);
 	rep(i,0,50) {

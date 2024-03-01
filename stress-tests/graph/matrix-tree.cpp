@@ -48,7 +48,7 @@ ll countTrees(vector<vi>& ed, ll root) {
 	return rec(ed, 1 << root, 0);
 }
 
-ll main() {
+int main() {
 	rep(it,0,100) {
 		ll N = rand() % 7 + 1;
 		ll M = rand() % 10;

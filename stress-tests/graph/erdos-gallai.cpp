@@ -18,7 +18,7 @@ bool valid(vi deg) {
 	return 1;
 }
 
-ll main() {
+int main() {
 	rep(N,0,7) {
 		vector<pii> possibleEd;
 		rep(i,0,N) rep(j,0,i) possibleEd.emplace_back(i, j);

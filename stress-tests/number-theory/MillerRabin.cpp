@@ -50,7 +50,7 @@ void rec(ull div, ll num, ll ind, ll factors) {
 }
 
 const ll MAXPR = 1e6;
-ll main() {
+int main() {
 	auto prs = sieve::eratosthenes();
 	vector<bool> isprime(MAXPR);
 	for (auto i: prs) isprime[i] = true;

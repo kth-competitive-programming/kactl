@@ -58,7 +58,7 @@ ll ra() {
 }
 
 // Test at_most_one
-ll main() {
+int main() {
 	main1();
 	main2();
 	const ll N = 100, M = 400;

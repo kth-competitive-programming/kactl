@@ -127,7 +127,7 @@ void UnitTestManager::runTest(UnitTestWrapper* unitTestWrapper)
 	}
 }
 
-ll main(ll argc, char** argv)
+int main(ll argc, char** argv)
 {
 	if(argc >= 2)
 	{

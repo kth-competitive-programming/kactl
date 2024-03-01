@@ -47,7 +47,7 @@ struct Tree {
 
 }
 
-ll main() {
+int main() {
 	{
 		maximum::Tree t(0);
 		assert(t.query(0, 0) == t.unit);

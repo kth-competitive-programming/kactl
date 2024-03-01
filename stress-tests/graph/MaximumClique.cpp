@@ -17,7 +17,7 @@ struct timeit {
 };
 
 
-ll main() {
+int main() {
 	rep(it, 0, 100000) {
 		ll n =(rand()%32)+1;
 		vb ed(n);

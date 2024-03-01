@@ -163,7 +163,7 @@ void testTr(ll n, ll q) {
 	}
 }
 
-ll main() {
+int main() {
 	srand(2);
 	rep(it,0,10) rep(n,1,15) rep(q,0,n*n) {
 		testTr(n, q);

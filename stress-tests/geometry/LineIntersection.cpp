@@ -3,7 +3,7 @@
 #include "../../content/geometry/lineIntersection.h"
 #include "../../content/geometry/lineDistance.h"
 
-ll main() {
+int main() {
 	rep(t,0,1000000) {
 		const ll GRID=10;
 		Point<double>

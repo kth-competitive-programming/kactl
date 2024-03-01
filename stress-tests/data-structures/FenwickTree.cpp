@@ -2,7 +2,7 @@
 
 #include "../../content/data-structures/FenwickTree.h"
 
-ll main() {
+int main() {
 	rep(it,0,100000) {
 		ll N = rand() % 10;
 		FT fw(N);

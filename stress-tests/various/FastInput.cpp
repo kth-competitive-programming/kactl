@@ -51,7 +51,7 @@ void test(const string& s, vi ints = {}) {
 	}
 }
 
-ll main() {
+int main() {
 	// Unit test, not stress test, but oh well.
 	char pattern[] = "/tmp/fastinputXXXXXX";
 	tempdirname = mkdtemp(pattern);

@@ -12,7 +12,7 @@ bool isPrime(ll x) {
 	}
 	return true;
 }
-ll main() {
+int main() {
 	rep(it,1,1000) {
 		ll mod = it, LIM=1000;
 		if (!isPrime(mod)) continue;

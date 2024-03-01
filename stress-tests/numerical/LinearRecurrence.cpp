@@ -13,7 +13,7 @@ void gen(vector<ll>& v, ll at, F f) {
 	}
 }
 
-ll main() {
+int main() {
 	rep(n,1,5) {
 		vector<ll> start(n);
 		vector<ll> coef(n);

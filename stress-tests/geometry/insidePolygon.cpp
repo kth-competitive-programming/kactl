@@ -53,7 +53,7 @@ void test(ll numPts, ll range) {
 	}
 
 }
-ll main() {
+int main() {
 	test(20,5);
 	test(1001,100);
 	test(1000,1000);

@@ -8,7 +8,7 @@ ll modpow(ll a, ll e, ll mod) {
 
 #include "../../content/number-theory/ModSqrt.h"
 
-ll main() {
+int main() {
 	rep(p,2,10000) {
 		rep(i,2,p) if (p % i == 0) goto next;
 		rep(a,0,p) {

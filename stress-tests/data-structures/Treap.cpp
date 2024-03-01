@@ -24,7 +24,7 @@ ll ra() {
 	return x >> 1;
 }
 
-ll main() {
+int main() {
 	srand(3);
 	rep(it,0,1000) {
 		vector<Node> nodes;

@@ -74,7 +74,7 @@ ll ra() {
 	return blah >> 1;
 }
 
-ll main() {
+int main() {
 	LineContainer mh;
 	other::HullDynamic mh2;
 	rep(it,0,10000000) {

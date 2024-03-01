@@ -2,7 +2,7 @@
 
 #include "../../content/data-structures/FenwickTree2d.h"
 
-ll main() {
+int main() {
 	rep(it,0,1000000) {
 		FT2 ft(12);
 		vector<tuple<ll, ll, ll>> upd;

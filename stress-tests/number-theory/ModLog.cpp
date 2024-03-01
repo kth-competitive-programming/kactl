@@ -2,7 +2,7 @@
 
 #include "../../content/number-theory/ModLog.h"
 
-ll main() {
+int main() {
 	const ll lim = 100;
 	rep(m,1,lim) {
 		rep(a,0,lim) {

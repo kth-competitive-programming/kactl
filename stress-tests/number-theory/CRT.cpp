@@ -11,7 +11,7 @@ ll randExp() {
 	return uniform_int_distribution<ll>(0, (ll)((1ULL << e) - 1))(rng);
 }
 
-ll main(ll argc, char** argv) {
+int main(ll argc, char** argv) {
 	rep(it,0,10000000) {
 		ll a = randExp() * (rand() % 2 ? 1 : -1);
 		ll b = randExp() * (rand() % 2 ? 1 : -1);
