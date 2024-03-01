@@ -9,9 +9,9 @@
  */
 #pragma once
 
-pair<int, vi> globalMinCut(vector<vi> mat) {
-	pair<int, vi> best = {INT_MAX, {}};
-	int n = sz(mat);
+pair<ll, vi> globalMinCut(vector<vi> mat) {
+	pair<ll, vi> best = {INT_MAX, {}};
+	ll n = sz(mat);
 	vector<vi> co(n);
 	rep(i,0,n) co[i] = {i};
 	rep(ph,1,n) {

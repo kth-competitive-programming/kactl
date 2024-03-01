@@ -11,7 +11,7 @@ public:
 
 	virtual ~test_polygonArea() { }
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		typedef Point<double> P;
 		vector<P> p;
 		p.push_back(P(0,-2));
@@ -20,14 +20,14 @@ public:
 		p.push_back(P(5,-1));
 		check(polygonArea2<double>(p.begin(),p.end()),-8.0);
 
-		const int N = 6;
+		const ll N = 6;
 		P poly[N] = {P(1,2),P(1,4),P(-1,4),P(2,5),P(2,3),P(3,2)};
 		double A[N+1] = {0,0,0,4,-4,-6,-8};
-		for (int i = 3; i <= N; ++i)
+		for (ll i = 3; i <= N; ++i)
 			check(polygonArea2<double>(poly,poly+i),A[i]);
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 1;
 	}
 };

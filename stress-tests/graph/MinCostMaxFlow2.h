@@ -7,19 +7,19 @@
  */
 #pragma once
 
-typedef int Flow;
+typedef ll Flow;
 Flow inf = 1<<28;
 
 struct FlowEdge {
-	int dest, back;
+	ll dest, back;
 	Flow c, f, cost;
 	Flow r() { return c - f; }
-	FlowEdge(int d, int b, Flow c, Flow cost = 0)
+	FlowEdge(ll d, ll b, Flow c, Flow cost = 0)
 		: dest(d), back(b), c(c), f(0), cost(cost) {}
 };
 
 template<class G>
-void flow_add_edge(G& g, int s, int t,
+void flow_add_edge(G& g, ll s, ll t,
 		Flow c, Flow cost = 0) {
 	assert(s != t);
 	g[s].push_back(FlowEdge(t, sz(g[t]), c, cost));
@@ -27,13 +27,13 @@ void flow_add_edge(G& g, int s, int t,
 }
 
 template<class G>
-pair<Flow, Flow> aug(G &g, int s, int t) {
-	int n = sz(g);
+pair<Flow, Flow> aug(G &g, ll s, ll t) {
+	ll n = sz(g);
 	vi mark(n, -1);
 	vector<Flow> mindist(n, inf);
 	bool changed = true; mindist[s] = 0;
-	for (int i = 1; !(changed = !changed); ++i)
-		for (int v = 0; v < n; ++v) if (mindist[v] != inf)
+	for (ll i = 1; !(changed = !changed); ++i)
+		for (ll v = 0; v < n; ++v) if (mindist[v] != inf)
 			for(auto &e: g[v]) {
 				Flow dist = mindist[v] + (e.f<0 ? -e.cost : e.cost);
 				if (e.r() > 0 && dist < mindist[e.dest]) {
@@ -45,7 +45,7 @@ pair<Flow, Flow> aug(G &g, int s, int t) {
 			}
 	if (mark[t] < 0) return make_pair(0, 0);
 	Flow inc = inf;
-	FlowEdge* e; int v = t;
+	FlowEdge* e; ll v = t;
 	while (v != s){
 		e = &g[v][mark[v]];
 		v = e->dest;
@@ -59,7 +59,7 @@ pair<Flow, Flow> aug(G &g, int s, int t) {
 }
 
 template<class G>
-pair<Flow, Flow> min_cost_max_flow(G& graph, int s, int t) {
+pair<Flow, Flow> min_cost_max_flow(G& graph, ll s, ll t) {
 	pair<Flow, Flow> flow, inc;
 	while ((inc = aug(graph, s, t)).first){
 		flow.first += inc.first;

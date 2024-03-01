@@ -33,18 +33,18 @@ namespace mit {
 #define inf 2000000000
 
 struct edg {
-		int u, v;
-		int cost;
+		ll u, v;
+		ll cost;
 } E[M], E_copy[M];
 
-int In[N], ID[N], vis[N], pre[N];
+ll In[N], ID[N], vis[N], pre[N];
 
 // edges pointed from root.
-int Directed_MST(int root, int NV, int NE) {
-	for (int i = 0; i < NE; i++)
+ll Directed_MST(ll root, ll NV, ll NE) {
+	for (ll i = 0; i < NE; i++)
 		E_copy[i] = E[i];
-	int ret = 0;
-	int u, v;
+	ll ret = 0;
+	ll u, v;
 	while (true) {
 		rep(i,0,NV)   In[i] = inf;
 		rep(i,0,NE) {
@@ -60,7 +60,7 @@ int Directed_MST(int root, int NV, int NE) {
 			if(In[i] == inf)    return -1; // no solution
 		}
 
-		int cnt = 0;
+		ll cnt = 0;
 		rep(i,0,NV) {
 			ID[i] = -1;
 			vis[i] = -1;
@@ -69,7 +69,7 @@ int Directed_MST(int root, int NV, int NE) {
 
 		rep(i,0,NV) {
 			ret += In[i];
-			int v = i;
+			ll v = i;
 			while(vis[v] != i && ID[v] == -1 && v != root) {
 				vis[v] = i;
 				v = pre[v];
@@ -100,20 +100,20 @@ int Directed_MST(int root, int NV, int NE) {
 }
 }
 
-int adj[105][105];
-int main() {
+ll adj[105][105];
+ll main() {
 	rep(it,0,50000) {
 		bumpalloc.reset();
-		int n = (rand()%20)+1;
-		int density = rand() % 101;
-		int r = rand()%n;
-		int cnt = 0;
+		ll n = (rand()%20)+1;
+		ll density = rand() % 101;
+		ll r = rand()%n;
+		ll cnt = 0;
 		vector<Edge> edges;
 		rep(i,0,n)
 			rep(j,0,n){
 				if (i==j) continue;
 				if (rand() % 100 >= density) continue;
-				int weight = rand()%100;
+				ll weight = rand()%100;
 				mit::E[cnt++] = {i,j, weight};
 				edges.push_back({i,j,weight});
 				adj[i][j] = weight;
@@ -148,7 +148,7 @@ int main() {
 			assert(sum == ans1);
 			vi seen(n), q = {r};
 			rep(qi,0,sz(q)) {
-				int s = q[qi];
+				ll s = q[qi];
 				if (!seen[s]++)
 					for(auto &x: ch[s]) q.push_back(x);
 			}

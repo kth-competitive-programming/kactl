@@ -1,12 +1,12 @@
 #pragma once
 #include "random.h"
 
-vector<pii> randomSimpleGraphAsEdgeList(int n, int m) {
+vector<pii> randomSimpleGraphAsEdgeList(ll n, ll m) {
 	assert(m <= (ll)n * (n - 1) / 2);
 	vector<pii> ed;
 	if (m > (ll)n * n / 3) {
 		rep(i,0,n) rep(j,0,i) {
-			int a = i, b = j;
+			ll a = i, b = j;
 			if (randBool()) swap(a, b);
 			ed.push_back({a,b});
 		}
@@ -15,8 +15,8 @@ vector<pii> randomSimpleGraphAsEdgeList(int n, int m) {
 	} else {
 		set<pii> seen;
 		rep(i,0,m) {
-			int a = randRange(n);
-			int b = randRange(n);
+			ll a = randRange(n);
+			ll b = randRange(n);
 			if (a == b) continue;
 			if (!seen.insert(minmax(a, b)).second) continue;
 			ed.push_back({a,b});
@@ -25,7 +25,7 @@ vector<pii> randomSimpleGraphAsEdgeList(int n, int m) {
 	return ed;
 }
 
-vector<vi> randomSimpleGraph(int n, int m) {
+vector<vi> randomSimpleGraph(ll n, ll m) {
 	vector<vi> ed(n);
 	for (auto pa : randomSimpleGraphAsEdgeList(n, m)) {
 		ed[pa.first].push_back(pa.second);
@@ -35,20 +35,20 @@ vector<vi> randomSimpleGraph(int n, int m) {
 	return ed;
 }
 
-vector<pii> randomRegularGraphAsEdgeList(int n, int k) {
+vector<pii> randomRegularGraphAsEdgeList(ll n, ll k) {
 	// TODO: this is slow and requires a lot of retries for large n, change to
 	// something smarter.
 	assert(k < n);
 	vector<pii> ed;
 	vi cands(n), rem(n, k);
 	rep(i,0,n) cands[i] = i;
-	int failures = 0;
+	ll failures = 0;
 	set<pii> seen;
 	while (!cands.empty()) {
 		if (sz(cands) == 1) goto fail;
-		int ai = randRange(sz(cands));
-		int bi = randRange(sz(cands));
-		int a = cands[ai], b = cands[bi];
+		ll ai = randRange(sz(cands));
+		ll bi = randRange(sz(cands));
+		ll a = cands[ai], b = cands[bi];
 		if (a == b) continue;
 		if (!seen.insert(minmax(a, b)).second) {
 			if (failures++ > 100) goto fail;

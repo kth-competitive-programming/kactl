@@ -9,7 +9,7 @@
  */
 #pragma once
 
-set<pii>::iterator addInterval(set<pii>& is, int L, int R) {
+set<pii>::iterator addInterval(set<pii>& is, ll L, ll R) {
 	if (L == R) return is.end();
 	auto it = is.lower_bound({L, R}), before = it;
 	while (it != is.end() && it->first <= R) {
@@ -24,11 +24,11 @@ set<pii>::iterator addInterval(set<pii>& is, int L, int R) {
 	return is.insert(before, {L,R});
 }
 
-void removeInterval(set<pii>& is, int L, int R) {
+void removeInterval(set<pii>& is, ll L, ll R) {
 	if (L == R) return;
 	auto it = addInterval(is, L, R);
 	auto r2 = it->second;
 	if (it->first == L) is.erase(it);
-	else (int&)it->second = L;
+	else (ll&)it->second = L;
 	if (R != r2) is.emplace(R, r2);
 }

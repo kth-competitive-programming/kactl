@@ -24,7 +24,7 @@ const T eps = 1e-8, inf = 1/.0;
 #define ltj(X) if(s == -1 || MP(X[j],N[j]) < MP(X[s],N[s])) s=j
 
 struct LPSolver {
-	int m, n;
+	ll m, n;
 	vi N, B;
 	vvd D;
 
@@ -36,7 +36,7 @@ struct LPSolver {
 			N[n] = -1; D[m+1][n] = 1;
 		}
 
-	void pivot(int r, int s) {
+	void pivot(ll r, ll s) {
 		T *a = D[r].data(), inv = 1 / a[s];
 		rep(i,0,m+2) if (i != r && abs(D[i][s]) > eps) {
 			T *b = D[i].data(), inv2 = b[s] * inv;
@@ -49,13 +49,13 @@ struct LPSolver {
 		swap(B[r], N[s]);
 	}
 
-	bool simplex(int phase) {
-		int x = m + phase - 1;
+	bool simplex(ll phase) {
+		ll x = m + phase - 1;
 		for (;;) {
-			int s = -1;
+			ll s = -1;
 			rep(j,0,n+1) if (N[j] != -phase) ltj(D[x]);
 			if (D[x][s] >= -eps) return true;
-			int r = -1;
+			ll r = -1;
 			rep(i,0,m) {
 				if (D[i][s] <= eps) continue;
 				if (r == -1 || MP(D[i][n+1] / D[i][s], B[i])
@@ -67,13 +67,13 @@ struct LPSolver {
 	}
 
 	T solve(vd &x) {
-		int r = 0;
+		ll r = 0;
 		rep(i,1,m) if (D[i][n+1] < D[r][n+1]) r = i;
 		if (D[r][n+1] < -eps) {
 			pivot(r, n);
 			if (!simplex(2) || D[m+1][n+1] < -eps) return -inf;
 			rep(i,0,m) if (B[i] == -1) {
-				int s = 0;
+				ll s = 0;
 				rep(j,1,n+1) ltj(D[i]);
 				pivot(i, s);
 			}

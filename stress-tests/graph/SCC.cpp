@@ -4,8 +4,8 @@
 
 namespace old {
 vi orig, low, comp, z;
-int no_vertices, no_components;
-template<class G> void dfs(int j, G &g) {
+ll no_vertices, no_components;
+template<class G> void dfs(ll j, G &g) {
 	low[j] = orig[j] = no_vertices++;
 	comp[j] = -2; z.push_back(j);
 	for(auto &e:g[j])
@@ -18,7 +18,7 @@ template<class G> void dfs(int j, G &g) {
 
 	if (orig[j] == low[j]) {
 		for (;;) {
-			int x = z.back(); z.pop_back();
+			ll x = z.back(); z.pop_back();
 			comp[x] = no_components;
 			if (x == j) break;
 		}
@@ -26,7 +26,7 @@ template<class G> void dfs(int j, G &g) {
 	}
 }
 template<class G> vi scc(G &g) {
-	int n = sz(g);
+	ll n = sz(g);
 	orig.assign(n, 0); low = orig;
 	no_vertices = no_components = 0;
 	comp.assign(n, -1);
@@ -35,13 +35,13 @@ template<class G> vi scc(G &g) {
 }
 }
 
-int main() {
+ll main() {
 	unsigned r = 1;
-	for (int N = 0; N <= 4; N++) {
+	for (ll N = 0; N <= 4; N++) {
 		// cout << "N = " << N << endl;
 		vector<vi> mat(N, vi(N)), adj(N);
 		vi compsize(N), seen(N);
-		int count = 0;
+		ll count = 0;
 		rep(bits,0,(1 << (N*N))) {
 			// if (bits % 10000 == 0) cerr << "." << flush;
 			rep(i,0,N) rep(j,0,N)

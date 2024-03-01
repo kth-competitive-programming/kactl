@@ -8,16 +8,16 @@
 #include "../../content/geometry/circumcircle.h"
 
 typedef Point<double> P;
-int main() {
+ll main() {
 	feenableexcept(29);
 	rep(it,0,100000) {{
 		vector<P> ps;
-		int N = rand() % 20 + 1;
+		ll N = rand() % 20 + 1;
 		rep(i,0,N) {
 			ps.emplace_back(rand() % 100 - 50, rand() % 100 - 50);
 		}
 
-		auto coc = [&](int i, int j, int k, int l) {
+		auto coc = [&](ll i, ll j, ll k, ll l) {
 			double a = (ps[i] - ps[j]).dist();
 			double b = (ps[j] - ps[k]).dist();
 			double c = (ps[k] - ps[l]).dist();
@@ -42,7 +42,7 @@ int main() {
 			}
 
 			cout << "Triangles:" << endl;
-			delaunay(ps, [&](int i, int j, int k) {
+			delaunay(ps, [&](ll i, ll j, ll k) {
 				cout << i << ' ' << j << ' ' << k << endl;
 			});
 
@@ -51,7 +51,7 @@ int main() {
 
 		double sumar = 0;
 		vi used(N);
-		delaunay(ps, [&](int i, int j, int k) {
+		delaunay(ps, [&](ll i, ll j, ll k) {
 			used[i] = used[j] = used[k] = 1;
 			double ar = ps[i].cross(ps[j], ps[k]);
 			if (ar < -1e-4) fail();

@@ -13,15 +13,15 @@ struct GC {
 		return buf[bc++]; // returns 0 on EOF
 	}
 } gc;
-int readInt() {
-	int a, c;
+ll readInt() {
+	ll a, c;
 	while ((a = gc()) < 40);
 	if (a == '-') return -readInt();
 	while ((c = gc()) >= 48) a = a * 10 + c - 480;
 	return a - 48;
 }
 
-constexpr int BUF_SIZE = sizeof(gc.buf);
+constexpr ll BUF_SIZE = sizeof(gc.buf);
 
 string tempdirname;
 string tempfilename;
@@ -35,14 +35,14 @@ void test(const string& s, vi ints = {}) {
 	assert(ret == stdin);
 	if (ints.empty()) {
 		for (char c : s) {
-			int c2 = gc();
+			ll c2 = gc();
 			assert(c == c2);
 		}
 		assert(gc() == 0);
 		assert(gc() == 0);
 	} else {
-		for (int x : ints) {
-			int y = readInt();
+		for (ll x : ints) {
+			ll y = readInt();
 			if (x != y) {
 				cerr << "On input " << s << ", read " << y << " but expected " << x << endl;
 			}
@@ -51,7 +51,7 @@ void test(const string& s, vi ints = {}) {
 	}
 }
 
-int main() {
+ll main() {
 	// Unit test, not stress test, but oh well.
 	char pattern[] = "/tmp/fastinputXXXXXX";
 	tempdirname = mkdtemp(pattern);
@@ -62,13 +62,13 @@ int main() {
 	test("a");
 	test("ab");
 	string s;
-	for (int i = 0; i < BUF_SIZE; i++) s += (char)(i % 13);
+	for (ll i = 0; i < BUF_SIZE; i++) s += (char)(i % 13);
 	test(s);
-	for (int i = 0; i < BUF_SIZE * 10 + 1; i++) s += (char)(i % 13);
+	for (ll i = 0; i < BUF_SIZE * 10 + 1; i++) s += (char)(i % 13);
 	test(s);
-	for (int i = 0; i < BUF_SIZE - 2; i++) s += (char)(i % 13);
+	for (ll i = 0; i < BUF_SIZE - 2; i++) s += (char)(i % 13);
 	test(s);
-	for (int i = 0; i < BUF_SIZE + 2; i++) {
+	for (ll i = 0; i < BUF_SIZE + 2; i++) {
 		assert(gc() == 0);
 	}
 

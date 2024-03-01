@@ -9,10 +9,10 @@ class test_lineDistDouble :
 {
 public:
 	ifstream in,out;
-	int cases;
+	ll cases;
 	test_lineDistDouble() : UnitTest("test_lineDistDouble") {
 		ifstream file("lineDistDouble.in");
-		int n = 0; double d;
+		ll n = 0; double d;
 		while (file >> d) ++n;
 		file.close();
 		cases = n/6;
@@ -43,7 +43,7 @@ public:
 			fail(ss.str());
 	}
 
-	virtual void run(int subcase)
+	virtual void run(ll subcase)
 	{
 		Point<double> p1,p2,p3;
 		in >> p1 >> p2 >> p3;
@@ -65,7 +65,7 @@ public:
 		test(P3(p1.x,8.2,p1.y),P3(p2.x,8.2,p2.y),P3(p3.x,6.2,p3.y),sqrt(a*a+4));
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return cases;
 	}
 };

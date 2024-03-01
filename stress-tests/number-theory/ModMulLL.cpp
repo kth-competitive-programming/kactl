@@ -2,7 +2,7 @@
 
 #include "../../content/number-theory/ModMulLL.h"
 
-const int ITERS = 5'000'000; // (not really enough to say much, need >1e10 for any kind of certainty)
+const ll ITERS = 5'000'000; // (not really enough to say much, need >1e10 for any kind of certainty)
 
 ull double_modmul(ull a, ull b, ull M) {
 	ll ret = a * b - M * ull(1. / (double)M * (double)a * (double)b);
@@ -16,7 +16,7 @@ void test(ull lim, bool expectSuccess, bool useDoubles) {
 	uniform_int_distribution<ull> uni(1, lim);
 	uniform_int_distribution<ull> uniSmall(0, lim / 10000);
 
-	for (int i = 0;; i++) {
+	for (ll i = 0;; i++) {
 		if (expectSuccess && i >= ITERS) break;
 		// if (i % 1'000'000 == 0) cerr << '.' << flush;
 		ull c = i&1 ? lim - uniSmall(rng) : uni(rng);
@@ -34,7 +34,7 @@ void test(ull lim, bool expectSuccess, bool useDoubles) {
 	}
 }
 
-int main() {
+ll main() {
 	const ull limDoubles = 1ULL << 52;
 	test(limDoubles, true, true);
 	test((ull)(limDoubles * 1.02L), false, true);

@@ -41,28 +41,28 @@ template<class A, class F>
 void dela(A& v, F f) {
 	auto ret = triangulate(v);
 	assert(sz(ret) % 3 == 0);
-	map<P, int> lut;
+	map<P, ll> lut;
 	rep(i,0,sz(v)) lut[v[i]] = i;
-	for (int a = 0; a < sz(ret); a += 3) {
+	for (ll a = 0; a < sz(ret); a += 3) {
 		f(lut[ret[a]], lut[ret[a+1]], lut[ret[a+2]]);
 	}
 }
 
-int main1() {
+ll main1() {
 	srand(2);
 	feenableexcept(29);
 	rep(it,0,3000000) {{
 		bumpalloc.reset();
 		// if (it % 200 == 0) cerr << endl;
 		vector<P> ps;
-		int N = rand() % 20 + 1;
-		int xrange = rand() % 50 + 1;
-		int yrange = rand() % 50 + 1;
+		ll N = rand() % 20 + 1;
+		ll xrange = rand() % 50 + 1;
+		ll yrange = rand() % 50 + 1;
 		rep(i,0,N) {
 			ps.emplace_back(rand() % (2*xrange) - xrange, rand() % (2*yrange) - yrange);
 		}
 
-		auto coc = [&](int i, int j, int k, int l) {
+		auto coc = [&](ll i, ll j, ll k, ll l) {
 			double a = (ps[i] - ps[j]).dist();
 			double b = (ps[j] - ps[k]).dist();
 			double c = (ps[k] - ps[l]).dist();
@@ -98,7 +98,7 @@ int main1() {
 			}
 
 			cout << "Triangles:" << endl;
-			dela(ps, [&](int i, int j, int k) {
+			dela(ps, [&](ll i, ll j, ll k) {
 				cout << i << ' ' << j << ' ' << k << endl;
 			});
 
@@ -108,7 +108,7 @@ int main1() {
 		ll sumar = 0;
 		vi used(N);
 		bool any = false;
-		dela(ps, [&](int i, int j, int k) {
+		dela(ps, [&](ll i, ll j, ll k) {
 			any = true;
 			used[i] = used[j] = used[k] = 1;
 			ll ar = ps[i].cross(ps[j], ps[k]);
@@ -138,11 +138,11 @@ fail:;
 	return 0;
 }
 
-int main2() {
+ll main2() {
 	vector<P> ps;
-	int N = 100000;
-	int xrange = 20000;
-	int yrange = 20000;
+	ll N = 100000;
+	ll xrange = 20000;
+	ll yrange = 20000;
 	rep(i,0,N) {
 		ps.emplace_back(rand() % (2*xrange) - xrange, rand() % (2*yrange) - yrange);
 	}
@@ -155,7 +155,7 @@ int main2() {
 }
 
 #ifdef TEST_PERF
-int main() { return main2(); }
+ll main() { return main2(); }
 #else
-int main() { return main1(); }
+ll main() { return main1(); }
 #endif

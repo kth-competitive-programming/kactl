@@ -16,16 +16,16 @@
 #include "FastFourierTransform.h"
 
 typedef vector<ll> vl;
-template<int M> vl convMod(const vl &a, const vl &b) {
+template<ll M> vl convMod(const vl &a, const vl &b) {
 	if (a.empty() || b.empty()) return {};
 	vl res(sz(a) + sz(b) - 1);
-	int B=32-__builtin_clz(sz(res)), n=1<<B, cut=int(sqrt(M));
+	ll B=32-__builtin_clz(sz(res)), n=1<<B, cut=ll(sqrt(M));
 	vector<C> L(n), R(n), outs(n), outl(n);
-	rep(i,0,sz(a)) L[i] = C((int)a[i] / cut, (int)a[i] % cut);
-	rep(i,0,sz(b)) R[i] = C((int)b[i] / cut, (int)b[i] % cut);
+	rep(i,0,sz(a)) L[i] = C((ll)a[i] / cut, (ll)a[i] % cut);
+	rep(i,0,sz(b)) R[i] = C((ll)b[i] / cut, (ll)b[i] % cut);
 	fft(L), fft(R);
 	rep(i,0,n) {
-		int j = -i & (n - 1);
+		ll j = -i & (n - 1);
 		outl[j] = (L[i] + conj(L[j])) * R[i] / (2.0 * n);
 		outs[j] = (L[i] - conj(L[j])) * R[i] / (2.0 * n) / 1i;
 	}

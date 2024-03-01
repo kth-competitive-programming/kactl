@@ -17,6 +17,6 @@ template<class T> struct ptr {
 	}
 	T& operator*() const { return *(T*)(buf + ind); }
 	T* operator->() const { return &**this; }
-	T& operator[](int a) const { return (&**this)[a]; }
+	T& operator[](ll a) const { return (&**this)[a]; }
 	explicit operator bool() const { return ind; }
 };

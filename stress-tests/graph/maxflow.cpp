@@ -13,23 +13,23 @@ void* operator new(size_t s) {
 }
 void operator delete(void*) {}
 
-int main() {
+ll main() {
 	rep(it,0,500000) {
 		bufi = sizeof buf;
-		int n = 2 + rand() % 10;
-		int s = rand() % n;
-		int t = rand() % (n - 1);
+		ll n = 2 + rand() % 10;
+		ll s = rand() % n;
+		ll t = rand() % (n - 1);
 		if (t >= s) t++;
 		PushRelabel pr(n);
 		Dinic dinic(n);
-		vector<unordered_map<int, int>> ek(n);
+		vector<unordered_map<ll, ll>> ek(n);
 
-		int m = rand() % 40;
+		ll m = rand() % 40;
 		rep(eit,0,m) {
-			int a = rand() % n;
-			int b = rand() % n;
-			int c = rand() % 4;
-			int d = rand() % 4 == 0 ? rand() % 3 + 1 : 0;
+			ll a = rand() % n;
+			ll b = rand() % n;
+			ll c = rand() % 4;
+			ll d = rand() % 4 == 0 ? rand() % 3 + 1 : 0;
 			pr.addEdge(a, b, c, d);
 			dinic.addEdge(a, b, c, d);
 			ek[a][b] += c;
@@ -70,9 +70,9 @@ int main() {
 		// Conservation of flow for EdmondsKarp
 		vector<ll> ekFlows(n);
 		rep(i,0,n) for(auto &e: origEk[i]) {
-			int nc = ek[i][e.first];
+			ll nc = ek[i][e.first];
 			assert(nc >= 0);
-			int flow = e.second - nc;
+			ll flow = e.second - nc;
 			if (flow > 0) {
 				ekFlows[i] += flow;
 				ekFlows[e.first] -= flow;

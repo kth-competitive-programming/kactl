@@ -11,7 +11,7 @@ public:
 
 	virtual ~test_sideOf() { }
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		typedef Point<double> P;
 		check(sideOf(P(0,0),P(1,0),P(1,1)),1);
 		check(sideOf(P(0,0),P(1,0),P(1,0)),0);
@@ -21,7 +21,7 @@ public:
 		check(sideOf(P(1,0),P(0,0),P(1,-1)),1);
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 1;
 	}
 };

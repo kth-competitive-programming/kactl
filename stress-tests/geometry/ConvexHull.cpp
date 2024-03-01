@@ -7,7 +7,7 @@ namespace old {
 pair<vi, vi> ulHull(const vector<P>& S) {
 	vi Q(sz(S)), U, L;
 	iota(all(Q), 0);
-	sort(all(Q), [&S](int a, int b){ return S[a] < S[b]; });
+	sort(all(Q), [&S](ll a, ll b){ return S[a] < S[b]; });
 	for(auto &it: Q) {
 #define ADDP(C, cmp) while (sz(C) > 1 && S[C[sz(C)-2]].cross(\
 	S[it], S[C.back()]) cmp 0) C.pop_back(); C.push_back(it);
@@ -25,10 +25,10 @@ vi convexHull(const vector<P>& S) {
 }
 }
 
-int main() {
-	const int SZ = 1e2;
+ll main() {
+	const ll SZ = 1e2;
 	rep(t,0,100000) {
-		const int GRID=1e3;
+		const ll GRID=1e3;
 		vector<P> pts(SZ);
 		rep(i,0,SZ) pts[i] = P(rand()%GRID, rand()%GRID);
 		auto res = convexHull(pts);

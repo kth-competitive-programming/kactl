@@ -5,7 +5,7 @@
 template<class I> vi lisWeak(const vector<I>& S) {
 	if (S.empty()) return {};
 	vi prev(sz(S));
-	typedef pair<I, int> p;
+	typedef pair<I, ll> p;
 	vector<p> res;
 	rep(i,0,sz(S)) {
 		// 0 -> i for longest non-decreasing subsequence
@@ -14,17 +14,17 @@ template<class I> vi lisWeak(const vector<I>& S) {
 		*it = {S[i], i};
 		prev[i] = it == res.begin() ? 0 : (it-1)->second;
 	}
-	int L = sz(res), cur = res.back().second;
+	ll L = sz(res), cur = res.back().second;
 	vi ans(L);
 	while (L--) ans[L] = cur, cur = prev[cur];
 	return ans;
 }
 
-int main() {
+ll main() {
 	rep(weak,0,2) {
-		auto lt = [weak](int a, int b) { return weak ? a <= b : a < b; };
+		auto lt = [weak](ll a, ll b) { return weak ? a <= b : a < b; };
 		rep(it,0,1000000) {
-			int n = rand() % 7;
+			ll n = rand() % 7;
 			vi v(n);
 			for(auto &x: v) x = rand() % 4;
 			vi inds = weak ? lisWeak(v) : lis(v);
@@ -32,9 +32,9 @@ int main() {
 				assert(lt(v[inds[i]], v[inds[i+1]]));
 			}
 			rep(bi,0,(1 << n)) {
-				int si = (int)bitset<32>(bi).count();
+				ll si = (ll)bitset<32>(bi).count();
 				if (si <= sz(inds)) continue;
-				int prev = INT_MIN;
+				ll prev = INT_MIN;
 				rep(i,0,n) if (bi & (1 << i)) {
 					if (!lt(prev, v[i])) goto next;
 					prev = v[i];

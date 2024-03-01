@@ -11,7 +11,7 @@ public:
 
 	virtual ~test_circleTangents() { }
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		typedef Point<double> P;
 		pair<P,P> p = circleTangents(P(100,1),P(0,0),1);
 		cout << p.first << p.second << endl;
@@ -25,7 +25,7 @@ public:
 		cout << p.first << p.second << endl;
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 1;
 	}
 };

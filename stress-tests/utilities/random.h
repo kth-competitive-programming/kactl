@@ -2,8 +2,8 @@
 #include <cstdint>
 #include <cassert>
 
-// returns random int in [0, hi), like Python's random.randrange
-int randRange(int hi) {
+// returns random ll in [0, hi), like Python's random.randrange
+ll randRange(ll hi) {
 	return rand() % hi;
 }
 
@@ -11,12 +11,12 @@ bool randBool() {
 	return !!(rand() & 128);
 }
 
-// returns random int in [lo, hi), like Python's random.randrange
-int randRange(int lo, int hi) {
+// returns random ll in [lo, hi), like Python's random.randrange
+ll randRange(ll lo, ll hi) {
 	return lo + randRange(hi - lo);
 }
 
-// returns random int in [0, 2^64)
+// returns random ll in [0, 2^64)
 uint64_t randU64() {
 	uint64_t a = rand() & 0xffffff;
 	uint64_t b = rand() & 0xffffff;
@@ -41,13 +41,13 @@ int64_t randRange(int64_t lo, int64_t hi) {
 	return lo + randRange(hi - lo);
 }
 
-// returns random int in [0, hi], like Python's random.randint
-int randIncl(int hi) {
+// returns random ll in [0, hi], like Python's random.randint
+ll randIncl(ll hi) {
 	return randRange(hi + 1);
 }
 
-// returns random int in [lo, hi], like Python's random.randint
-int randIncl(int lo, int hi) {
+// returns random ll in [lo, hi], like Python's random.randint
+ll randIncl(ll lo, ll hi) {
 	return randRange(lo, hi + 1);
 }
 
@@ -66,7 +66,7 @@ double randDouble(double lo, double hi) {
 	return dis(rng);
 }
 
-// int -> double based on IEEE 754 bitpattern
+// ll -> double based on IEEE 754 bitpattern
 double bitPatternToDouble(uint64_t x) {
 	union {
 		double d;
@@ -76,7 +76,7 @@ double bitPatternToDouble(uint64_t x) {
 	return u.d;
 }
 
-// double -> int based on IEEE 754 bitpattern
+// double -> ll based on IEEE 754 bitpattern
 uint64_t doubleToBitPattern(double x) {
 	union {
 		double d;
@@ -104,18 +104,18 @@ double addUlps(double x, int64_t y) {
 	return bitPatternToDouble(doubleToBitPattern(x) + y);
 }
 
-// random int in [-lim, lim], perturbed by a few ulps
-double randNearIntUlps(int lim, int64_t ulps = 5) {
+// random ll in [-lim, lim], perturbed by a few ulps
+double randNearIntUlps(ll lim, int64_t ulps = 5) {
 	return addUlps(randIncl(-lim, lim), randIncl(-ulps, ulps));
 }
 
-// random int in [-lim, lim], perturbed by a random double in [-eps, eps]
-double randNearIntEps(int lim, double eps) {
+// random ll in [-lim, lim], perturbed by a random double in [-eps, eps]
+double randNearIntEps(ll lim, double eps) {
 	return randIncl(-lim, lim) + randDouble(-eps, eps);
 }
 
 // like random_shuffle but uses rand() as RNG source
 template<class T>
 void shuffle_vec(T& vec) {
-	random_shuffle(begin(vec), end(vec), [](int lim) { return rand() % lim; });
+	random_shuffle(begin(vec), end(vec), [](ll lim) { return rand() % lim; });
 }

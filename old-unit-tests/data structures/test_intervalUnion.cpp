@@ -14,7 +14,7 @@ public:
 	virtual ~test_intervalUnion() { }
 
 	void test(vpii s, vpii r) {
-		vpii res = intervalUnion<int>(s.begin(),s.end());
+		vpii res = intervalUnion<ll>(s.begin(),s.end());
 		stringstream ss;
 		trav(i,s) ss << "(" << i.first << "," << i.second << ")";
 		ss << endl <<  " -> ";
@@ -25,7 +25,7 @@ public:
 			fail(ss.str());
 	}
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		if (subcase == 0) {
 			vpii v;
 			v.push_back(pii(1,3));
@@ -46,7 +46,7 @@ public:
 		}
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 2;
 	}
 };

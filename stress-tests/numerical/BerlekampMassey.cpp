@@ -16,7 +16,7 @@ ll modpow(ll a, ll e) {
 #include "../../content/numerical/BerlekampMassey.h"
 
 template<class F>
-void gen(vector<ll>& v, int at, F f) {
+void gen(vector<ll>& v, ll at, F f) {
 	if (at == sz(v)) f();
 	else {
 		rep(i,0,mod) {
@@ -26,7 +26,7 @@ void gen(vector<ll>& v, int at, F f) {
 	}
 }
 
-int main() {
+ll main() {
 	rep(n,1,5) {
 		vector<ll> start(n);
 		vector<ll> coef(n), coef2;
@@ -57,7 +57,7 @@ int main() {
 	return 0;
 }
 
-int main2() {
+ll main2() {
 	vector<ll> v{0, 1, 1, 3, 5, 11};
 	auto v2 = berlekampMassey(v);
 	for(auto &x: v2) cout << x << ' ';

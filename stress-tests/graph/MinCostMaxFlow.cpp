@@ -16,14 +16,14 @@
 
 struct MCMF2 {
 	vector<vector<FlowEdge>> g;
-	MCMF2(int n) : g(n) {}
-	void addEdge(int s, int t, Flow c, Flow cost = 0) {
+	MCMF2(ll n) : g(n) {}
+	void addEdge(ll s, ll t, Flow c, Flow cost = 0) {
 		flow_add_edge(g, s, t, c, cost);
 	}
-	pair<ll, ll> maxflow(int s, int t) {
+	pair<ll, ll> maxflow(ll s, ll t) {
 		return min_cost_max_flow(g, s, t);
 	}
-	void setpi(int s) {}
+	void setpi(ll s) {}
 };
 
 // typedef MCMF2 MCMF;
@@ -43,7 +43,7 @@ void operator delete(void*) noexcept {}
 typedef vector<ll> vd;
 bool zero(ll x) { return x == 0; }
 ll MinCostMatching(const vector<vd>& cost, vi& L, vi& R) {
-	int n = sz(cost), mated = 0;
+	ll n = sz(cost), mated = 0;
 	vd dist(n), u(n), v(n);
 	vi dad(n), seen(n);
 
@@ -71,14 +71,14 @@ ll MinCostMatching(const vector<vd>& cost, vi& L, vi& R) {
 	}
 
 	for (; mated < n; mated++) { // until solution is feasible
-		int s = 0;
+		ll s = 0;
 		while (L[s] != -1) s++;
 		fill(all(dad), -1);
 		fill(all(seen), 0);
 		rep(k,0,n)
 			dist[k] = cost[s][k] - u[s] - v[k];
 
-		int j = 0;
+		ll j = 0;
 		for (;;) { /// find closest
 			j = -1;
 			rep(k,0,n){
@@ -86,7 +86,7 @@ ll MinCostMatching(const vector<vd>& cost, vi& L, vi& R) {
 				if (j == -1 || dist[k] < dist[j]) j = k;
 			}
 			seen[j] = 1;
-			int i = R[j];
+			ll i = R[j];
 			if (i == -1) break;
 			rep(k,0,n) { /// relax neighbors
 				if (seen[k]) continue;
@@ -108,7 +108,7 @@ ll MinCostMatching(const vector<vd>& cost, vi& L, vi& R) {
 
 		/// augment along path
 		while (dad[j] >= 0) {
-			int d = dad[j];
+			ll d = dad[j];
 			R[j] = R[d];
 			L[R[j]] = j;
 			j = d;
@@ -124,14 +124,14 @@ ll MinCostMatching(const vector<vd>& cost, vi& L, vi& R) {
 
 void testPerf() {
 	srand(2);
-	int N = 500, E = 10000, CAPS = 100, COSTS = 100000;
+	ll N = 500, E = 10000, CAPS = 100, COSTS = 100000;
 	MCMF mcmf(N);
-	int s = 0, t = 1;
+	ll s = 0, t = 1;
 	rep(i,0,E) {
-		int a = rand() % N;
-		int b = rand() % N;
-		int cap = rand() % CAPS;
-		int cost = rand() % COSTS;
+		ll a = rand() % N;
+		ll b = rand() % N;
+		ll cap = rand() % CAPS;
+		ll cost = rand() % COSTS;
 		if (a == b) continue;
 		mcmf.addEdge(a, b, cap, cost);
 		// ::cap[a][b] = cap;
@@ -144,13 +144,13 @@ void testPerf() {
 void testMatching() {
 	rep(it,0,100000) {
 		size_t last = ::i;
-		int N = rand() % 10, M = rand() % 10;
-		int NM = max(N, M);
+		ll N = rand() % 10, M = rand() % 10;
+		ll NM = max(N, M);
 		vector<vd> co(NM, vd(NM));
 		rep(i,0,N) rep(j,0,M) co[i][j] = (rand() % 10) + 2;
 		vi L, R;
 		ll v = MinCostMatching(co, L, R);
-		int S = N+M, T = N+M+1;
+		ll S = N+M, T = N+M+1;
 		MCMF mcmf(N+M+2);
 		rep(i,0,N) mcmf.addEdge(S, i, 1, 0);
 		rep(i,0,M) mcmf.addEdge(N+i, T, 1, 0);
@@ -164,24 +164,24 @@ void testMatching() {
 }
 
 void testNeg() {
-	const int ITS = 1000000;
-	int ed[100][100];
-	int negs = 0;
+	const ll ITS = 1000000;
+	ll ed[100][100];
+	ll negs = 0;
 	rep(it,0,ITS) {
 		size_t lasti = ::i;
-		int N = rand() % 7 + 2;
-		int M = rand() % 17;
-		int S = 0, T = 1;
+		ll N = rand() % 7 + 2;
+		ll M = rand() % 17;
+		ll S = 0, T = 1;
 		MCMF mcmf(N);
 		MCMF2 mcmf2(N);
 		rep(i,0,N) rep(j,0,N) ed[i][j] = 0;
 		bool anyneg = false;
 		rep(eid,0,M) {
-			int i = rand() % N, j = rand() % N;
+			ll i = rand() % N, j = rand() % N;
 			if (i != j && !ed[i][j]) {
 				ed[i][j] = 1;
-				int fl = rand() % 50;
-				int co = rand() % 11 - 3;
+				ll fl = rand() % 50;
+				ll co = rand() % 11 - 3;
 				mcmf.addEdge(i, j, fl, co);
 				mcmf2.addEdge(i, j, fl, co);
 				if (co < 0) anyneg = true;
@@ -201,7 +201,7 @@ void testNeg() {
 	cout<<"Tests passed!"<<endl;
 }
 
-int main() {
+ll main() {
 	testMatching();
 	testNeg();
 }

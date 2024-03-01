@@ -10,9 +10,9 @@
 #pragma once
 
 double det(vector<vector<double>>& a) {
-	int n = sz(a); double res = 1;
+	ll n = sz(a); double res = 1;
 	rep(i,0,n) {
-		int b = i;
+		ll b = i;
 		rep(j,i+1,n) if (fabs(a[j][i]) > fabs(a[b][i])) b = j;
 		if (i != b) swap(a[i], a[b]), res *= -1;
 		res *= a[i][i];

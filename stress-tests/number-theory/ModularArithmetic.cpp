@@ -2,7 +2,7 @@
 
 #include "../../content/number-theory/ModularArithmetic.h"
 
-int main() {
+ll main() {
 	rep(a,0,mod) rep(b,1,mod) {
 		Mod ma(a);
 		Mod mb(b);

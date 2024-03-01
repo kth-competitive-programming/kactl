@@ -11,20 +11,20 @@
 
 struct Dinic {
 	struct Edge {
-		int to, rev;
+		ll to, rev;
 		ll c, oc;
 		ll flow() { return max(oc - c, 0LL); } // if you need flows
 	};
 	vi lvl, ptr, q;
 	vector<vector<Edge>> adj;
-	Dinic(int n) : lvl(n), ptr(n), q(n), adj(n) {}
-	void addEdge(int a, int b, ll c, ll rcap = 0) {
+	Dinic(ll n) : lvl(n), ptr(n), q(n), adj(n) {}
+	void addEdge(ll a, ll b, ll c, ll rcap = 0) {
 		adj[a].push_back({b, sz(adj[b]), c, c});
 		adj[b].push_back({a, sz(adj[a]) - 1, rcap, rcap});
 	}
-	ll dfs(int v, int t, ll f) {
+	ll dfs(ll v, ll t, ll f) {
 		if (v == t || !f) return f;
-		for (int& i = ptr[v]; i < sz(adj[v]); i++) {
+		for (ll& i = ptr[v]; i < sz(adj[v]); i++) {
 			Edge& e = adj[v][i];
 			if (lvl[e.to] == lvl[v] + 1)
 				if (ll p = dfs(e.to, t, min(f, e.c))) {
@@ -34,13 +34,13 @@ struct Dinic {
 		}
 		return 0;
 	}
-	ll calc(int s, int t) {
+	ll calc(ll s, ll t) {
 		ll flow = 0; q[0] = s;
-		rep(L,0,31) do { // 'int L=30' maybe faster for random data
+		rep(L,0,31) do { // 'll L=30' maybe faster for random data
 			lvl = ptr = vi(sz(q));
-			int qi = 0, qe = lvl[s] = 1;
+			ll qi = 0, qe = lvl[s] = 1;
 			while (qi < qe && !lvl[t]) {
-				int v = q[qi++];
+				ll v = q[qi++];
 				for (Edge e : adj[v])
 					if (!lvl[e.to] && e.c >> (30 - L))
 						q[qe++] = e.to, lvl[e.to] = lvl[v] + 1;
@@ -49,5 +49,5 @@ struct Dinic {
 		} while (lvl[t]);
 		return flow;
 	}
-	bool leftOfMinCut(int a) { return lvl[a] != 0; }
+	bool leftOfMinCut(ll a) { return lvl[a] != 0; }
 };

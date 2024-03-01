@@ -64,7 +64,7 @@ pair<Q,Q> rec(const vector<P>& s) {
 #define H(e) e->F(), e->p
 #define valid(e) (e->F().cross(H(base)) > 0)
 	Q A, B, ra, rb;
-	int half = sz(s) / 2;
+	ll half = sz(s) / 2;
 	tie(ra, A) = rec({all(s) - half});
 	tie(B, rb) = rec({sz(s) - half + all(s)});
 	while ((B->p.cross(H(A)) < 0 && (A = A->next())) ||
@@ -96,7 +96,7 @@ vector<P> triangulate(vector<P> pts) {
 	if (sz(pts) < 2) return {};
 	Q e = rec(pts).first;
 	vector<Q> q = {e};
-	int qi = 0;
+	ll qi = 0;
 	while (e->o->F().cross(e->F(), e->p) < 0) e = e->o;
 #define ADD { Q c = e; do { c->mark = 1; pts.push_back(c->p); \
 	q.push_back(c->r()); c = c->next(); } while (c != e); }

@@ -1,10 +1,10 @@
 #include "../utilities/template.h"
 
-const int mod = 7; // 4
+const ll mod = 7; // 4
 
 typedef vector<vector<ll>> vvll;
 ll det(vvll& a) { // integer determinant
-	int n = sz(a); ll ans = 1;
+	ll n = sz(a); ll ans = 1;
 	rep(i,0,n) {
 		rep(j,i+1,n) {
 			while (a[j][i] != 0) { // gcd step
@@ -23,7 +23,7 @@ ll det(vvll& a) { // integer determinant
 }
 
 ll idet(vvll& a) { // integer determinant
-	int n = sz(a); ll ans = 1;
+	ll n = sz(a); ll ans = 1;
 	rep(i,0,n) {
 		rep(j,i+1,n) {
 			while (a[j][i] != 0) { // gcd step
@@ -40,9 +40,9 @@ ll idet(vvll& a) { // integer determinant
 }
 
 double det(vector<vector<double>>& a) {
-	int n = sz(a); double res = 1;
+	ll n = sz(a); double res = 1;
 	rep(i,0,n) {
-		int b = i;
+		ll b = i;
 		rep(j,i+1,n) if (fabs(a[j][i]) > fabs(a[b][i])) b = j;
 		if (i != b) swap(a[i], a[b]), res *= -1;
 		res *= a[i][i];
@@ -56,7 +56,7 @@ double det(vector<vector<double>>& a) {
 }
 
 template<class F>
-void rec(int i, int j, vvll& A, F f) {
+void rec(ll i, ll j, vvll& A, F f) {
 	if (i == sz(A)) {
 		f();
 	}
@@ -72,7 +72,7 @@ void rec(int i, int j, vvll& A, F f) {
 }
 
 template<class F>
-void rec2(int i, vector<ll>& A, F f) {
+void rec2(ll i, vector<ll>& A, F f) {
 	if (i == sz(A)) f();
 	else {
 		rep(v,0,mod) {
@@ -82,14 +82,14 @@ void rec2(int i, vector<ll>& A, F f) {
 	}
 }
 
-int main() {
+ll main() {
 	rep(n,0,4) {
 		vvll mat(n, vector<ll>(n, 0)), mat2;
 		vector<vector<double>> mat3(n, vector<double>(n, 0));
 		rec(0,0,mat,[&]() {
 			rep(i,0,n) rep(j,0,n) mat3[i][j] = mat[i][j];
 			// mat2 = mat; ll a = det(mat2);
-			int a = (int)round(det(mat3)) % mod;
+			ll a = (ll)round(det(mat3)) % mod;
 			mat2 = mat; ll b = idet(mat2) % mod;
 			if (a < 0) a += mod;
 			if (b < 0) b += mod;

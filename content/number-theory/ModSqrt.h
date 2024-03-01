@@ -18,7 +18,7 @@ ll sqrt(ll a, ll p) {
 	if (p % 4 == 3) return modpow(a, (p+1)/4, p);
 	// a^(n+3)/8 or 2^(n+3)/8 * 2^(n-1)/4 works if p % 8 == 5
 	ll s = p - 1, n = 2;
-	int r = 0, m;
+	ll r = 0, m;
 	while (s % 2 == 0)
 		++r, s /= 2;
 	/// find a non-square mod p

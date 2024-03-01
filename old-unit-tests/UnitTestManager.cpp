@@ -89,7 +89,7 @@ UnitTestManager::printStatistics() const
 void UnitTestManager::runTest(UnitTestWrapper* unitTestWrapper)
 {
 	UnitTest* unitTest = unitTestWrapper->getUnitTest();
-	int count = unitTest->getCount();
+	ll count = unitTest->getCount();
 	string name = unitTest->getName();
 
 	rep(i, 0, count)
@@ -127,7 +127,7 @@ void UnitTestManager::runTest(UnitTestWrapper* unitTestWrapper)
 	}
 }
 
-int main(int argc, char** argv)
+ll main(ll argc, char** argv)
 {
 	if(argc >= 2)
 	{

@@ -8,15 +8,15 @@
 #undef main
 
 #include <sys/time.h>
-int main() {
+ll main() {
 	timeval tp;
 	gettimeofday(&tp, 0);
-	C = (int)tp.tv_usec;
+	C = (ll)tp.tv_usec;
 	assert((ull)(H(1)*2+1-3) == 0);
 
 	rep(it,0,10000) {
-		int n = rand() % 10;
-		int alpha = rand() % 10 + 1;
+		ll n = rand() % 10;
+		ll alpha = rand() % 10 + 1;
 		string s;
 		rep(i,0,n) s += (char)('a' + rand() % alpha);
 		HashInterval hi(s);

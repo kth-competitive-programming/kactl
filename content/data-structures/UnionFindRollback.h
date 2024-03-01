@@ -5,7 +5,7 @@
  * Source: folklore
  * Description: Disjoint-set data structure with undo.
  * If undo is not needed, skip st, time() and rollback().
- * Usage: int t = uf.time(); ...; uf.rollback(t);
+ * Usage: ll t = uf.time(); ...; uf.rollback(t);
  * Time: $O(\log(N))$
  * Status: tested as part of DirectedMST.h
  */
@@ -13,16 +13,16 @@
 
 struct RollbackUF {
 	vi e; vector<pii> st;
-	RollbackUF(int n) : e(n, -1) {}
-	int size(int x) { return -e[find(x)]; }
-	int find(int x) { return e[x] < 0 ? x : find(e[x]); }
-	int time() { return sz(st); }
-	void rollback(int t) {
-		for (int i = time(); i --> t;)
+	RollbackUF(ll n) : e(n, -1) {}
+	ll size(ll x) { return -e[find(x)]; }
+	ll find(ll x) { return e[x] < 0 ? x : find(e[x]); }
+	ll time() { return sz(st); }
+	void rollback(ll t) {
+		for (ll i = time(); i --> t;)
 			e[st[i].first] = st[i].second;
 		st.resize(t);
 	}
-	bool join(int a, int b) {
+	bool join(ll a, ll b) {
 		a = find(a), b = find(b);
 		if (a == b) return false;
 		if (e[a] > e[b]) swap(a, b);

@@ -18,7 +18,7 @@ using Tree = tree<T, null_type, less<T>, rb_tree_tag,
     tree_order_statistics_node_update>;
 
 void example() {
-	Tree<int> t, t2; t.insert(8);
+	Tree<ll> t, t2; t.insert(8);
 	auto it = t.insert(10).first;
 	assert(it == t.lower_bound(9));
 	assert(t.order_of_key(10) == 1);

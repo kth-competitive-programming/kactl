@@ -1,13 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define rep(i, a, b) for(int i = a; i < int(b); ++i)
+#define rep(i, a, b) for(ll i = a; i < ll(b); ++i)
 #define all(x) x.begin(), x.end()
-#define sz(x) (int)(x).size()
+#define sz(x) (ll)(x).size()
 
 typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
+typedef pair<ll, ll> pii;
+typedef vector<ll> vi;
 
 
 const double EPS =1e-8;
@@ -21,7 +21,7 @@ namespace old {
 template<class It, class P>
 bool insidePolygon(It begin, It end, const P& p,
 		bool strict = true) {
-	int n = 0; //number of isects with line from p to (inf,p.y)
+	ll n = 0; //number of isects with line from p to (inf,p.y)
 	for (It i = begin, j = end-1; i != end; j = i++) {
 		//if p is on edge of polygon
 		if (onSegment(*i, *j, p)) return !strict;
@@ -37,9 +37,9 @@ typedef Point<double> P;
 bool eq(P a, P b) {
 	return (a-b).dist()<EPS;
 }
-const int NUMPOLY=100;
-const int PTPERPOLY=100;
-void test(int numPts, int range) {
+const ll NUMPOLY=100;
+const ll PTPERPOLY=100;
+void test(ll numPts, ll range) {
 	rep(i,0,NUMPOLY) {
 		vector<P> poly;
 		rep(j,0, numPts)
@@ -53,7 +53,7 @@ void test(int numPts, int range) {
 	}
 
 }
-int main() {
+ll main() {
 	test(20,5);
 	test(1001,100);
 	test(1000,1000);

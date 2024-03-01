@@ -7,7 +7,7 @@ class test_HopcorftKarp :
 {
 	public:
 		ifstream in;
-		int cases;
+		ll cases;
 
 		test_HopcorftKarp() : UnitTest("test_HopcorftKarp") {
 			in.open("Matching.in");
@@ -18,17 +18,17 @@ class test_HopcorftKarp :
 			in.close();
 		}
 
-		virtual void run(int subcase) {
-			int n, m, k;
+		virtual void run(ll subcase) {
+			ll n, m, k;
 			in >> n >> m >> k;
-			vector<vector<int> > g(n);
-			for (int i = 0; i < k; i++) {
-				int x, y; in >> x >> y;
+			vector<vector<ll> > g(n);
+			for (ll i = 0; i < k; i++) {
+				ll x, y; in >> x >> y;
 				x--; y--;
 				g[x].push_back(y);
 			}
 			vi b(m, -1);
-			int res = hopcroftKarp(g, b);
+			ll res = hopcroftKarp(g, b);
 			if (subcase == 0) check(res, 2, "0");
 			if (subcase == 1) check(res, 43, "1");
 			if (subcase == 2) check(res, 40, "2");
@@ -36,7 +36,7 @@ class test_HopcorftKarp :
 			if (subcase == 4) check(res, 47, "4");
 		}
 
-		virtual int getCount() const {
+		virtual ll getCount() const {
 			return cases;
 		}
 };

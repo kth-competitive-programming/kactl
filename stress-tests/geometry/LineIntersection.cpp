@@ -3,9 +3,9 @@
 #include "../../content/geometry/lineIntersection.h"
 #include "../../content/geometry/lineDistance.h"
 
-int main() {
+ll main() {
 	rep(t,0,1000000) {
-		const int GRID=10;
+		const ll GRID=10;
 		Point<double>
 			a(rand()%GRID, rand()%GRID),
 			b(rand()%GRID, rand()%GRID),

@@ -12,8 +12,8 @@
 typedef vector<double> vd;
 const double eps = 1e-12;
 
-int solveLinear(vector<vd>& A, vd& b, vd& x) {
-	int n = sz(A), m = sz(x), rank = 0, br, bc;
+ll solveLinear(vector<vd>& A, vd& b, vd& x) {
+	ll n = sz(A), m = sz(x), rank = 0, br, bc;
 	if (n) assert(sz(A[0]) == m);
 	vi col(m); iota(all(col), 0);
 
@@ -40,7 +40,7 @@ int solveLinear(vector<vd>& A, vd& b, vd& x) {
 	}
 
 	x.assign(m, 0);
-	for (int i = rank; i--;) {
+	for (ll i = rank; i--;) {
 		b[i] /= A[i][i];
 		x[col[i]] = b[i];
 		rep(j,0,i) b[j] -= A[j][i] * b[i];

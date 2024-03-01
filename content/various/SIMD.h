@@ -8,7 +8,7 @@
  * Operations follow the pattern \texttt{"\_mm(256)?\_name\_(si(128|256)|epi(8|16|32|64)|pd|ps)"}. Not all are described here;
  * grep for \texttt{\_mm\_} in \texttt{/usr/lib/gcc/{*}/4.9/include/} for more.
  * If AVX is unsupported, try 128-bit operations, "emmintrin.h" and \#define \texttt{\_\_SSE\_\_} and \texttt{\_\_MMX\_\_} before including it.
- * For aligned memory use \texttt{\_mm\_malloc(size, 32)} or \texttt{int buf[N] alignas(32)}, but prefer loadu/storeu.
+ * For aligned memory use \texttt{\_mm\_malloc(size, 32)} or \texttt{ll buf[N] alignas(32)}, but prefer loadu/storeu.
  */
 #pragma once
 
@@ -34,15 +34,15 @@ typedef __m256i mi;
 // set1, blend (i8?x:y), add, adds (sat.), mullo, sub, and/or,
 // andnot, abs, min, max, sign(1,x), cmp(gt|eq), unpack(lo|hi)
 
-int sumi32(mi m) { union {int v[8]; mi m;} u; u.m = m;
-	int ret = 0; rep(i,0,8) ret += u.v[i]; return ret; }
+ll sumi32(mi m) { union {ll v[8]; mi m;} u; u.m = m;
+	ll ret = 0; rep(i,0,8) ret += u.v[i]; return ret; }
 mi zero() { return _mm256_setzero_si256(); }
 mi one() { return _mm256_set1_epi32(-1); }
 bool all_zero(mi m) { return _mm256_testz_si256(m, m); }
 bool all_one(mi m) { return _mm256_testc_si256(m, one()); }
 
-ll example_filteredDotProduct(int n, short* a, short* b) {
-	int i = 0; ll r = 0;
+ll example_filteredDotProduct(ll n, short* a, short* b) {
+	ll i = 0; ll r = 0;
 	mi zero = _mm256_setzero_si256(), acc = zero;
 	while (i + 16 <= n) {
 		mi va = L(a[i]), vb = L(b[i]); i += 16;

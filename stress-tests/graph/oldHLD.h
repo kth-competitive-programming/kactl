@@ -4,17 +4,17 @@
 typedef vector<pii> vpi;
 
 struct Node {
-	int d, par, val, chain = -1, pos = -1;
+	ll d, par, val, chain = -1, pos = -1;
 };
 
 struct Chain {
-	int par, val;
-	vector<int> nodes;
+	ll par, val;
+	vector<ll> nodes;
 	Tree tree;
 };
 
 struct HLD {
-	typedef int T;
+	typedef ll T;
 	const T LOW = -(1<<29);
 	void f(T& a, T b) { a = max(a, b); }
 
@@ -25,28 +25,28 @@ struct HLD {
 		dfs(0, -1, g, 0);
 		for(auto &c: C) {
 			c.tree = {sz(c.nodes), 0};
-			for (int ni : c.nodes)
+			for (ll ni : c.nodes)
 				c.tree.update(V[ni].pos, V[ni].val);
 		}
 	}
 
-	void update(int node, T val) {
+	void update(ll node, T val) {
 		Node& n = V[node]; n.val = val;
 		if (n.chain != -1) C[n.chain].tree.update(n.pos, val);
 	}
 
-	int pard(Node& nod) {
+	ll pard(Node& nod) {
 		if (nod.par == -1) return -1;
 		return V[nod.chain == -1 ? nod.par : C[nod.chain].par].d;
 	}
 
 	// query all *edges* between n1, n2
-	pair<T, int> query(int i1, int i2) {
+	pair<T, ll> query(ll i1, ll i2) {
 		T ans = LOW;
 		while(i1 != i2) {
 			Node n1 = V[i1], n2 = V[i2];
 			if (n1.chain != -1 && n1.chain == n2.chain) {
-				int lo = n1.pos, hi = n2.pos;
+				ll lo = n1.pos, hi = n2.pos;
 				if (lo > hi) swap(lo, hi);
 				f(ans, C[n1.chain].tree.query(lo, hi));
 				i1 = i2 = C[n1.chain].nodes[hi];
@@ -67,16 +67,16 @@ struct HLD {
 	}
 
 	// query all *nodes* between n1, n2
-	pair<T, int> query2(int i1, int i2) {
-		pair<T, int> ans = query(i1, i2);
+	pair<T, ll> query2(ll i1, ll i2) {
+		pair<T, ll> ans = query(i1, i2);
 		f(ans.first, V[ans.second].val);
 		return ans;
 	}
 
-	pii dfs(int at, int par, vector<vpi>& g, int d) {
+	pii dfs(ll at, ll par, vector<vpi>& g, ll d) {
 		V[at].d = d; V[at].par = par;
-		int sum = 1, ch, nod, sz;
-		tuple<int,int,int> mx(-1,-1,-1);
+		ll sum = 1, ch, nod, sz;
+		tuple<ll,ll,ll> mx(-1,-1,-1);
 		for(auto &e: g[at]){
 			if (e.first == par) continue;
 			tie(sz, ch) = dfs(e.first, at, g, d+1);

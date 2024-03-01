@@ -11,7 +11,7 @@ public:
 
 	virtual ~test_lineIntersection() { }
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		typedef Point<double> P;
 		P r;
 		check(lineIntersection(P(0,0),P(1,0),P(0,2),P(1,1),r),1);
@@ -27,7 +27,7 @@ public:
 		check(lineIntersection(P(1,2),P(2,4),P(9,18),P(7,14),r),-1);
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 1;
 	}
 };

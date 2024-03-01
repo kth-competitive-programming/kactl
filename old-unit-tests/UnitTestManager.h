@@ -48,6 +48,6 @@ private:
 	map<string, UnitTestWrapper*> m_unitTestWrappers;
 
 	// Statistics.
-	int m_successCount;
-	int m_failureCount;
+	ll m_successCount;
+	ll m_failureCount;
 };

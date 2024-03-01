@@ -3,18 +3,18 @@
 #include "../../content/graph/LinkCutTree.h"
 #include "../../content/data-structures/UnionFind.h"
 
-int main() {
+ll main() {
 	srand(2);
 	LinkCut lczero(0);
 	rep(it,0,10000) {
-		int N = rand() % 20 + 1;
+		ll N = rand() % 20 + 1;
 		LinkCut lc(N);
 		UF uf(N);
 		vector<pii> edges;
 		rep(it2,0,1000) {
-			int v = (rand() >> 4) & 3;
+			ll v = (rand() >> 4) & 3;
 			if (v == 0 && !edges.empty()) { // remove
-				int r = (rand() >> 4) % sz(edges);
+				ll r = (rand() >> 4) % sz(edges);
 				pii ed = edges[r];
 				swap(edges[r], edges.back());
 				edges.pop_back();
@@ -23,8 +23,8 @@ int main() {
 				else
 					lc.cut(ed.second, ed.first);
 			} else {
-				int a = (rand() >> 4) % N;
-				int b = (rand() >> 4) % N;
+				ll a = (rand() >> 4) % N;
+				ll b = (rand() >> 4) % N;
 				uf.e.assign(N, -1);
 				for(auto &ed: edges) uf.join(ed.first, ed.second);
 				bool c = uf.sameSet(a, b);

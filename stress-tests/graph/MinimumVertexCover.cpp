@@ -3,15 +3,15 @@
 #include "../../content/graph/MinimumVertexCover.h"
 #include "../../content/graph/hopcroftKarp.h"
 
-vi coverHK(vector<vi>& g, int n, int m) {
+vi coverHK(vector<vi>& g, ll n, ll m) {
 	vi match(m, -1);
-	int res = hopcroftKarp(g, match);
+	ll res = hopcroftKarp(g, match);
 	vector<bool> lfound(n, true), seen(m);
 	for(auto &it: match) if (it != -1) lfound[it] = false;
 	vi q, cover;
 	rep(i,0,n) if (lfound[i]) q.push_back(i);
 	while (!q.empty()) {
-		int i = q.back(); q.pop_back();
+		ll i = q.back(); q.pop_back();
 		lfound[i] = 1;
 		for(auto &e: g[i]) if (!seen[e] && match[e] != -1) {
 			seen[e] = true;
@@ -24,10 +24,10 @@ vi coverHK(vector<vi>& g, int n, int m) {
 	return cover;
 }
 
-int main() {
+ll main() {
 	rep(it,0,300000) {
-		int N = rand() % 20, M = rand() % 20;
-		int prop = rand();
+		ll N = rand() % 20, M = rand() % 20;
+		ll prop = rand();
 		vector<vi> gr(N);
 		vi left(N), right(M);
 		rep(i,0,N) rep(j,0,M) if (rand() < prop) {

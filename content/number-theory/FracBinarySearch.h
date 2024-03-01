@@ -21,7 +21,7 @@ Frac fracBS(F f, ll N) {
 	assert(f(hi));
 	while (A || B) {
 		ll adv = 0, step = 1; // move hi if dir, else lo
-		for (int si = 0; step; (step *= 2) >>= si) {
+		for (ll si = 0; step; (step *= 2) >>= si) {
 			adv += step;
 			Frac mid{lo.p * adv + hi.p, lo.q * adv + hi.q};
 			if (abs(mid.p) > N || mid.q > N || dir == !f(mid)) {

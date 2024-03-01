@@ -12,14 +12,14 @@
 
 #include "../numerical/MatrixInverse-mod.h"
 
-vector<pii> generalMatching(int N, vector<pii>& ed) {
+vector<pii> generalMatching(ll N, vector<pii>& ed) {
 	vector<vector<ll>> mat(N, vector<ll>(N)), A;
 	for (pii pa : ed) {
-		int a = pa.first, b = pa.second, r = rand() % mod;
+		ll a = pa.first, b = pa.second, r = rand() % mod;
 		mat[a][b] = r, mat[b][a] = (mod - r) % mod;
 	}
 
-	int r = matInv(A = mat), M = 2*N - r, fi, fj;
+	ll r = matInv(A = mat), M = 2*N - r, fi, fj;
 	assert(r % 2 == 0);
 
 	if (M != N) do {
@@ -27,7 +27,7 @@ vector<pii> generalMatching(int N, vector<pii>& ed) {
 		rep(i,0,N) {
 			mat[i].resize(M);
 			rep(j,N,M) {
-				int r = rand() % mod;
+				ll r = rand() % mod;
 				mat[i][j] = r, mat[j][i] = (mod - r) % mod;
 			}
 		}

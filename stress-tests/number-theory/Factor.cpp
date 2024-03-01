@@ -17,7 +17,7 @@ void assertValid(ull N, vector<ull> prFac){
 		cout<<cur<<' '<<N<<endl;
 	assert(cur == N);
 }
-int main() {
+ll main() {
 	assert(factor(1).empty());
 	assert(factor(2) == vector<ull>{2});
 	assert((factor(2299) == vector<ull>{11, 19, 11}));

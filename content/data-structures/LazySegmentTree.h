@@ -14,10 +14,10 @@
 
 #include "../various/BumpAllocator.h"
 
-const int inf = 1e9;
+const ll inf = 1e9;
 struct Node {
-	typedef int T; // data type
-	struct L { int mset, madd; }; // lazy type
+	typedef ll T; // data type
+	struct L { ll mset, madd; }; // lazy type
 	const T tneut = -inf;     // neutral elements
 	const L lneut = {inf, 0};
 	T f (T a, T b) { return max(a, b); } // (any associative fn)
@@ -30,23 +30,23 @@ struct Node {
 	} // Combine lazy
 
 	Node *l = 0, *r = 0;
-	int lo, hi; T val = tneut; L lazy = lneut;
-	Node(int lo,int hi):lo(lo),hi(hi){}//Large interval of tneut
-	Node(vector<T>& v, int lo, int hi) : lo(lo), hi(hi) {
+	ll lo, hi; T val = tneut; L lazy = lneut;
+	Node(ll lo,ll hi):lo(lo),hi(hi){}//Large interval of tneut
+	Node(vector<T>& v, ll lo, ll hi) : lo(lo), hi(hi) {
 		if (lo + 1 < hi) {
-			int mid = lo + (hi - lo)/2;
+			ll mid = lo + (hi - lo)/2;
 			l = new Node(v, lo, mid); r = new Node(v, mid, hi);
 			val = f(l->val, r->val);
 		}
 		else val = v[lo];
 	}
-	T query(int L, int R) {
+	T query(ll L, ll R) {
 		if (R <= lo || hi <= L) return tneut;
 		if (L <= lo && hi <= R) return apply(val, lazy);
 		push();
 		return f(l->query(L, R), r->query(L, R));
 	}
-	void upd(int Le, int Ri, L x) {
+	void upd(ll Le, ll Ri, L x) {
 		if (Ri <= lo || hi <= Le) return;
 		if (Le <= lo && hi <= Ri) lazy = comb(lazy, x);
 		else {
@@ -54,11 +54,11 @@ struct Node {
 			val = f(l->query(lo, hi), r->query(lo, hi));
 		}
 	}
-	void set(int L, int R, int x) { upd(L, R, {x, 0}); }
-	void add(int L, int R, int x) { upd(L, R, {inf, x}); }
+	void set(ll L, ll R, ll x) { upd(L, R, {x, 0}); }
+	void add(ll L, ll R, ll x) { upd(L, R, {inf, x}); }
 	void push() {
 		if (!l) {
-			int mid = lo + (hi - lo)/2;
+			ll mid = lo + (hi - lo)/2;
 			l = new Node(lo, mid), r = new Node(mid, hi);
 		}
 		l->lazy = comb(l->lazy, lazy);

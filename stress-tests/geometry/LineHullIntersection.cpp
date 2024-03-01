@@ -35,7 +35,7 @@ struct Point<double> {
 #include "../../content/geometry/ConvexHull.h"
 #include "../../content/geometry/LineHullIntersection.h"
 
-int segmentIntersection(const P& s1, const P& e1,
+ll segmentIntersection(const P& s1, const P& e1,
 		const P& s2, const P& e2, Point<double>& r1, Point<double>& r2) {
 	if (e1==s1) {
 		if (e2==s2) {
@@ -63,12 +63,12 @@ int segmentIntersection(const P& s1, const P& e1,
 	return 1;
 }
 
-int main() {
+ll main() {
 	srand(2);
 	rep(it,0,1000000) {
 		// cout<<endl;
 		// cout<<"it: "<<it<<endl;
-		int N = rand() % 15;
+		ll N = rand() % 15;
 		vector<P> ps2;
 		rep(i,0,N) ps2.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
 		vector<P> ps = convexHull(ps2);
@@ -85,7 +85,7 @@ int main() {
 
 		if (p == q) continue;
 
-		auto fail = [&](int line) {
+		auto fail = [&](ll line) {
 			cerr << sz(ps) << endl;
 			for(auto &p: ps) cout << p<<' ';
 			cout<<endl;
@@ -96,12 +96,12 @@ int main() {
 		};
 #define FAIL() fail(__LINE__)
 
-		int any = 0, gen = 0, corner = -1, waspar = 0;
-		vector<pair<Point<double>, int>> hits;
+		ll any = 0, gen = 0, corner = -1, waspar = 0;
+		vector<pair<Point<double>, ll>> hits;
 		rep(iter,0,2) rep(i,0,N) {
 			Point<double> r1, r2;
-			int j = (i+1) % N;
-			int qu = segmentIntersection(farp, farq, ps[i], ps[j], r1, r2);
+			ll j = (i+1) % N;
+			ll qu = segmentIntersection(farp, farq, ps[i], ps[j], r1, r2);
 			if (qu && (q - p).cross(ps[j] - ps[i]) == 0) { // parallel
 				if (N != 2) {
 					if (!(r.first == i || r.second == i)) FAIL();
@@ -115,7 +115,7 @@ int main() {
 			else if (qu) {
 				assert(qu != 2);
 				if (r1 == ps[i]) {
-					int k = (i-1+N) % N;
+					ll k = (i-1+N) % N;
 					if (!(r.first == i || r.second == i || r.first == k || r.second == k)) FAIL();
 					if (iter == 1 && !waspar && !(r.first == i || r.second == i)) FAIL();
 					if (iter == 0) corner = i;

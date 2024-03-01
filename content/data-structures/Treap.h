@@ -12,19 +12,19 @@
 
 struct Node {
 	Node *l = 0, *r = 0;
-	int val, y, c = 1;
-	Node(int val) : val(val), y(rand()) {}
+	ll val, y, c = 1;
+	Node(ll val) : val(val), y(rand()) {}
 	void recalc();
 };
 
-int cnt(Node* n) { return n ? n->c : 0; }
+ll cnt(Node* n) { return n ? n->c : 0; }
 void Node::recalc() { c = cnt(l) + cnt(r) + 1; }
 
 template<class F> void each(Node* n, F f) {
 	if (n) { each(n->l, f); f(n->val); each(n->r, f); }
 }
 
-pair<Node*, Node*> split(Node* n, int k) {
+pair<Node*, Node*> split(Node* n, ll k) {
 	if (!n) return {};
 	if (cnt(n->l) >= k) { // "n->val >= k" for lower_bound(k)
 		auto pa = split(n->l, k);
@@ -53,13 +53,13 @@ Node* merge(Node* l, Node* r) {
 	}
 }
 
-Node* ins(Node* t, Node* n, int pos) {
+Node* ins(Node* t, Node* n, ll pos) {
 	auto pa = split(t, pos);
 	return merge(merge(pa.first, n), pa.second);
 }
 
 // Example application: move the range [l, r) to index k
-void move(Node*& t, int l, int r, int k) {
+void move(Node*& t, ll l, ll r, ll k) {
 	Node *a, *b, *c;
 	tie(a,b) = split(t, l); tie(b,c) = split(b, r - l);
 	if (k <= l) t = merge(ins(a, b, k), c);

@@ -13,7 +13,7 @@
 
 typedef Point<ll> P;
 array<P, 2> hullDiameter(vector<P> S) {
-	int n = sz(S), j = n < 2 ? 0 : 1;
+	ll n = sz(S), j = n < 2 ? 0 : 1;
 	pair<ll, array<P, 2>> res({0, {S[0], S[0]}});
 	rep(i,0,j)
 		for (;; j = (j + 1) % n) {

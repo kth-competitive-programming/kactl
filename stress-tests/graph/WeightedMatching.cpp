@@ -6,23 +6,23 @@
 #include <bits/extc++.h> /// include-line, keep-include
 #include "../../content/graph/MinCostMaxFlow.h"
 
-void test(int N, int mxCost, int iters) {
-	for (int it = 0; it < iters; it++) {
-		int n = randRange(0, N), m = randRange(0, N);
+void test(ll N, ll mxCost, ll iters) {
+	for (ll it = 0; it < iters; it++) {
+		ll n = randRange(0, N), m = randRange(0, N);
 		if (n > m)
 			swap(n, m);
 
 		MCMF mcmf(n + m + 2);
-		int s = 0;
-		int t = 1;
-		for (int i = 0; i < n; i++)
+		ll s = 0;
+		ll t = 1;
+		for (ll i = 0; i < n; i++)
 			mcmf.addEdge(s, i + 2, 1, 0);
-		for (int i = 0; i < m; i++)
+		for (ll i = 0; i < m; i++)
 			mcmf.addEdge(2 + n + i, t, 1, 0);
 
 		vector<vi> cost(n, vi(m));
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (ll i = 0; i < n; i++) {
+			for (ll j = 0; j < m; j++) {
 				cost[i][j] = randRange(-mxCost, mxCost);
 				mcmf.addEdge(i + 2, 2 + n + j, 1, cost[i][j]);
 			}
@@ -32,9 +32,9 @@ void test(int N, int mxCost, int iters) {
 		auto matching = hungarian(cost);
 		assert(maxflow.first == n);
 		assert(maxflow.second == matching.first);
-		int matchSum = 0;
-		set<int> used;
-		for (int i = 0; i < n; i++) {
+		ll matchSum = 0;
+		set<ll> used;
+		for (ll i = 0; i < n; i++) {
 			matchSum += cost[i][matching.second[i]];
 			assert(used.count(matching.second[i]) == 0);
 			used.insert(matching.second[i]);

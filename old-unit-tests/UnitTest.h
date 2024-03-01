@@ -22,9 +22,9 @@ public:
 	}
 
 public:
-	virtual void run(int subcase) = 0;
+	virtual void run(ll subcase) = 0;
 
-	virtual int getCount() const
+	virtual ll getCount() const
 	{
 		return 1;
 	}

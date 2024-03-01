@@ -6,7 +6,7 @@ const ll mod = 1000000007;
 
 vl simpleConv(vl a, vl b) {
 	if (a.empty() || b.empty()) return {};
-	int s = sz(a) + sz(b) - 1;
+	ll s = sz(a) + sz(b) - 1;
 	vl c(s);
 	rep(i,0,sz(a)) rep(j,0,sz(b))
 		c[i+j] = (c[i+j] + (ll)a[i] * b[j]) % mod;
@@ -14,7 +14,7 @@ vl simpleConv(vl a, vl b) {
 	return c;
 }
 
-int ra() {
+ll ra() {
 	static unsigned X;
 	X *= 123671231;
 	X += 1238713;
@@ -22,7 +22,7 @@ int ra() {
 	return (X >> 1);
 }
 
-int main() {
+ll main() {
 	vl a, b;
 	rep(it,0,6000) {
 		a.resize(ra() % 100);

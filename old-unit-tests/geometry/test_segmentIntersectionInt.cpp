@@ -8,10 +8,10 @@ class test_segmentIntersectionInt :
 {
 public:
 	ifstream in,out;
-	int cases;
+	ll cases;
 	test_segmentIntersectionInt() : UnitTest("test_segmentIntersectionInt") {
 		ifstream file("segmentIntersectionInt.in");
-		int n = 0; double d;
+		ll n = 0; double d;
 		while (file >> d) ++n;
 		file.close();
 		cases = n/8;
@@ -33,7 +33,7 @@ public:
 		//check(v,res,ss.str());
 	}
 	template<class T>
-	void test(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
+	void test(T s1, T e1, T s2, T e2, ll n, T r1, T r2) {
 		stringstream ss;
 		ss << s1 << " " << e1 << " " << s2 << " " << e2;
 		T res1, res2;
@@ -48,21 +48,21 @@ public:
 	}
 
 	template<class T>
-	void test1(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
+	void test1(T s1, T e1, T s2, T e2, ll n, T r1, T r2) {
 		T p1(3,9), p2(-12409, 1421);
 		test2(s1,e1,s2,e2,n,r1,r2);
 		test2(s1+p1,e1+p1,s2+p1,e2+p1,n,r1+p1,r2+p1);
 		test2(s1+p2,e1+p2,s2+p2,e2+p2,n,r1+p2,r2+p2);
 	}
 	template<class T>
-	void test2(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
-		int p1 = 4, p2 = -3;
+	void test2(T s1, T e1, T s2, T e2, ll n, T r1, T r2) {
+		ll p1 = 4, p2 = -3;
 		test3(s1,e1,s2,e2,n,r1,r2);
 		test3(s1*p1,e1*p1,s2*p1,e2*p1,n,r1*p1,r2*p1);
 		test3(s1*p2,e1*p2,s2*p2,e2*p2,n,r1*p2,r2*p2);
 	}
 	template<class T>
-	void test3(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
+	void test3(T s1, T e1, T s2, T e2, ll n, T r1, T r2) {
 		T s1p = s1.perp(),e1p = e1.perp(),s2p=s2.perp(),e2p=e2.perp(),
 				r1p=r1.perp(),r2p=r2.perp();
 		test4(s1,e1,s2,e2,n,r1,r2);
@@ -72,34 +72,34 @@ public:
 		test4(s1*3-s1p,e1*3-e1p,s2*3-s2p,e2*3-e2p,n,r1*3-r1p,r2*3-r2p);
 	}
 	template<class T>
-	void test4(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
+	void test4(T s1, T e1, T s2, T e2, ll n, T r1, T r2) {
 		test5(s1,e1,s2,e2,n,r1,r2);
 		test5(s2,e2,s1,e1,n,r1,r2);
 	}
 	template<class T>
-	void test5(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
+	void test5(T s1, T e1, T s2, T e2, ll n, T r1, T r2) {
 		test6(s1,e1,s2,e2,n,r1,r2);
 		test6(e1,s1,s2,e2,n,r1,r2);
 	}
 	template<class T>
-	void test6(T s1, T e1, T s2, T e2, int n, T r1, T r2) {
+	void test6(T s1, T e1, T s2, T e2, ll n, T r1, T r2) {
 		test(s1,e1,s2,e2,n,r1,r2);
 		test(s1,e1,e2,s2,n,r1,r2);
 	}
 
-	virtual void run(int subcase)
+	virtual void run(ll subcase)
 	{
-		Point<int> p1,p2,p3,p4;
+		Point<ll> p1,p2,p3,p4;
 		in >> p1 >> p2 >> p3 >> p4;
-		int n;
+		ll n;
 		out >> n;
-		vector<Point<int> > v(2);
+		vector<Point<ll> > v(2);
 		rep(i,0,n) out >> v[i];
 
 		test1(p1,p2,p3,p4,n,v[0],v[1]);
 	}
 
-	virtual int getCount() const
+	virtual ll getCount() const
 	{
 		return cases;
 	}

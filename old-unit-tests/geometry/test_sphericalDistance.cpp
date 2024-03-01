@@ -11,7 +11,7 @@ public:
 
 	virtual ~test_sphericalDistance() { }
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		check(sphericalDistance(0,0,0,0,5),0.0,"0");
 		check(sphericalDistance(1,2,3,4,0),0.0,"0");
 		check(sphericalDistance(0,0,1,0,10),0.0,"0");
@@ -19,7 +19,7 @@ public:
 		check(sphericalDistance(M_PI/2,M_PI/2,0,M_PI/2,10),5*M_PI,"0");
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 1;
 	}
 };

@@ -4,8 +4,8 @@ typedef vector<double> vd;
 const double eps = 1e-12;
 
 enum { YES, NO, MULT };
-int solve_linear(vector<vd>& A, vd& b, vd& x) {
-	int n = sz(A), m = sz(x), br = -1, bc = -1;
+ll solve_linear(vector<vd>& A, vd& b, vd& x) {
+	ll n = sz(A), m = sz(x), br = -1, bc = -1;
 	vi col(m); iota(all(col), 0);
 
 	rep(i,0,n) {
@@ -31,7 +31,7 @@ int solve_linear(vector<vd>& A, vd& b, vd& x) {
 	}
 	if (n < m) return MULT;
 
-	for (int i = m; i--;) {
+	for (ll i = m; i--;) {
 		x[col[i]] = (b[i] /= A[i][i]);
 		rep(j,0,i)
 			b[j] -= A[j][i] * b[i];
@@ -39,13 +39,13 @@ int solve_linear(vector<vd>& A, vd& b, vd& x) {
 	return YES;
 }
 
-int main() {
-	const int n = 1000;
+ll main() {
+	const ll n = 1000;
 	vector<vd> A(n, vd(n));
 	rep(i,0,n) rep(j,0,n) A[i][j] = rand() * 1000.0 / RAND_MAX;
 	vd x(n), b(n);
 	rep(i,0,n) b[i] = rand() * 1000.0 / RAND_MAX;
-	int r = solve_linear(A, b, x);
+	ll r = solve_linear(A, b, x);
 	assert(r == 0);
 	cout<<"Tests passed!"<<endl;
 	// cout << r << endl;

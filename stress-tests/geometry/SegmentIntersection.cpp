@@ -4,7 +4,7 @@
 
 namespace oldImpl {
 template<class P>
-int segmentIntersection(const P& s1, const P& e1,
+ll segmentIntersection(const P& s1, const P& e1,
 		const P& s2, const P& e2, P& r1, P& r2) {
 	if (e1==s1) {
 		if (e2==s2) {
@@ -35,9 +35,9 @@ typedef Point<double> P;
 bool eq(P a, P b) {
 	return (a-b).dist()<1e-8;
 }
-int main() {
+ll main() {
 	rep(t,0,1000000) {
-		const int GRID=6;
+		const ll GRID=6;
 		P a(rand()%GRID, rand()%GRID), b(rand()%GRID, rand()%GRID), c(rand()%GRID, rand()%GRID), d(rand()%GRID, rand()%GRID);
 		P tmp1, tmp2;
 		auto res = oldImpl::segmentIntersection(a,b,c,d, tmp1, tmp2);

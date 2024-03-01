@@ -2,13 +2,13 @@
 
 namespace finite_field {
 
-const int mod = 7;
-// const int inv[] = {0, 1, 3, 2, 4};
-const int inv[] = {0, 1, 4, 5, 2, 3, 6};
+const ll mod = 7;
+// const ll inv[] = {0, 1, 3, 2, 4};
+const ll inv[] = {0, 1, 4, 5, 2, 3, 6};
 struct T {
-	int x;
+	ll x;
 	T() : x(0) {}
-	T(int y) : x(y % mod) { if (x < 0) x += mod; }
+	T(ll y) : x(y % mod) { if (x < 0) x += mod; }
 };
 T operator+(T a, T b) { return {a.x + b.x}; }
 T operator-(T a, T b) { return {a.x - b.x}; }
@@ -21,7 +21,7 @@ T& operator/=(T& a, T b) { return a = a / b; }
 
 vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 		const vector<T>& sub, vector<T> b) {
-	int n = sz(b); vi tr(n);
+	ll n = sz(b); vi tr(n);
 	rep(i,0,n-1) {
 		if (diag[i].x == 0) {
 			if (super[i].x == 0) return {};
@@ -35,7 +35,7 @@ vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 		}
 	}
 	if (diag[n-1].x == 0) return {};
-	for (int i = n; i--;) {
+	for (ll i = n; i--;) {
 		if (tr[i]) {
 			swap(b[i], b[i-1]);
 			diag[i-1] = diag[i];
@@ -48,21 +48,21 @@ vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 	return b;
 }
 
-int modinv(int x) {
+ll modinv(ll x) {
 	assert(x);
 	if (x < 0) x += mod;
 	return inv[x];
 }
 
-typedef vector<int> vd;
+typedef vector<ll> vd;
 
-int solveLinear(vector<vd>& A, vd& b, vd& x) {
-	int n = sz(A), m = sz(x), rank = 0, br, bc;
+ll solveLinear(vector<vd>& A, vd& b, vd& x) {
+	ll n = sz(A), m = sz(x), rank = 0, br, bc;
 	if (n) assert(sz(A[0]) == m);
 	vi col(m); iota(all(col), 0);
 
 	rep(i,0,n) {
-		int v, bv = -1;
+		ll v, bv = -1;
 		rep(r,i,n) rep(c,i,m)
 			if ((v = A[r][c])) {
 				br = r, bc = c, bv = v;
@@ -77,7 +77,7 @@ found:
 		rep(j,0,n) swap(A[j][i], A[j][bc]);
 		bv = modinv(A[i][i]);
 		rep(j,i+1,n) {
-			int fac = A[j][i] * bv % mod;
+			ll fac = A[j][i] * bv % mod;
 			b[j] = (b[j] - fac * b[i]) % mod;
 			rep(k,i+1,m) A[j][k] = (A[j][k] - fac*A[i][k]) % mod;
 		}
@@ -85,7 +85,7 @@ found:
 	}
 
 	x.assign(m, 0);
-	for (int i = rank; i--;) {
+	for (ll i = rank; i--;) {
 		b[i] = ((b[i] * modinv(A[i][i]) % mod) + mod) % mod;
 		x[col[i]] = b[i];
 		rep(j,0,i)
@@ -95,13 +95,13 @@ found:
 }
 
 template<class F>
-void rec(T& b, int& a, F f) {
+void rec(T& b, ll& a, F f) {
 	rep(i,0,mod) a = i, b = T(i), f();
 }
 
-int main() {
+ll main() {
 #ifdef BRUTEFORCE
-	const int n = 3;
+	const ll n = 3;
 	vector<vi> mat(n, vi(n)), mat2;
 	vi b(n), b3, x(n);
 	vector<T> b2(n);
@@ -120,7 +120,7 @@ int main() {
 	rec(b2[2], b[2], [&]() {
 #else
 	rep(it,0,1000000) {
-	const int n = 1 + rand() % 10;
+	const ll n = 1 + rand() % 10;
 	vector<vi> mat(n, vi(n)), mat2;
 	vi b(n), b3, x(n);
 	vector<T> b2(n);
@@ -138,7 +138,7 @@ int main() {
 #endif
 		mat2 = mat;
 		b3 = b;
-		int r = solveLinear(mat2, b3, x);
+		ll r = solveLinear(mat2, b3, x);
 		auto x2 = tridiagonal(diag, super, sub, b2);
 		if (r != n) {
 			assert(x2.empty());
@@ -181,7 +181,7 @@ namespace real {
 typedef double T;
 vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 		const vector<T>& sub, vector<T> b) {
-	int n = sz(b); vi tr(n);
+	ll n = sz(b); vi tr(n);
 	rep(i,0,n-1) {
 		if (abs(diag[i]) < 1e-9 * abs(super[i])) { // diag[i] == 0
 			throw false; // assert that this doesn't happen; we're testing stability
@@ -193,7 +193,7 @@ vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 			b[i+1] -= b[i]*sub[i]/diag[i];
 		}
 	}
-	for (int i = n; i--;) {
+	for (ll i = n; i--;) {
 		if (tr[i]) {
 			swap(b[i], b[i-1]);
 			diag[i-1] = diag[i];
@@ -209,8 +209,8 @@ vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 typedef double T;
 typedef vector<double> vd;
 
-int solveLinear(vector<vd>& A, vd& b, vd& x) {
-	int n = sz(A), m = sz(x), rank = 0, br, bc;
+ll solveLinear(vector<vd>& A, vd& b, vd& x) {
+	ll n = sz(A), m = sz(x), rank = 0, br, bc;
 	if (n) assert(sz(A[0]) == m);
 	vi col(m); iota(all(col), 0);
 
@@ -238,7 +238,7 @@ found:
 	}
 
 	x.assign(m, 0);
-	for (int i = rank; i--;) {
+	for (ll i = rank; i--;) {
 		b[i] /= A[i][i];
 		x[col[i]] = b[i];
 		rep(j,0,i)
@@ -247,8 +247,8 @@ found:
 	return rank;
 }
 
-int positiveDefinite(vector<vd>& A) {
-	int n = sz(A), m = n;
+ll positiveDefinite(vector<vd>& A) {
+	ll n = sz(A), m = n;
 	if (n) assert(sz(A[0]) == m);
 	vi col(m); iota(all(col), 0);
 
@@ -271,7 +271,7 @@ double nice_double() {
 }
 
 bool validMat(const vector<vd>& mat) {
-	const int n = sz(mat);
+	const ll n = sz(mat);
 	bool faila = false, failb = false, sym = true;
 	rep(i,0,n) {
 		double suma = 0, sumb = 0;
@@ -299,10 +299,10 @@ void rec(T& a, T& b, F f) {
 	}
 }
 
-int main() {
+ll main() {
 	ll count = 0;
 #ifdef BRUTEFORCE
-	const int n = 3;
+	const ll n = 3;
 	vector<vd> mat(n, vd(n)), mat2;
 	vd b(n), b3, x(n), x2(n);
 	vector<T> b2(n);
@@ -321,7 +321,7 @@ int main() {
 	rec(b2[2], b[2], [&]() {
 #else
 	rep(it,0,10000000) {
-	const int n = 1 + rand() % 10;
+	const ll n = 1 + rand() % 10;
 	vector<vd> mat(n, vd(n)), mat2;
 	vd b(n), b3, x(n), x2(n);
 	vector<T> b2(n);
@@ -347,7 +347,7 @@ int main() {
 		b3 = b;
 		bool done = false;
 		try {
-			int r = solveLinear(mat2, b3, x);
+			ll r = solveLinear(mat2, b3, x);
 			x2 = tridiagonal(diag, super, sub, b2);
 			assert(r == n);
 			done = true;
@@ -387,7 +387,7 @@ int main() {
 
 }
 
-int main() {
+ll main() {
 	// finite_field::main();
 	real::main();
 }

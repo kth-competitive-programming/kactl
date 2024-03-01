@@ -1,7 +1,7 @@
 #include "../utilities/template.h"
 
 static unsigned RA = 1231231;
-int ra() {
+ll ra() {
 	RA *= 574841;
 	RA += 14;
 	return RA >> 1;
@@ -16,7 +16,7 @@ namespace maximum {
 namespace nonabelian {
 
 // https://en.wikipedia.org/wiki/Dihedral_group_of_order_6
-const int lut[6][6] = {
+const ll lut[6][6] = {
 	{0, 1, 2, 3, 4, 5},
 	{1, 0, 4, 5, 2, 3},
 	{2, 5, 0, 4, 3, 1},
@@ -26,16 +26,16 @@ const int lut[6][6] = {
 };
 
 struct Tree {
-	typedef int T;
+	typedef ll T;
 	const T unit = 0;
 	T f(T a, T b) { return lut[a][b]; }
-	vector<T> s; int n;
-	Tree(int n = 0, T def = 0) : s(2*n, def), n(n) {}
-	void update(int pos, T val) {
+	vector<T> s; ll n;
+	Tree(ll n = 0, T def = 0) : s(2*n, def), n(n) {}
+	void update(ll pos, T val) {
 		for (s[pos += n] = val; pos > 1; pos /= 2)
 			s[pos / 2] = f(s[pos & ~1], s[pos | 1]);
 	}
-	T query(int b, int e) { // query [b, e)
+	T query(ll b, ll e) { // query [b, e)
 		T ra = unit, rb = unit;
 		for (b += n, e += n; b < e; b /= 2, e /= 2) {
 			if (b % 2) ra = f(ra, s[b++]);
@@ -47,22 +47,22 @@ struct Tree {
 
 }
 
-int main() {
+ll main() {
 	{
 		maximum::Tree t(0);
 		assert(t.query(0, 0) == t.unit);
 	}
 
 	if (0) {
-		const int N = 10000;
+		const ll N = 10000;
 		maximum::Tree tr(N);
 		ll sum = 0;
 		rep(it,0,1000000) {
 			tr.update(ra() % N, ra());
-			int i = ra() % N;
-			int j = ra() % N;
+			ll i = ra() % N;
+			ll j = ra() % N;
 			if (i > j) swap(i, j);
-			int v = tr.query(i, j+1);
+			ll v = tr.query(i, j+1);
 			sum += v;
 		}
 		cout << sum << endl;
@@ -73,12 +73,12 @@ int main() {
 		maximum::Tree tr(n);
 		vi v(n, maximum::Tree::unit);
 		rep(it,0,1000000) {
-			int i = rand() % (n+1), j = rand() % (n+1);
-			int x = rand() % (n+2);
+			ll i = rand() % (n+1), j = rand() % (n+1);
+			ll x = rand() % (n+2);
 
-			int r = rand() % 100;
+			ll r = rand() % 100;
 			if (r < 30) {
-				int ma = tr.unit;
+				ll ma = tr.unit;
 				rep(k,i,j) ma = max(ma, v[k]);
 				assert(ma == tr.query(i,j));
 			}
@@ -94,12 +94,12 @@ int main() {
 		nonabelian::Tree tr(n);
 		vi v(n);
 		rep(it,0,1000000) {
-			int i = rand() % (n+1), j = rand() % (n+1);
-			int x = rand() % 6;
+			ll i = rand() % (n+1), j = rand() % (n+1);
+			ll x = rand() % 6;
 
-			int r = rand() % 100;
+			ll r = rand() % 100;
 			if (r < 30) {
-				int ma = tr.unit;
+				ll ma = tr.unit;
 				rep(k,i,j) ma = nonabelian::lut[ma][v[k]];
 				assert(ma == tr.query(i,j));
 			}

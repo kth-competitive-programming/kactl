@@ -9,7 +9,7 @@
  *  be in several components. An edge which is not in a component is a bridge,
  *  i.e., not part of any cycle.
  * Usage:
- *  int eid = 0; ed.resize(N);
+ *  ll eid = 0; ed.resize(N);
  *  for each edge (a,b) {
  *    ed[a].emplace_back(b, eid);
  *    ed[b].emplace_back(a, eid++); }
@@ -21,10 +21,10 @@
 
 vi num, st;
 vector<vector<pii>> ed;
-int Time;
+ll Time;
 template<class F>
-int dfs(int at, int par, F& f) {
-	int me = num[at] = ++Time, e, y, top = me;
+ll dfs(ll at, ll par, F& f) {
+	ll me = num[at] = ++Time, e, y, top = me;
 	for (auto pa : ed[at]) if (pa.second != par) {
 		tie(y, e) = pa;
 		if (num[y]) {
@@ -32,8 +32,8 @@ int dfs(int at, int par, F& f) {
 			if (num[y] < me)
 				st.push_back(e);
 		} else {
-			int si = sz(st);
-			int up = dfs(y, e, f);
+			ll si = sz(st);
+			ll up = dfs(y, e, f);
 			top = min(top, up);
 			if (up == me) {
 				st.push_back(e);

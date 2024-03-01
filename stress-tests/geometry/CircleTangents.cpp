@@ -7,7 +7,7 @@
 typedef Point<double> P;
 
 signed main() {
-	for (int i = 0; i < 1000000; i++) {
+	for (ll i = 0; i < 1000000; i++) {
 		P c1 = randIntPt(5), c2 = randIntPt(5);
 		double r1 = sqrt(rand()%20), r2 = sqrt(rand()%20);
 		for (auto sgn : {-1, 1}) {

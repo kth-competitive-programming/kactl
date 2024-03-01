@@ -20,31 +20,31 @@
 #pragma once
 
 struct TwoSat {
-	int N;
+	ll N;
 	vector<vi> gr;
 	vi values; // 0 = false, 1 = true
 
-	TwoSat(int n = 0) : N(n), gr(2*n) {}
+	TwoSat(ll n = 0) : N(n), gr(2*n) {}
 
-	int addVar() { // (optional)
+	ll addVar() { // (optional)
 		gr.emplace_back();
 		gr.emplace_back();
 		return N++;
 	}
 
-	void either(int f, int j) {
+	void either(ll f, ll j) {
 		f = max(2*f, -1-2*f);
 		j = max(2*j, -1-2*j);
 		gr[f].push_back(j^1);
 		gr[j].push_back(f^1);
 	}
-	void setValue(int x) { either(x, x); }
+	void setValue(ll x) { either(x, x); }
 
 	void atMostOne(const vi& li) { // (optional)
 		if (sz(li) <= 1) return;
-		int cur = ~li[0];
+		ll cur = ~li[0];
 		rep(i,2,sz(li)) {
-			int next = addVar();
+			ll next = addVar();
 			either(cur, ~li[i]);
 			either(cur, next);
 			either(~li[i], next);
@@ -53,10 +53,10 @@ struct TwoSat {
 		either(cur, ~li[1]);
 	}
 
-	vi val, comp, z; int time = 0;
-	int dfs(int i) {
-		int low = val[i] = ++time, x; z.push_back(i);
-		for(int e : gr[i]) if (!comp[e])
+	vi val, comp, z; ll time = 0;
+	ll dfs(ll i) {
+		ll low = val[i] = ++time, x; z.push_back(i);
+		for(ll e : gr[i]) if (!comp[e])
 			low = min(low, val[e] ?: dfs(e));
 		if (low == val[i]) do {
 			x = z.back(); z.pop_back();

@@ -15,20 +15,20 @@
 typedef Point3D<double> P3;
 
 struct PR {
-	void ins(int x) { (a == -1 ? a : b) = x; }
-	void rem(int x) { (a == x ? a : b) = -1; }
-	int cnt() { return (a != -1) + (b != -1); }
-	int a, b;
+	void ins(ll x) { (a == -1 ? a : b) = x; }
+	void rem(ll x) { (a == x ? a : b) = -1; }
+	ll cnt() { return (a != -1) + (b != -1); }
+	ll a, b;
 };
 
-struct F { P3 q; int a, b, c; };
+struct F { P3 q; ll a, b, c; };
 
 vector<F> hull3d(const vector<P3>& A) {
 	assert(sz(A) >= 4);
 	vector<vector<PR>> E(sz(A), vector<PR>(sz(A), {-1, -1}));
 #define E(x,y) E[f.x][f.y]
 	vector<F> FS;
-	auto mf = [&](int i, int j, int k, int l) {
+	auto mf = [&](ll i, ll j, ll k, ll l) {
 		P3 q = (A[j] - A[i]).cross((A[k] - A[i]));
 		if (q.dot(A[l]) > q.dot(A[i]))
 			q = q * -1;
@@ -50,7 +50,7 @@ vector<F> hull3d(const vector<P3>& A) {
 				FS.pop_back();
 			}
 		}
-		int nw = sz(FS);
+		ll nw = sz(FS);
 		rep(j,0,nw) {
 			F f = FS[j];
 #define C(a, b, c) if (E(a,b).cnt() != 2) mf(f.a, f.b, i, f.c);

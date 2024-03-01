@@ -3,30 +3,30 @@
 #include <fstream>
 #include <sstream>
 
-const int tweaks = 5;
+const ll tweaks = 5;
 
 class test_insidePolygon :
 	public UnitTest
 {
 public:
-	vector<vector<Point<int> > > polys;
+	vector<vector<Point<ll> > > polys;
 	vector<string> strings;
-	vector<Point<int> > points;
-	vector<int> answers;
+	vector<Point<ll> > points;
+	vector<ll> answers;
 
 	test_insidePolygon() : UnitTest("test_insidePolygon") {
 		ifstream in("insidePolygon.in");
-		int n;
+		ll n;
 		while (in >> n) {
-			vector<Point<int> > poly(n);
+			vector<Point<ll> > poly(n);
 			stringstream ss;
 			rep(i,0,n) {
 				in >> poly[i];
 				ss << poly[i] << " ";
 			}
-			int q;
+			ll q;
 			in >> q;
-			Point<int> p;
+			Point<ll> p;
 			rep(i,0,q) {
 				in >> p;
 				polys.push_back(poly);
@@ -47,7 +47,7 @@ public:
 	{
 	}
 
-	virtual void run(int c)
+	virtual void run(ll c)
 	{
 		if (c < points.size()) {
 			bool a = insidePolygon(polys[c].begin(),
@@ -60,7 +60,7 @@ public:
 			for(auto &i:poly) i = Point<double>(rand()%100000,rand()%100000);
 			Point<double> p(rand()%100000,rand()%100000);
 			bool a = insidePolygon(poly.begin(),poly.end(),p,true);
-			for (int i = 0; i < 10; ++i) {
+			for (ll i = 0; i < 10; ++i) {
 				double alpha = rand()%1000/1000.0;
 				Point<double> D(rand()%1000,rand()%1000);
 				for(auto &i:poly) i = i.rotate(alpha)+D;
@@ -70,7 +70,7 @@ public:
 		}
 	}
 
-	virtual int getCount() const
+	virtual ll getCount() const
 	{
 		return points.size() + 20;
 	}

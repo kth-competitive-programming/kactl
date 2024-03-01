@@ -8,10 +8,10 @@ class test_segDistDouble :
 {
 public:
 	ifstream in,out;
-	int cases;
+	ll cases;
 	test_segDistDouble() : UnitTest("test_segDistDouble") {
 		ifstream file("segDistDouble.in");
-		int n = 0; double d;
+		ll n = 0; double d;
 		while (file >> d) ++n;
 		file.close();
 		cases = n/6;
@@ -33,7 +33,7 @@ public:
 		check(segDist(p1,p2,p3), a, ss.str());
 	}
 
-	virtual void run(int subcase)
+	virtual void run(ll subcase)
 	{
 		Point<double> p1,p2,p3;
 		in >> p1 >> p2 >> p3;
@@ -51,7 +51,7 @@ public:
 		test(p2.perp()*-1,p1.perp()*-1,p3.perp()*-1,a);
 	}
 
-	virtual int getCount() const
+	virtual ll getCount() const
 	{
 		return cases;
 	}

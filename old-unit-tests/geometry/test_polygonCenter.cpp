@@ -11,7 +11,7 @@ public:
 
 	virtual ~test_polygonCenter() { }
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		typedef Point<double> P;
 		if (subcase == 0) {
 			P p[] = {P(0,0),P(3,0),P(0,3)};
@@ -44,7 +44,7 @@ public:
 		}
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 9;
 	}
 };

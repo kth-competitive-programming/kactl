@@ -1,7 +1,7 @@
 #include "../utilities/template.h"
 
 ll det(vector<vector<ll>>& a) {
-	int n = sz(a); ll ans = 1;
+	ll n = sz(a); ll ans = 1;
 	rep(i,0,n) {
 		rep(j,i+1,n) {
 			while (a[j][i] != 0) { // gcd step
@@ -18,19 +18,19 @@ ll det(vector<vector<ll>>& a) {
 	return ans;
 }
 
-ll rec(vector<vi>& ed, int active, int finished) {
-	int N = sz(ed);
+ll rec(vector<vi>& ed, ll active, ll finished) {
+	ll N = sz(ed);
 	if (finished == (1 << N) - 1) return 1;
-	int chosen = -1;
+	ll chosen = -1;
 	rep(i,0,N) if (!(finished & (1 << i)) && (active & (1 << i))) {
 		chosen = i;
 		break;
 	}
 	if (chosen == -1) return 0; // missing nodes from tree
-	int si = sz(ed[chosen]);
+	ll si = sz(ed[chosen]);
 	ll res = 0;
 	rep(bi,0,(1 << si)) {
-		int edto = 0;
+		ll edto = 0;
 		rep(i,0,si) {
 			if (bi & (1 << i)) {
 				if (edto & (1 << ed[chosen][i])) goto fail;
@@ -44,20 +44,20 @@ fail:;
 	return res;
 }
 
-ll countTrees(vector<vi>& ed, int root) {
+ll countTrees(vector<vi>& ed, ll root) {
 	return rec(ed, 1 << root, 0);
 }
 
-int main() {
+ll main() {
 	rep(it,0,100) {
-		int N = rand() % 7 + 1;
-		int M = rand() % 10;
-		int root = rand() % N;
+		ll N = rand() % 7 + 1;
+		ll M = rand() % 10;
+		ll root = rand() % N;
 		vector<vi> ed(N);
 		vector<vector<ll>> mat(N, vector<ll>(N));
 		rep(i,0,M) {
-			int a = rand() % N;
-			int b = rand() % N;
+			ll a = rand() % N;
+			ll b = rand() % N;
 			ed[a].push_back(b);
 			mat[b][b]++;
 			mat[a][b]--;

@@ -1,14 +1,14 @@
 #include "../utilities/template.h"
 
 bool valid(vi deg) {
-	int n = sz(deg);
+	ll n = sz(deg);
 	sort(all(deg));
 	reverse(all(deg));
-	int sum = 0;
+	ll sum = 0;
 	rep(i,0,n) sum += deg[i];
 	if (sum & 1) return 0;
 	rep(k,0,n) {
-		int s = 0, t = 0;
+		ll s = 0, t = 0;
 		rep(i,0,k+1)
 			s += deg[i];
 		rep(i,k+1,n)
@@ -18,7 +18,7 @@ bool valid(vi deg) {
 	return 1;
 }
 
-int main() {
+ll main() {
 	rep(N,0,7) {
 		vector<pii> possibleEd;
 		rep(i,0,N) rep(j,0,i) possibleEd.emplace_back(i, j);
@@ -26,7 +26,7 @@ int main() {
 		rep(bi,0,(1 << sz(possibleEd))) {
 			vi deg(N);
 			rep(i,0,sz(possibleEd)) if (bi & (1 << i)) {
-				int a, b;
+				ll a, b;
 				tie(a, b) = possibleEd[i];
 				deg[a]++;
 				deg[b]++;
@@ -36,7 +36,7 @@ int main() {
 		}
 
 		vi de(N);
-		function<void(int)> rec = [&](int at) {
+		function<void(ll)> rec = [&](ll at) {
 			if (at == N) {
 				assert(valid(de) == valids.count(de));
 			} else {

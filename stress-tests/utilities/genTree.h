@@ -5,34 +5,34 @@
   Complexity: O(VlogV)
  */
 
-vector<pair<int,int>> pruferCodeToTree(vector<int> &pruferCode) {
+vector<pair<ll,ll>> pruferCodeToTree(vector<ll> &pruferCode) {
 	// Stores number count of nodes in the prufer code
-	unordered_map<int,int> nodeCount;
+	unordered_map<ll,ll> nodeCount;
 
 	// Set of integers absent in prufer code. They are the leaves
-	set<int> leaves;
+	set<ll> leaves;
 
-	int len = (int) pruferCode.size();
-	int node = len + 2;
+	ll len = (ll) pruferCode.size();
+	ll node = len + 2;
 
 	// Count frequency of nodes
-	for ( int i = 0; i < len; i++ ) {
-		int t = pruferCode[i];
+	for ( ll i = 0; i < len; i++ ) {
+		ll t = pruferCode[i];
 		nodeCount[t]++;
 	}
 
 	// Find the absent nodes
-	for ( int i = 1; i <= node; i++ ) {
+	for ( ll i = 1; i <= node; i++ ) {
 		if ( nodeCount.find ( i ) == nodeCount.end() ) leaves.insert ( i );
 	}
 
-	vector<pair<int,int>> edges;
+	vector<pair<ll,ll>> edges;
 	/*Connect Edges*/
-	for ( int i = 0; i < len; i++ ){
-		int a = pruferCode[i]; // First node
+	for ( ll i = 0; i < len; i++ ){
+		ll a = pruferCode[i]; // First node
 
 		//Find the smallest number which is not present in prufer code now
-		int b = *leaves.begin(); // the leaf
+		ll b = *leaves.begin(); // the leaf
 
 		edges.push_back({a,b}); // Edge of the tree
 
@@ -46,9 +46,9 @@ vector<pair<int,int>> pruferCodeToTree(vector<int> &pruferCode) {
 	return edges;
 }
 
-vector<pair<int, int>> genRandomTree(int n) {
-	vector<int> pruferCode;
-	for (int i=0; i<n-2; i++) {
+vector<pair<ll, ll>> genRandomTree(ll n) {
+	vector<ll> pruferCode;
+	for (ll i=0; i<n-2; i++) {
 		pruferCode.push_back(rand()%(n-1) + 1);
 	}
 	auto edges = pruferCodeToTree(pruferCode);

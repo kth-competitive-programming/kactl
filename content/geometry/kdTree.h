@@ -37,7 +37,7 @@ struct Node {
 			sort(all(vp), x1 - x0 >= y1 - y0 ? on_x : on_y);
 			// divide by taking half the array for each child (not
 			// best performance with many duplicates in the middle)
-			int half = sz(vp)/2;
+			ll half = sz(vp)/2;
 			first = new Node({vp.begin(), vp.begin() + half});
 			second = new Node({vp.begin() + half, vp.end()});
 		}

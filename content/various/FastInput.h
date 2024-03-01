@@ -20,8 +20,8 @@ inline char gc() { // like getchar()
 	return buf[bc++]; // returns 0 on EOF
 }
 
-int readInt() {
-	int a, c;
+ll readInt() {
+	ll a, c;
 	while ((a = gc()) < 40);
 	if (a == '-') return -readInt();
 	while ((c = gc()) >= 48) a = a * 10 + c - 480;

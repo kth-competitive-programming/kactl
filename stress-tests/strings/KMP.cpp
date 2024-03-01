@@ -3,7 +3,7 @@
 #include "../../content/strings/KMP.h"
 
 template<class F>
-void gen(string& s, int at, int alpha, F f) {
+void gen(string& s, ll at, ll alpha, F f) {
 	if (at == sz(s)) f();
 	else {
 		rep(i,0,alpha) {
@@ -16,7 +16,7 @@ void gen(string& s, int at, int alpha, F f) {
 void test(const string& s) {
 	vi p = pi(s);
 	rep(i,0,sz(s)) {
-		int maxlen = -1;
+		ll maxlen = -1;
 		rep(len,0,i+1) {
 			rep(j,0,len) {
 				if (s[j] != s[i+1 - len + j]) goto fail;
@@ -28,7 +28,7 @@ fail:;
 	}
 }
 
-int main() {
+ll main() {
 	// string str; cin >> str; for(auto &x: pi(str)) cout << x; cout << endl;
 	// test ~3^12 strings
 	rep(n,0,13) {

@@ -31,7 +31,7 @@ public:
 		test(C,B,A,r,c);
 	}
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		test1(P(2,1),P(1,2),P(3,2), 1, P(2,2));
 		test1(P(5,1),P(2,2),P(1,3), 5, P(5,6));
 		test1(P(0,6),P(2,2),P(1,3), 5, P(5,6));
@@ -40,7 +40,7 @@ public:
 		test1(P(0,0),P(0,1),P(0,2), 1/.0, P(.0/.0,.0/.0));
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 1;
 	}
 };

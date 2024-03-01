@@ -11,7 +11,7 @@ bool y_it_less(const It& i,const It& j) {return i->y < j->y;}
 template<class It, class IIt> /* IIt = vector<It>::iterator */
 double cp_sub(IIt ya, IIt yaend, IIt xa, It &i1, It &i2) {
 	typedef typename iterator_traits<It>::value_type P;
-	int n = yaend-ya, split = n/2;
+	ll n = yaend-ya, split = n/2;
 	if(n <= 3) { // base case
 		double a = (*xa[1]-*xa[0]).dist(), b = 1e50, c = 1e50;
 		if(n==3) b=(*xa[2]-*xa[0]).dist(), c=(*xa[2]-*xa[1]).dist();
@@ -63,21 +63,21 @@ double closestpair(It begin, It end, It &i1, It &i2 ) {
 }
 }
 
-int main() {
+ll main() {
 	// Compare against the old code
 	ll sum = 0;
-	int mode = 1;
+	ll mode = 1;
 	if (mode != 0) rep(it,0,100) {
 		// clog << it << ' ';
-		int n = 100000;
-		int maxx = rand() % 1000000 + 1;
-		int maxy = rand() % 1000000 + 1;
-		int biasx = -100;
-		int biasy = -100;
+		ll n = 100000;
+		ll maxx = rand() % 1000000 + 1;
+		ll maxy = rand() % 1000000 + 1;
+		ll biasx = -100;
+		ll biasy = -100;
 		vector<P> ps;
 		rep(i,0,n) {
-			int x = rand() % maxx + biasx;
-			int y = rand() % maxy + biasy;
+			ll x = rand() % maxx + biasx;
+			ll y = rand() % maxy + biasy;
 			ps.emplace_back(x, y);
 		}
 		ll foundDist = -1, oldDist = -1, theDist = -1;
@@ -101,15 +101,15 @@ int main() {
 
 	// Compare against bruteforce
 	rep(it,0,1'000'000) {
-		int n = rand() % 15 + 2;
-		int maxx = rand() % 20 + 1;
-		int maxy = rand() % 20 + 1;
-		int biasx = rand() % 20 - 10;
-		int biasy = rand() % 20 - 10;
+		ll n = rand() % 15 + 2;
+		ll maxx = rand() % 20 + 1;
+		ll maxy = rand() % 20 + 1;
+		ll biasx = rand() % 20 - 10;
+		ll biasy = rand() % 20 - 10;
 		vector<P> ps;
 		rep(i,0,n) {
-			int x = rand() % maxx + biasx;
-			int y = rand() % maxy + biasy;
+			ll x = rand() % maxx + biasx;
+			ll y = rand() % maxy + biasy;
 			ps.emplace_back(x, y);
 		}
 		ll minDist = LLONG_MAX;

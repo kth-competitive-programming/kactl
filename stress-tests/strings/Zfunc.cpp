@@ -2,7 +2,7 @@
 
 #include "../../content/strings/Zfunc.h"
 
-template <class F> void gen(string &s, int at, int alpha, F f) {
+template <class F> void gen(string &s, ll at, ll alpha, F f) {
 	if (at == sz(s))
 		f();
 	else {
@@ -14,11 +14,11 @@ template <class F> void gen(string &s, int at, int alpha, F f) {
 }
 
 void test(const string &s) {
-	int n = sz(s);
+	ll n = sz(s);
 	vi found = Z(s);
 	vi expected(n, 0);
 	rep(i, 1, n) { // exclude index 0 (!)
-		int j = 0;
+		ll j = 0;
 		while (i + j < n && s[i + j] == s[j])
 			j++;
 		expected[i] = j;

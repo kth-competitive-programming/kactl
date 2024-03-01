@@ -21,16 +21,16 @@ struct AhoCorasick {
 	enum {alpha = 26, first = 'A'}; // change this!
 	struct Node {
 		// (nmatches is optional)
-		int back, next[alpha], start = -1, end = -1, nmatches = 0;
-		Node(int v) { memset(next, v, sizeof(next)); }
+		ll back, next[alpha], start = -1, end = -1, nmatches = 0;
+		Node(ll v) { memset(next, v, sizeof(next)); }
 	};
 	vector<Node> N;
 	vi backp;
-	void insert(string& s, int j) {
+	void insert(string& s, ll j) {
 		assert(!s.empty());
-		int n = 0;
+		ll n = 0;
 		for (char c : s) {
-			int& m = N[n].next[c - first];
+			ll& m = N[n].next[c - first];
 			if (m == -1) { n = m = sz(N); N.emplace_back(-1); }
 			else n = m;
 		}
@@ -44,11 +44,11 @@ struct AhoCorasick {
 		N[0].back = sz(N);
 		N.emplace_back(0);
 
-		queue<int> q;
+		queue<ll> q;
 		for (q.push(0); !q.empty(); q.pop()) {
-			int n = q.front(), prev = N[n].back;
+			ll n = q.front(), prev = N[n].back;
 			rep(i,0,alpha) {
-				int &ed = N[n].next[i], y = N[prev].next[i];
+				ll &ed = N[n].next[i], y = N[prev].next[i];
 				if (ed == -1) ed = y;
 				else {
 					N[ed].back = y;
@@ -61,7 +61,7 @@ struct AhoCorasick {
 		}
 	}
 	vi find(string word) {
-		int n = 0;
+		ll n = 0;
 		vi res; // ll count = 0;
 		for (char c : word) {
 			n = N[n].next[c - first];
@@ -74,7 +74,7 @@ struct AhoCorasick {
 		vi r = find(word);
 		vector<vi> res(sz(word));
 		rep(i,0,sz(word)) {
-			int ind = r[i];
+			ll ind = r[i];
 			while (ind != -1) {
 				res[i - sz(pat[ind]) + 1].push_back(ind);
 				ind = backp[ind];

@@ -4,15 +4,15 @@
  * License: CC0
  * Source: My head
  * Description: Basic operations on square matrices.
- * Usage: Matrix<int, 3> A;
+ * Usage: Matrix<ll, 3> A;
  *  A.d = {{{{1,2,3}}, {{4,5,6}}, {{7,8,9}}}};
- *  vector<int> vec = {1,2,3};
+ *  vector<ll> vec = {1,2,3};
  *  vec = (A^N) * vec;
  * Status: tested
  */
 #pragma once
 
-template<class T, int N> struct Matrix {
+template<class T, ll N> struct Matrix {
 	typedef Matrix M;
 	array<array<T, N>, N> d{};
 	M operator*(const M& m) const {

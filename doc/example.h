@@ -6,8 +6,8 @@
  * Description: Example structures and functions that doesn't really do
  *  anything. Latex commands are supported here, though! Like this: $2^2=3$
  * Usage:
- *  int res = exampleFunction1(mice, cats, catsCount);
- *  int random = exampleFunction2();
+ *  ll res = exampleFunction1(mice, cats, catsCount);
+ *  ll random = exampleFunction2();
  * Time: O(M * N^4) where M = cats, N = mice
  * Memory: O(2^N) where N = cats
  * Status: Untested
@@ -24,9 +24,9 @@ struct ExampleStructure {
 	vi edges;
 };
 
-int exampleFunction1(vi mice, int* cats, int catsCount) {
+ll exampleFunction1(vi mice, ll* cats, ll catsCount) {
 	/// This is a stupid comment that will be removed.
-	int sum = 0;
+	ll sum = 0;
 
 	rep(i, 1, catsCount) {
 		// This comment will be kept!
@@ -42,10 +42,10 @@ int exampleFunction1(vi mice, int* cats, int catsCount) {
 	return sum;
 }
 
-int exampleFunction2() {
+ll exampleFunction2() {
 	return rand();
 }
 
-int exampleFunction3(int a, int b, int c) {
+ll exampleFunction3(ll a, ll b, ll c) {
 	return exampleFunction2() * a * b * c;
 }

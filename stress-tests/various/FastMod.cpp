@@ -28,7 +28,7 @@ struct OldBarrett {
 	INIT(5) \
 	INIT(6) \
 	INIT(7) \
-	for (int i = 1; i < mod; i++) { \
+	for (ll i = 1; i < mod; i++) { \
 		UPDATE(0) \
 		UPDATE(1) \
 		UPDATE(2) \
@@ -51,14 +51,14 @@ struct OldBarrett {
 
 #define TEST() \
 	INIT(0) \
-	for (int i = 1; i < mod; i++) { \
+	for (ll i = 1; i < mod; i++) { \
 		UPDATE(0) \
 	} \
 	FINISH(0)
 
 #endif
 
-void perf_plain(int mod) {
+void perf_plain(ll mod) {
 #define INIT(x) ll ret##x = (x + 1);
 #define UPDATE(x) ret##x = (ret##x * i) % mod;
 #define FINISH(x) cout << ret##x << endl;
@@ -68,7 +68,7 @@ void perf_plain(int mod) {
 #undef FINISH
 }
 
-template<int mod>
+template<ll mod>
 void perf_const() {
 #define INIT(x) ll ret##x = (x + 1);
 #define UPDATE(x) ret##x = (ret##x * i) % mod;
@@ -82,12 +82,12 @@ void perf_const() {
 #define INIT(x) ll ret##x = (x + 1);
 #define UPDATE(x) ret##x = bar.reduce(ret##x * i);
 #define FINISH(x) cout << ret##x << endl;
-void perf_old_barrett(int mod) {
+void perf_old_barrett(ll mod) {
 	OldBarrett bar(mod);
 	TEST()
 }
 
-void perf_barrett(int mod) {
+void perf_barrett(ll mod) {
 	FastMod bar(mod);
 	TEST()
 }
@@ -107,8 +107,8 @@ ull rand_u64() {
 #define main1 main
 
 // Correctness
-int main1() {
-	const int bflim = 3000;
+ll main1() {
+	const ll bflim = 3000;
 	rep(a,0,bflim) rep(b,2,bflim) {
 		FastMod bar(b);
 		ull ret = bar.reduce(a);
@@ -132,11 +132,11 @@ int main1() {
 #ifndef MOD
 #define MOD 90217093 //202171241
 #endif
-int mod = MOD;
+ll mod = MOD;
 
 // Performance
-int main2(int argc, char** argv) {
-	int which = atoi(argv[1]);
+ll main2(ll argc, char** argv) {
+	ll which = atoi(argv[1]);
 	if (which == 0) perf_plain(mod); // 7.529 for 8, 1.714 for 1
 	if (which == 1) perf_const<MOD>(); // 0.971 for 8, 0.499 for 1
 	if (which == 2) perf_old_barrett(mod); // 1.094 for 8, 0.564 for 1

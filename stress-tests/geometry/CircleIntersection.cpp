@@ -2,7 +2,7 @@
 
 #include "../../content/geometry/CircleIntersection.h"
 
-int main() {
+ll main() {
 	cin.sync_with_stdio(0); cin.tie(0);
 	cin.exceptions(cin.failbit);
 	srand(2);
@@ -33,8 +33,8 @@ int main() {
 		P start = (a + b) / 2 + (a - b).perp();
 		pair<double, P> cur(func(start), start);
 		for (double jmp = 100; jmp > 1e-20; jmp /= 2) {
-			int iters = 0;
-			for (int imp = 1; imp--;) {
+			ll iters = 0;
+			for (ll imp = 1; imp--;) {
 				if (++iters == 100) goto skip;
 				rep(dx,-1,2) rep(dy,-1,2) {
 					P p = cur.second;

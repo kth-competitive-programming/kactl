@@ -41,13 +41,13 @@ struct HullDynamic : public multiset<Line> { // will maintain upper hull for max
 };
 }
 
-int test2() {
+ll test2() {
 	LineContainer mh;
-	const int K = 10;
+	const ll K = 10;
 	ll x[K], v[K];
 	rep(it,0,100) {
 		mh.clear();
-		int N = rand() % 100000 + 1;
+		ll N = rand() % 100000 + 1;
 		rep(j,0,K) x[j] = rand() % 1000 - 500, v[j] = LLONG_MIN;
 // cerr << "---" << endl;
 // cerr << x << endl;
@@ -55,7 +55,7 @@ int test2() {
 			ll k = rand() % 100000 - 50000;
 			ll m = rand() % (1LL << 30) - (1LL << 29);
 // cerr << k << ' ' << m << endl;
-			mh.add((int)k, (int)m);
+			mh.add((ll)k, (ll)m);
 			rep(j,0,K) v[j] = max(v[j], k*x[j] + m);
 		}
 // cerr << mh.eval(x) << ' ' << v << endl;
@@ -67,28 +67,28 @@ int test2() {
 }
 
 volatile ll glob;
-int ra() {
+ll ra() {
 	static unsigned blah;
 	blah *= 12311231;
 	blah += 129481762;
 	return blah >> 1;
 }
 
-int main() {
+ll main() {
 	LineContainer mh;
 	other::HullDynamic mh2;
 	rep(it,0,10000000) {
 		assert(mh.empty() == mh2.empty());
-		int r = ra() % 100;
+		ll r = ra() % 100;
 		if (r < 10) mh.clear(), mh2.clear();
 		else if (r < 50) {
-			int k = ra() % 10 - 5;
-			int m = ra() % 100 - 50;
+			ll k = ra() % 10 - 5;
+			ll m = ra() % 100 - 50;
 			mh.add(k, m);
 			mh2.add(k, m);
 		}
 		else if (!mh.empty()) {
-			int x = ra() % 10 - 5;
+			ll x = ra() % 10 - 5;
 			assert(mh.query(x) == mh2.query(x));
 		}
 	}

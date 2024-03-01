@@ -13,7 +13,7 @@ public:
 
 	virtual ~test_union_find() { }
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		if (subcase == 0) {
 			union_find u(5);
 			u.join(0, 1);
@@ -39,7 +39,7 @@ public:
 		}
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 1;
 	}
 };

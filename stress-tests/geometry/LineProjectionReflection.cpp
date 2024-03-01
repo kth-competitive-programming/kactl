@@ -4,11 +4,11 @@
 #include "../../content/geometry/lineDistance.h"
 
 typedef Point<double> P;
-int main() {
+ll main() {
 	cin.sync_with_stdio(0);
 	cin.tie(0);
-	const int lim = 5;
-	for (int i = 0; i < 100000; i++) {
+	const ll lim = 5;
+	for (ll i = 0; i < 100000; i++) {
 		P p = P(rand() % lim, rand() % lim);
 		P a = P(rand() % lim, rand() % lim);
 		P b = P(rand() % lim, rand() % lim);

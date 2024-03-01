@@ -18,13 +18,13 @@ const ll mod = 5; /** exclude-line */
 
 typedef vector<ll> Poly;
 ll linearRec(Poly S, Poly tr, ll k) {
-	int n = sz(tr);
+	ll n = sz(tr);
 
 	auto combine = [&](Poly a, Poly b) {
 		Poly res(n * 2 + 1);
 		rep(i,0,n+1) rep(j,0,n+1)
 			res[i + j] = (res[i + j] + a[i] * b[j]) % mod;
-		for (int i = 2 * n; i > n; --i) rep(j,0,n)
+		for (ll i = 2 * n; i > n; --i) rep(j,0,n)
 			res[i - 1 - j] = (res[i - 1 - j] + res[i] * tr[j]) % mod;
 		res.resize(n + 1);
 		return res;

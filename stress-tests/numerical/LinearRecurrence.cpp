@@ -3,7 +3,7 @@
 #include "../../content/numerical/LinearRecurrence.h"
 
 template<class F>
-void gen(vector<ll>& v, int at, F f) {
+void gen(vector<ll>& v, ll at, F f) {
 	if (at == sz(v)) f();
 	else {
 		rep(i,0,mod) {
@@ -13,11 +13,11 @@ void gen(vector<ll>& v, int at, F f) {
 	}
 }
 
-int main() {
+ll main() {
 	rep(n,1,5) {
 		vector<ll> start(n);
 		vector<ll> coef(n);
-		int size = 10*n + 3;
+		ll size = 10*n + 3;
 		vector<ll> full(size);
 		gen(start,0,[&]() {
 			gen(coef,0,[&]() {

@@ -10,13 +10,13 @@
  */
 #pragma once
 
-int matInv(vector<vector<double>>& A) {
-	int n = sz(A); vi col(n);
+ll matInv(vector<vector<double>>& A) {
+	ll n = sz(A); vi col(n);
 	vector<vector<double>> tmp(n, vector<double>(n));
 	rep(i,0,n) tmp[i][i] = 1, col[i] = i;
 
 	rep(i,0,n) {
-		int r = i, c = i;
+		ll r = i, c = i;
 		rep(j,i,n) rep(k,i,n)
 			if (fabs(A[j][k]) > fabs(A[r][c]))
 				r = j, c = k;
@@ -38,7 +38,7 @@ int matInv(vector<vector<double>>& A) {
 	}
 
 	/// forget A at this point, just eliminate tmp backward
-	for (int i = n-1; i > 0; --i) rep(j,0,i) {
+	for (ll i = n-1; i > 0; --i) rep(j,0,i) {
 		double v = A[j][i];
 		rep(k,0,n) tmp[j][k] -= v*tmp[i][k];
 	}

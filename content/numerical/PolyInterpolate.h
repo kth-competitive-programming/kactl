@@ -11,7 +11,7 @@
 #pragma once
 
 typedef vector<double> vd;
-vd interpolate(vd x, vd y, int n) {
+vd interpolate(vd x, vd y, ll n) {
 	vd res(n), temp(n);
 	rep(k,0,n-1) rep(i,k+1,n)
 		y[i] = (y[i] - y[k]) / (x[i] - x[k]);

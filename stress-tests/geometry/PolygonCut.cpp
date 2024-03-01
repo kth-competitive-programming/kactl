@@ -7,9 +7,9 @@
 #include "../../content/geometry/SegmentIntersection.h"
 
 typedef Point<double> P;
-int main() {
+ll main() {
 	rep(it,0,500) {
-		int N = rand() % 10 + 3;
+		ll N = rand() % 10 + 3;
 		vector<P> ps;
 		rep(i,0,N) ps.emplace_back(rand() % 10 - 5, rand() % 10 - 5);
 		P p(rand() % 10 - 5), q(rand() % 10 - 5);
@@ -26,8 +26,8 @@ int main() {
 		}
 		if (p == q) { fail: continue; }
 
-		int count = 0;
-		const int ITS = 400000;
+		ll count = 0;
+		const ll ITS = 400000;
 		rep(it,0,ITS) {
 			double x = rand() / (RAND_MAX + 1.0) * 10 - 5;
 			double y = rand() / (RAND_MAX + 1.0) * 10 - 5;

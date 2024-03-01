@@ -36,7 +36,7 @@ the algorithm is numerically stable and neither \texttt{tr} nor the check for \t
 typedef double T;
 vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 		const vector<T>& sub, vector<T> b) {
-	int n = sz(b); vi tr(n);
+	ll n = sz(b); vi tr(n);
 	rep(i,0,n-1) {
 		if (abs(diag[i]) < 1e-9 * abs(super[i])) { // diag[i] == 0
 			b[i+1] -= b[i] * diag[i+1] / super[i];
@@ -47,7 +47,7 @@ vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 			b[i+1] -= b[i]*sub[i]/diag[i];
 		}
 	}
-	for (int i = n; i--;) {
+	for (ll i = n; i--;) {
 		if (tr[i]) {
 			swap(b[i], b[i-1]);
 			diag[i-1] = diag[i];

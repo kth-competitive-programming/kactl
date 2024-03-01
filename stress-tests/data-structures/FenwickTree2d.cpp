@@ -2,11 +2,11 @@
 
 #include "../../content/data-structures/FenwickTree2d.h"
 
-int main() {
+ll main() {
 	rep(it,0,1000000) {
 		FT2 ft(12);
-		vector<tuple<int, int, int>> upd;
-		int c = rand() % 20;
+		vector<tuple<ll, ll, ll>> upd;
+		ll c = rand() % 20;
 		rep(i,0,c) {
 			upd.emplace_back(rand() % 12, rand() % 12, rand() % 10 - 5);
 		}

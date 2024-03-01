@@ -6,7 +6,7 @@ namespace sieve {
 }
 
 ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
-int afactors[] = {2, 3, 5, 13, 19, 73, 193, 407521, 299210837};
+ll afactors[] = {2, 3, 5, 13, 19, 73, 193, 407521, 299210837};
 
 const ull MR_LIM = 1ULL << 62;
 
@@ -35,7 +35,7 @@ bool oldIsPrime(ull p) {
 	return true;
 }
 
-void rec(ull div, ll num, int ind, int factors) {
+void rec(ull div, ll num, ll ind, ll factors) {
 	if (ind == sizeof(afactors)/sizeof(*afactors)) {
 		if (factors == 1) assert(isPrime(div));
 		if (factors > 1) assert(!isPrime(div));
@@ -49,8 +49,8 @@ void rec(ull div, ll num, int ind, int factors) {
 	}
 }
 
-const int MAXPR = 1e6;
-int main() {
+const ll MAXPR = 1e6;
+ll main() {
 	auto prs = sieve::eratosthenes();
 	vector<bool> isprime(MAXPR);
 	for (auto i: prs) isprime[i] = true;

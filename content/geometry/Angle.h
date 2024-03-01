@@ -3,23 +3,23 @@
  * Date: 2015-01-31
  * License: CC0
  * Source: me
- * Description: A class for ordering angles (as represented by int points and
+ * Description: A class for ordering angles (as represented by ll points and
  *  a number of rotations around the origin). Useful for rotational sweeping.
  *  Sometimes also represents points or vectors.
  * Usage:
  *  vector<Angle> v = {w[0], w[0].t360() ...}; // sorted
- *  int j = 0; rep(i,0,n) { while (v[j] < v[i].t180()) ++j; }
+ *  ll j = 0; rep(i,0,n) { while (v[j] < v[i].t180()) ++j; }
  *  // sweeps j such that (j-i) represents the number of positively oriented triangles with vertices at 0 and i
  * Status: Used, works well
  */
 #pragma once
 
 struct Angle {
-	int x, y;
-	int t;
-	Angle(int x, int y, int t=0) : x(x), y(y), t(t) {}
+	ll x, y;
+	ll t;
+	Angle(ll x, ll y, ll t=0) : x(x), y(y), t(t) {}
 	Angle operator-(Angle b) const { return {x-b.x, y-b.y, t}; }
-	int half() const {
+	ll half() const {
 		assert(x || y);
 		return y < 0 || (y == 0 && x < 0);
 	}
@@ -46,6 +46,6 @@ Angle operator+(Angle a, Angle b) { // point a + vector b
 	return r.t180() < a ? r.t360() : r;
 }
 Angle angleDiff(Angle a, Angle b) { // angle b - angle a
-	int tu = b.t - a.t; a.t = b.t;
+	ll tu = b.t - a.t; a.t = b.t;
 	return {a.x*b.x + a.y*b.y, a.x*b.y - a.y*b.x, tu - (b < a)};
 }

@@ -11,13 +11,13 @@ public:
 
 	virtual ~test_linearTransformation() { }
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		typedef Point<double> P;
 		check(linearTransformation(P(0,0),P(1,0),P(1,1),P(1,2),P(2,1)),P(0,3));
 		check(linearTransformation(P(1,1),P(5,4),P(2,-1),P(4,-3),P(8,0)),P(2,-5));
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 1;
 	}
 };

@@ -12,7 +12,7 @@
 #pragma once
 
 vector<vi> treeJump(vi& P){
-	int on = 1, d = 1;
+	ll on = 1, d = 1;
 	while(on < sz(P)) on *= 2, d++;
 	vector<vi> jmp(d, P);
 	rep(i,1,d) rep(j,0,sz(P))
@@ -20,18 +20,18 @@ vector<vi> treeJump(vi& P){
 	return jmp;
 }
 
-int jmp(vector<vi>& tbl, int nod, int steps){
+ll jmp(vector<vi>& tbl, ll nod, ll steps){
 	rep(i,0,sz(tbl))
 		if(steps&(1<<i)) nod = tbl[i][nod];
 	return nod;
 }
 
-int lca(vector<vi>& tbl, vi& depth, int a, int b) {
+ll lca(vector<vi>& tbl, vi& depth, ll a, ll b) {
 	if (depth[a] < depth[b]) swap(a, b);
 	a = jmp(tbl, a, depth[a] - depth[b]);
 	if (a == b) return a;
-	for (int i = sz(tbl); i--;) {
-		int c = tbl[i][a], d = tbl[i][b];
+	for (ll i = sz(tbl); i--;) {
+		ll c = tbl[i][a], d = tbl[i][b];
 		if (c != d) a = c, b = d;
 	}
 	return tbl[0][a];

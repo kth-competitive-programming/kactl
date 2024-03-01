@@ -15,14 +15,14 @@
 
 struct SuffixTree {
 	enum { N = 200010, ALPHA = 26 }; // N ~ 2*maxlen+10
-	int toi(char c) { return c - 'a'; }
+	ll toi(char c) { return c - 'a'; }
 	string a; // v = cur node, q = cur position
 	vector<vi> t = vector<vi>(N, vi(ALPHA, -1)); // transitions
 	// a[l[i]:r[i]] is substring on edge to i
 	vi r, l = vi(N), p = vi(N), s = vi(N, 0);
-	int v = 0, q = 0, m = 2;
+	ll v = 0, q = 0, m = 2;
 
-	void ukkadd(int i, int c) { suff:
+	void ukkadd(ll i, ll c) { suff:
 		if (r[v]<=q) {
 			if (t[v][c]==-1) { t[v][c]=m;  l[m]=i;
 				p[m++]=v; v=s[v]; q=r[v];  goto suff; }
@@ -47,10 +47,10 @@ struct SuffixTree {
 
 	// example: find longest common substring (uses ALPHA = 28)
 	pii best;
-	int lcs(int node, int i1, int i2, int olen) {
+	ll lcs(ll node, ll i1, ll i2, ll olen) {
 		if (l[node] <= i1 && i1 < r[node]) return 1;
 		if (l[node] <= i2 && i2 < r[node]) return 2;
-		int mask = 0, len = node ? olen + (r[node] - l[node]) : 0;
+		ll mask = 0, len = node ? olen + (r[node] - l[node]) : 0;
 		rep(c,0,ALPHA) if (t[node][c] != -1)
 			mask |= lcs(t[node][c], i1, i2, len);
 		if (mask == 3)

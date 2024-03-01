@@ -7,11 +7,11 @@ ll rmod(ll a, ll b) { return (a % b + b) % b; }
 std::mt19937_64 rng(2);
 
 ll randExp() {
-	int e = rand() % 63; // 64
+	ll e = rand() % 63; // 64
 	return uniform_int_distribution<ll>(0, (ll)((1ULL << e) - 1))(rng);
 }
 
-int main(int argc, char** argv) {
+ll main(ll argc, char** argv) {
 	rep(it,0,10000000) {
 		ll a = randExp() * (rand() % 2 ? 1 : -1);
 		ll b = randExp() * (rand() % 2 ? 1 : -1);

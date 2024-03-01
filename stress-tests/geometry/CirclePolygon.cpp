@@ -35,18 +35,18 @@ long double circlePoly(P c, long double r, vector<P> poly) {
 signed main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	const int lim=5;
-	for (int i=0;i<100000; i++) {
+	const ll lim=5;
+	for (ll i=0;i<100000; i++) {
 
-		vector<Point<int>> pts;
-		for (int j=0; j<10; j++) {
-			int x = rand()%lim, y = rand()%lim;
-			pts.push_back(Point<int>(x, y));
+		vector<Point<ll>> pts;
+		for (ll j=0; j<10; j++) {
+			ll x = rand()%lim, y = rand()%lim;
+			pts.push_back(Point<ll>(x, y));
 		}
 
 		auto polyInt = genPolygon(pts);
 
-		int cx = rand()%lim, cy = rand()%lim;
+		ll cx = rand()%lim, cy = rand()%lim;
 		auto c = P(cx, cy);
 		auto c2 = orig::P(cx, cy);
 		double r= rand()%(2*lim);

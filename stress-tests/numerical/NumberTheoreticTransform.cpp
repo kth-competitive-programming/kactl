@@ -14,7 +14,7 @@ ll modpow(ll a, ll e) {
 }
 
 vl simpleConv(vl a, vl b) {
-	int s = sz(a) + sz(b) - 1;
+	ll s = sz(a) + sz(b) - 1;
 	if (a.empty() || b.empty()) return {};
 	vl c(s);
 	rep(i,0,sz(a)) rep(j,0,sz(b))
@@ -23,7 +23,7 @@ vl simpleConv(vl a, vl b) {
 	return c;
 }
 
-int ra() {
+ll ra() {
 	static unsigned X;
 	X *= 123671231;
 	X += 1238713;
@@ -31,9 +31,9 @@ int ra() {
 	return (X >> 1);
 }
 
-int main() {
+ll main() {
 	ll res = 0, res2 = 0;
-	int ind = 0, ind2 = 0;
+	ll ind = 0, ind2 = 0;
 	vl a, b;
 	rep(it,0,6000) {
 		a.resize(ra() % 10);

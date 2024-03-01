@@ -17,12 +17,12 @@ struct timeit {
 };
 
 
-int main() {
+ll main() {
 	rep(it, 0, 100000) {
-		int n =(rand()%32)+1;
+		ll n =(rand()%32)+1;
 		vb ed(n);
 		vector<maximal::B> ed2(n);
-		int p =rand()%100;
+		ll p =rand()%100;
 		rep(i, 0, n) rep(j, 0, i) {
 			ed[i][j] = (rand() % 100) < p;
 			ed[j][i] = ed[i][j];
@@ -30,8 +30,8 @@ int main() {
 			ed2[j][i] = ed[j][i];
 		}
 		Maxclique clique2(ed);
-		int mx = 0;
-		maximal::cliques(ed2, [&](auto x){mx = max(mx, int(x.count()));});
+		ll mx = 0;
+		maximal::cliques(ed2, [&](auto x){mx = max(mx, ll(x.count()));});
 		assert(mx == sz(clique2.maxClique()));
 	}
 	cout<<"Tests passed!"<<endl;

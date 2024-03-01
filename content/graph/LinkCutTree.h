@@ -25,9 +25,9 @@ struct Node { // Splay tree. Root's pp contains tree's parent.
 		if (c[0]) c[0]->flip ^= 1;
 		if (c[1]) c[1]->flip ^= 1;
 	}
-	int up() { return p ? p->c[1] == this : -1; }
-	void rot(int i, int b) {
-		int h = i ^ b;
+	ll up() { return p ? p->c[1] == this : -1; }
+	void rot(ll i, ll b) {
+		ll h = i ^ b;
 		Node *x = c[i], *y = b == 2 ? x : x->c[h], *z = b ? y : x;
 		if ((y->p = p)) p->c[up()] = y;
 		c[i] = z->c[i ^ 1];
@@ -44,7 +44,7 @@ struct Node { // Splay tree. Root's pp contains tree's parent.
 		for (pushFlip(); p; ) {
 			if (p->p) p->p->pushFlip();
 			p->pushFlip(); pushFlip();
-			int c1 = up(), c2 = p->up();
+			ll c1 = up(), c2 = p->up();
 			if (c2 == -1) p->rot(c1, 2);
 			else p->p->rot(c2, c1 != c2);
 		}
@@ -57,14 +57,14 @@ struct Node { // Splay tree. Root's pp contains tree's parent.
 
 struct LinkCut {
 	vector<Node> node;
-	LinkCut(int N) : node(N) {}
+	LinkCut(ll N) : node(N) {}
 
-	void link(int u, int v) { // add an edge (u, v)
+	void link(ll u, ll v) { // add an edge (u, v)
 		assert(!connected(u, v));
 		makeRoot(&node[u]);
 		node[u].pp = &node[v];
 	}
-	void cut(int u, int v) { // remove an edge (u, v)
+	void cut(ll u, ll v) { // remove an edge (u, v)
 		Node *x = &node[u], *top = &node[v];
 		makeRoot(top); x->splay();
 		assert(top == (x->pp ?: x->c[0]));
@@ -74,7 +74,7 @@ struct LinkCut {
 			x->fix();
 		}
 	}
-	bool connected(int u, int v) { // are u, v in the same tree?
+	bool connected(ll u, ll v) { // are u, v in the same tree?
 		Node* nu = access(&node[u])->first();
 		return nu == access(&node[v])->first();
 	}

@@ -15,7 +15,7 @@ public:
 
 	virtual ~test_binarySearch() { }
 
-	virtual void run(int subcase) {
+	virtual void run(ll subcase) {
 		double e = 1e-6;
 		if (subcase == 0) {
 			double res = bs(-100,100,func1,e);
@@ -36,7 +36,7 @@ public:
 		}
 	}
 
-	virtual int getCount() const {
+	virtual ll getCount() const {
 		return 4;
 	}
 };

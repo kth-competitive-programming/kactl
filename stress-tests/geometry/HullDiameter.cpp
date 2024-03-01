@@ -3,10 +3,10 @@
 #include "../../content/geometry/ConvexHull.h"
 #include "../../content/geometry/HullDiameter.h"
 
-int main() {
+ll main() {
 	srand(2);
 	rep(it,0,1000000) {
-		int N = (rand() % 10) + 1;
+		ll N = (rand() % 10) + 1;
 		vector<Point<ll>> ps;
 		rep(i,0,N) {
 			ps.emplace_back(rand() % 11 - 5, rand() % 11 - 5);
