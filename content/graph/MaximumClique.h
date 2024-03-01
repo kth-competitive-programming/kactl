@@ -36,7 +36,7 @@ struct Maxclique {
 			for(auto v:R) if (e[R.back().i][v.i]) T.push_back({v.i});
 			if (sz(T)) {
 				if (S[lev]++ / ++pk < limit) init(T);
-				ll j = 0, mxk = 1, mnk = max(sz(qmax) - sz(q) + 1, 1);
+				ll j = 0, mxk = 1, mnk = max(sz(qmax) - sz(q) + 1, 1ll);
 				C[1].clear(), C[2].clear();
 				for (auto v : T) {
 					ll k = 1;

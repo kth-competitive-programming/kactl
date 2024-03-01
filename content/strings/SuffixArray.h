@@ -23,7 +23,7 @@ struct SuffixArray {
 		ll n = sz(s) + 1, k = 0, a, b;
 		vi x(all(s)+1), y(n), ws(max(n, lim)), rank(n);
 		sa = lcp = y, iota(all(sa), 0);
-		for (ll j = 0, p = 0; p < n; j = max(1, j * 2), lim = p) {
+		for (ll j = 0, p = 0; p < n; j = max(1ll, j * 2), lim = p) {
 			p = j, iota(all(y), n - j);
 			rep(i,0,n) if (sa[i] >= j) y[p++] = sa[i] - j;
 			fill(all(ws), 0);
