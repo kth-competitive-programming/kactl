@@ -2,7 +2,7 @@
 DIR=${1:-.}
 
 # use a precompiled header for the template to improve perf
-g++ -Wall -Wextra -Wfatal-errors -Wconversion -std=c++14 -x c++-header $DIR/content/contest/template.cpp
+g++ -Wall -Wextra -Wfatal-errors -Wconversion -std=c++17 -x c++-header $DIR/content/contest/template.cpp
 trap "rm -f $DIR/content/contest/template.cpp.gch" EXIT
 
 SCRIPT_DIR=$DIR/doc/scripts
