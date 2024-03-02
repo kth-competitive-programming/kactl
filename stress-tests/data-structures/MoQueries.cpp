@@ -46,7 +46,7 @@ vi mo(vector<pii> Q) {
 
 void test(ll n, ll q) {
 	curL = curR = ops = 0;
-	blk = max((ll)(n / sqrt(max(q, 1))), 1);
+	blk = max((ll)(n / sqrt(max(q, 1ll))), 1ll);
 	vector<pii> queries(q);
 	for (auto& pa : queries) {
 		pa.first = rand() % n;
@@ -130,7 +130,7 @@ vi moTree(vector<array<ll, 2>> Q, vector<vi>& ed, ll root=0){
 
 void testTr(ll n, ll q) {
 	ops = 0;
-	blk = max((ll)(n / sqrt(max(q, 1))), 1);
+	blk = max((ll)(n / sqrt(max(q, 1ll))), 1ll);
 	vector<array<ll, 2>> queries(q);
 	for (auto& pa : queries) {
 		pa[0] = rand() % n;
