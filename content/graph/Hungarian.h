@@ -9,30 +9,27 @@
  * Status: Tested
  */
 const ll inf = 1e18;
-
+ 
 struct Hungarian{
 public:
     int n,m;
-    vvll w;
+    vvl w;
     ll min_cost;
     vp M;
-
-    Hungarian(vvll &w){
+    Hungarian(vvl &w){
         this->w = w;
         n = w.size()-1;
         m = w[0].size()-1;
         run();
         return;
     }
-
-private:
     void run(){
-        vll u(n+1), v(m+1), p(m+1);
+        vl u(n+1), v(m+1), p(m+1);
         vi path(m+1);
         for (int i=1; i<=n; i++){
             p[0] = i;
             int j0 = 0;
-            vll minv(m+1, inf);
+            vl minv(m+1, inf);
             vb used(m+1, false);
             do{
                 used[j0] = true;
@@ -59,10 +56,8 @@ private:
                 j0 = j1;
             }while(j0);
         }
-
         for(int i=1; i<=m; i++) M.pb({p[i], i});
         min_cost = -v[0];
-
         return;
     }
 };
