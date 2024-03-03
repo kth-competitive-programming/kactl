@@ -1,66 +1,110 @@
 /**
- * Author: Simon Lindholm
- * Date: 2016-10-08
- * License: CC0
- * Source: me
- * Description: Segment tree with ability to add or set values of large intervals, and compute max of intervals.
- * Can be changed to other things.
- * Use with a bump allocator for better performance, and SmallPtr or implicit indices to save memory.
- * Time: O(\log N).
- * Usage: Node* tr = new Node(v, 0, sz(v));
- * Status: stress-tested a bit
+ * Author: Diego Garcia
+ * Date: 2024-03-24
+ * License: ???
+ * Source: folklore
+ * Description: Segment Tree con Lazy Propagation.
+ * Usage: 0-indexed. Need to define node_t and lazy_t constructors that take
+base_t, and operations to add combine.
+ * Status: Tested
  */
-#pragma once
 
-#include "../various/BumpAllocator.h"
-
-const int inf = 1e9;
+template <class node_t, class lazy_t, class base_t>
+struct SegmentTree {
+    int n_;
+    vector <node_t> st;
+    vector <lazy_t> lzy;
+    SegmentTree(vector <base_t> &a) {
+        n_ = sz(a);
+        st.resize(4 * n_);
+        lzy.resize(4 * n_);
+        build(0, 0, n_ - 1, a);
+    }
+    void build(int u, int l, int r, vector <base_t> &a) {
+        if(l == r) { st[u] = node_t(a[l]); return; }
+        int md = (l + r) / 2;
+        build(2 * u + 1, l, md, a); build(2 * u + 2, md + 1, r, a);
+        st[u] = st[2 * u + 1] + st[2 * u + 2];
+    }
+    void push(int u, int l, int r) {
+        if(lzy[u].is_null()) return;
+        st[u] = st[u] + lzy[u];
+        if(l != r) { lzy[2 * u + 1] = lzy[2 * u + 1] + lzy[u];
+                     lzy[2 * u + 2] = lzy[2 * u + 2] + lzy[u]; }
+        lzy[u] = lazy_t();
+    }
+    void upd(int s, int e, lazy_t v) { upd(s, e, v, 0, 0, n_- 1); }
+    void upd(int s, int e, lazy_t v, int u, int l, int r) {
+        push(u, l, r);
+        if(e < l || r < s) return;
+        if(s <= l && r <= e) {
+            lzy[u] = lzy[u] + v;  push(u, l, r);
+            return;
+        };
+        int md = (l + r) / 2;
+        upd(s, e, v, 2 * u + 1, l, md);
+        upd(s, e, v, 2 * u + 2, md + 1, r);
+        st[u] = st[2 * u + 1] + st[2 * u + 2];
+    }
+    node_t query(int s, int e) { return query(s, e, 0, 0, n_ - 1); }
+    node_t query(int s, int e, int u, int l, int r) {
+        push(u, l, r);
+        if(e < l || r < s) return node_t();
+        if(s <= l && r <= e) return st[u];
+        int md = (l + r) / 2;
+        return query(s, e, 2 * u + 1, l, md) + query(s, e, 2 * u + 2, md + 1, r);
+    }
+    template <class F> //first index >= i that satisfies F (monotone)
+    int first_index(int i, F f) { return first_index<F>(i, 0, 0, n_ - 1, f); }
+    template <class F>
+    int first_index(int i, int u, int l, int r, F f) {
+        push(u, l, r);
+        if(r < i) return -1;
+        int md = (l + r) / 2;
+        if(l >= i) {
+            if(!f(st[u])) return -1;
+            while(l != r) {
+                push(2 * u + 1, l, md); push(2 * u + 2, md + 1, r);
+                if(f(st[2 * u + 1])) u = 2 * u + 1, r = md;
+                else u = 2 * u + 2, l = md + 1;
+                md = (l + r) / 2;
+            }
+            return l;
+        }
+        int left_attempt = first_index(i, 2 * u + 1, l, md, f);
+        if(left_attempt != -1) return left_attempt;
+        return first_index(i, 2 * u + 2, md + 1, r, f);
+    }
+    template <class F> //last index <= i that satisfies F (monotone)
+    int last_index(int i, F f) { return last_index<F>(i, 0, 0, n_ - 1, f); }
+    template <class F>
+    int last_index(int i, int u, int l, int r, F f) {
+        push(u, l, r);
+        if(l > i) return -1;
+        int md = (l + r) / 2;
+        if(r <= i) {
+            if(!f(st[u])) return -1;
+            while(l != r) {
+                push(2 * u + 1, l, md); push(2 * u + 2, md + 1, r);
+                if(f(st[2 * u + 2])) u = 2 * u + 2, l = md + 1;
+                else u = 2 * u + 1, r = md;
+                md = (l + r) / 2;
+            }
+            return l;
+        }
+        int right_attempt = first_index(i, 2 * u + 2, md + 1, r, f);
+        if(right_attempt != -1) return right_attempt;
+        return last_index(i, 2 * u + 1, l, md, f);
+    }
+};
+//when used on segtree these need an empty constructor, and one that takes a base_t
+struct Lazy {
+    Lazy() {}
+    Lazy operator + (Lazy other) { };
+    bool is_null() { };
+};
 struct Node {
-	Node *l = 0, *r = 0;
-	int lo, hi, mset = inf, madd = 0, val = -inf;
-	Node(int lo,int hi):lo(lo),hi(hi){} // Large interval of -inf
-	Node(vi& v, int lo, int hi) : lo(lo), hi(hi) {
-		if (lo + 1 < hi) {
-			int mid = lo + (hi - lo)/2;
-			l = new Node(v, lo, mid); r = new Node(v, mid, hi);
-			val = max(l->val, r->val);
-		}
-		else val = v[lo];
-	}
-	int query(int L, int R) {
-		if (R <= lo || hi <= L) return -inf;
-		if (L <= lo && hi <= R) return val;
-		push();
-		return max(l->query(L, R), r->query(L, R));
-	}
-	void set(int L, int R, int x) {
-		if (R <= lo || hi <= L) return;
-		if (L <= lo && hi <= R) mset = val = x, madd = 0;
-		else {
-			push(), l->set(L, R, x), r->set(L, R, x);
-			val = max(l->val, r->val);
-		}
-	}
-	void add(int L, int R, int x) {
-		if (R <= lo || hi <= L) return;
-		if (L <= lo && hi <= R) {
-			if (mset != inf) mset += x;
-			else madd += x;
-			val += x;
-		}
-		else {
-			push(), l->add(L, R, x), r->add(L, R, x);
-			val = max(l->val, r->val);
-		}
-	}
-	void push() {
-		if (!l) {
-			int mid = lo + (hi - lo)/2;
-			l = new Node(lo, mid); r = new Node(mid, hi);
-		}
-		if (mset != inf)
-			l->set(lo,hi,mset), r->set(lo,hi,mset), mset = inf;
-		else if (madd)
-			l->add(lo,hi,madd), r->add(lo,hi,madd), madd = 0;
-	}
+    Node() {}
+    Node operator + (Node other) { };
+    Node operator + (Lazy other) { };
 };
