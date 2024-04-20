@@ -24,9 +24,8 @@ vector<vector<pii>> ed;
 int Time;
 template<class F>
 int dfs(int at, int par, F& f) {
-	int me = num[at] = ++Time, e, y, top = me;
-	for (auto pa : ed[at]) if (pa.second != par) {
-		tie(y, e) = pa;
+	int me = num[at] = ++Time, top = me;
+	for (auto [y, e] : ed[at]) if (e != par) {
 		if (num[y]) {
 			top = min(top, num[y]);
 			if (num[y] < me)
