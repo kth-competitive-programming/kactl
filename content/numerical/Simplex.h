@@ -15,9 +15,9 @@
  */
 #pragma once
 
-typedef double T; // long double, Rational, double + mod<P>...
-typedef vector<T> vd;
-typedef vector<vd> vvd;
+using T = double; // long double, Rational, double + mod<P>...
+using vd = vector<T>;
+using vvd = vector<vd>;
 
 const T eps = 1e-8, inf = 1/.0;
 #define MP make_pair

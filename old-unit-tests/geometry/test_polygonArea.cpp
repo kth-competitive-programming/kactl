@@ -12,7 +12,7 @@ public:
 	virtual ~test_polygonArea() { }
 
 	virtual void run(int subcase) {
-		typedef Point<double> P;
+		using P = Point<double>;
 		vector<P> p;
 		p.push_back(P(0,-2));
 		p.push_back(P(1,-1));

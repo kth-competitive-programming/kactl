@@ -31,7 +31,7 @@ int segmentIntersection(const P& s1, const P& e1,
 	return 1;
 }
 }
-typedef Point<double> P;
+using P = Point<double>;
 bool eq(P a, P b) {
 	return (a-b).dist()<1e-8;
 }

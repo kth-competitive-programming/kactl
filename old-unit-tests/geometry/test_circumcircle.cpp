@@ -7,7 +7,7 @@ class test_circumcircle :
 	public UnitTest
 {
 public:
-	typedef Point<double> P;
+	using P = Point<double>;
 	test_circumcircle() : UnitTest("test_circumcircle") { }
 
 	virtual ~test_circumcircle() { }

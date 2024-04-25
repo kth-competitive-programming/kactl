@@ -11,7 +11,7 @@ int modinv(int x) {
 	// return lut[x+4];
 }
 
-typedef vector<int> vd;
+using vd = vector<int>;
 
 int solveLinear(vector<vd>& A, vd& b, vd& x) {
 	int n = sz(A), m = sz(x), rank = 0, br, bc;

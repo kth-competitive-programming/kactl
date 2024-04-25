@@ -5,8 +5,8 @@
 #include "../../content/data-structures/UnionFind.h"
 
 
-typedef Point<int> P;
-typedef int T;
+using P = Point<int>;
+using T = int;
 T rectilinear_mst_n(vector<P> ps) {
 	struct edge { int src, dst; T weight; };
 	vector<edge> edges;

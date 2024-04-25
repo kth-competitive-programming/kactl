@@ -10,7 +10,7 @@
 
 #include "Point.h"
 
-typedef Point<double> P;
+using P = Point<double>;
 bool circleInter(P a,P b,double r1,double r2,pair<P, P>* out) {
 	if (a == b) { assert(r1 != r2); return false; }
 	P vec = b - a;

@@ -6,8 +6,8 @@
 #include "../../content/data-structures/RMQ.h"
 
 namespace old {
-typedef vector<pii> vpi;
-typedef vector<vpi> graph;
+using vpi = vector<pii>;
+using graph = vector<vpi>;
 
 struct LCA {
 	vi time;
