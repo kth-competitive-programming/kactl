@@ -32,5 +32,11 @@ int main() {
 		auto res = factor(n);
 		assertValid(n, res);
 	}
+	rep(i,0,1e5) {
+		// max number that modmul can handle
+		ull n = 7268172458553106874 - i;
+		auto res = factor(n);
+		assertValid(n, res);
+	}
 	cout<<"Tests passed!"<<endl;
 }
