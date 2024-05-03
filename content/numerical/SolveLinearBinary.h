@@ -10,7 +10,7 @@
  */
 #pragma once
 
-typedef bitset<1000> bs;
+using bs = bitset<1000>;
 
 int solveLinear(vector<bs>& A, vi& b, bs& x, int m) {
 	int n = sz(A), rank = 0, br;

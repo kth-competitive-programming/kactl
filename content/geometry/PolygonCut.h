@@ -22,7 +22,7 @@
 #include "Point.h"
 #include "lineIntersection.h"
 
-typedef Point<double> P;
+using P = Point<double>;
 vector<P> polygonCut(const vector<P>& poly, P s, P e) {
 	vector<P> res;
 	rep(i,0,sz(poly)) {

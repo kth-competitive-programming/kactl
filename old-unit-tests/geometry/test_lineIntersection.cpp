@@ -12,7 +12,7 @@ public:
 	virtual ~test_lineIntersection() { }
 
 	virtual void run(int subcase) {
-		typedef Point<double> P;
+		using P = Point<double>;
 		P r;
 		check(lineIntersection(P(0,0),P(1,0),P(0,2),P(1,1),r),1);
 		if (!(r==P(2,0)))

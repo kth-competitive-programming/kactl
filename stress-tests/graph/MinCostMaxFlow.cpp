@@ -26,7 +26,7 @@ struct MCMF2 {
 	void setpi(int s) {}
 };
 
-// typedef MCMF2 MCMF;
+// using MCMF = MCMF2;
 
 #if 1
 static size_t i;
@@ -40,7 +40,7 @@ void* operator new(size_t s) {
 void operator delete(void*) noexcept {}
 #endif
 
-typedef vector<ll> vd;
+using vd = vector<ll>;
 bool zero(ll x) { return x == 0; }
 ll MinCostMatching(const vector<vd>& cost, vi& L, vi& R) {
 	int n = sz(cost), mated = 0;
