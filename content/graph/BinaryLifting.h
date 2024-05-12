@@ -5,14 +5,14 @@
  * Source: Folklore
  * Description: Calculate power of two jumps in a tree,
  * to support fast upward jumps and LCAs.
- * Assumes that P is not empty and that the root node points to itself.
+ * Assumes the root node points to itself.
  * Time: construction $O(N \log N)$, queries $O(\log N)$
  * Status: Tested at Petrozavodsk, also stress-tested via LCA.cpp
  */
 #pragma once
 
 vector<vi> treeJump(vi& P){
-	int d = 1 + __lg(sz(P) - 1);
+	int d = sz(P) < 2 ? 0 : 1 + __lg(sz(P) - 1);
 	vector<vi> jmp(d, P);
 	rep(i,1,d) rep(j,0,sz(P))
 		jmp[i][j] = jmp[i-1][jmp[i-1][j]];
