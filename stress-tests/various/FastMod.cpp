@@ -2,7 +2,7 @@
 
 #include "../../content/various/FastMod.h"
 
-typedef unsigned long long ull;
+using ull = unsigned long long;
 struct OldBarrett {
 	ull b, m;
 	OldBarrett(ull b) : b(b), m(-1ULL / b) {}

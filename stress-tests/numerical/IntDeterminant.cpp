@@ -2,7 +2,7 @@
 
 const int mod = 7; // 4
 
-typedef vector<vector<ll>> vvll;
+using vvll = vector<vector<ll>>;
 ll det(vvll& a) { // integer determinant
 	int n = sz(a); ll ans = 1;
 	rep(i,0,n) {

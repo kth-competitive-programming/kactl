@@ -7,7 +7,7 @@
  */
 #pragma once
 
-typedef int Flow;
+using Flow = int;
 Flow inf = 1<<28;
 
 struct FlowEdge {
