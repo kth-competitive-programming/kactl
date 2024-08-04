@@ -33,7 +33,7 @@ template<class F> void each(Node* n, F f) {
 	if (n) { push(n);each(n->l, f);f(n->val);each(n->r, f); }
 }
 
-// l will have i nodes, r the rest
+// Put i first nodes into l, the rest into r
 void split(Node* x, Node*& l, Node*& r, int i) {
 	if (!x) return void(l = r = 0);
 	push(x);
@@ -44,6 +44,7 @@ void split(Node* x, Node*& l, Node*& r, int i) {
 	pull(x);
 }
 
+// Append r to l, store it in x
 void merge(Node*& x, Node* l, Node* r) {
 	push(l), push(r);
 	if (!l || !r) x = l ? l : r;
