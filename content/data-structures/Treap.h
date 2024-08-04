@@ -30,7 +30,7 @@ void push(Node* n) {
 }
 
 template<class F> void each(Node* n, F f) {
-	if (n) { push(n); each(n->l, f); f(n->val); each(n->r, f); }
+	if (n) { push(n);each(n->l, f);f(n->val);each(n->r, f); }
 }
 
 // l will have i nodes, r the rest
