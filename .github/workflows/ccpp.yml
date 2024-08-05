@@ -22,3 +22,29 @@ jobs:
       run: make test-compiles
     - name: Run stress tests
       run: make test
+
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+
+    - name: Install dependencies
+      run: pip3 install -U online-judge-verify-helper
+
+    # required by cargo-udeps
+    - name: Set up Rust (nightly)
+      run: |
+        rustup set profile minimal
+        rustup install nightly
+        rustup override set nightly
+
+    - name: Run tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        YUKICODER_TOKEN: ${{ secrets.YUKICODER_TOKEN }}
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: oj-verify all
