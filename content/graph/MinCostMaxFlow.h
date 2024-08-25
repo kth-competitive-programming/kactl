@@ -34,9 +34,9 @@ struct MCMF {
 	}
 
 	void path(int s) {
-		fill(all(par), 0);
 		fill(all(seen), 0);
 		fill(all(dist), INF);
+		rep(i, 0, sz(par)) par[i] = NULL;
 		dist[s] = 0; ll di;
 
 		__gnu_pbds::priority_queue<pair<ll, int>> q;
