@@ -34,6 +34,7 @@ struct MCMF {
 	}
 
 	void path(int s) {
+		fill(all(par), 0);
 		fill(all(seen), 0);
 		fill(all(dist), INF);
 		dist[s] = 0; ll di;
