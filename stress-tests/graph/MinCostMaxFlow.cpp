@@ -201,7 +201,42 @@ void testNeg() {
 	cout<<"Tests passed!"<<endl;
 }
 
+void testMultiSource() {
+	const int ITS = 100;
+	const int TRY = 15;
+
+	rep(it, 0, ITS) {
+		size_t lasti = ::i;
+		int N = rand() % 7 + 2;
+		int M = rand() % 17;
+		int S = 0, T = 1;
+		MCMF mcmf(N);
+		rep(im, 0, M) {
+			int i, j;
+			do {
+				i = rand() % N;
+				j = rand() % N;
+			} while(i == j);
+			int fl = rand() % 50;
+			int co = rand() % 30;
+			mcmf.addEdge(i, j, fl, co);
+		}
+		rep(test, 0, TRY) {
+			int S, T;
+			do {
+				S = rand() % N;
+				T = rand() % N;
+			} while(S == T);
+			mcmf.maxflow(S, T);
+		}
+		::i = lasti;
+	}
+	cout<<"Tests passed!"<<endl;
+}
+
 int main() {
 	testMatching();
 	testNeg();
+	testMultiSource();
+	return 0;
 }
