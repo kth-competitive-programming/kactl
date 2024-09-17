@@ -9,45 +9,75 @@
  */
 #pragma once
 
-struct Dinic {
-	struct Edge {
-		int to, rev;
-		ll c, oc;
-		ll flow() { return max(oc - c, 0LL); } // if you need flows
-	};
-	vi lvl, ptr, q;
-	vector<vector<Edge>> adj;
-	Dinic(int n) : lvl(n), ptr(n), q(n), adj(n) {}
-	void addEdge(int a, int b, ll c, ll rcap = 0) {
-		adj[a].push_back({b, sz(adj[b]), c, c});
-		adj[b].push_back({a, sz(adj[a]) - 1, rcap, rcap});
-	}
-	ll dfs(int v, int t, ll f) {
-		if (v == t || !f) return f;
-		for (int& i = ptr[v]; i < sz(adj[v]); i++) {
-			Edge& e = adj[v][i];
-			if (lvl[e.to] == lvl[v] + 1)
-				if (ll p = dfs(e.to, t, min(f, e.c))) {
-					e.c -= p, adj[e.to][e.rev].c += p;
-					return p;
-				}
-		}
-		return 0;
-	}
-	ll calc(int s, int t) {
-		ll flow = 0; q[0] = s;
-		rep(L,0,31) do { // 'int L=30' maybe faster for random data
-			lvl = ptr = vi(sz(q));
-			int qi = 0, qe = lvl[s] = 1;
-			while (qi < qe && !lvl[t]) {
-				int v = q[qi++];
-				for (Edge e : adj[v])
-					if (!lvl[e.to] && e.c >> (30 - L))
-						q[qe++] = e.to, lvl[e.to] = lvl[v] + 1;
-			}
-			while (ll p = dfs(s, t, LLONG_MAX)) flow += p;
-		} while (lvl[t]);
-		return flow;
-	}
-	bool leftOfMinCut(int a) { return lvl[a] != 0; }
+struct edge{
+    int from, to, cap;
 };
+vector<edge> edges;
+vector<vector<int>> adj(605);
+int level[605];
+int cur[605];
+int n;
+int s,t;
+int sendFlow(int u=s, int minFlow=INF){
+    if(u==t) return minFlow;
+    int totalFlow = 0;
+    for(;cur[u]<adj[u].size();cur[u]++){
+        edge &ff = edges[adj[u][cur[u]]];
+        edge &bf = edges[adj[u][cur[u]] ^ 1ll];
+        if(ff.cap <= 0) continue;
+        if(level[u]+1 != level[ff.to]) continue;
+        int currentFlow = sendFlow(ff.to, min(minFlow, ff.cap));
+        minFlow -= currentFlow;
+        ff.cap -= currentFlow;
+        bf.cap += currentFlow;
+        totalFlow += currentFlow;
+        if(minFlow <= 0 ) break;
+    }
+    return totalFlow;
+}
+bool reachable(){
+    memset(level,-1,sizeof level);
+    queue<int> q;
+    q.push(s);
+    int cnt = 0;
+    bool found =0;
+    while(!q.empty()){
+        int sz = q.size();
+        while(sz--){
+            int u = q.front(); q.pop();
+            
+            if(level[u]>=0) continue;
+            if(u == t) found = 1;
+            
+            level[u] = cnt;
+            
+            for(int p : adj[u]) {
+                edge &e = edges[p];
+                if(level[e.to]>=0) continue;
+                if(e.cap <= 0) continue;
+                q.push(e.to); 
+            }
+        }
+        cnt++;
+        if(found) break;
+    }
+    return found;
+}
+int maxFlow(){
+    int mf = 0;
+    while(reachable()){
+        memset(cur,0,sizeof cur);
+        mf += sendFlow();
+    }
+    return mf;
+}
+void addEdge(int a, int b, int cap){
+    edge tmp;
+    tmp.from = a, tmp.to = b, tmp.cap = cap;
+    adj[a].pb(edges.size());
+    edges.pb(tmp);
+    
+    tmp.from = b, tmp.to = a, tmp.cap = 0;
+    adj[b].pb(edges.size());
+    edges.pb(tmp);
+}
