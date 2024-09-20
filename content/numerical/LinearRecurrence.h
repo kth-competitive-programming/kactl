@@ -16,7 +16,7 @@
 
 const ll mod = 5; /** exclude-line */
 
-typedef vector<ll> Poly;
+using Poly = vector<ll>;
 ll linearRec(Poly S, Poly tr, ll k) {
 	int n = sz(tr);
 

@@ -6,7 +6,7 @@
 #include "../../content/geometry/InsidePolygon.h"
 #include "../../content/geometry/SegmentIntersection.h"
 
-typedef Point<double> P;
+using P = Point<double>;
 int main() {
 	rep(it,0,500) {
 		int N = rand() % 10 + 3;
