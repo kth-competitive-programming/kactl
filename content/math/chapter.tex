@@ -108,25 +108,25 @@ For independent $X$ and $Y$, \[V(aX+bY) = a^2V(X)+b^2V(Y).\]
 
 \subsubsection{Discrete distributions}
 
-\subsubsection*{Binomial distribution}
+\paragraph{Binomial distribution}
 The number of successes in $n$ independent yes/no experiments, each which yields success with probability $p$ is $\textrm{Bin}(n,p),\,n=1,2,\dots,\, 0\leq p\leq1$.
 \[p(k)=\binom{n}{k}p^k(1-p)^{n-k}\]
 \[\mu = np,\,\sigma^2=np(1-p)\]
 $\textrm{Bin}(n,p)$ is approximately $\textrm{Po}(np)$ for small $p$.
 
-\subsubsection*{First success distribution}
+\paragraph{First success distribution}
 The number of trials needed to get the first success in independent yes/no experiments, each which yields success with probability $p$ is $\textrm{Fs}(p),\,0\leq p\leq1$.
 \[p(k)=p(1-p)^{k-1},\,k=1,2,\dots\]
 \[\mu = \frac1p,\,\sigma^2=\frac{1-p}{p^2}\]
 
-\subsubsection*{Poisson distribution}
+\paragraph{Poisson distribution}
 The number of events occurring in a fixed period of time $t$ if these events occur with a known average rate $\kappa$ and independently of the time since the last event is $\textrm{Po}(\lambda),\,\lambda=t\kappa$.
 \[p(k)=e^{-\lambda}\frac{\lambda^k}{k!}, k=0,1,2,\dots\]
 \[\mu=\lambda,\,\sigma^2=\lambda\]
 
 \subsubsection{Continuous distributions}
 
-\subsubsection*{Uniform distribution}
+\paragraph{Uniform distribution}
 If the probability density function is constant between $a$ and $b$ and 0 elsewhere it is $\textrm{U}(a,b),\,a<b$.
 \[f(x) = \left\{
 \begin{array}{cl}
@@ -135,7 +135,7 @@ If the probability density function is constant between $a$ and $b$ and 0 elsewh
 \end{array}\right.\]
 \[\mu=\frac{a+b}{2},\,\sigma^2=\frac{(b-a)^2}{12}\]
 
-\subsubsection*{Exponential distribution}
+\paragraph{Exponential distribution}
 The time between events in a Poisson process is $\textrm{Exp}(\lambda),\,\lambda>0$.
 \[f(x) = \left\{
 \begin{array}{cl}
@@ -144,7 +144,7 @@ The time between events in a Poisson process is $\textrm{Exp}(\lambda),\,\lambda
 \end{array}\right.\]
 \[\mu=\frac{1}{\lambda},\,\sigma^2=\frac{1}{\lambda^2}\]
 
-\subsubsection*{Normal distribution}
+\paragraph{Normal distribution}
 Most real random values with mean $\mu$ and variance $\sigma^2$ are well described by $\mathcal{N}(\mu,\sigma^2),\,\sigma>0$.
 \[ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}} \]
 If $X_1 \sim \mathcal{N}(\mu_1,\sigma_1^2)$ and $X_2 \sim \mathcal{N}(\mu_2,\sigma_2^2)$ then
@@ -157,7 +157,7 @@ Then there is a transition matrix $\mathbf{P} = (p_{ij})$, with $p_{ij} = \Pr(X_
 and $\mathbf{p}^{(n)} = \mathbf P^n \mathbf p^{(0)}$ is the probability distribution for $X_n$ (i.e., $p^{(n)}_i = \Pr(X_n = i)$),
 where $\mathbf{p}^{(0)}$ is the initial distribution.
 
-% \subsubsection*{Stationary distribution}
+% \paragraph{Stationary distribution}
 $\mathbf{\pi}$ is a stationary distribution if $\mathbf{\pi} = \mathbf{\pi P}$.
 If the Markov chain is \emph{irreducible} (it is possible to get to any state from any state),
 then $\pi_i = \frac{1}{\mathbb{E}(T_i)}$ where $\mathbb{E}(T_i)$  is the expected time between two visits in state $i$.
@@ -165,12 +165,12 @@ $\pi_j/\pi_i$ is the expected number of visits in state $j$ between two visits i
 
 For a connected, undirected and non-bipartite graph, where the transition probability is uniform among all neighbors, $\pi_i$ is proportional to node $i$'s degree.
 
-% \subsubsection*{Ergodicity}
+% \paragraph{Ergodicity}
 A Markov chain is \emph{ergodic} if the asymptotic distribution is independent of the initial distribution.
 A finite Markov chain is ergodic iff it is irreducible and \emph{aperiodic} (i.e., the gcd of cycle lengths is 1).
 $\lim_{k\rightarrow\infty}\mathbf{P}^k = \mathbf{1}\pi$.
 
-% \subsubsection*{Absorption}
+% \paragraph{Absorption}
 A Markov chain is an A-chain if the states can be partitioned into two sets $\mathbf{A}$ and $\mathbf{G}$, such that all states in $\mathbf{A}$ are absorbing ($p_{ii}=1$), and all states in $\mathbf{G}$ leads to an absorbing state in $\mathbf{A}$.
 The probability for absorption in state $i\in\mathbf{A}$, when the initial state is $j$, is $a_{ij} = p_{ij}+\sum_{k\in\mathbf{G}} a_{ik}p_{kj}$.
 The expected time until absorption, when the initial state is $i$, is $t_i = 1+\sum_{k\in\mathbf{G}}p_{ki}t_k$.
