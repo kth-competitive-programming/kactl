@@ -118,10 +118,9 @@
 
 % Redefine appendix
 \renewcommand\appendix{
-  % Change chapter counter to A,B,C,... (TODO)
-	\setcounter{tocdepth}{8}
-	\setcounter{chapter}{0}
-	\def\thechapter{\Alph{chapter}}
+  % Change chapter counter to A,B,C,...
+  \setcounter{section}{0}
+  \renewcommand*{\thesection}{\Alph{section}}
 	% Switch to appendixmode defined above (disables TOC entries)
 	\setboolean{appendixmode}{true}
 	\clearpage
