@@ -21,6 +21,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage[normalem]{ulem}
 \usepackage[hidelinks]{hyperref}        % For clickable table of contents
+\usepackage[explicit]{titlesec}
 
 % Config commands
 \newcommand{\subtitle}[1]{
@@ -89,12 +90,20 @@
 \fancyfootoffset{0pt}
 \setlength\headsep{5pt}
 
-\renewcommand\chapter{
-	\global\@topnum\z@
-	\secdef
-	\@chapter
-	\@schapter
-}
+% Custom sections
+\titleformat{\section}{\huge\bfseries}{}{0pt}{\underline{#1} (\thesection)}
+\titleformat{\subsection}{\normalfont\LARGE\bfseries}{}{0pt}{\thesubsection \quad #1}
+\titleformat{\subsubsection}{\normalfont\large\bfseries}{}{0pt}{\thesubsubsection \quad #1}
+\titleformat{\paragraph}{\normalfont\large\bfseries}{}{0pt}{#1}
+
+% Custom ToC
+\setcounter{tocdepth}{1}
+\renewcommand{\contentsname}{}
+\renewcommand{\cftbeforetoctitleskip}{-45pt}
+\renewcommand{\cftaftertoctitleskip}{10pt}
+\renewcommand{\cftbeforesecskip}{11pt}
+\renewcommand{\cftsecfont}{\large\bfseries}
+\renewcommand{\cftdotsep}{4.5}
 
 % Don't add appendices to the Table of Contents
 % Currently, this disables parts of the local TOC for appendices chapters
@@ -109,54 +118,13 @@
 
 % Redefine appendix
 \renewcommand\appendix{
-	% Change chapter counter to A,B,C,...
-	\setcounter{tocdepth}{8}
-	\setcounter{chapter}{0}
-	\def\thechapter{\Alph{chapter}}
+  % Change chapter counter to A,B,C,...
+  \setcounter{section}{0}
+  \renewcommand*{\thesection}{\Alph{section}}
 	% Switch to appendixmode defined above (disables TOC entries)
 	\setboolean{appendixmode}{true}
 	\clearpage
 }
-
-\def\@makechapterhead#1{
-
-	\parindent \z@ \raggedright \normalfont
-		\interlinepenalty\@M
-	{\underline{\huge \bfseries #1} }
-	\ifnum \c@secnumdepth >\m@ne
-		{\huge\bfseries (\thechapter) \par\nobreak }
-	\fi
-	\startcontents[chapters]
-}
-
-\renewcommand\section{\@startsection {section}{1}{\z@}%
-                                   {-0.5ex \@plus -1ex \@minus -.2ex}%
-                                   {.4ex}%
-                                   {\normalfont\LARGE\bfseries}}
-
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}
-	{1ex\@plus -1ex \@minus -.3ex}
-	{.2ex}
-	{\normalfont\large\bfseries}}
-
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}
-	{1ex\@plus -1ex \@minus -.3ex}
-	{1ex \@plus .2ex}
-	{\normalfont\large\bfseries}}
-
-% Styles for local toc
-\titlecontents{localsection}[1.5em]{\small}{}
-	{\small}{\titlerule*[0.8em]{.}\contentspage}
-\titlecontents{localsubsection}[3.8em]{\small}{}
-	{\small}{\titlerule*[0.8em]{.}\contentspage}
-
-% Styles for main toc
-\renewcommand{\chaptermark}[1]{\markboth{\emph{ #1}}{}}
-\renewcommand{\cftbeforetoctitleskip}{-45pt}
-\renewcommand{\cftaftertoctitleskip}{10pt}
-\renewcommand{\cftbeforechapskip}{11pt}
-\renewcommand\cftchapfont{\large\bfseries}
-\renewcommand{\cftdotsep}{4.5}
 
 % Proper carets and tildes
 \newcommand*{\caret}{%
