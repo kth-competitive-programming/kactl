@@ -6,7 +6,7 @@
 
 int main() {
 	srand(0);
-	typedef Point<double> P;
+	using P = Point<double>;
 	vector<P> ps = {P{0,0}, P{6,4}, P{0,9}};
 	int count = 0;
 	P su{0,0};

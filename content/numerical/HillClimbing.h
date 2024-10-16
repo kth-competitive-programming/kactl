@@ -8,7 +8,7 @@
  */
 #pragma once
 
-typedef array<double, 2> P;
+using P = array<double, 2>;
 
 template<class F> pair<double, P> hillClimb(P start, F f) {
 	pair<double, P> cur(f(start), start);

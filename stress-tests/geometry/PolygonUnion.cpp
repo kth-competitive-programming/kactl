@@ -1,15 +1,15 @@
 #include <bits/stdc++.h>
 
 #define all(x) begin(x), end(x)
-typedef long long ll;
+using ll = long long;
 using namespace std;
 
 #define rep(i, a, b) for (int i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
+using ll = long long;
+using pii = pair<int, int>;
+using vi = vector<int>;
 
 #include "../../content/geometry/Point.h"
 #include "../../content/geometry/sideOf.h"
@@ -107,11 +107,11 @@ namespace lovelive {
 #define pb push_back
 #define fir first
 #define sec second
-typedef double db;
+using db = double;
 const db pi = acos(db(-1));
 inline int sgn(db x) { return (x > 1e-8) - (x < -1e-8); }
 
-typedef complex<db> cpoi;
+using cpoi = complex<db>;
 db polygon_union(vector<cpoi> py[], int n) {
 	auto ratio = [](cpoi &a, cpoi &b, cpoi &c) {
 		cpoi x = b - a, y = c - a;

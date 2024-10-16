@@ -9,8 +9,8 @@
 
 #include "Point.h"
 
-typedef long long T;
-typedef Point<T> P;
+using T = long long;
+using P = Point<T>;
 const T INF = numeric_limits<T>::max();
 
 bool on_x(const P& a, const P& b) { return a.x < b.x; }

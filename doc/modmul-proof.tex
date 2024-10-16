@@ -20,8 +20,8 @@
 Within computational number theory, and for hashing, there is sometimes a need to compute modular multiplications $a \cdot b \pmod{c}$ for relatively large $c$, in particular larger than $2^{32}$. KACTL contains the following algorithm for computing this for $0 \le a, b \le c < 7.268\cdot 10^{18}$: \footnote{this number equals $r \cdot 2^{64}$, where $r = (\sqrt{177} - 7) / 16 \approx 0.394$ is the positive solution to the equation $8x^2 + 7x = 4$.}
 
 \begin{lstlisting}[language=C++]
-typedef int64_t ll;
-typedef uint64_t ull;
+using ll = int64_t;
+using ull = uint64_t;
 ull mod_mul(ull a, ull b, ull c) {
     ll ret = a * b - c * ull(1.L / c * a * b);
     return ret + c * (ret < 0) - c * (ret >= (ll)c);
