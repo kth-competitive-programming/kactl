@@ -21,7 +21,7 @@ struct SuffixArray {
 	vi sa, lcp;
 	SuffixArray(string& s, int lim=256) { // or basic_string<int>
 		int n = sz(s) + 1, k = 0, a, b;
-		vi x(all(s)), y(n), ws(max(n, lim)), rank(n);
+		vi x(all(s)), y(n), ws(max(n, lim));
 		x.push_back(0), sa = lcp = y, iota(all(sa), 0);
 		for (int j = 0, p = 0; p < n; j = max(1, j * 2), lim = p) {
 			p = j, iota(all(y), n - j);
@@ -34,9 +34,8 @@ struct SuffixArray {
 			rep(i,1,n) a = sa[i - 1], b = sa[i], x[b] =
 				(y[a] == y[b] && y[a + j] == y[b + j]) ? p - 1 : p++;
 		}
-		rep(i,1,n) rank[sa[i]] = i;
-		for (int i = 0, j; i < n - 1; lcp[rank[i++]] = k)
-			for (k && k--, j = sa[rank[i] - 1];
+		for (int i = 0, j; i < n - 1; lcp[x[i++]] = k)
+			for (k && k--, j = sa[x[i] - 1];
 					s[i + k] == s[j + k]; k++);
 	}
 };
