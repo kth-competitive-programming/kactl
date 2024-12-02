@@ -28,7 +28,7 @@ static const H C = (ll)1e11+3; // (order ~ 3e9; random also ok)
 
 struct HashInterval {
 	vector<H> ha, pw;
-	HashInterval(string& str) : ha(sz(str)+1), pw(ha) {
+	HashInterval(const string& str) : ha(sz(str)+1), pw(ha) {
 		pw[0] = 1;
 		rep(i,0,sz(str))
 			ha[i+1] = ha[i] * C + str[i],
@@ -39,7 +39,7 @@ struct HashInterval {
 	}
 };
 
-vector<H> getHashes(string& str, int length) {
+vector<H> getHashes(const string& str, int length) {
 	if (sz(str) < length) return {};
 	H h = 0, pw = 1;
 	rep(i,0,length)
@@ -51,4 +51,4 @@ vector<H> getHashes(string& str, int length) {
 	return ret;
 }
 
-H hashString(string& s){H h{}; for(char c:s) h=h*C+c;return h;}
+H hashString(const string& s){H h{}; for(char c:s) h=h*C+c;return h;}
