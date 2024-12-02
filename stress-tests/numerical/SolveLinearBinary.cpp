@@ -2,7 +2,7 @@
 
 const int nmax = 5, mmax = 5, nmmax = 16;
 
-typedef bitset<5> bs;
+using bs = bitset<5>;
 
 int solveLinear(vector<bs>& A, vi& b, bs& x, int m) {
 	int n = sz(A), rank = 0, br;

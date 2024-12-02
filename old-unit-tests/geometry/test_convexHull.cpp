@@ -2,7 +2,7 @@
 #include "../../content/geometry/convexHull.h"
 #include <fstream>
 #include <sstream>
-typedef Point<double> P;
+using P = Point<double>;
 
 template<class T>
 ostream & operator<<(ostream & os, const vector<T> p) {
@@ -60,7 +60,7 @@ public:
 
 	void test(int subcase) {
 	    run(subcase);
-		typedef Point<double> P;
+		using P = Point<double>;
 		P p1[3] = {P(1,1),P(3,2),P(1,5)};
 		check(convexHull(p1,p1+3),p1+3);
 

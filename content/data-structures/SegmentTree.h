@@ -11,7 +11,7 @@
 #pragma once
 
 struct Tree {
-	typedef int T;
+	using T = int;
 	static constexpr T unit = INT_MIN;
 	T f(T a, T b) { return max(a, b); } // (any associative fn)
 	vector<T> s; int n;
