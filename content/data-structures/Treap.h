@@ -54,8 +54,8 @@ Node* merge(Node* l, Node* r) {
 }
 
 Node* ins(Node* t, Node* n, int pos) {
-	auto pa = split(t, pos);
-	return merge(merge(pa.first, n), pa.second);
+	auto [l,r] = split(t, pos);
+	return merge(merge(l, n), r);
 }
 
 // Example application: move the range [l, r) to index k
