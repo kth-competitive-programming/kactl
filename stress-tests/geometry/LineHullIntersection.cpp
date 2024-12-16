@@ -4,8 +4,8 @@
 
 template<>
 struct Point<double> {
-	typedef Point P;
-	typedef double T;
+	using P = Point;
+	using T = double;
 	T x, y;
 	explicit Point(T x=0, T y=0) : x(x), y(y) {}
 	Point(const Point<ll>& other) : x((double)other.x), y((double)other.y) {}
@@ -58,7 +58,7 @@ int segmentIntersection(const P& s1, const P& e1,
 	if (a < 0) { a = -a; a1 = -a1; a2 = -a2; }
 	if (0<a1 || a<-a1 || 0<a2 || a<-a2)
 		return 0;
-	typedef Point<double> PD;
+	using PD = Point<double>;
 	r1 = PD(s1) - PD(v1*a2)/(double)a;
 	return 1;
 }

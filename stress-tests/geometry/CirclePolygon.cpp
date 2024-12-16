@@ -4,7 +4,7 @@
 #include "../utilities/genPolygon.h"
 
 namespace orig{
-typedef Point<long double> P;
+using P = Point<long double>;
 long double areaCT(P pa, P pb, long double r) {
 	if (pa.dist() < pb.dist()) swap(pa, pb);
 	if (sgn(pb.dist()) == 0) return 0;

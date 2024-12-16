@@ -14,7 +14,7 @@
 
 #include "LCA.h"
 
-typedef vector<pair<int, int>> vpi;
+using vpi = vector<pair<int, int>>;
 vpi compressTree(LCA& lca, const vi& subset) {
 	static vi rev; rev.resize(sz(lca.time));
 	vi li = subset, &T = lca.time;

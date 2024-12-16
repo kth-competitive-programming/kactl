@@ -11,7 +11,7 @@
 
 #include "Point.h"
 
-typedef Point<double> P;
+using P = Point<double>;
 P polygonCenter(const vector<P>& v) {
 	P res(0, 0); double A = 0;
 	for (int i = 0, j = sz(v) - 1; i < sz(v); j = i++) {

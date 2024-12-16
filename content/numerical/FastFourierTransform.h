@@ -19,8 +19,8 @@
  */
 #pragma once
 
-typedef complex<double> C;
-typedef vector<double> vd;
+using C = complex<double>;
+using vd = vector<double>;
 void fft(vector<C>& a) {
 	int n = sz(a), L = 31 - __builtin_clz(n);
 	static vector<complex<long double>> R(2, 1);

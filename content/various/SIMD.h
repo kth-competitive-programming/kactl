@@ -15,7 +15,7 @@
 #pragma GCC target ("avx2") // or sse4.1
 #include "immintrin.h" /** keep-include */
 
-typedef __m256i mi;
+using mi = __m256i;
 #define L(x) _mm256_loadu_si256((mi*)&(x))
 
 // High-level/specific methods:

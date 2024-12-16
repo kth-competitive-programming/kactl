@@ -1,6 +1,6 @@
 #include "../utilities/template.h"
 
-typedef vector<ll> vl;
+using vl = vector<ll>;
 namespace ignore {
 #include "../../content/number-theory/ModPow.h"
 }
