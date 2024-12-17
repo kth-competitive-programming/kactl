@@ -26,8 +26,8 @@ template <bool VALS_EDGES> struct HLD {
 		: N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1),
 		  rt(N),pos(N),tree(new Node(0, N)){ dfsSz(0); dfsHld(0); }
 	void dfsSz(int v) {
-		if (par[v] != -1) adj[v].erase(find(all(adj[v]), par[v]));
 		for (int& u : adj[v]) {
+			adj[u].erase(find(all(adj[u]), v));
 			par[u] = v;
 			dfsSz(u);
 			siz[v] += siz[u];
@@ -42,11 +42,11 @@ template <bool VALS_EDGES> struct HLD {
 		}
 	}
 	template <class B> void process(int u, int v, B op) {
-		for (; rt[u] != rt[v]; v = par[rt[v]]) {
-			if (pos[rt[u]] > pos[rt[v]]) swap(u, v);
+		for (;; v = par[rt[v]]) {
+			if (pos[u] > pos[v]) swap(u, v);
+			if (rt[u] == rt[v]) break;
 			op(pos[rt[v]], pos[v] + 1);
 		}
-		if (pos[u] > pos[v]) swap(u, v);
 		op(pos[u] + VALS_EDGES, pos[v] + 1);
 	}
 	void modifyPath(int u, int v, int val) {
