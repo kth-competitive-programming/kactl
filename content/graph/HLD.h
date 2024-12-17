@@ -42,11 +42,11 @@ template <bool VALS_EDGES> struct HLD {
 		}
 	}
 	template <class B> void process(int u, int v, B op) {
-		for (; rt[u] != rt[v]; v = par[rt[v]]) {
+		for (;; v = par[rt[v]]) {
 			if (pos[u] > pos[v]) swap(u, v);
+			if (rt[u] == rt[v]) break;
 			op(pos[rt[v]], pos[v] + 1);
 		}
-		if (pos[u] > pos[v]) swap(u, v);
 		op(pos[u] + VALS_EDGES, pos[v] + 1);
 	}
 	void modifyPath(int u, int v, int val) {
