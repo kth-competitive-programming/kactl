@@ -26,8 +26,8 @@ template <bool VALS_EDGES> struct HLD {
 		: N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1),
 		  rt(N),pos(N),tree(new Node(0, N)){ dfsSz(0); dfsHld(0); }
 	void dfsSz(int v) {
-		if (par[v] != -1) adj[v].erase(find(all(adj[v]), par[v]));
 		for (int& u : adj[v]) {
+			adj[u].erase(find(all(adj[u]), v));
 			par[u] = v;
 			dfsSz(u);
 			siz[v] += siz[u];
