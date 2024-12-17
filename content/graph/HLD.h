@@ -43,7 +43,7 @@ template <bool VALS_EDGES> struct HLD {
 	}
 	template <class B> void process(int u, int v, B op) {
 		for (; rt[u] != rt[v]; v = par[rt[v]]) {
-			if (pos[rt[u]] > pos[rt[v]]) swap(u, v);
+			if (pos[u] > pos[v]) swap(u, v);
 			op(pos[rt[v]], pos[v] + 1);
 		}
 		if (pos[u] > pos[v]) swap(u, v);
