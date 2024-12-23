@@ -1,0 +1,1 @@
+g++ -std=c++17 -DONLINE_JUDGE -O2 -x c++ {code} && ./a.out

@@ -9,59 +9,66 @@
  * Status: stress-tested
  */
 #pragma once
-
-struct Node {
-	Node *l = 0, *r = 0;
-	int val, y, c = 1;
-	Node(int val) : val(val), y(rand()) {}
-	void recalc();
+const int M = 1e9 + 7;
+ 
+typedef struct item * pitem;
+struct item {
+    int prior, cnt, value, b = 1, c = 0, sum = 0;
+    pitem l, r;
+    bool rev = false;
+    item(int val): value(val), prior(rand()), cnt(0), l(NULL), r(NULL) {}
 };
-
-int cnt(Node* n) { return n ? n->c : 0; }
-void Node::recalc() { c = cnt(l) + cnt(r) + 1; }
-
-template<class F> void each(Node* n, F f) {
-	if (n) { each(n->l, f); f(n->val); each(n->r, f); }
+int cnt(pitem it) { return it ? it->cnt : 0; }
+int giveSum(pitem it) { return it ? it->sum : 0; }
+void combineLazy(pitem t, int b, int c) {
+    t->value = ((t->value * b) % M + c) % M;
+    t->b = (t->b * b) % M;
+    t->c = ((t->c * b) + c) % M;
+} 
+void push(pitem it) {
+    if(it && it->rev) {
+        it->rev = false;
+        swap(it->l, it->r);
+        if(it->l) it->l->rev ^= 1;
+        if(it->r) it->r->rev ^= 1;
+    }
+    if(it) {
+        if(it->l) combineLazy(it->l, it->b, it->c);
+        if(it->r) combineLazy(it->r, it->b, it->c);
+        it->sum = ((it->sum * it->b) % M + (it->cnt * it->c) % M) % M;
+        it->b = 1, it->c = 0;
+    }
 }
-
-pair<Node*, Node*> split(Node* n, int k) {
-	if (!n) return {};
-	if (cnt(n->l) >= k) { // "n->val >= k" for lower_bound(k)
-		auto pa = split(n->l, k);
-		n->l = pa.second;
-		n->recalc();
-		return {pa.first, n};
-	} else {
-		auto pa = split(n->r, k - cnt(n->l) - 1); // and just "k"
-		n->r = pa.first;
-		n->recalc();
-		return {n, pa.second};
-	}
+void pull(pitem it) {
+	if (!it) { return; }
+	push(it->l), push(it->r);
+	it->cnt = cnt(it->l) + cnt(it->r) + 1;
+	it->sum = (giveSum(it->l) + giveSum(it->r) + it->value) % M;
 }
-
-Node* merge(Node* l, Node* r) {
-	if (!l) return r;
-	if (!r) return l;
-	if (l->y > r->y) {
-		l->r = merge(l->r, r);
-		l->recalc();
-		return l;
-	} else {
-		r->l = merge(l, r->l);
-		r->recalc();
-		return r;
-	}
+void merge(pitem &t, pitem l, pitem r) {
+    push(l), push(r);
+    if(!l || !r) t = l ? l : r;
+    else if(l->prior > r->prior) merge(l->r, l->r, r), t = l;
+    else merge(r->l, l, r->l), t = r;
+    pull(t);
 }
-
-Node* ins(Node* t, Node* n, int pos) {
-	auto [l,r] = split(t, pos);
-	return merge(merge(l, n), r);
+void split(pitem t, pitem &l, pitem &r, int key, int add = 0) {
+    if(!t) return void(l = r = 0);
+    push(t);
+    int curr_key = add + cnt(t->l);
+    if(key <= curr_key) split(t->l, l, t->l, key, add), r = t;
+    else split(t->r, t->r, r, key, curr_key + 1), l = t;
+    pull(t);
 }
-
-// Example application: move the range [l, r) to index k
-void move(Node*& t, int l, int r, int k) {
-	Node *a, *b, *c;
-	tie(a,b) = split(t, l); tie(b,c) = split(b, r - l);
-	if (k <= l) t = merge(ins(a, b, k), c);
-	else t = merge(a, ins(c, b, k - r));
+void insert(pitem &t, pitem new_item, int pos) {
+    pitem t1 = NULL, t2 = NULL;
+    split(t, t1, t2, pos);
+    merge(t1, t1, new_item);
+    merge(t, t1, t2);
+}
+void remove(pitem &t, int pos) {
+    pitem t1 = NULL, t2 = NULL, t3 = NULL;
+    split(t, t1, t3, pos);
+    split(t3, t2, t3, 1);
+    merge(t, t1, t3);
 }

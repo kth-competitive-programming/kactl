@@ -1,15 +1,39 @@
 \chapter{Graph}
 
+% \newcommand\Inn{%
+%   \mathrel{\ooalign{$\subset$\cr\hfil\scalebox{0.8}[1]{$=$}\hfil\cr}}%
+% }
+
 \section{Fundamentals}
 	\kactlimport{BellmanFord.h}
 	\kactlimport{FloydWarshall.h}
 	\kactlimport{TopoSort.h}
 
 \section{Network flow}
-	\kactlimport{PushRelabel.h}
+	% \kactlimport{PushRelabel.h}
 	\kactlimport{MinCostMaxFlow.h}
-	\kactlimport{EdmondsKarp.h}
-	% \kactlimport{Dinic.h}
+	% \kactlimport{EdmondsKarp.h}
+	\kactlimport{Dinic.h}
+	\subsection{Flows with Demands(Lower Bound on flows)}
+		% Source: https://cp-algorithms.com/graph/flow_with_demands.html
+		% Test: NULL
+		Finding an Arbitrary flow:
+		We make the following changes in the network. We add a new source s' and 
+		a new sink	t', a new edge from the source s' to every other vertex, a 
+		new edge for every vertex to the sink t', and one edge from t to s. 
+		Additionally we define the new capacity function c' as:
+		$$c'((s', v)) = \sum_{u\in V} d((u, v)) \forall (s', v)$$
+		$$c'((v, t')) = \sum_{w\in V} d((v, w)) \forall (v, t')$$
+		$$c'((u, v)) = c((u, v)) - d((u, v)) \forall (u, v)$$ in the old network
+		$$c'((t, s)) = INF$$
+
+		Minimal Flow:
+		The edge (t, s) flows the entire flow of the corresponding old network, and
+		if we keep the c'((t, s)) to be INF, it will have the same flow of old network,
+		but if we reduce the capacity to a very small value, the demands will not meet.
+		So we can do a binary search on capacity of this edge and try to reduce it as much
+		as possible so that demands meet.
+
 	\kactlimport{MinCut.h}
 	\kactlimport{GlobalMinCut.h}
 	\kactlimport{GomoryHu.h}
@@ -19,7 +43,8 @@
 	\kactlimport{DFSMatching.h}
 	\kactlimport{MinimumVertexCover.h}
 	\kactlimport{WeightedMatching.h}
-	\kactlimport{GeneralMatching.h}
+	% \kactlimport{GeneralMatching.h}
+	\kactlimport{GeneralMatchingBlossom.h}
 
 \section{DFS algorithms}
 	\kactlimport{SCC.h}
@@ -40,7 +65,7 @@
 	\kactlimport{LCA.h}
 	\kactlimport{CompressTree.h}
 	\kactlimport{HLD.h}
-	\kactlimport{LinkCutTree.h}
+	% \kactlimport{LinkCutTree.h}
 	\kactlimport{DirectedMST.h}
 
 \section{Math}
