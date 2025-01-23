@@ -28,8 +28,6 @@ jobs:
     # First we retrieve that creation date here if possible
     - name: Retrieve last release date
       id: last_release
-      env:
-        GH_TOKEN: ${{ secrets.SACHIN_PAT }}
       run: |
         gh release view latest --json createdAt \
           | jq -r '.createdAt' \
