@@ -76,7 +76,7 @@ jobs:
     - name: Create release
       uses: softprops/action-gh-release@v2
       env:
-        GH_TOKEN: ${{ secrets.TEST_SECRET }}
+        GITHUB_TOKEN: ${{ secrets.TEST_SECRET }}
       with:
         name: Latest PDF
         tag_name: latest
