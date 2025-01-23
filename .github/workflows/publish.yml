@@ -1,4 +1,6 @@
 # Author: enwask
+# enable workflow permissions to read and write
+# repository settings -> actions -> general -> workflow settings -> enable workflow permissions to read and write
 name: Build + publish PDF
 
 on:
