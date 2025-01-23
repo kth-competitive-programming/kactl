@@ -35,14 +35,6 @@ jobs:
           | awk -F- '{print "date="$1"/"$2"/"$3}' \
           >> $GITHUB_OUTPUT
 
-    # Git doesn't use the GH_TOKEN, and we can't use the gh CLI for everything
-    # so we need to set up git to authenticate with our workflow token
-    - name: Authenticate git CLI with workflow token
-      run: |
-        /usr/bin/git config --global --add url."https://${{ secrets.WORKFLOW_TOKEN }}:x-oauth-basic@github".insteadOf ssh://git@github
-        /usr/bin/git config --global --add url."https://${{ secrets.WORKFLOW_TOKEN }}:x-oauth-basic@github".insteadOf https://github
-        /usr/bin/git config --global --add url."https://${{ secrets.WORKFLOW_TOKEN }}:x-oauth-basic@github".insteadOf git@github
-
     # If we found an old release, we'll rename it to "Release <date (YYYY/MM/DD)>".
     # We also delete the existing `latest` tag and swap it for `<date>`
     - name: Rename old release/tag
