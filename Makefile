@@ -18,20 +18,20 @@ help:
 	@echo "For more information see the file 'doc/README'"
 
 fast: | build
-	$(LATEXCMD) content/kactl.tex </dev/null
-	cp build/kactl.pdf kactl.pdf
+	$(LATEXCMD) content/hackpack.tex </dev/null
+	cp build/hackpack.pdf hackpack.pdf
 
-kactl: test-session.pdf | build
-	$(LATEXCMD) content/kactl.tex && $(LATEXCMD) content/kactl.tex
-	cp build/kactl.pdf kactl.pdf
+hackpack: test-session.pdf | build
+	$(LATEXCMD) content/hackpack.tex && $(LATEXCMD) content/hackpack.tex
+	cp build/hackpack.pdf hackpack.pdf
 
 clean:
-	cd build && rm -f kactl.aux kactl.log kactl.tmp kactl.toc kactl.pdf kactl.ptc
+	cd build && rm -f hackpack.aux hackpack.log hackpack.tmp hackpack.toc hackpack.pdf hackpack.ptc
 
 veryclean: clean
-	rm -f kactl.pdf test-session.pdf
+	rm -f hackpack.pdf test-session.pdf
 
-.PHONY: help fast kactl clean veryclean
+.PHONY: help fast hackpack clean veryclean
 
 build:
 	mkdir -p build/
