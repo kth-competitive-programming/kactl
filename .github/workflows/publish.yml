@@ -47,8 +47,6 @@ jobs:
     # We also delete the existing `latest` tag and swap it for `<date>`
     - name: Rename old release/tag
       if: steps.last_release.outputs.date
-      env:
-        GITHUB_TOKEN: ${{ secrets.SACHIN_PAT }}
       run: |
         gh release delete ${{ steps.last_release.outputs.date }} \
           --cleanup-tag -y 2>/dev/null || true
