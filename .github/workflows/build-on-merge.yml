@@ -20,7 +20,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-latex-extra
-      - run: make veryclean && make hackpack
+      - run: make hackpack
       - name: Commit and push if changed
         run: |
           git config --global user.email "action@github.com"
