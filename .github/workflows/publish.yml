@@ -29,7 +29,7 @@ jobs:
     - name: Retrieve last release date
       id: last_release
       env:
-        GH_TOKEN: ${{ secrets.SACHIN_PAT }}
+        GH_TOKEN: ${{ secrets.TEST_SECRET }}
       run: |
         gh release view latest --json createdAt \
           | jq -r '.createdAt' \
@@ -50,7 +50,7 @@ jobs:
     - name: Rename old release/tag
       if: steps.last_release.outputs.date
       env:
-        GH_TOKEN: ${{ secrets.SACHIN_PAT }}
+        GH_TOKEN: ${{ secrets.TEST_SECRET }}
       run: |
         gh release delete ${{ steps.last_release.outputs.date }} \
           --cleanup-tag -y 2>/dev/null || true
