@@ -29,7 +29,7 @@ jobs:
     - name: Retrieve last release date
       id: last_release
       env:
-        GH_TOKEN: ${{ secrets.TEST_SECRET }}
+        GH_TOKEN: ${{ secrets.SACHIN_PAT }}
       run: |
         gh release view latest --json createdAt \
           | jq -r '.createdAt' \
@@ -50,7 +50,7 @@ jobs:
     - name: Rename old release/tag
       if: steps.last_release.outputs.date
       env:
-        GH_TOKEN: ${{ secrets.TEST_SECRET }}
+        GITHUB_TOKEN: ${{ secrets.SACHIN_PAT }}
       run: |
         gh release delete ${{ steps.last_release.outputs.date }} \
           --cleanup-tag -y 2>/dev/null || true
@@ -75,6 +75,8 @@ jobs:
     # ...and finally tag a new release with `latest`
     - name: Create release
       uses: softprops/action-gh-release@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.SACHIN_PAT }}
       with:
         name: Latest PDF
         tag_name: latest
