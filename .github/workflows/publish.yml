@@ -1,0 +1,80 @@
+name: Build + publish PDF
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - auto-build
+
+jobs:
+  build-publish-pdf:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Install pdflatex
+      run: sudo apt-get install texlive-latex-base texlive-latex-recommended texlive-latex-extra
+
+    # We're going to rename the old `latest` release/tag to its creation date.
+    # First we retrieve that creation date here if possible
+    - name: Retrieve last release date
+      id: last_release
+      env:
+        GH_TOKEN: ${{ secrets.SACHIN_PAT }}
+      run: |
+        gh release view latest --json createdAt \
+          | jq -r '.createdAt' \
+          | awk -FT '{print $1}' \
+          | awk -F- '{print "date="$1"/"$2"/"$3}' \
+          >> $GITHUB_OUTPUT
+
+    # Git doesn't use the GH_TOKEN, and we can't use the gh CLI for everything
+    # so we need to set up git to authenticate with our workflow token
+    - name: Authenticate git CLI with workflow token
+      run: |
+        /usr/bin/git config --global --add url."https://${{ secrets.WORKFLOW_TOKEN }}:x-oauth-basic@github".insteadOf ssh://git@github
+        /usr/bin/git config --global --add url."https://${{ secrets.WORKFLOW_TOKEN }}:x-oauth-basic@github".insteadOf https://github
+        /usr/bin/git config --global --add url."https://${{ secrets.WORKFLOW_TOKEN }}:x-oauth-basic@github".insteadOf git@github
+
+    # If we found an old release, we'll rename it to "Release <date (YYYY/MM/DD)>".
+    # We also delete the existing `latest` tag and swap it for `<date>`
+    - name: Rename old release/tag
+      if: steps.last_release.outputs.date
+      env:
+        GH_TOKEN: ${{ secrets.SACHIN_PAT }}
+      run: |
+        gh release delete ${{ steps.last_release.outputs.date }} \
+          --cleanup-tag -y 2>/dev/null || true
+
+        ref=$(git rev-list -n 1 latest)
+        git tag ${{ steps.last_release.outputs.date }} $ref
+        git push origin tag ${{ steps.last_release.outputs.date }}
+
+        gh release edit latest \
+          --title "Release ${{ steps.last_release.outputs.date }}" \
+          --tag ${{ steps.last_release.outputs.date }} \
+          --draft=false \
+          --verify-tag
+
+        git tag --delete latest
+        git push origin :refs/tags/latest
+
+    # Build the PDF (duh)
+    - name: Build pdf
+      run: make hackpack
+
+    # ...and finally tag a new release with `latest`
+    - name: Create release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: Latest PDF
+        tag_name: latest
+        files: hackpack.pdf
