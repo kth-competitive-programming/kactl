@@ -23,7 +23,7 @@ double circlePoly(P c, double r, vector<P> ps) {
 		if (det <= 0) return arg(p, q) * r2;
 		auto s = max(0., -a-sqrt(det)), t = min(1., -a+sqrt(det));
 		if (t < 0 || 1 <= s) return arg(p, q) * r2;
-		P u = p + d * s, v = p + d * t;
+		P u = p + d * s, v = q + d * (t-1);
 		return arg(p,u) * r2 + u.cross(v)/2 + arg(v,q) * r2;
 	};
 	auto sum = 0.0;
