@@ -1,6 +1,6 @@
 /**
- * Author: Jacob Steinebronn
- * Date: 2023-03-21
+ * Author: Sachin Sivakumar
+ * Date: 2025-01-24
  * Description: Creates a partial DFA (DAG) that accepts all suffixes, with suffix links.
  * One-to-one map between a path from the root and a substring.
  * len is the longest-length substring ending here.
@@ -11,25 +11,30 @@
  */
 #pragma once
 
-struct st { int len, pos, term; st *link; map<char, st*> next; };
-st *suffixAutomaton(string &str) {
-	st *last = new st(), *root = last;
-	for(auto c : str) {
-		st *p = last, *cur = last = new st{last->len + 1, last->len};
-		while(p && !p->next.count(c))
-			p->next[c] = cur, p = p->link;
-		if (!p) cur->link = root;
-		else {
-			st *q = p->next[c];
-			if (p->len + 1 == q->len) cur->link = q;
+struct st {int len, pos, term, link=-1; map<char, int> next;};
+struct SuffixAutomaton {
+	vector<st> a;
+	SuffixAutomaton(string &str) {
+		a.resize(1);
+		int last = 0;
+		for(auto c : str) {
+			int p = last, cur = last = sz(a);
+			a.push_back({a[p].len + 1, a[p].len});
+			while(p >= 0 && !a[p].next.count(c))
+				a[p].next[c] = cur, p = a[p].link;
+			if (p == -1) a[cur].link = 0;
 			else {
-				st *clone = new st{p->len+1, q->pos, 0, q->link, q->next};
-				for (; p && p->next[c] == q; p = p->link)
-					p->next[c] = clone;
-				q->link = cur->link = clone;
+				int q = a[p].next[c];
+				if (a[p].len + 1 == a[q].len) a[cur].link = q;
+				else {
+					a.push_back(a[q]);
+					a.back().len = a[p].len + 1;
+					for(; p >= 0 && a[p].next[c] == q; p = a[p].link)
+						a[p].next[c] = sz(a)-1;
+					a[q].link = a[cur].link = sz(a)-1;
+				}
 			}
 		}
+		while(last >= 0) a[last].term = 1, last = a[last].link;
 	}
-	while(last) last->term = 1, last = last->link;
-	return root;
-}
+};
