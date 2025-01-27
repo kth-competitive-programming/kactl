@@ -1,30 +1,24 @@
 /**
- * Author: Simon Lindholm
- * Date: 2015-02-11
- * License: CC0
- * Source: Wikipedia
- * Description: Fast integration using an adaptive Simpson's rule.
- * Usage:
-	double sphereVolume = quad(-1, 1, [](double x) {
-	return quad(-1, 1, [\&](double y) {
-	return quad(-1, 1, [\&](double z) {
-	return x*x + y*y + z*z < 1; });});});
- * Status: mostly untested
+ * Author: Tyler Marks
+ * Description: Gets area under a curve
+ * Status: tested on NEERC Damage Assessment
  */
 #pragma once
 
-typedef double d;
-#define S(a,b) (f(a) + 4*f((a+b) / 2) + f(b)) * (b-a) / 6
+#define approx(a, b) (b-a) / 6 * (f(a) + 4 * f((a+b) / 2) + f(b))
 
-template <class F>
-d rec(F& f, d a, d b, d eps, d S) {
-	d c = (a + b) / 2;
-	d S1 = S(a, c), S2 = S(c, b), T = S1 + S2;
-	if (abs(T - S) <= 15 * eps || b - a < 1e-10)
-		return T + (T - S) / 15;
-	return rec(f, a, c, eps / 2, S1) + rec(f, c, b, eps / 2, S2);
-}
 template<class F>
-d quad(d a, d b, F f, d eps = 1e-8) {
-	return rec(f, a, b, eps, S(a, b));
+ld adapt (F &f, ld a, ld b, ld A, int iters) {
+	ld m = (a+b) / 2;
+	ld A1 = approx(a, m), A2 = approx(m, b);
+	if(!iters && (abs(A1 + A2 - A) < eps || b-a < eps))
+		return A;
+	ld left = adapt(f, a, m, A1, max(iters-1, 0));
+	ld right = adapt(f, m, b, A2, max(iters-1, 0));
+	return left + right;
+}
+
+template<class F>
+ld integrate(F f, ld a, ld b, int iters = 0) {
+	return adapt(f, a, b, approx(a, b), iters);
 }

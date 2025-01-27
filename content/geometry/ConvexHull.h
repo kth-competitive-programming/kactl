@@ -1,8 +1,6 @@
 /**
- * Author: Stjepan Glavina, chilli
- * Date: 2019-05-05
- * License: Unlicense
- * Source: https://github.com/stjepang/snippets/blob/master/convex_hull.cpp
+ * Author: Tyler Marks
+ * Date: 2025-01-25
  * Description:
 \\\begin{minipage}{75mm}
 Returns a vector of the points of the convex hull in counter-clockwise order.
@@ -14,22 +12,25 @@ Points on the edge of the hull between two other points are not considered part 
 \vspace{-6mm}
 \end{minipage}
  * Time: O(n \log n)
- * Status: stress-tested, tested with kattis:convexhull
+ * Status: tested
 */
 #pragma once
 
 #include "Point.h"
 
-typedef Point<ll> P;
-vector<P> convexHull(vector<P> pts) {
-	if (sz(pts) <= 1) return pts;
-	sort(all(pts));
-	vector<P> h(sz(pts)+1);
-	int s = 0, t = 0;
-	for (int it = 2; it--; s = --t, reverse(all(pts)))
-		for (P p : pts) {
-			while (t >= s + 2 && h[t-2].cross(h[t-1], p) <= 0) t--;
-			h[t++] = p;
-		}
-	return {h.begin(), h.begin() + t - (t == 2 && h[0] == h[1])};
+template<class P> vector<P> convex_hull(vector<P> pts){
+    if(sz(pts) == 1) return pts;
+    stable_sort(all(pts));
+    vector<P> hull(sz(pts)+1);
+    int k = 0, t = 2;
+    rep(_, 0, 2) {
+        for(P p: pts){
+            while(k >= t && hull[k-2].cross(hull[k-1], p) <= 0) k--;
+            hull[k++] = p;
+        }
+        reverse(all(pts));
+        t = k+1;
+    }
+    hull.resize(k-1);
+    return hull;
 }
