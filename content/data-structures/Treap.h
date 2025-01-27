@@ -44,12 +44,10 @@ Node* merge(Node* l, Node* r) {
 	if (!r) return l;
 	if (l->y > r->y) {
 		l->r = merge(l->r, r);
-		l->recalc();
-		return l;
+		return l->recalc(), l;
 	} else {
 		r->l = merge(l, r->l);
-		r->recalc();
-		return r;
+		return r->recalc(), r;
 	}
 }
 
