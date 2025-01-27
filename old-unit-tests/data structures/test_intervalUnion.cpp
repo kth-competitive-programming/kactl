@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 
-typedef vector<pii> vpii;
+using vpii = vector<pii>;
 
 class test_intervalUnion :
 	public UnitTest
