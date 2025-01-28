@@ -24,7 +24,7 @@ vector<array<int, 3>> manhattanMST(vector<P> ps) {
 		map<int, int> sweep;
 		for (int i : id) {
 			for (auto it = sweep.lower_bound(-ps[i].y);
-				        it != sweep.end(); sweep.erase(it++)) {
+				       it != sweep.end(); sweep.erase(it++)) {
 				int j = it->second;
 				P d = ps[i] - ps[j];
 				if (d.y > d.x) break;
