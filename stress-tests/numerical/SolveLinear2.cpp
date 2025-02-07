@@ -1,6 +1,6 @@
 #include "../utilities/template.h"
 
-typedef vector<double> vd;
+using vd = vector<double>;
 const double eps = 1e-12;
 
 enum { YES, NO, MULT };

@@ -10,7 +10,7 @@
  */
 #pragma once
 
-typedef vector<double> vd;
+using vd = vector<double>;
 vd interpolate(vd x, vd y, int n) {
 	vd res(n), temp(n);
 	rep(k,0,n-1) rep(i,k+1,n)

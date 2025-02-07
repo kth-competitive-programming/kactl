@@ -81,8 +81,8 @@ void test(const string& s, int alpha) {
 
 const int MAXN = 1e5;
 namespace old {
-typedef long long ll;
-typedef pair<ll, int> pli;
+using ll = long long;
+using pli = pair<ll, int>;
 void count_sort(vector<pli> &b, int bits) { // (optional)
 	// this is just 3 times faster than stl sort for N=10^6
 	int mask = (1 << bits) - 1;

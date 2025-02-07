@@ -11,9 +11,9 @@
 // Arithmetic mod 2^64-1. 2x slower than mod 2^64 and more
 // code, but works on evil test data (e.g. Thue-Morse, where
 // ABBA... and BAAB... of length 2^10 hash the same mod 2^64).
-// "typedef ull H;" instead if you think test data is random,
+// "using H = ull;" instead if you think test data is random,
 // or work mod 10^9+7 if the Birthday paradox is not a problem.
-typedef uint64_t ull;
+using ull = uint64_t;
 struct H {
 	ull x; H(ull x=0) : x(x) {}
 	H operator+(H o) { return x + o.x + (x + o.x < x); }

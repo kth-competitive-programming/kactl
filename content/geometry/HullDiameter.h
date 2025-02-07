@@ -11,7 +11,7 @@
 #pragma once
 #include "Point.h"
 
-typedef Point<ll> P;
+using P = Point<ll>;
 array<P, 2> hullDiameter(vector<P> S) {
 	int n = sz(S), j = n < 2 ? 0 : 1;
 	pair<ll, array<P, 2>> res({0, {S[0], S[0]}});

@@ -10,7 +10,7 @@ bool y_it_less(const It& i,const It& j) {return i->y < j->y;}
 
 template<class It, class IIt> /* IIt = vector<It>::iterator */
 double cp_sub(IIt ya, IIt yaend, IIt xa, It &i1, It &i2) {
-	typedef typename iterator_traits<It>::value_type P;
+	using P = typename iterator_traits<It>::value_type;
 	int n = yaend-ya, split = n/2;
 	if(n <= 3) { // base case
 		double a = (*xa[1]-*xa[0]).dist(), b = 1e50, c = 1e50;

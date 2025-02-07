@@ -21,7 +21,7 @@
 const ll mod = (119 << 23) + 1, root = 62; // = 998244353
 // For p < 2^30 there is also e.g. 5 << 25, 7 << 26, 479 << 21
 // and 483 << 21 (same root). The last two are > 10^9.
-typedef vector<ll> vl;
+using vl = vector<ll>;
 void ntt(vl &a) {
 	int n = sz(a), L = 31 - __builtin_clz(n);
 	static vl rt(2, 1);

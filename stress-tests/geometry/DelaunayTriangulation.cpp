@@ -7,7 +7,7 @@
 #include "../../content/geometry/PolygonArea.h"
 #include "../../content/geometry/circumcircle.h"
 
-typedef Point<double> P;
+using P = Point<double>;
 int main() {
 	feenableexcept(29);
 	rep(it,0,100000) {{

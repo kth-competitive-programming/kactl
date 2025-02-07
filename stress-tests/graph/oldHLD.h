@@ -1,7 +1,7 @@
 
 #include "../../content/data-structures/SegmentTree.h"
 
-typedef vector<pii> vpi;
+using vpi = vector<pii>;
 
 struct Node {
 	int d, par, val, chain = -1, pos = -1;
@@ -14,7 +14,7 @@ struct Chain {
 };
 
 struct HLD {
-	typedef int T;
+	using T = int;
 	const T LOW = -(1<<29);
 	void f(T& a, T b) { a = max(a, b); }
 

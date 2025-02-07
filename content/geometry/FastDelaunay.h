@@ -16,9 +16,9 @@
 
 #include "Point.h"
 
-typedef Point<ll> P;
-typedef struct Quad* Q;
-typedef __int128_t lll; // (can be ll if coords are < 2e4)
+using P = Point<ll>;
+using Q = struct Quad*;
+using lll = __int128_t; // (can be ll if coords are < 2e4)
 P arb(LLONG_MAX,LLONG_MAX); // not equal to any other point
 
 struct Quad {

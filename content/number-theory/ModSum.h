@@ -12,7 +12,7 @@
  */
 #pragma once
 
-typedef unsigned long long ull;
+using ull = unsigned long long;
 ull sumsq(ull to) { return to / 2 * ((to-1) | 1); }
 /// ^ written in a weird way to deal with overflows correctly
 

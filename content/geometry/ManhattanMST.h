@@ -13,7 +13,7 @@
 #pragma once
 #include "Point.h"
 
-typedef Point<int> P;
+using P = Point<int>;
 vector<array<int, 3>> manhattanMST(vector<P> ps) {
 	vi id(sz(ps));
 	iota(all(id), 0);
