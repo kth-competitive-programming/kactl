@@ -23,12 +23,12 @@ int hopcroftKarp(vector<vi>& g, vi& r) {
 		return 0;
 	};
 	for (int t = 0, f = 0;; t = f = 0, d.assign(n, 0)) {
-		rep(i, 0, n) if (l[i] == -1) q[t++] = i, d[i] = 1;
-		rep(i, 0, t) for (int v : g[q[i]]) {
+		rep(i,0,n) if (l[i] == -1) q[t++] = i, d[i] = 1;
+		rep(i,0,t) for (int v : g[q[i]]) {
 			if (r[v] == -1) f = 1;
 			else if (!d[r[v]]) d[r[v]] = d[q[i]] + 1, q[t++] = r[v];
 		}
 		if (!f) return res;
-		rep(i, 0, n) if (l[i] == -1) res += dfs(dfs, i);
+		rep(i,0,n) if (l[i] == -1) res += dfs(dfs, i);
 	}
 }
