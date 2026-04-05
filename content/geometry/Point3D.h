@@ -11,8 +11,8 @@
 #pragma once
 
 template<class T> struct Point3D {
-	typedef Point3D P;
-	typedef const P& R;
+	using P = Point3D;
+	using R = const P&;
 	T x, y, z;
 	explicit Point3D(T x=0, T y=0, T z=0) : x(x), y(y), z(z) {}
 	bool operator<(R p) const {

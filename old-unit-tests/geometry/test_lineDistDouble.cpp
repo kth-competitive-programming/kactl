@@ -59,7 +59,7 @@ public:
 		test(p2-p2,p1-p2,p3-p2,-a);
 		test(p1+p3,p2+p3,p3+p3,a);
 		test(p2.perp()*-1,p1.perp()*-1,p3.perp()*-1,-a);
-		typedef Point3D<double> P3;
+		using P3 = Point3D<double>;
 		test(P3(p1.x,p1.y,3.0),P3(p2.x,p2.y,3.0),P3(p3.x,p3.y,3.0),abs(a));
 		test(P3(p1.x,p1.y,1.0),P3(p2.x,p2.y,1.0),P3(p3.x,p3.y,3.0),sqrt(a*a+4));
 		test(P3(p1.x,8.2,p1.y),P3(p2.x,8.2,p2.y),P3(p3.x,6.2,p3.y),sqrt(a*a+4));

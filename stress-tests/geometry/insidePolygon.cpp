@@ -5,9 +5,9 @@ using namespace std;
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
 
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
+using ll = long long;
+using pii = pair<int, int>;
+using vi = vector<int>;
 
 
 const double EPS =1e-8;
@@ -33,7 +33,7 @@ bool insidePolygon(It begin, It end, const P& p,
 	return n&1; //inside if odd number of intersections
 }
 }
-typedef Point<double> P;
+using P = Point<double>;
 bool eq(P a, P b) {
 	return (a-b).dist()<EPS;
 }

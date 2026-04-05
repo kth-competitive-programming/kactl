@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 
-typedef Point<int> P;
+using P = Point<int>;
 class test_polygonCut :
 	public UnitTest
 {

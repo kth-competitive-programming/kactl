@@ -12,7 +12,7 @@ public:
 	virtual ~test_circleTangents() { }
 
 	virtual void run(int subcase) {
-		typedef Point<double> P;
+		using P = Point<double>;
 		pair<P,P> p = circleTangents(P(100,1),P(0,0),1);
 		cout << p.first << p.second << endl;
 		p = circleTangents(P(104,106),P(100,100),1);

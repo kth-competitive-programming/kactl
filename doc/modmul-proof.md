@@ -1,9 +1,9 @@
 Proof for why the following:
 
 ```cpp
-typedef uint64_t u64;
-typedef int64_t i64;
-typedef long double ld;
+using u64 = uint64_t;
+using i64 = int64_t;
+using ld = long double;
 
 u64 modmul(u64 a, u64 b, u64 c) {
     i64 ret = a * b - c * u64(ld(a) * ld(b) / ld(c));

@@ -54,7 +54,7 @@ int modinv(int x) {
 	return inv[x];
 }
 
-typedef vector<int> vd;
+using vd = vector<int>;
 
 int solveLinear(vector<vd>& A, vd& b, vd& x) {
 	int n = sz(A), m = sz(x), rank = 0, br, bc;
@@ -178,7 +178,7 @@ fail:;
 
 namespace real {
 
-typedef double T;
+using T = double;
 vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 		const vector<T>& sub, vector<T> b) {
 	int n = sz(b); vi tr(n);
@@ -206,8 +206,8 @@ vector<T> tridiagonal(vector<T> diag, const vector<T>& super,
 	return b;
 }
 
-typedef double T;
-typedef vector<double> vd;
+using T = double;
+using vd = vector<double>;
 
 int solveLinear(vector<vd>& A, vd& b, vd& x) {
 	int n = sz(A), m = sz(x), rank = 0, br, bc;

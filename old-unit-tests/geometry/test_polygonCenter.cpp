@@ -12,7 +12,7 @@ public:
 	virtual ~test_polygonCenter() { }
 
 	virtual void run(int subcase) {
-		typedef Point<double> P;
+		using P = Point<double>;
 		if (subcase == 0) {
 			P p[] = {P(0,0),P(3,0),P(0,3)};
 			check(polygonCenter(p,p+3),P(1,1));

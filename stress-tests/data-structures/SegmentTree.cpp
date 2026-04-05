@@ -26,7 +26,7 @@ const int lut[6][6] = {
 };
 
 struct Tree {
-	typedef int T;
+	using T = int;
 	const T unit = 0;
 	T f(T a, T b) { return lut[a][b]; }
 	vector<T> s; int n;

@@ -13,7 +13,7 @@ char buf[450 << 20] alignas(16);
 size_t buf_ind = sizeof buf;
 
 template<class T> struct small {
-	typedef T value_type;
+	using value_type = T;
 	small() {}
 	template<class U> small(const U&) {}
 	T* allocate(size_t n) {

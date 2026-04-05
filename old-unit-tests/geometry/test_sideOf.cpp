@@ -12,7 +12,7 @@ public:
 	virtual ~test_sideOf() { }
 
 	virtual void run(int subcase) {
-		typedef Point<double> P;
+		using P = Point<double>;
 		check(sideOf(P(0,0),P(1,0),P(1,1)),1);
 		check(sideOf(P(0,0),P(1,0),P(1,0)),0);
 		check(sideOf(P(0,0),P(1,0),P(1,-1)),-1);

@@ -10,7 +10,7 @@
 template<class I> vi lis(const vector<I>& S) {
 	if (S.empty()) return {};
 	vi prev(sz(S));
-	typedef pair<I, int> p;
+	using p = pair<I, int>;
 	vector<p> res;
 	rep(i,0,sz(S)) {
 		// change 0 -> i for longest non-decreasing subsequence

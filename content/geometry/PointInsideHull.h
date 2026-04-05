@@ -16,7 +16,7 @@
 #include "sideOf.h"
 #include "OnSegment.h"
 
-typedef Point<ll> P;
+using P = Point<ll>;
 
 bool inHull(const vector<P>& l, P p, bool strict = true) {
 	int a = 1, b = sz(l) - 1, r = !strict;
