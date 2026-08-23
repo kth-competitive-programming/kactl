@@ -10,6 +10,14 @@ typedef long long ll;
 typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 
+const ll INF = (ll)1e18, MOD = (ll)1e9 + 7;
+
+#ifdef LOCAL
+#define debug(x) cerr << #x << " = " << (x) << endl;
+#else
+#define debug(x)
+#endif
+
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
 	cin.exceptions(cin.failbit);
