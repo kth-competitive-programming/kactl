@@ -81,10 +81,19 @@ int main() {
 				} */
 			}
 		};
-		vi cover1 = cover(gr, N, M);
+		vi r(M, -1);
+		int size_matching = hopcroftKarp(gr, r);
+		auto [cover_l, cover_r] = cover(gr, r);
+		rep(i,0,N) if (!cover_l[i]) for(auto &j:gr[i]) {
+			assert(cover_r[j]);
+    }
+		int size_cover = 0;
+		rep(i,0,N) if (cover_l[i]) size_cover++;
+		rep(i,0,M) if (cover_r[i]) size_cover++;
+		assert(size_cover == size_matching);
 		vi cover2 = coverHK(gr, N, M);
-		assert(sz(cover1) == sz(cover2));
-		verify(cover1);
+		//assert(sz(cover1) == sz(cover2));
+		//verify(cover1);
 		verify(cover2);
 		// cout << '.' << endl;
 	}
