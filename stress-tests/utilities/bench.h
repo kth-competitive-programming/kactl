@@ -1,8 +1,10 @@
 #pragma once
+#if defined(__x86_64__) || defined(__i386__)
 #include <x86intrin.h>
 
-// (avoid using this)
+// (avoid using this) x86 only
 ll rdtsc() { return __rdtsc(); }
+#endif
 
 ll tick() {
 	struct timespec tp;
