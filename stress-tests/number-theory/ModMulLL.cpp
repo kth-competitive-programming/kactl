@@ -68,10 +68,13 @@ int main() {
 
 	const ull lim = 7268172458553106874ULL; // floor((sqrt(177) - 7) / 16 * 2**64)
 	test(lim, true, false);
-	test((ull)(lim * 1.01L), false, false);
+	// The expected-failure tests below only make sense with x87 long double (64-bit mantissa).
+	// With a wider long double (e.g. binary128 on aarch64) modmul stays correct up to ~2^63,
+	// so they would never find a counterexample and loop forever.
+	if (LDBL_MANT_DIG == 64) test((ull)(lim * 1.01L), false, false);
 	// test((ull)(lim * 1.001L), false, false);
 
 	testSq(lim, true, false);
-	testSq(lim, false, false);
+	if (LDBL_MANT_DIG == 64) testSq(lim, false, false);
 	cout << "Tests passed!" << endl;
 }
