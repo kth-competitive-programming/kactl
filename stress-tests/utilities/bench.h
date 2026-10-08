@@ -1,8 +1,4 @@
 #pragma once
-#include <x86intrin.h>
-
-// (avoid using this)
-ll rdtsc() { return __rdtsc(); }
 
 ll tick() {
 	struct timespec tp;
