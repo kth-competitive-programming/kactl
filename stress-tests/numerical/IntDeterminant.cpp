@@ -87,7 +87,7 @@ int main() {
 		vvll mat(n, vector<ll>(n, 0)), mat2;
 		vector<vector<double>> mat3(n, vector<double>(n, 0));
 		rec(0,0,mat,[&]() {
-			rep(i,0,n) rep(j,0,n) mat3[i][j] = mat[i][j];
+			rep(i,0,n) rep(j,0,n) mat3[i][j] = (double)mat[i][j];
 			// mat2 = mat; ll a = det(mat2);
 			int a = (int)round(det(mat3)) % mod;
 			mat2 = mat; ll b = idet(mat2) % mod;

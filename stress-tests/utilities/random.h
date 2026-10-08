@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <cassert>
+#include <random>
 
 // returns random int in [0, hi), like Python's random.randrange
 int randRange(int hi) {
@@ -117,5 +118,6 @@ double randNearIntEps(int lim, double eps) {
 // like random_shuffle but uses rand() as RNG source
 template<class T>
 void shuffle_vec(T& vec) {
-	random_shuffle(begin(vec), end(vec), [](int lim) { return rand() % lim; });
+	mt19937 rng(rand());
+	shuffle(begin(vec), end(vec), rng);
 }
