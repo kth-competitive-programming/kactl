@@ -5,6 +5,7 @@
  * Source: own
  * Description: Pollard-rho randomized factorization algorithm. Returns prime
  * factors of a number, in arbitrary order (e.g. 2299 -> \{11, 19, 11\}).
+ * Works for $n \le 7 \cdot 10^{18}$; larger $n$ may loop forever (see modmul).
  * Time: $O(n^{1/4})$, less for numbers with small factors.
  * Status: stress-tested
  *
