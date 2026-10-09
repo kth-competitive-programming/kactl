@@ -31,6 +31,6 @@ void bellmanFord(vector<Node>& nodes, vector<Ed>& eds, int s) {
 	}
 	rep(i,0,lim) for (Ed e : eds) {
 		if (nodes[e.a].dist == -inf)
-			nodes[e.b].dist = -inf;
+			nodes[e.b].dist = -inf, nodes[e.b].prev = e.a;
 	}
 }
