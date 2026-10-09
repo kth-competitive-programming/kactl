@@ -45,6 +45,21 @@ void test(int N, int mxFlow, int iters) {
 		});
 		dfs(0, 0, -1, INT_MAX);
 
+		// Removing a tree edge should split the vertices into a cut of the same weight.
+		for (auto e : gomoryHuTree) {
+			vi side(n);
+			auto mark = make_y_combinator([&](auto mark, int cur) -> void {
+				side[cur] = 1;
+				for (auto i : adj[cur])
+					if (!side[i[0]] && !(cur == e[0] && i[0] == e[1]))
+						mark(i[0]);
+			});
+			mark((int)e[0]);
+			ll cutw = 0;
+			rep(i,0,n) rep(j,0,n) if (side[i] && !side[j]) cutw += mat[i][j];
+			assert(cutw == e[2]);
+		}
+
 		// Check that the lightest edge agrees with GlobalMinCut.
 		if (n >= 2) {
 			ll minCut = LLONG_MAX;
