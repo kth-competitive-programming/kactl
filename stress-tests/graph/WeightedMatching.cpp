@@ -8,7 +8,7 @@
 
 void test(int N, int mxCost, int iters) {
 	for (int it = 0; it < iters; it++) {
-		int n = randRange(0, N), m = randRange(0, N);
+		int n = randIncl(0, N), m = randIncl(0, N);
 		if (n > m)
 			swap(n, m);
 
@@ -29,7 +29,7 @@ void test(int N, int mxCost, int iters) {
 		}
 		mcmf.setpi(s);
 		auto maxflow = mcmf.maxflow(s, t);
-		auto matching = hungarian(cost);
+		auto matching = weightedMatching(cost);
 		assert(maxflow.first == n);
 		assert(maxflow.second == matching.first);
 		int matchSum = 0;
@@ -40,7 +40,6 @@ void test(int N, int mxCost, int iters) {
 			used.insert(matching.second[i]);
 		}
 		assert(matchSum == matching.first);
-		return;
 	}
 }
 signed main() {

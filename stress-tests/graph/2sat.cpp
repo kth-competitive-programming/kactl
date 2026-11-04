@@ -1,4 +1,5 @@
 #include "../utilities/template.h"
+#include "../utilities/random.h"
 
 #include "../../content/graph/2sat.h"
 
@@ -50,13 +51,6 @@ int main2() {
 	return 0;
 }
 
-int ra() {
-	static unsigned X;
-	X *= 1283611;
-	X += 123;
-	return X >> 1;
-}
-
 // Test at_most_one
 int main() {
 	main1();
@@ -64,13 +58,13 @@ int main() {
 	const int N = 100, M = 400;
 	rep(it,0,100) {
 		vector<bool> v(N);
-		rep(i,0,N) v[i] = ra() & (1 << 20);
+		rep(i,0,N) v[i] = rand() & (1 << 20);
 		TwoSat ts(N);
 		vector<vi> atm;
 		vi r;
 		rep(i,0,M) {
-			if (ra()%100 < 5) {
-				int r = ra();
+			if (rand()%100 < 5) {
+				int r = rand();
 				int s = r;
 				r >>= 2;
 				int a = r % N;
@@ -79,14 +73,14 @@ int main() {
 				if (a == b) continue;
 				ts.either(v[a] ? a : ~a, (s&1) ? b : ~b);
 			} else {
-				int k = ra() % 4 + 1;
+				int k = rand() % 4 + 1;
 				r.clear();
 				rep(ki,0,k-1) {
-					int a = ra() % N;
+					int a = rand() % N;
 					r.push_back(v[a] ? ~a : a);
 				}
-				r.push_back(ra() % (2*N) - N);
-				random_shuffle(all(r), [](int x) { return ra() % x; });
+				r.push_back(rand() % (2*N) - N);
+				shuffle_vec(r);
 				ts.atMostOne(r);
 				atm.push_back(r);
 			}

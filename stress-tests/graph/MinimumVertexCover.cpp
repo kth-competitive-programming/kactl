@@ -1,7 +1,7 @@
 #include "../utilities/template.h"
 
 #include "../../content/graph/MinimumVertexCover.h"
-#include "../../content/graph/hopcroftKarp.h"
+#include "../../content/graph/HopcroftKarp.h"
 
 vi coverHK(vector<vi>& g, int n, int m) {
 	vi match(m, -1);
@@ -25,15 +25,47 @@ vi coverHK(vector<vi>& g, int n, int m) {
 }
 
 int main() {
-	rep(it,0,300000) {
-		int N = rand() % 20, M = rand() % 20;
-		int prop = rand();
+	const int MAXN = 20;
+	mt19937 rng(17);
+	rep(it,0,300'000) {
+		int N = rand() % MAXN, M = rand() % MAXN;
 		vector<vi> gr(N);
-		vi left(N), right(M);
-		rep(i,0,N) rep(j,0,M) if (rand() < prop) {
-			gr[i].push_back(j);
+		int co = rand() % 128 < 10 ? 2 : 1;
+		rep(_,0,co) {
+			int prop = rand();
+			if (max(N, M) >= 5 && rand() % 128 < 90) {
+				prop /= max(N, M);
+				prop *= 2;
+			}
+			rep(i,0,N) rep(j,0,M) if (rand() < prop) {
+				gr[i].push_back(j);
+			}
+		}
+		if (rand() % 128 < 20 && N && M) {
+			int paths = rand() % min(N, M);
+			vi left(N), right(M);
+			rep(i,0,N) left[i] = i;
+			rep(i,0,M) right[i] = i;
+			rep(_,0,paths) {
+				shuffle(all(left), rng);
+				shuffle(all(right), rng);
+				int len = rand() % min(N, M) + 1;
+				if (rand() & 128) gr[left[0]].push_back(right[0]);
+				rep(i,1,len-1) {
+					gr[left[i]].push_back(right[i-1]);
+					gr[left[i]].push_back(right[i]);
+				}
+				if (len > 1 && (rand() & 128)) gr[left.back()].push_back(right.back());
+			}
+		}
+		rep(i,0,N) {
+			// Duplicate edges are okay
+			// sort(all(gr[i]));
+			// gr[i].erase(unique(all(gr[i])), gr[i].end());
+			shuffle(all(gr[i]), rng);
 		}
 		auto verify = [&](vi& cover) {
+			vi left(N), right(M);
 			for(auto &x: cover) {
 				if (x < N) left[x] = 1;
 				else right[x - N] = 1;

@@ -18,7 +18,7 @@ template<class T, int N> struct Matrix {
 	M operator*(const M& m) const {
 		M a;
 		rep(i,0,N) rep(j,0,N)
-			rep(k,0,N) a.d[i][j] += d[i][k]*m.d[k][j];
+			rep(k,0,N) a.d[i][k] += d[i][j] * m.d[j][k];
 		return a;
 	}
 	array<T, N> operator*(const array<T, N>& vec) const {

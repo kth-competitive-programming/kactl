@@ -11,7 +11,7 @@ bool y_it_less(const It& i,const It& j) {return i->y < j->y;}
 template<class It, class IIt> /* IIt = vector<It>::iterator */
 double cp_sub(IIt ya, IIt yaend, IIt xa, It &i1, It &i2) {
 	typedef typename iterator_traits<It>::value_type P;
-	int n = yaend-ya, split = n/2;
+	int n = (int)(yaend-ya), split = n/2;
 	if(n <= 3) { // base case
 		double a = (*xa[1]-*xa[0]).dist(), b = 1e50, c = 1e50;
 		if(n==3) b=(*xa[2]-*xa[0]).dist(), c=(*xa[2]-*xa[1]).dist();
@@ -24,9 +24,9 @@ double cp_sub(IIt ya, IIt yaend, IIt xa, It &i1, It &i2) {
 	}	}
 	vector<It> ly, ry, stripy;
 	P splitp = *xa[split];
-	double splitx = splitp.x;
+	double splitx = (double)splitp.x;
 	for(IIt i = ya; i != yaend; ++i) { // Divide
-		if(*i != xa[split] && (**i-splitp).dist2() < 1e-12)
+		if(*i != xa[split] && (double)(**i-splitp).dist2() < 1e-12)
 			return i1 = *i, i2 = xa[split], 0;// nasty special case!
 		if (**i < splitp) ly.push_back(*i);
 		else ry.push_back(*i);
@@ -37,15 +37,15 @@ double cp_sub(IIt ya, IIt yaend, IIt xa, It &i1, It &i2) {
 	if(b < a) a = b, i1 = j1, i2 = j2;
 	double a2 = a*a;
 	for(IIt i = ya; i != yaend; ++i) { // Create strip (y-sorted)
-		double x = (*i)->x;
+		double x = (double)(*i)->x;
 		if(x >= splitx-a && x <= splitx+a) stripy.push_back(*i);
 	}
 	for(IIt i = stripy.begin(); i != stripy.end(); ++i) {
 		const P &p1 = **i;
 		for(IIt j = i+1; j != stripy.end(); ++j) {
 			const P &p2 = **j;
-			if(p2.y-p1.y > a) break;
-			double d2 = (p2-p1).dist2();
+			if((double)(p2.y-p1.y) > a) break;
+			double d2 = (double)(p2-p1).dist2();
 			if(d2 < a2) i1 = *i, i2 = *j, a2 = d2;
 	}	}
 	return sqrt(a2);

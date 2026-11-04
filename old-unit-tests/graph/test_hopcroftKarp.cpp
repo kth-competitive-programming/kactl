@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/graph/hopcroftKarp.h"
+#include "../../content/graph/HopcroftKarp.h"
 #include <fstream>
 
 class test_HopcorftKarp :
