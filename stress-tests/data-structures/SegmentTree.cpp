@@ -9,7 +9,12 @@ int ra() {
 
 namespace maximum {
 
+int op(int a, int b) { return max(a, b); }
+int e() { return INT_MIN; }
+
 #include "../../content/data-structures/SegmentTree.h"
+
+using Tree = SegTree<int, op, e>;
 
 }
 
@@ -25,32 +30,26 @@ const int lut[6][6] = {
 	{5, 2, 3, 1, 0, 4}
 };
 
-struct Tree {
-	typedef int T;
-	const T unit = 0;
-	T f(T a, T b) { return lut[a][b]; }
-	vector<T> s; int n;
-	Tree(int n = 0, T def = 0) : s(2*n, def), n(n) {}
-	void update(int pos, T val) {
-		for (s[pos += n] = val; pos > 1; pos /= 2)
-			s[pos / 2] = f(s[pos & ~1], s[pos | 1]);
-	}
-	T query(int b, int e) { // query [b, e)
-		T ra = unit, rb = unit;
-		for (b += n, e += n; b < e; b /= 2, e /= 2) {
-			if (b % 2) ra = f(ra, s[b++]);
-			if (e % 2) rb = f(s[--e], rb);
-		}
-		return f(ra, rb);
-	}
-};
+int op(int a, int b) { return lut[a][b]; }
+int e() { return 0; }
+
+using Tree = maximum::SegTree<int, op, e>;
+
+}
+
+namespace concatenation {
+
+string op(const string& a, const string& b) { return a + b; }
+string e() { return {}; }
+
+using Tree = maximum::SegTree<string, op, e>;
 
 }
 
 int main() {
 	{
 		maximum::Tree t(0);
-		assert(t.query(0, 0) == t.unit);
+		assert(t.prod(0, 0) == maximum::e());
 	}
 
 	if (0) {
@@ -58,11 +57,11 @@ int main() {
 		maximum::Tree tr(N);
 		ll sum = 0;
 		rep(it,0,1000000) {
-			tr.update(ra() % N, ra());
+			tr.set(ra() % N, ra());
 			int i = ra() % N;
 			int j = ra() % N;
 			if (i > j) swap(i, j);
-			int v = tr.query(i, j+1);
+			int v = tr.prod(i, j+1);
 			sum += v;
 		}
 		cout << sum << endl;
@@ -71,20 +70,20 @@ int main() {
 
 	rep(n,1,10) {
 		maximum::Tree tr(n);
-		vi v(n, maximum::Tree::unit);
+		vi v(n, maximum::e());
 		rep(it,0,1000000) {
 			int i = rand() % (n+1), j = rand() % (n+1);
 			int x = rand() % (n+2);
 
 			int r = rand() % 100;
 			if (r < 30) {
-				int ma = tr.unit;
+				int ma = maximum::e();
 				rep(k,i,j) ma = max(ma, v[k]);
-				assert(ma == tr.query(i,j));
+				assert(ma == tr.prod(i,j));
 			}
 			else {
 				i = min(i, n-1);
-				tr.update(i, x);
+				tr.set(i, x);
 				v[i] = x;
 			}
 		}
@@ -99,15 +98,29 @@ int main() {
 
 			int r = rand() % 100;
 			if (r < 30) {
-				int ma = tr.unit;
+				int ma = nonabelian::e();
 				rep(k,i,j) ma = nonabelian::lut[ma][v[k]];
-				assert(ma == tr.query(i,j));
+				assert(ma == tr.prod(i,j));
 			}
 			else {
 				i = min(i, n-1);
-				tr.update(i, x);
+				tr.set(i, x);
 				v[i] = x;
 			}
+		}
+	}
+
+	rep(n,1,20) {
+		concatenation::Tree tr(n);
+		vector<string> v(n);
+		rep(i,0,n) {
+			v[i] = string(1, char('a' + i));
+			tr.set(i, v[i]);
+		}
+		rep(l,0,n+1) rep(r,l,n+1) {
+			string expected;
+			rep(i,l,r) expected += v[i];
+			assert(tr.prod(l, r) == expected);
 		}
 	}
 	cout<<"Tests passed!"<<endl;

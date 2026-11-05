@@ -25,6 +25,9 @@ template <bool VALS_EDGES> struct HLD {
 	HLD(vector<vi> adj_)
 		: N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1),
 		  rt(N),pos(N),tree(new Node(0, N)){ dfsSz(0); dfsHld(0); }
+	~HLD() { delete tree; }
+	HLD(const HLD&) = delete;
+	HLD& operator=(const HLD&) = delete;
 	void dfsSz(int v) {
 		for (int& u : adj[v]) {
 			adj[u].erase(find(all(adj[u]), v));
