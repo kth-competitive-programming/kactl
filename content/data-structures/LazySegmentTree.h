@@ -5,14 +5,12 @@
  * Source: me
  * Description: Segment tree with ability to add or set values of large intervals, and compute max of intervals.
  * Can be changed to other things.
- * Use with a bump allocator for better performance, and SmallPtr or implicit indices to save memory.
+ * Use SmallPtr or implicit indices to save memory.
  * Time: O(\log N).
  * Usage: Node* tr = new Node(v, 0, sz(v));
  * Status: stress-tested a bit
  */
 #pragma once
-
-#include "../various/BumpAllocator.h"
 
 const int inf = 1e9;
 struct Node {
@@ -27,6 +25,9 @@ struct Node {
 		}
 		else val = v[lo];
 	}
+	~Node() { delete l; delete r; }
+	Node(const Node&) = delete;
+	Node& operator=(const Node&) = delete;
 	int query(int L, int R) {
 		if (R <= lo || hi <= L) return -inf;
 		if (L <= lo && hi <= R) return val;

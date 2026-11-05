@@ -42,5 +42,6 @@ int main() {
 			rep(k,i,j) v[k] = x;
 		}
 	}
+	delete tr;
 	cout<<"Tests passed!"<<endl;
 }

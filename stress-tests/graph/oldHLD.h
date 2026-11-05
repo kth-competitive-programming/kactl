@@ -1,5 +1,10 @@
 
+int segTreeOp(int a, int b) { return max(a, b); }
+int segTreeE() { return INT_MIN; }
+
 #include "../../content/data-structures/SegmentTree.h"
+
+using MaxTree = SegTree<int, segTreeOp, segTreeE>;
 
 typedef vector<pii> vpi;
 
@@ -10,7 +15,7 @@ struct Node {
 struct Chain {
 	int par, val;
 	vector<int> nodes;
-	Tree tree;
+	MaxTree tree{0};
 };
 
 struct HLD {
@@ -24,15 +29,15 @@ struct HLD {
 	HLD(vector<vpi>& g) : V(sz(g)) {
 		dfs(0, -1, g, 0);
 		for(auto &c: C) {
-			c.tree = {sz(c.nodes), 0};
+			c.tree = MaxTree(sz(c.nodes));
 			for (int ni : c.nodes)
-				c.tree.update(V[ni].pos, V[ni].val);
+				c.tree.set(V[ni].pos, V[ni].val);
 		}
 	}
 
 	void update(int node, T val) {
 		Node& n = V[node]; n.val = val;
-		if (n.chain != -1) C[n.chain].tree.update(n.pos, val);
+		if (n.chain != -1) C[n.chain].tree.set(n.pos, val);
 	}
 
 	int pard(Node& nod) {
@@ -48,7 +53,7 @@ struct HLD {
 			if (n1.chain != -1 && n1.chain == n2.chain) {
 				int lo = n1.pos, hi = n2.pos;
 				if (lo > hi) swap(lo, hi);
-				f(ans, C[n1.chain].tree.query(lo, hi));
+				f(ans, C[n1.chain].tree.prod(lo, hi));
 				i1 = i2 = C[n1.chain].nodes[hi];
 			} else {
 				if (pard(n1) < pard(n2))
@@ -57,8 +62,8 @@ struct HLD {
 					f(ans, n1.val), i1 = n1.par;
 				else {
 					Chain& c = C[n1.chain];
-					f(ans, n1.pos ? c.tree.query(n1.pos, sz(c.nodes))
-					              : c.tree.s[1]);
+					f(ans, n1.pos ? c.tree.prod(n1.pos, sz(c.nodes))
+					              : c.tree.prod(0, sz(c.nodes)));
 					i1 = c.par;
 				}
 			}
