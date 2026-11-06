@@ -23,13 +23,11 @@ struct LiChao {
     };
     node *root; 
     int siz;
-    int cnt;  
-    void init(int siz_) { siz = siz_; root = 0; cnt = 0; }
+    void init(int siz_) { siz = siz_; root = 0; }
     
-    void insert(line& v, int l, int r, node* &nd) { 
+    void insert(node* &nd, line& v, int l, int r) { 
         if(!nd) { 
             nd = new node(v); 
-            cnt++; 
             return; 
         }
         ll tl = nd -> f.eval(l), tr = nd -> f.eval(r); 
@@ -41,23 +39,23 @@ struct LiChao {
         }
         ll mi = l + (r - l) / 2; 
         if(tl < vl) swap(nd -> f, v); 
-        if(nd -> f.eval(mi) > v.eval(mi)) insert(v, mi + 1, r, nd -> r); 
+        if(nd -> f.eval(mi) > v.eval(mi)) insert(nd -> r, v, mi + 1, r); 
         else { 
             swap(nd -> f, v); 
-            insert(v, l, mi, nd -> l); 
+            insert(nd -> l, v, l, mi); 
         }
     }
     void add_line(ll a, ll b) { 
         line v(a, b); 
-        insert(v, -siz, siz, root); 
+        insert(root, v, -siz, siz); 
     } 
 
     ll query(ll x, int l, int r, node* &nd) { 
         if(!nd) return -inf; 
         if(l == r) return nd -> f.eval(x); 
 
-        int mid = l + (r - l) / 2 ; 
-        if(mid >= x) return max(nd -> f.eval(x), query(x, l, mid, nd -> l)); 
-        return max(nd -> f.eval(x), query(x, mid + 1, r, nd -> r)); 
+        int m = l + (r - l) / 2 ; 
+        if(m >= x) return max(nd -> f.eval(x), query(x, l, m, nd -> l)); 
+        return max(nd -> f.eval(x), query(x, m + 1, r, nd -> r)); 
     }   
 };
