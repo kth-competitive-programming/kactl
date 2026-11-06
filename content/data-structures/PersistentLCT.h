@@ -1,3 +1,13 @@
+/**
+ * Author: Julio (+ GPT)
+ * Date: 2026-11-05
+ * License: CC0
+ * Source: own work
+ * Description: Pretty similar to a Persistent segtree
+ * Time: O(\log N)
+ * Status: tested on Board Game (Latam reg 2022)
+ */
+
 struct line { 
     ll a, b; 
     line(ll a = 0, ll b = 0) : a(a), b(b) { }
