@@ -10,8 +10,6 @@
  */
 #pragma once
 
-// #include <bits/extc++.h> /// include-line, keep-include
-
 const ll INF = numeric_limits<ll>::max() / 4;
 
 struct MCMF {
@@ -21,11 +19,10 @@ struct MCMF {
 	};
 	int N;
 	vector<vector<edge>> ed;
-	vi seen;
 	vector<ll> dist, pi;
 	vector<edge*> par;
 
-	MCMF(int N) : N(N), ed(N), seen(N), dist(N), pi(N), par(N) {}
+	MCMF(int N) : N(N), ed(N), dist(N), pi(N), par(N) {}
 
 	void addEdge(int from, int to, ll cap, ll cost) {
 		if (from == to) return;
@@ -34,26 +31,21 @@ struct MCMF {
 	}
 
 	void path(int s) {
-		fill(all(seen), 0);
 		fill(all(dist), INF);
-		dist[s] = 0; ll di;
+		dist[s] = 0;
 
-		__gnu_pbds::priority_queue<pair<ll, int>> q;
-		vector<decltype(q)::point_iterator> its(N);
+		priority_queue<pair<ll, int>> q;
 		q.push({ 0, s });
 
 		while (!q.empty()) {
-			s = q.top().second; q.pop();
-			seen[s] = 1; di = dist[s] + pi[s];
-			for (edge& e : ed[s]) if (!seen[e.to]) {
-				ll val = di - pi[e.to] + e.cost;
+			auto [d,u] = q.top(); q.pop();
+			if (-d > dist[u]) continue;
+			for (edge& e : ed[u]) {
+				ll val = pi[u] - d - pi[e.to] + e.cost;
 				if (e.cap - e.flow > 0 && val < dist[e.to]) {
 					dist[e.to] = val;
 					par[e.to] = &e;
-					if (its[e.to] == q.end())
-						its[e.to] = q.push({ -dist[e.to], e.to });
-					else
-						q.modify(its[e.to], { -dist[e.to], e.to });
+					q.push({ -dist[e.to], e.to });
 				}
 			}
 		}
@@ -62,7 +54,7 @@ struct MCMF {
 
 	pair<ll, ll> maxflow(int s, int t) {
 		ll totflow = 0, totcost = 0;
-		while (path(s), seen[t]) {
+		while (path(s), dist[t]!=INF) {
 			ll fl = INF;
 			for (edge* x = par[t]; x; x = par[x->from])
 				fl = min(fl, x->cap - x->flow);
