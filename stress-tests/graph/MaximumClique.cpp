@@ -32,7 +32,10 @@ int main() {
 		rep(i,0,n) ed2[i][i] = 0;
 		int mx = 0;
 		maximal::cliques(ed2, [&](auto x){mx = max(mx, int(x.count()));});
-		assert(mx == sz(maxClique(ed)));
+		vi clique = maxClique(ed);
+		assert(mx == sz(clique));
+		for (auto a : clique) for (auto b : clique) if (a != b) assert(ed[a][b]);
+		assert(sz(clique) == sz(set<int>(all(clique))));
 	}
 	{
 		vb ed(0);

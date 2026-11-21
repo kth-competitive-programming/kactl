@@ -6,8 +6,8 @@
  * Description: Quickly finds a maximum clique of a graph (given as symmetric bitset
  * matrix; self-edges ignored). Can be used to find a maximum independent
  * set by finding a clique of the complement graph.
- * Time: Runs in about 1s for n~165 and worst case random graphs (p=.90),
- * 1s for adversarial data at n~57. Runs faster for sparse graphs.
+ * Time: Runs in about 1s for $n \approx 165$ and worst case random graphs (p=.90),
+ * 1s for adversarial data at $n \approx 57$. Runs faster for sparse graphs and many structured graphs.
  * Use pragmas for extra speed.
  * Status: stress-tested
  */
