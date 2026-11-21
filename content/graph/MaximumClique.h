@@ -11,6 +11,8 @@
  * Use pragmas for extra speed.
  * Status: stress-tested
  */
+#pragma once
+
 typedef bitset<200> B;
 typedef vector<B> vb;
 vi maxClique(vb g) {
@@ -22,20 +24,19 @@ vi maxClique(vb g) {
 		id[i] = v, P[v] = 0;
 		rep(u,0,n) if (g[v][u]) deg[u]--;
 	}
-	rep(i,0,n) rep(j,0,n) e[i][j] = g[id[i]][id[j]], P[i] = 1;
+	rep(i,0,n) rep(j,0,n) e[i][j] = !g[id[i]][id[j]], P[i] = 1;
 	auto rec = [&](auto& self, B P) -> void {
 		vi ord, col;
-		int k = 0, mn = sz(best) - sz(q);
-		for (B U = P; U.any(); k++)
-			for (B Q = U; Q.any();) {
-				int v = Q._Find_first();
-				U[v] = Q[v] = 0, Q &= ~e[v];
+		int k = 0, v, mn = sz(best) - sz(q);
+		for (B U = P; (v = U._Find_first()) < n; k++)
+			for (B Q = U; v < n; v = Q._Find_next(v)) {
+				U[v] = 0, Q &= e[v];
 				if (k >= mn) ord.push_back(v), col.push_back(k + 1);
 			}
 		for (int i = sz(ord); i--;) {
 			if (sz(q) + col[i] <= sz(best)) return;
-			int v = ord[i]; q.push_back(v), P[v] = 0;
-			self(self, P & e[v]);
+			v = ord[i]; q.push_back(v), P[v] = 0;
+			self(self, P & ~e[v]);
 			if (sz(q) > sz(best)) best = q;
 			q.pop_back();
 		}
