@@ -23,17 +23,25 @@ int main() {
 		vb ed(n);
 		vector<maximal::B> ed2(n);
 		int p =rand()%100;
-		rep(i, 0, n) rep(j, 0, i) {
+		rep(i, 0, n) rep(j, 0, i+1) {
 			ed[i][j] = (rand() % 100) < p;
 			ed[j][i] = ed[i][j];
 			ed2[i][j] = ed[i][j];
 			ed2[j][i] = ed[j][i];
 		}
-		Maxclique clique2(ed);
+		rep(i,0,n) ed2[i][i] = 0;
 		int mx = 0;
 		maximal::cliques(ed2, [&](auto x){mx = max(mx, int(x.count()));});
-		assert(mx == sz(clique2.maxClique()));
+		vi clique = maxClique(ed);
+		assert(mx == sz(clique));
+		for (auto a : clique) for (auto b : clique) if (a != b) assert(ed[a][b]);
+		assert(sz(clique) == sz(set<int>(all(clique))));
 	}
+	{
+		vb ed(0);
+		maxClique(ed); // should not crash
+	}
+
 	cout<<"Tests passed!"<<endl;
 }
 
