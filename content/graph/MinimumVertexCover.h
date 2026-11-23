@@ -9,25 +9,16 @@
  */
 #pragma once
 
-#include "DFSMatching.h"
+#include "HopcroftKarp.h"
 
-vi cover(vector<vi>& g, int n, int m) {
-	vi match(m, -1);
-	int res = dfsMatching(g, match);
-	vector<bool> lfound(n, true), seen(m);
-	for (int it : match) if (it != -1) lfound[it] = false;
-	vi q, cover;
-	rep(i,0,n) if (lfound[i]) q.push_back(i);
-	while (!q.empty()) {
-		int i = q.back(); q.pop_back();
-		lfound[i] = 1;
-		for (int e : g[i]) if (!seen[e] && match[e] != -1) {
-			seen[e] = true;
-			q.push_back(match[e]);
-		}
+pair<vi, vi> cover(vector<vi>& g, vi& r) {
+	int n = sz(g), t = 0;
+	vi cl(n), cr(sz(r)), q(n);
+	for (int u : r) if (u != -1) cl[u] = 1;
+	rep(i, 0, n) if (!cl[i]) q[t++] = i;
+	rep(i, 0, t) for (int v : g[q[i]]) {
+		cr[v] = 1;
+		if (r[v] != -1 && cl[r[v]]) cl[q[t++] = r[v]] = 0;
 	}
-	rep(i,0,n) if (!lfound[i]) cover.push_back(i);
-	rep(i,0,m) if (seen[i]) cover.push_back(n+i);
-	assert(sz(cover) == res);
-	return cover;
+	return {cl, cr};
 }
