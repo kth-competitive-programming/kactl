@@ -5,6 +5,7 @@
  * Source: me
  * Description: Segment tree with ability to add or set values of large intervals, and compute max of intervals.
  * Can be changed to other things.
+ * Updates and Queries are inclusive-exclusive, i.e. of the form [L, R).
  * Use with a bump allocator for better performance, and SmallPtr or implicit indices to save memory.
  * Time: O(\log N).
  * Usage: Node* tr = new Node(v, 0, sz(v));
