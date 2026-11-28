@@ -4,7 +4,7 @@
  * License: CC0
  * Source: http://eli.thegreenplace.net/2009/03/07/computing-modular-square-roots-in-python/
  * Description: Tonelli-Shanks algorithm for modular square roots. Finds $x$ s.t. $x^2 = a \pmod p$ ($-x$ gives the other solution).
- * Time: O(\log^2 p) worst case, O(\log p) for most $p$
+ * Time: O(\log^2 p + n \log p), where $n$ is the least non-square mod $p$ ($n < 2\ln^2 p$ under GRH)
  * Status: Tested for all a,p <= 10000
  */
 #pragma once
